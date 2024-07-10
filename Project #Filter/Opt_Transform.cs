@@ -111,36 +111,9 @@ namespace Project__Filter
 
         }
 
-        //private async Task<byte[]> PDFBuilder(string rootpath)
-        //{
-        //    // Create a new PDF document
-        //    Document document = new Document();
-        //    using (MemoryStream stream = new MemoryStream())
-        //    {
-        //        // Create a new PdfWriter object, pointing it to our MemoryStream
-        //        PdfWriter writer = PdfWriter.GetInstance(document, stream);
-
-        //        // Open the Document for writing
-        //        document.Open();
-
-        //        // Iterate through the list of selected file paths
-        //        foreach (string filePath in selectedFilePaths)
-        //        {
-        //            // Add the image to the document
-        //            iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(filePath);
-        //            document.SetPageSize(new Rectangle(0, 0, image.Width, image.Height));
-        //            document.NewPage();
-        //            image.SetAbsolutePosition(0, 0);
-        //            document.Add(image);
-        //        }
-
-        //        // Close the Document - this saves it to the MemoryStream
-        //        document.Close();
-
-        //        // Convert the MemoryStream to an array and return it
-        //        return stream.ToArray();
-        //    }
-        //}
-
+        private async Task<byte[]> PDFBuilder(string rootpath)
+        {
+            return null;
+        }
     }
 }
