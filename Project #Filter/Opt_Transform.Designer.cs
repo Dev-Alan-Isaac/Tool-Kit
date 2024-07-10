@@ -116,6 +116,7 @@
             button_Path.Size = new Size(29, 33);
             button_Path.TabIndex = 0;
             button_Path.UseVisualStyleBackColor = false;
+            button_Path.Click += button_Path_Click;
             // 
             // panel_button
             // 
@@ -176,6 +177,7 @@
             button_Convert.TabIndex = 45;
             button_Convert.Text = "Convert";
             button_Convert.UseVisualStyleBackColor = false;
+            button_Convert.Click += button_Convert_Click;
             // 
             // panel_Path
             // 
