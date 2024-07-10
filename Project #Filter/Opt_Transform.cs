@@ -44,8 +44,10 @@ namespace Project__Filter
             switch (selectedItem)
             {
                 case "IMAGE To PDF[TITLE]":
+                    askTitle(selectedPath);
                     break;
                 case "IMAGE To PDF[NO TITLE]":
+
                     break;
                 case "IMAGE To ICO":
                     break;
@@ -68,19 +70,77 @@ namespace Project__Filter
             }
         }
 
-        private void askTitle()
+        private void askTitle(string selectedPath)
         {
-
+            DialogResult result = MessageBox.Show("Do you want a custom title?", "Title Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                MessageBox.Show("Y");
+            }
+            else
+            {
+                MessageBox.Show("N");
+            }
         }
 
         private void askContent()
         {
-
+            DialogResult result = MessageBox.Show("Do you want a custom content?", "Title", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                MessageBox.Show("Y");
+            }
+            else
+            {
+                MessageBox.Show("N");
+            }
         }
 
-        private async Task PDFBuilder()
+        private void sortByName()
         {
 
         }
+
+        private void sortBySize()
+        {
+
+        }
+
+        private void sortByDate()
+        {
+
+        }
+
+        //private async Task<byte[]> PDFBuilder(string rootpath)
+        //{
+        //    // Create a new PDF document
+        //    Document document = new Document();
+        //    using (MemoryStream stream = new MemoryStream())
+        //    {
+        //        // Create a new PdfWriter object, pointing it to our MemoryStream
+        //        PdfWriter writer = PdfWriter.GetInstance(document, stream);
+
+        //        // Open the Document for writing
+        //        document.Open();
+
+        //        // Iterate through the list of selected file paths
+        //        foreach (string filePath in selectedFilePaths)
+        //        {
+        //            // Add the image to the document
+        //            iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(filePath);
+        //            document.SetPageSize(new Rectangle(0, 0, image.Width, image.Height));
+        //            document.NewPage();
+        //            image.SetAbsolutePosition(0, 0);
+        //            document.Add(image);
+        //        }
+
+        //        // Close the Document - this saves it to the MemoryStream
+        //        document.Close();
+
+        //        // Convert the MemoryStream to an array and return it
+        //        return stream.ToArray();
+        //    }
+        //}
+
     }
 }
