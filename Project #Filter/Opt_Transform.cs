@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using Aspose.Cells.Charts;
 using ImageMagick;
@@ -40,13 +41,16 @@ namespace Project__Filter
 
         private void button_Convert_Click(object sender, EventArgs e)
         {
+            string title = string.Empty;
             string selectedItem = comboBox_Select.SelectedItem.ToString();
             switch (selectedItem)
             {
-                case "IMAGE To PDF[TITLE]":
-                    askTitle(selectedPath);
+                case "IMAGE To PDF [TITLE]":
+                    title = askTitle(selectedPath);
+                    askContent(selectedPath);
                     break;
-                case "IMAGE To PDF[NO TITLE]":
+                case "IMAGE To PDF [NO TITLE]":
+                    title = "Untitled";
 
                     break;
                 case "IMAGE To ICO":
@@ -68,27 +72,59 @@ namespace Project__Filter
                 default:
                     break;
             }
+
+            if (checkBox_Delete.Checked)
+            {
+                DeleteFolders(selectedPath);
+            }
         }
 
-        private void askTitle(string selectedPath)
+        private string askTitle(string selectedPath)
         {
+            string Title = string.Empty;
             DialogResult result = MessageBox.Show("Do you want a custom title?", "Title Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                MessageBox.Show("Y");
+                Title = Microsoft.VisualBasic.Interaction.InputBox("Enter the custom title:", "Title", "", -1, -1);
+                return Title;
             }
             else
             {
-                MessageBox.Show("N");
+                Title = Path.GetFileName(selectedPath);
+                return Title;
             }
         }
 
-        private void askContent()
+        private void askContent(string selectedPath)
         {
             DialogResult result = MessageBox.Show("Do you want a custom content?", "Title", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                MessageBox.Show("Y");
+                string selectedItem = string.Empty;
+
+                foreach (RadioButton radioButton in panel_Action.Controls.OfType<RadioButton>())
+                {
+                    if (radioButton.Checked)
+                    {
+                        selectedItem = radioButton.Text; // Use the text of the selected radio button
+                        break; // Exit the loop once a selection is found
+                    }
+                }
+
+                switch (selectedItem)
+                {
+                    case "Sort by name":
+                        sortByName();
+                        break;
+                    case "Sort by date":
+                        sortByDate();
+                        break;
+                    case "Sort by size":
+                        sortBySize();
+                        break;
+                    default:
+                        break;
+                }
             }
             else
             {
@@ -98,22 +134,48 @@ namespace Project__Filter
 
         private void sortByName()
         {
+            MessageBox.Show("Name");
 
         }
 
         private void sortBySize()
         {
+            MessageBox.Show("size");
 
         }
 
         private void sortByDate()
         {
+            MessageBox.Show("Date");
 
         }
 
         private async Task<byte[]> PDFBuilder(string rootpath)
         {
             return null;
+        }
+
+
+        public static void DeleteFolders(string rootPath)
+        {
+            foreach (var directory in Directory.GetDirectories(rootPath))
+            {
+                DeleteFolders(directory);  // Recursively call the function for all subdirectories
+
+                if (Directory.GetFiles(directory).Length == 0 &&
+                    Directory.GetDirectories(directory).Length == 0)  // If directory is empty
+                {
+                    try
+                    {
+                        Directory.Delete(directory);  // Delete the directory
+                        MessageBox.Show($"Deleted: {directory}");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred while deleting the directory. Details: {ex.Message}");
+                    }
+                }
+            }
         }
     }
 }
