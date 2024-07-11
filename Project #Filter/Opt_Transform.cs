@@ -105,6 +105,7 @@ namespace Project__Filter
                     IconBuilder(selectedFileName);
                     break;
                 case "IMAGE To WEBP":
+                    WebpBuilder(selectedFileName);
                     break;
                 case "IMAGE To BMP":
                     break;
@@ -455,7 +456,7 @@ namespace Project__Filter
             if (string.IsNullOrEmpty(fileName))
             {
                 // Handle the case when no file is selected
-                MessageBox.Show("No file selected");
+                MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
@@ -496,6 +497,49 @@ namespace Project__Filter
                             // Handle the case when the selected file is no longer in the specified path
                             MessageBox.Show($"The file '{selectedFileName}' is over the limit of 256 x 256.", "File Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
+                    }
+                }
+            }
+        }
+
+        private async Task WebpBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    using (MagickImage image = new MagickImage(Path))
+                    {
+                        // Convert the image to .webp format
+                        image.Format = MagickFormat.WebP;
+
+                        // Create a unique icon file name
+                        int Count = 1;
+                        string BaseName = "Web Picture";
+                        string Extension = ".webp";
+                        string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                        // Check if the icon file already exists and increment the count if needed
+                        while (File.Exists(NPath))
+                        {
+                            Count++;
+                            NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        }
+
+                        // Save the icon file
+                        image.Write(NPath);
                     }
                 }
             }
