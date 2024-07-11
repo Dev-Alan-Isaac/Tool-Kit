@@ -8,6 +8,7 @@ using ImageMagick;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
+using iTextSharp.xmp.impl.xpath;
 using NAudio.Wave;
 using SharpCompress.Common;
 using Windows.Devices.Geolocation;
@@ -122,8 +123,10 @@ namespace Project__Filter
                     AVIBuilder(selectedFileName);
                     break;
                 case "VIDEO To AUDIO":
+                    AudioBuilder(selectedFileName);
                     break;
                 case "AUDIO To WAV":
+                    WAVBuilder(selectedFileName);
                     break;
                 default:
                     MessageBox.Show("Please select an option first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -721,7 +724,83 @@ namespace Project__Filter
             }
         }
 
+        private async Task AudioBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
 
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // Create a unique icon file name
+                    int Count = 1;
+                    string BaseName = "Video";
+                    string Extension = ".avi";
+                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                    // Check if the icon file already exists and increment the count if needed
+                    while (File.Exists(NPath))
+                    {
+                        Count++;
+                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                    }
+
+                    using (var reader = new NAudio.Wave.AudioFileReader(NPath))
+                    {
+                        MediaFoundationEncoder.EncodeToMp3(reader, NPath);
+                    }
+                }
+            }
+        }
+
+        private async Task WAVBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // Create a unique icon file name
+                    int Count = 1;
+                    string BaseName = "Video";
+                    string Extension = ".avi";
+                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                    // Check if the icon file already exists and increment the count if needed
+                    while (File.Exists(NPath))
+                    {
+                        Count++;
+                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                    }
+
+                    using (var reader = new AudioFileReader(NPath))
+                    {
+                        WaveFileWriter.CreateWaveFile(NPath, reader);
+                    }
+                }
+            }
+        }
 
         public static void DeleteFolders(string rootPath)
         {
