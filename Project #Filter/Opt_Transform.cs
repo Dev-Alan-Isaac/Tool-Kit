@@ -9,6 +9,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using NAudio.Wave;
+using SharpCompress.Common;
 using Rectangle = iTextSharp.text.Rectangle;
 
 namespace Project__Filter
@@ -16,6 +17,7 @@ namespace Project__Filter
     public partial class Opt_Transform : UserControl
     {
         private string selectedPath = string.Empty;
+        string selectedItem = string.Empty;
         private static readonly HashSet<string> PDFExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             ".jpg", ".jpeg", ".png", ".tiff", ".bmp"
@@ -130,12 +132,16 @@ namespace Project__Filter
         private void listBox_File_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get the selected item (if any)
-            string selectedItem = listBox_File.SelectedItem?.ToString();
+            selectedItem = listBox_File.SelectedItem?.ToString();
 
-            if (!string.IsNullOrEmpty(selectedItem))
+            if (string.IsNullOrEmpty(selectedItem))
             {
                 // Handle the selected item (e.g., display it, process it, etc.)
-                MessageBox.Show($"You selected: {selectedItem}");
+                MessageBox.Show($"No file selected");
+            }
+            else
+            {
+                MessageBox.Show($"Selected: {selectedItem}");
             }
         }
 
@@ -394,10 +400,21 @@ namespace Project__Filter
             File.WriteAllBytes(outputPath, pdfByteArray);
         }
 
-
         private async Task IconBuilder(string file)
         {
+            // Define the maximum width and height
+            int maxWidth = 256;
+            int maxHeight = 256;
 
+            if (File.Exists(file))
+            {
+                using (MagickImage image = new MagickImage(file))
+                {
+                    if (image.Width <= maxWidth && image.Height <= maxHeight)
+                    {
+                    }
+                }
+            }
         }
 
         public static void DeleteFolders(string rootPath)
@@ -422,6 +439,6 @@ namespace Project__Filter
             }
         }
 
-      
+
     }
 }
