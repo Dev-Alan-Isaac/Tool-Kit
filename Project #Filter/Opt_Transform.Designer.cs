@@ -230,6 +230,7 @@
             // radioButton_Size
             // 
             radioButton_Size.AutoSize = true;
+            radioButton_Size.Enabled = false;
             radioButton_Size.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             radioButton_Size.ForeColor = Color.White;
             radioButton_Size.Location = new Point(256, 198);
@@ -243,6 +244,7 @@
             // radioButton_Date
             // 
             radioButton_Date.AutoSize = true;
+            radioButton_Date.Enabled = false;
             radioButton_Date.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             radioButton_Date.ForeColor = Color.White;
             radioButton_Date.Location = new Point(20, 198);
@@ -256,6 +258,7 @@
             // radioButton_Name
             // 
             radioButton_Name.AutoSize = true;
+            radioButton_Name.Enabled = false;
             radioButton_Name.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             radioButton_Name.ForeColor = Color.White;
             radioButton_Name.Location = new Point(20, 131);

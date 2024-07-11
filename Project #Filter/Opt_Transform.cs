@@ -160,6 +160,10 @@ namespace Project__Filter
             {
                 listBox_File.Items.Clear();
 
+                radioButton_Size.Enabled = false;
+                radioButton_Date.Enabled = false;
+                radioButton_Name.Enabled = false;
+
                 switch (selectedItem)
                 {
                     case "IMAGE To PDF [TITLE]":
@@ -172,6 +176,10 @@ namespace Project__Filter
                         }
 
                         label_Count.Text = filteredFiles.Length.ToString();
+
+                        radioButton_Size.Enabled = true;
+                        radioButton_Date.Enabled = true;
+                        radioButton_Name.Enabled = true;
                         break;
                     case "IMAGE To ICO":
                         filteredFiles = files.Where(file => IconExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
