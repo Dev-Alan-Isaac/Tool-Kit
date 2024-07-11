@@ -292,6 +292,7 @@
             comboBox_Select.Name = "comboBox_Select";
             comboBox_Select.Size = new Size(333, 36);
             comboBox_Select.TabIndex = 40;
+            comboBox_Select.SelectedIndexChanged += comboBox_Select_SelectedIndexChanged;
             // 
             // panel1
             // 
@@ -336,6 +337,7 @@
             listBox_File.Name = "listBox_File";
             listBox_File.Size = new Size(266, 224);
             listBox_File.TabIndex = 0;
+            listBox_File.SelectedIndexChanged += listBox_File_SelectedIndexChanged;
             // 
             // label6
             // 
