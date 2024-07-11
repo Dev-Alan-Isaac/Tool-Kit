@@ -17,7 +17,8 @@ namespace Project__Filter
     public partial class Opt_Transform : UserControl
     {
         private string selectedPath = string.Empty;
-        string selectedItem = string.Empty;
+        string selectedFileName = string.Empty;
+
         private static readonly HashSet<string> PDFExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             ".jpg", ".jpeg", ".png", ".tiff", ".bmp"
@@ -78,26 +79,30 @@ namespace Project__Filter
             }
         }
 
-        private void button_Convert_Click(object sender, EventArgs e)
+        private async void button_Convert_Click(object sender, EventArgs e)
         {
             string title = string.Empty;
             string[] files = [];
+            byte[] pdfByteArray = [];
 
-            string selectedItem = comboBox_Select.SelectedItem.ToString();
+            string selectedItem = comboBox_Select.SelectedItem?.ToString();
             switch (selectedItem)
             {
                 case "IMAGE To PDF [TITLE]":
                     title = askTitle(selectedPath);
                     files = askContent(selectedPath);
-                    CreatedPdf(files, title);
+                    pdfByteArray = await PDFBuilder(files);
+                    pdfByteArray = PDFBuilderTitle(pdfByteArray, title);
+                    CreatedPdf(pdfByteArray, title);
                     break;
                 case "IMAGE To PDF [NO TITLE]":
                     title = "Untitled";
                     files = askContent(selectedPath);
-                    CreatedPdf(files, title);
+                    pdfByteArray = await PDFBuilder(files);
+                    CreatedPdf(pdfByteArray, title);
                     break;
                 case "IMAGE To ICO":
-
+                    IconBuilder(selectedFileName);
                     break;
                 case "IMAGE To WEBP":
                     break;
@@ -114,6 +119,7 @@ namespace Project__Filter
                 case "AUDIO To WAV":
                     break;
                 default:
+                    MessageBox.Show("Please select an option first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
 
@@ -125,24 +131,14 @@ namespace Project__Filter
 
         private void comboBox_Select_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string selectedItem = comboBox_Select.SelectedItem.ToString();
+            string selectedItem = comboBox_Select.SelectedItem?.ToString();
             PopulatedList(selectedItem);
         }
 
         private void listBox_File_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get the selected item (if any)
-            selectedItem = listBox_File.SelectedItem?.ToString();
-
-            if (string.IsNullOrEmpty(selectedItem))
-            {
-                // Handle the selected item (e.g., display it, process it, etc.)
-                MessageBox.Show($"No file selected");
-            }
-            else
-            {
-                MessageBox.Show($"Selected: {selectedItem}");
-            }
+            selectedFileName = listBox_File.SelectedItem?.ToString();
         }
 
         private void PopulatedList(string selectedItem)
@@ -379,10 +375,60 @@ namespace Project__Filter
             }
         }
 
-        private async void CreatedPdf(string[] arrayFiles, string title)
+        private byte[] PDFBuilderTitle(byte[] pdfBytes, string Title)
         {
-            byte[] pdfByteArray = await PDFBuilder(arrayFiles);
+            Document document = new Document();
+            using (MemoryStream stream = new MemoryStream())
+            {
+                // Create a new PdfWriter object, pointing it to our MemoryStream
+                PdfWriter writer = PdfWriter.GetInstance(document, stream);
 
+                // Open the Document for writing
+                document.Open();
+
+                // Set the page size for the title page
+                document.SetPageSize(PageSize.LETTER);
+
+                for (int i = 0; i < 20; i++) // Adjust this value to move the title up or down
+                {
+                    document.Add(new Paragraph("\n"));
+                }
+
+                // Create a new Paragraph with the title
+                Paragraph title = new Paragraph(Title, FontFactory.GetFont(FontFactory.HELVETICA, 50f, iTextSharp.text.Font.BOLD));
+                title.Alignment = Element.ALIGN_CENTER;
+
+                // Add the title to the document
+                document.Add(title);
+
+                // Add some space after the title
+                for (int i = 0; i < 10; i++) // Adjust this value to move the title up or down
+                {
+                    document.Add(new Paragraph("\n"));
+                }
+
+                // Create a reader for the existing PDF document
+                PdfReader reader = new PdfReader(pdfBytes);
+
+                // Add the pages from the existing PDF document to the new document
+                for (int i = 1; i <= reader.NumberOfPages; i++)
+                {
+                    document.SetPageSize(reader.GetPageSizeWithRotation(i));
+                    document.NewPage();
+                    PdfImportedPage page = writer.GetImportedPage(reader, i);
+                    writer.DirectContent.AddTemplate(page, 0, 0);
+                }
+
+                // Close the Document - this saves it to the MemoryStream
+                document.Close();
+
+                // Convert the MemoryStream to an array and return it
+                return stream.ToArray();
+            }
+        }
+
+        private async void CreatedPdf(byte[] pdfByteArray, string title)
+        {
             // Specify the output file path
             string outputPath = System.IO.Path.Combine(selectedPath, $"{title}.pdf");
 
@@ -400,18 +446,56 @@ namespace Project__Filter
             File.WriteAllBytes(outputPath, pdfByteArray);
         }
 
-        private async Task IconBuilder(string file)
+        private async Task IconBuilder(string fileName)
         {
             // Define the maximum width and height
             int maxWidth = 256;
             int maxHeight = 256;
 
-            if (File.Exists(file))
+            if (string.IsNullOrEmpty(fileName))
             {
-                using (MagickImage image = new MagickImage(file))
+                // Handle the case when no file is selected
+                MessageBox.Show("No file selected");
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
                 {
-                    if (image.Width <= maxWidth && image.Height <= maxHeight)
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    using (MagickImage image = new MagickImage(Path))
                     {
+                        if (image.Width <= maxWidth && image.Height <= maxHeight)
+                        {
+                            // Convert the image to .ico format
+                            image.Format = MagickFormat.Icon;
+
+                            // Create a unique icon file name
+                            int iconCount = 1;
+                            string iconBaseName = "Icon";
+                            string iconExtension = ".ico";
+                            string iconPath = System.IO.Path.Combine(selectedPath, $"{iconBaseName} {iconCount}{iconExtension}");
+
+                            // Check if the icon file already exists and increment the count if needed
+                            while (File.Exists(iconPath))
+                            {
+                                iconCount++;
+                                iconPath = System.IO.Path.Combine(selectedPath, $"{iconBaseName} {iconCount}{iconExtension}");
+                            }
+
+                            // Save the icon file
+                            image.Write(iconPath);
+                        }
+                        else
+                        {
+                            // Handle the case when the selected file is no longer in the specified path
+                            MessageBox.Show($"The file '{selectedFileName}' is over the limit of 256 x 256.", "File Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
                 }
             }
@@ -438,7 +522,5 @@ namespace Project__Filter
                 }
             }
         }
-
-
     }
 }
