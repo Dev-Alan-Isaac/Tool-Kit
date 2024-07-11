@@ -10,6 +10,8 @@ using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using NAudio.Wave;
 using SharpCompress.Common;
+using Windows.Devices.Geolocation;
+using static System.Net.Mime.MediaTypeNames;
 using Rectangle = iTextSharp.text.Rectangle;
 
 namespace Project__Filter
@@ -108,12 +110,16 @@ namespace Project__Filter
                     WebpBuilder(selectedFileName);
                     break;
                 case "IMAGE To BMP":
+                    BmpBuilder(selectedFileName);
                     break;
                 case "VIDEO To GIF":
+                    GIFBuilder(selectedFileName);
                     break;
                 case "VIDEO To WEBM":
+                    WEBMBuilder(selectedFileName);
                     break;
                 case "VIDEO To AVI":
+                    AVIBuilder(selectedFileName);
                     break;
                 case "VIDEO To AUDIO":
                     break;
@@ -544,6 +550,178 @@ namespace Project__Filter
                 }
             }
         }
+
+        private async Task BmpBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    using (MagickImage image = new MagickImage(Path))
+                    {
+                        // Convert the image to .webp format
+                        image.Format = MagickFormat.Bmp;
+
+                        // Create a unique icon file name
+                        int Count = 1;
+                        string BaseName = "Bump";
+                        string Extension = ".Bmp";
+                        string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                        // Check if the icon file already exists and increment the count if needed
+                        while (File.Exists(NPath))
+                        {
+                            Count++;
+                            NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        }
+
+                        // Save the icon file
+                        image.Write(NPath);
+                    }
+                }
+            }
+        }
+
+        private async Task GIFBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // Create a new instance of FFProbe
+                    var ffProbe = new NReco.VideoInfo.FFProbe();
+
+                    // Get the duration of the video
+                    var videoInfo = ffProbe.GetMediaInfo(Path);
+                    double videoDuration = videoInfo.Duration.TotalSeconds;
+
+                    if (videoDuration <= 15)
+                    {
+
+                        // Create a unique icon file name
+                        int Count = 1;
+                        string BaseName = "Animated";
+                        string Extension = ".gif";
+                        string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                        // Check if the icon file already exists and increment the count if needed
+                        while (File.Exists(NPath))
+                        {
+                            Count++;
+                            NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        }
+
+                        var converter = new NReco.VideoConverter.FFMpegConverter();
+                        converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.gif);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"The video at {fileName} is longer than 15 seconds and will not be converted.");
+                    }
+                }
+            }
+
+        }
+
+        private async Task WEBMBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // Create a unique icon file name
+                    int Count = 1;
+                    string BaseName = "Web Video";
+                    string Extension = ".webm";
+                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                    // Check if the icon file already exists and increment the count if needed
+                    while (File.Exists(NPath))
+                    {
+                        Count++;
+                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                    }
+
+                    var converter = new NReco.VideoConverter.FFMpegConverter();
+                    converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.webm);
+                }
+            }
+        }
+
+        private async Task AVIBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // Create a unique icon file name
+                    int Count = 1;
+                    string BaseName = "Video";
+                    string Extension = ".avi";
+                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                    // Check if the icon file already exists and increment the count if needed
+                    while (File.Exists(NPath))
+                    {
+                        Count++;
+                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                    }
+
+                    var converter = new NReco.VideoConverter.FFMpegConverter();
+                    converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.avi);
+                }
+            }
+        }
+
+
 
         public static void DeleteFolders(string rootPath)
         {
