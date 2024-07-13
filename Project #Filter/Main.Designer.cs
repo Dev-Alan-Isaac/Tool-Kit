@@ -434,7 +434,6 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "Main";
             StartPosition = FormStartPosition.CenterScreen;
-            Load += Main_Load;
             panel_Menu.ResumeLayout(false);
             panel_Accent.ResumeLayout(false);
             panel_Accent.PerformLayout();

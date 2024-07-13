@@ -13,6 +13,7 @@ namespace Project__Filter
             Panel_Index.Top = button_Home.Top;
             home1.BringToFront();
             this.Text = "Tool Kit 2.0";
+            loadJsonfiles();
         }
 
         private void button_Exit_Click(object sender, EventArgs e)
@@ -78,7 +79,7 @@ namespace Project__Filter
             Panel_Index.Top = button_Home.Top;
         }
 
-        private void Main_Load(object sender, EventArgs e)
+        private void loadJsonfiles()
         {
             if (!File.Exists("Folders.json"))
             {
@@ -110,7 +111,6 @@ namespace Project__Filter
 
                 string durationJson = JsonConvert.SerializeObject(dictduration, Formatting.Indented);
                 File.WriteAllText("Duration.json", durationJson);
-
             }
         }
     }
