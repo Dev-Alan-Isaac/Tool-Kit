@@ -1,16 +1,63 @@
 ﻿using System.Data;
+using System.Drawing;
 using System.Drawing.Imaging;
+using System.Speech.Synthesis;
+using System.Threading.Tasks;
+using Aspose.Cells.Charts;
 using ImageMagick;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
+using iTextSharp.xmp.impl.xpath;
 using NAudio.Wave;
+using SharpCompress.Common;
+using Windows.Devices.Geolocation;
+using static System.Net.Mime.MediaTypeNames;
 using Rectangle = iTextSharp.text.Rectangle;
 
 namespace Project__Filter
 {
     public partial class Opt_Transform : UserControl
     {
-        string selectedPath = string.Empty;
+        private string selectedPath = string.Empty;
+        string selectedFileName = string.Empty;
+
+        private static readonly HashSet<string> PDFExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ".jpg", ".jpeg", ".png", ".tiff", ".bmp"
+        };
+        private static readonly HashSet<string> IconExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".svg"
+        };
+        private static readonly HashSet<string> WebPExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".svg", ".tiff"
+        };
+        private static readonly HashSet<string> BMPExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ".jpg", ".jpeg", ".png", ".bmp", ".svg", ".tiff", ".webp"
+        };
+        private static readonly HashSet<string> GifExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ".mp4", ".avi", ".mkv", ".flv", ".mov", ".wmv"
+        };
+        private static readonly HashSet<string> AudioExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ".mp4", ".avi", ".mkv", ".flv", ".mov", ".wmv"
+        };
+        private static readonly HashSet<string> WebMExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+           ".mp4", ".avi", ".mkv", ".flv", ".mov", ".wmv", ".m4v", ".mpeg", ".mpg"
+        };
+        private static readonly HashSet<string> AviExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+           ".mp4", ".mkv", ".flv", ".mov", ".wmv", ".m4v", ".mpeg", ".mpg"
+        };
+        private static readonly HashSet<string> WavExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+           ".mp3", ".aac", ".flac", ".m4a", ".ogg", ".wma", ".mpeg", ".mpg"
+        };
 
         public Opt_Transform()
         {
@@ -35,293 +82,290 @@ namespace Project__Filter
             }
         }
 
-        private void comboBox_Select_SelectedIndexChanged(object sender, EventArgs e)
+        private async void button_Convert_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(selectedPath))
-            {
-                ComboBox comboBox = sender as ComboBox;
+            string title = string.Empty;
+            string[] files = [];
+            byte[] pdfByteArray = [];
 
-                // Get the selected item
-                string selectedItem = comboBox.SelectedItem.ToString();
-
-                // Define the file extensions for each case
-                List<string> fileExtensions = new List<string>();
-                switch (selectedItem)
-                {
-                    case "IMAGE To PDF [TITLE]":
-                        EnableOptions(selectedItem);
-                        fileExtensions = new List<string> { "jpg", "jpeg", "png", "tiff", "bmp" };
-                        break;
-                    case "IMAGE To PDF [NO TITLE]":
-                        EnableOptions(selectedItem);
-                        fileExtensions = new List<string> { "jpg", "jpeg", "png", "tiff", "bmp" };
-                        break;
-                    case "IMAGE To ICO":
-                        EnableOptions(selectedItem);
-                        fileExtensions = new List<string> { "jpg", "jpeg", "png", "bmp", "gif", "svg" };
-                        break;
-                    case "IMAGE To WEBP":
-                        EnableOptions(selectedItem);
-                        fileExtensions = new List<string> { "jpg", "jpeg", "png", "bmp", "gif", "svg", "tiff" };
-                        break;
-                    case "IMAGE To BMP":
-                        EnableOptions(selectedItem);
-                        fileExtensions = new List<string> { "jpg", "jpeg", "png", "bmp", "gif", "svg", "tiff", "webp" };
-                        break;
-                    case "VIDEO To GIF":
-                        EnableOptions(selectedItem);
-                        fileExtensions = new List<string> { "mp4", "avi", "mkv", "flv", "mov", "wmv" };
-                        break;
-                    case "VIDEO To AUDIO":
-                        EnableOptions(selectedItem);
-                        fileExtensions = new List<string> { "mp4", "avi", "mkv", "flv", "mov", "wmv" };
-                        break;
-                    case "VIDEO To WEBM":
-                        EnableOptions(selectedItem);
-                        fileExtensions = new List<string> { "mp4", "avi", "mkv", "flv", "mov", "wmv", "m4v", "mpeg", "mpg" };
-                        break;
-                    case "VIDEO To AVI":
-                        EnableOptions(selectedItem);
-                        fileExtensions = new List<string> { "mp4", "mkv", "flv", "mov", "wmv", "m4v", "mpeg", "mpg" };
-                        break;
-                    case "AUDIO To WAV":
-                        EnableOptions(selectedItem);
-                        fileExtensions = new List<string> { "mp3", "aac", "flac", "m4a", "ogg", "wma", "mpeg", "mpg" };
-                        break;
-                    default:
-                        listBox_File.Items.Clear();
-                        radioButton_Custom.Enabled = false;
-                        radioButton_Folder.Enabled = false;
-                        checkBox_Alphabetical.Enabled = false;
-                        checkBox_Date.Enabled = false;
-                        checkBox_Size.Enabled = false;
-                        break;
-                }
-
-                // Get all image files in the selected directory that can be converted to the selected format
-                string[] imageFiles = Directory.EnumerateFiles(selectedPath)
-                                               .Where(file => fileExtensions.Any(ext => file.ToLower().EndsWith(ext)))
-                                               .ToArray();
-
-                // Count the files
-                int initialFileCount = imageFiles.Length;
-
-                // Display just the count in label_Count
-                label_Count.Text = initialFileCount.ToString();
-
-                listBox_File.Items.Clear();
-
-                foreach (string imageFile in imageFiles)
-                {
-                    listBox_File.Items.Add(Path.GetFileName(imageFile));
-                }
-            }
-        }
-
-        private void button_Convert_Click(object sender, EventArgs e)
-        {
-            // Get the selected item
-            string selectedItem = comboBox_Select.SelectedItem.ToString();
-
+            string selectedItem = comboBox_Select.SelectedItem?.ToString();
             switch (selectedItem)
             {
                 case "IMAGE To PDF [TITLE]":
-                    Title();
+                    title = askTitle(selectedPath);
+                    files = askContent(selectedPath);
+                    pdfByteArray = await PDFBuilder(files);
+                    pdfByteArray = PDFBuilderTitle(pdfByteArray, title);
+                    CreatedPdf(pdfByteArray, title);
                     break;
                 case "IMAGE To PDF [NO TITLE]":
-                    Untitled();
+                    title = "Untitled";
+                    files = askContent(selectedPath);
+                    pdfByteArray = await PDFBuilder(files);
+                    CreatedPdf(pdfByteArray, title);
                     break;
                 case "IMAGE To ICO":
-                    IconBuilder(selectedPath);
+                    IconBuilder(selectedFileName);
                     break;
                 case "IMAGE To WEBP":
-                    WebpBuilder(selectedPath);
+                    WebpBuilder(selectedFileName);
                     break;
                 case "IMAGE To BMP":
-                    BMPBuilder(selectedPath);
-                    break;
-                case "VIDEO To AUDIO":
-                    MP3Builder(selectedPath);
-                    break;
-                case "VIDEO To WEBM":
-                    WEBMBuilder(selectedPath);
-                    break;
-                case "VIDEO To AVI":
-                    AVIBuilder(selectedPath);
+                    BmpBuilder(selectedFileName);
                     break;
                 case "VIDEO To GIF":
-                    GIFBuilder(selectedPath);
+                    GIFBuilder(selectedFileName);
+                    break;
+                case "VIDEO To WEBM":
+                    WEBMBuilder(selectedFileName);
+                    break;
+                case "VIDEO To AVI":
+                    AVIBuilder(selectedFileName);
+                    break;
+                case "VIDEO To AUDIO":
+                    AudioBuilder(selectedFileName);
                     break;
                 case "AUDIO To WAV":
-                    WAVBuilder(selectedPath);
+                    WAVBuilder(selectedFileName);
                     break;
                 default:
-                    MessageBox.Show("Invalid select", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please select an option first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
+
             if (checkBox_Delete.Checked)
             {
                 DeleteFolders(selectedPath);
             }
         }
 
-        // Functions - Extras
-        private async void Title()
+        private void comboBox_Select_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedItem = comboBox_Select.SelectedItem?.ToString();
+            PopulatedList(selectedItem);
+        }
+
+        private void listBox_File_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Get the selected item (if any)
+            selectedFileName = listBox_File.SelectedItem?.ToString();
+        }
+
+        private void PopulatedList(string selectedItem)
+        {
+            string[] filteredFiles = [];
+            string[] files = Directory.GetFiles(selectedPath);
+
+            if (files.Length > 0)
+            {
+                listBox_File.Items.Clear();
+
+                radioButton_Size.Enabled = false;
+                radioButton_Date.Enabled = false;
+                radioButton_Name.Enabled = false;
+
+                switch (selectedItem)
+                {
+                    case "IMAGE To PDF [TITLE]":
+                    case "IMAGE To PDF [NO TITLE]":
+                        filteredFiles = files.Where(file => PDFExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+                        foreach (string file in filteredFiles)
+                        {
+                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
+                        }
+
+                        label_Count.Text = filteredFiles.Length.ToString();
+
+                        radioButton_Size.Enabled = true;
+                        radioButton_Date.Enabled = true;
+                        radioButton_Name.Enabled = true;
+                        break;
+                    case "IMAGE To ICO":
+                        filteredFiles = files.Where(file => IconExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+                        foreach (string file in filteredFiles)
+                        {
+                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
+                        }
+
+                        label_Count.Text = filteredFiles.Length.ToString();
+                        break;
+                    case "IMAGE To WEBP":
+                        filteredFiles = files.Where(file => WebPExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+                        foreach (string file in filteredFiles)
+                        {
+                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
+                        }
+
+                        label_Count.Text = filteredFiles.Length.ToString();
+                        break;
+                    case "IMAGE To BMP":
+                        filteredFiles = files.Where(file => BMPExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+                        foreach (string file in filteredFiles)
+                        {
+                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
+                        }
+
+                        label_Count.Text = filteredFiles.Length.ToString();
+                        break;
+                    case "VIDEO To GIF":
+                        filteredFiles = files.Where(file => GifExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+                        foreach (string file in filteredFiles)
+                        {
+                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
+                        }
+
+                        label_Count.Text = filteredFiles.Length.ToString();
+                        break;
+                    case "VIDEO To WEBM":
+                        filteredFiles = files.Where(file => WebMExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+                        foreach (string file in filteredFiles)
+                        {
+                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
+                        }
+
+                        label_Count.Text = filteredFiles.Length.ToString();
+                        break;
+                    case "VIDEO To AVI":
+                        filteredFiles = files.Where(file => AviExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+                        foreach (string file in filteredFiles)
+                        {
+                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
+                        }
+
+                        label_Count.Text = filteredFiles.Length.ToString();
+                        break;
+                    case "VIDEO To AUDIO":
+                        filteredFiles = files.Where(file => AudioExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+                        foreach (string file in filteredFiles)
+                        {
+                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
+                        }
+
+                        label_Count.Text = filteredFiles.Length.ToString();
+                        break;
+                    case "AUDIO To WAV":
+                        filteredFiles = files.Where(file => WavExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+                        foreach (string file in filteredFiles)
+                        {
+                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
+                        }
+
+                        label_Count.Text = filteredFiles.Length.ToString();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private string askTitle(string selectedPath)
         {
             string Title = string.Empty;
-            byte[] pdfBytes = await PDFBuilder(selectedPath);
-            if (radioButton_Custom.Checked)
+            DialogResult result = MessageBox.Show("Do you want a custom title?", "Title Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
             {
-                Title = Microsoft.VisualBasic.Interaction.InputBox("Enter the text to search for:", "Search Text", "", -1, -1);
-            }
-            else if (radioButton_Folder.Checked)
-            {
-                Title = Path.GetFileName(selectedPath);
-            }
-
-            if (!string.IsNullOrEmpty(Title))
-            {
-                byte[] pdfBytesWithTitle = AddTitle(pdfBytes, Title);
-
-                string baseFileName = Title;
-                string extension = ".pdf";
-                int counter = 1;
-
-                // Create the initial file path
-                string pdfPath = Path.Combine(selectedPath, baseFileName + extension);
-
-                // If a file with the same name already exists, append a number to the filename
-                while (File.Exists(pdfPath))
-                {
-                    pdfPath = Path.Combine(selectedPath, $"{baseFileName} {counter}{extension}");
-                    counter++;
-                }
-
-                // Write the bytes to a file
-                File.WriteAllBytes(pdfPath, pdfBytesWithTitle);
-
-                string pdfFileName = Path.GetFileName(pdfPath);
-                MessageBox.Show($"PDF '{pdfFileName}' created successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Title = Microsoft.VisualBasic.Interaction.InputBox("Enter the custom title:", "Title", "", -1, -1);
+                return Title;
             }
             else
             {
-                MessageBox.Show($"Title not valid", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Title = System.IO.Path.GetFileName(selectedPath);
+                return Title;
             }
         }
 
-        private async void Untitled()
+        private string[] askContent(string selectedPath)
         {
-            // Call the PDFBuilder method to create the PDF document
-            byte[] pdfBytes = await PDFBuilder(selectedPath);
+            DialogResult result = MessageBox.Show("Do you want a custom content?", "Title", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            string baseFileName = "Untitled";
-            string extension = ".pdf";
-            int counter = 1;
-
-            // Create the initial file path
-            string pdfPathNoTitle = Path.Combine(selectedPath, baseFileName + extension);
-
-            // If a file with the same name already exists, append a number to the filename
-            while (File.Exists(pdfPathNoTitle))
+            if (result == DialogResult.Yes)
             {
-                pdfPathNoTitle = Path.Combine(selectedPath, $"{baseFileName} {counter}{extension}");
-                counter++;
-            }
+                string selectedItem = string.Empty;
 
-            // Write the bytes to a file
-            File.WriteAllBytes(pdfPathNoTitle, pdfBytes);
-
-
-            string pdfFileName = Path.GetFileName(pdfPathNoTitle);
-            MessageBox.Show($"PDF '{pdfFileName}' created successfully.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        public static void DeleteFolders(string rootPath)
-        {
-            foreach (var directory in Directory.GetDirectories(rootPath))
-            {
-                DeleteFolders(directory);  // Recursively call the function for all subdirectories
-
-                if (Directory.GetFiles(directory).Length == 0 &&
-                    Directory.GetDirectories(directory).Length == 0)  // If directory is empty
+                foreach (RadioButton radioButton in panel_Action.Controls.OfType<RadioButton>())
                 {
-                    try
+                    if (radioButton.Checked)
                     {
-                        Directory.Delete(directory);  // Delete the directory
-                        Console.WriteLine($"Deleted: {directory}");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"An error occurred while deleting the directory. Details: {ex.Message}");
+                        selectedItem = radioButton.Text; // Use the text of the selected radio button
+                        break; // Exit the loop once a selection is found
                     }
                 }
+
+                // Get the files in the selected path
+                string[] files = Directory.GetFiles(selectedPath);
+                string[] sort = [];
+
+                // Sort the files based on the user's selection
+                switch (selectedItem)
+                {
+                    case "Sort by name":
+                        sort = SortByName(files);
+                        break;
+                    case "Sort by date":
+                        sort = SortByDate(files);
+                        break;
+                    case "Sort by size":
+                        sort = SortBySize(files);
+                        break;
+                    default:
+                        break;
+                }
+                return sort;
+            }
+            else
+            {
+                // Get the files in the selected path without sorting
+                string[] files = Directory.GetFiles(selectedPath);
+
+                var filteredFiles = files.Where(file => PDFExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+                return filteredFiles;
             }
         }
 
-        // Functions - General
-        private void EnableOptions(string Option)
+        public string[] SortByName(string[] arrayFiles)
         {
-            switch (Option)
-            {
-                case "IMAGE To PDF [TITLE]":
-                    radioButton_Custom.Enabled = true;
-                    radioButton_Folder.Enabled = true;
-                    checkBox_Alphabetical.Enabled = true;
-                    checkBox_Date.Enabled = true;
-                    checkBox_Size.Enabled = true;
-                    break;
-                case "IMAGE To PDF [NO TITLE]":
-                    radioButton_Custom.Enabled = false;
-                    radioButton_Folder.Enabled = false;
-                    checkBox_Alphabetical.Enabled = true;
-                    checkBox_Date.Enabled = true;
-                    checkBox_Size.Enabled = true;
-                    break;
-                default:
-                    radioButton_Custom.Enabled = false;
-                    radioButton_Folder.Enabled = false;
-                    checkBox_Alphabetical.Enabled = false;
-                    checkBox_Date.Enabled = false;
-                    checkBox_Size.Enabled = false;
-                    break;
-            }
+            // Filter files by allowed extensions
+            var filteredFiles = arrayFiles.Where(file => PDFExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+            // Sort by file name (alphabetical order)
+            Array.Sort(filteredFiles);
+
+            return filteredFiles;
         }
 
-        private async Task<List<string>> PathSelectedFiles(string rootpath)
+        public string[] SortByDate(string[] arrayFiles)
         {
-            // Get the selected items in the ListBox
-            var selectedItems = listBox_File.SelectedItems;
+            // Filter files by allowed extensions
+            var filteredFiles = arrayFiles.Where(file => PDFExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
 
-            // Convert the selected items to a list of strings
-            List<string> selectedFiles = selectedItems.Cast<string>().ToList();
+            // Sort by creation date
+            Array.Sort(filteredFiles, (a, b) => File.GetCreationTime(a).CompareTo(File.GetCreationTime(b)));
 
-            // Create a list to hold the full paths of the selected files
-            List<string> fullPaths = new List<string>();
-
-            // Get the full path of each selected file
-            foreach (string file in selectedFiles)
-            {
-                string fullPath = Path.Combine(rootpath, file);
-                fullPaths.Add(fullPath);
-            }
-
-            if (checkBox_Alphabetical.Checked)
-            {
-                fullPaths.Sort();
-            }
-            else if (checkBox_Size.Checked)
-            {
-                fullPaths.Sort((path1, path2) => new FileInfo(path1).Length.CompareTo(new FileInfo(path2).Length));
-            }
-            else if (checkBox_Date.Checked)
-            {
-                fullPaths.Sort((path1, path2) => new FileInfo(path1).CreationTime.CompareTo(new FileInfo(path2).CreationTime));
-            }
-
-            return fullPaths;
+            return filteredFiles;
         }
 
-        private async Task<byte[]> PDFBuilder(string rootpath)
+        public string[] SortBySize(string[] arrayFiles)
+        {
+            // Filter files by allowed extensions
+            var filteredFiles = arrayFiles.Where(file => PDFExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+            // Sort by file size
+            Array.Sort(filteredFiles, (a, b) => new FileInfo(a).Length.CompareTo(new FileInfo(b).Length));
+
+            return filteredFiles;
+        }
+
+        private async Task<byte[]> PDFBuilder(string[] arrayFiles)
         {
             // Create a new PDF document
             Document document = new Document();
@@ -333,41 +377,24 @@ namespace Project__Filter
                 // Open the Document for writing
                 document.Open();
 
-                List<string> selectedFilePaths = await PathSelectedFiles(rootpath);
-
-                // Initialize the progress bar
-                progressBar_Time.Minimum = 0;
-                progressBar_Time.Maximum = selectedFilePaths.Count;
-                progressBar_Time.Value = 0;
-
-                // Iterate through the list of selected file paths
-                foreach (string filePath in selectedFilePaths)
+                foreach (string file in arrayFiles)
                 {
                     // Add the image to the document
-                    iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(filePath);
+                    iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
                     document.SetPageSize(new Rectangle(0, 0, image.Width, image.Height));
                     document.NewPage();
                     image.SetAbsolutePosition(0, 0);
                     document.Add(image);
-
-                    // Update the progress bar
-                    progressBar_Time.Value++;
                 }
-
                 // Close the Document - this saves it to the MemoryStream
                 document.Close();
-
-                // Reset the progress bar
-                progressBar_Time.Value = 0;
-
                 // Convert the MemoryStream to an array and return it
                 return stream.ToArray();
             }
         }
 
-        private byte[] AddTitle(byte[] pdfBytes, string Title)
+        private byte[] PDFBuilderTitle(byte[] pdfBytes, string Title)
         {
-            // Create a new PDF document
             Document document = new Document();
             using (MemoryStream stream = new MemoryStream())
             {
@@ -378,9 +405,8 @@ namespace Project__Filter
                 document.Open();
 
                 // Set the page size for the title page
-                document.SetPageSize(PageSize.A4);
+                document.SetPageSize(PageSize.LETTER);
 
-                // Add some space before the title
                 for (int i = 0; i < 20; i++) // Adjust this value to move the title up or down
                 {
                     document.Add(new Paragraph("\n"));
@@ -419,352 +445,391 @@ namespace Project__Filter
             }
         }
 
-        private async Task IconBuilder(string rootpath)
+        private async void CreatedPdf(byte[] pdfByteArray, string title)
         {
-            List<string> selectedFilePaths = await PathSelectedFiles(rootpath);
+            // Specify the output file path
+            string outputPath = System.IO.Path.Combine(selectedPath, $"{title}.pdf");
 
-            // List to hold the file paths of the images that are too large
-            List<string> largeImages = new List<string>();
+            // Check if the file already exists
+            int count = 1;
+            string originalOutputPath = outputPath;
+            while (File.Exists(outputPath))
+            {
+                // Append (Count) to the title
+                outputPath = System.IO.Path.Combine(selectedPath, $"{title} ({count}).pdf");
+                count++;
+            }
 
-            // Flag to indicate if at least one image meets the size requirements
-            bool validImageFound = false;
+            // Save the byte array to the modified output path
+            File.WriteAllBytes(outputPath, pdfByteArray);
+        }
 
+        private async Task IconBuilder(string fileName)
+        {
             // Define the maximum width and height
-            int maxWidth = 256; // Change this to your desired maximum width
-            int maxHeight = 256; // Change this to your desired maximum height
+            int maxWidth = 256;
+            int maxHeight = 256;
 
-            // Check if any image meets the size requirements
-            foreach (string filePath in selectedFilePaths)
+            if (string.IsNullOrEmpty(fileName))
             {
-                using (MagickImage image = new MagickImage(filePath))
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
                 {
-                    if (image.Width <= maxWidth && image.Height <= maxHeight)
-                    {
-                        validImageFound = true;
-                        break;
-                    }
-                }
-            }
-
-            // If a valid image is found, create the directory and process the images
-            if (validImageFound)
-            {
-                // Create a new directory for the icons
-                string iconDirectory = Path.Combine(rootpath, "Icons");
-                Directory.CreateDirectory(iconDirectory);
-
-                int iconCount = 1;
-
-                // Initialize the progress bar
-                progressBar_Time.Minimum = 0;
-                progressBar_Time.Maximum = selectedFilePaths.Count;
-                progressBar_Time.Value = 0;
-
-                // Iterate through the list of selected file paths again to process them
-                foreach (string filePath in selectedFilePaths)
-                {
-                    using (MagickImage image = new MagickImage(filePath))
-                    {
-                        // Check if the image dimensions exceed the maximum
-                        if (image.Width > maxWidth || image.Height > maxHeight)
-                        {
-                            largeImages.Add(filePath);
-                            continue;
-                        }
-
-                        // Convert the image to .ico format
-                        image.Format = MagickFormat.Icon;
-
-                        // Save the .ico file in the new directory
-                        string iconPath = Path.Combine(iconDirectory, $"Icon {iconCount}.ico");
-                        image.Write(iconPath);
-
-                        iconCount++;
-
-                        // Update the progress bar
-                        progressBar_Time.Value++;
-                    }
-                }
-
-                // Reset the progress bar
-                progressBar_Time.Value = 0;
-            }
-
-            // If there are any large images, show a MessageBox with their file paths
-            if (largeImages.Count > 0)
-            {
-                string message = "The following images are too large. Maximum size is " + maxWidth + "x" + maxHeight + ":\n\n" + string.Join("\n", largeImages);
-                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private async Task WebpBuilder(string rootpath)
-        {
-            List<string> selectedFilePaths = await PathSelectedFiles(rootpath);
-
-            // Create a new directory for the webp images
-            string webpDirectory = Path.Combine(rootpath, "Images Webp");
-            Directory.CreateDirectory(webpDirectory);
-
-            int imageCount = 1;
-
-            // Initialize the progress bar
-            progressBar_Time.Minimum = 0;
-            progressBar_Time.Maximum = selectedFilePaths.Count;
-            progressBar_Time.Value = 0;
-
-            // Iterate through the list of selected file paths
-            foreach (string filePath in selectedFilePaths)
-            {
-                using (MagickImage image = new MagickImage(filePath))
-                {
-                    // Convert the image to .webp format
-                    image.Format = MagickFormat.WebP;
-
-                    // Save the .webp file in the new directory
-                    string webpPath = Path.Combine(webpDirectory, $"Image {imageCount}.webp");
-                    image.Write(webpPath);
-
-                    imageCount++;
-
-                    // Update the progress bar
-                    progressBar_Time.Value++;
-                }
-            }
-            // Reset the progress bar
-            progressBar_Time.Value = 0;
-        }
-
-        private async Task BMPBuilder(string rootpath)
-        {
-            List<string> selectedFilePaths = await PathSelectedFiles(rootpath);
-
-            // Create a new directory for the bmp images
-            string bmpDirectory = Path.Combine(rootpath, "Images BMP");
-            Directory.CreateDirectory(bmpDirectory);
-
-            int imageCount = 1;
-
-            // Initialize the progress bar
-            progressBar_Time.Minimum = 0;
-            progressBar_Time.Maximum = selectedFilePaths.Count;
-            progressBar_Time.Value = 0;
-
-            // Iterate through the list of selected file paths
-            foreach (string filePath in selectedFilePaths)
-            {
-                using (MagickImage image = new MagickImage(filePath))
-                {
-                    // Convert the image to .bmp format
-                    image.Format = MagickFormat.Bmp;
-
-                    // Save the .bmp file in the new directory
-                    string bmpPath = Path.Combine(bmpDirectory, $"Image {imageCount}.bmp");
-                    image.Write(bmpPath);
-
-                    imageCount++;
-
-                    // Update the progress bar
-                    progressBar_Time.Value++;
-                }
-            }
-            // Reset the progress bar
-            progressBar_Time.Value = 0;
-        }
-
-        private async Task MP3Builder(string rootpath)
-        {
-            List<string> selectedFilePaths = await PathSelectedFiles(rootpath);
-
-            // Create a new directory for the mp3 files
-            string mp3Directory = Path.Combine(rootpath, "Files MP3");
-            Directory.CreateDirectory(mp3Directory);
-
-            int fileCount = 1;
-
-            // Initialize the progress bar
-            progressBar_Time.Minimum = 0;
-            progressBar_Time.Maximum = selectedFilePaths.Count;
-            progressBar_Time.Value = 0;
-
-            // Iterate through the list of selected file paths
-            foreach (string filePath in selectedFilePaths)
-            {
-                // Define the output file path
-                string mp3Path = Path.Combine(mp3Directory, $"File {fileCount}.mp3");
-
-                // Convert the .wav file to .mp3 format
-                using (var reader = new NAudio.Wave.AudioFileReader(filePath))
-                {
-                    MediaFoundationEncoder.EncodeToMp3(reader, mp3Path);
-                }
-
-                fileCount++;
-
-                // Update the progress bar
-                progressBar_Time.Value++;
-            }
-            // Reset the progress bar
-            progressBar_Time.Value = 0;
-        }
-
-        private async Task WEBMBuilder(string rootpath)
-        {
-            List<string> selectedFilePaths = await PathSelectedFiles(rootpath);
-
-            // Create a new directory for the webm files
-            string webmDirectory = Path.Combine(rootpath, "Files WEBM");
-            Directory.CreateDirectory(webmDirectory);
-
-            int fileCount = 1;
-
-            // Initialize the progress bar
-            progressBar_Time.Minimum = 0;
-            progressBar_Time.Maximum = selectedFilePaths.Count;
-            progressBar_Time.Value = 0;
-
-            // Create a new instance of the converter
-            var converter = new NReco.VideoConverter.FFMpegConverter();
-
-            // Iterate through the list of selected file paths
-            foreach (string filePath in selectedFilePaths)
-            {
-                // Define the output file path
-                string webmPath = Path.Combine(webmDirectory, $"File {fileCount}.webm");
-
-                // Convert the video file to .webm format
-                converter.ConvertMedia(filePath, webmPath, NReco.VideoConverter.Format.webm);
-
-                fileCount++;
-
-                // Update the progress bar
-                progressBar_Time.Value++;
-            }
-            // Reset the progress bar
-            progressBar_Time.Value = 0;
-        }
-
-        private async Task AVIBuilder(string rootpath)
-        {
-            List<string> selectedFilePaths = await PathSelectedFiles(rootpath);
-
-            // Create a new directory for the avi files
-            string aviDirectory = Path.Combine(rootpath, "Files AVI");
-            Directory.CreateDirectory(aviDirectory);
-
-            int fileCount = 1;
-
-            // Initialize the progress bar
-            progressBar_Time.Minimum = 0;
-            progressBar_Time.Maximum = selectedFilePaths.Count;
-            progressBar_Time.Value = 0;
-
-            // Create a new instance of the converter
-            var converter = new NReco.VideoConverter.FFMpegConverter();
-
-            // Iterate through the list of selected file paths
-            foreach (string filePath in selectedFilePaths)
-            {
-                // Define the output file path
-                string aviPath = Path.Combine(aviDirectory, $"File {fileCount}.avi");
-
-                // Convert the video file to .avi format
-                converter.ConvertMedia(filePath, aviPath, NReco.VideoConverter.Format.avi);
-
-                fileCount++;
-
-                // Update the progress bar
-                progressBar_Time.Value++;
-            }
-            // Reset the progress bar
-            progressBar_Time.Value = 0;
-        }
-
-        private async Task GIFBuilder(string rootpath)
-        {
-            List<string> selectedFilePaths = await PathSelectedFiles(rootpath);
-
-            // Create a new directory for the gif files
-            string gifDirectory = Path.Combine(rootpath, "Files GIF");
-            Directory.CreateDirectory(gifDirectory);
-
-            int fileCount = 1;
-
-            // Initialize the progress bar
-            progressBar_Time.Minimum = 0;
-            progressBar_Time.Maximum = selectedFilePaths.Count;
-            progressBar_Time.Value = 0;
-
-            // Create a new instance of FFProbe
-            var ffProbe = new NReco.VideoInfo.FFProbe();
-
-            // Iterate through the list of selected file paths
-            foreach (string filePath in selectedFilePaths)
-            {
-                // Get the duration of the video
-                var videoInfo = ffProbe.GetMediaInfo(filePath);
-                double videoDuration = videoInfo.Duration.TotalSeconds;
-
-                // Check if the video is 15 seconds or less
-                if (videoDuration <= 15)
-                {
-                    // Define the output file path
-                    string gifPath = Path.Combine(gifDirectory, $"File {fileCount}.gif");
-
-                    // Convert the video file to .gif format
-                    var converter = new NReco.VideoConverter.FFMpegConverter();
-                    converter.ConvertMedia(filePath, gifPath, NReco.VideoConverter.Format.gif);
-
-                    fileCount++;
-
-                    // Update the progress bar
-                    progressBar_Time.Value++;
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    Console.WriteLine($"The video at {filePath} is longer than 15 seconds and will not be converted.");
+                    using (MagickImage image = new MagickImage(Path))
+                    {
+                        if (image.Width <= maxWidth && image.Height <= maxHeight)
+                        {
+                            // Convert the image to .ico format
+                            image.Format = MagickFormat.Icon;
+
+                            // Create a unique icon file name
+                            int iconCount = 1;
+                            string iconBaseName = "Icon";
+                            string iconExtension = ".ico";
+                            string iconPath = System.IO.Path.Combine(selectedPath, $"{iconBaseName} {iconCount}{iconExtension}");
+
+                            // Check if the icon file already exists and increment the count if needed
+                            while (File.Exists(iconPath))
+                            {
+                                iconCount++;
+                                iconPath = System.IO.Path.Combine(selectedPath, $"{iconBaseName} {iconCount}{iconExtension}");
+                            }
+
+                            // Save the icon file
+                            image.Write(iconPath);
+                        }
+                        else
+                        {
+                            // Handle the case when the selected file is no longer in the specified path
+                            MessageBox.Show($"The file '{selectedFileName}' is over the limit of 256 x 256.", "File Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
                 }
             }
-            // Reset the progress bar
-            progressBar_Time.Value = 0;
         }
 
-        private async Task WAVBuilder(string rootpath)
+        private async Task WebpBuilder(string fileName)
         {
-            List<string> selectedFilePaths = await PathSelectedFiles(rootpath);
-
-            // Create a new directory for the wav files
-            string wavDirectory = Path.Combine(rootpath, "WAVFiles");
-            Directory.CreateDirectory(wavDirectory);
-
-            int fileCount = 1;
-
-            // Initialize the progress bar
-            progressBar_Time.Minimum = 0;
-            progressBar_Time.Maximum = selectedFilePaths.Count;
-            progressBar_Time.Value = 0;
-
-            // Iterate through the list of selected file paths
-            foreach (string filePath in selectedFilePaths)
+            if (string.IsNullOrEmpty(fileName))
             {
-                // Define the output file path
-                string wavPath = Path.Combine(wavDirectory, $"File {fileCount}.wav");
-
-                // Convert the audio file to .wav format
-                using (var reader = new AudioFileReader(filePath))
-                {
-                    WaveFileWriter.CreateWaveFile(wavPath, reader);
-                }
-
-                fileCount++;
-
-                // Update the progress bar
-                progressBar_Time.Value++;
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            // Reset the progress bar
-            progressBar_Time.Value = 0;
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    using (MagickImage image = new MagickImage(Path))
+                    {
+                        // Convert the image to .webp format
+                        image.Format = MagickFormat.WebP;
+
+                        // Create a unique icon file name
+                        int Count = 1;
+                        string BaseName = "Web Picture";
+                        string Extension = ".webp";
+                        string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                        // Check if the icon file already exists and increment the count if needed
+                        while (File.Exists(NPath))
+                        {
+                            Count++;
+                            NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        }
+
+                        // Save the icon file
+                        image.Write(NPath);
+                    }
+                }
+            }
+        }
+
+        private async Task BmpBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    using (MagickImage image = new MagickImage(Path))
+                    {
+                        // Convert the image to .webp format
+                        image.Format = MagickFormat.Bmp;
+
+                        // Create a unique icon file name
+                        int Count = 1;
+                        string BaseName = "Bump";
+                        string Extension = ".Bmp";
+                        string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                        // Check if the icon file already exists and increment the count if needed
+                        while (File.Exists(NPath))
+                        {
+                            Count++;
+                            NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        }
+
+                        // Save the icon file
+                        image.Write(NPath);
+                    }
+                }
+            }
+        }
+
+        private async Task GIFBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // Create a new instance of FFProbe
+                    var ffProbe = new NReco.VideoInfo.FFProbe();
+
+                    // Get the duration of the video
+                    var videoInfo = ffProbe.GetMediaInfo(Path);
+                    double videoDuration = videoInfo.Duration.TotalSeconds;
+
+                    if (videoDuration <= 15)
+                    {
+
+                        // Create a unique icon file name
+                        int Count = 1;
+                        string BaseName = "Animated";
+                        string Extension = ".gif";
+                        string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                        // Check if the icon file already exists and increment the count if needed
+                        while (File.Exists(NPath))
+                        {
+                            Count++;
+                            NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        }
+
+                        var converter = new NReco.VideoConverter.FFMpegConverter();
+                        converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.gif);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"The video at {fileName} is longer than 15 seconds and will not be converted.");
+                    }
+                }
+            }
+
+        }
+
+        private async Task WEBMBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // Create a unique icon file name
+                    int Count = 1;
+                    string BaseName = "Web Video";
+                    string Extension = ".webm";
+                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                    // Check if the icon file already exists and increment the count if needed
+                    while (File.Exists(NPath))
+                    {
+                        Count++;
+                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                    }
+
+                    var converter = new NReco.VideoConverter.FFMpegConverter();
+                    converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.webm);
+                }
+            }
+        }
+
+        private async Task AVIBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // Create a unique icon file name
+                    int Count = 1;
+                    string BaseName = "Video";
+                    string Extension = ".avi";
+                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                    // Check if the icon file already exists and increment the count if needed
+                    while (File.Exists(NPath))
+                    {
+                        Count++;
+                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                    }
+
+                    var converter = new NReco.VideoConverter.FFMpegConverter();
+                    converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.avi);
+                }
+            }
+        }
+
+        private async Task AudioBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // Create a unique icon file name
+                    int Count = 1;
+                    string BaseName = "Video";
+                    string Extension = ".avi";
+                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                    // Check if the icon file already exists and increment the count if needed
+                    while (File.Exists(NPath))
+                    {
+                        Count++;
+                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                    }
+
+                    using (var reader = new NAudio.Wave.AudioFileReader(NPath))
+                    {
+                        MediaFoundationEncoder.EncodeToMp3(reader, NPath);
+                    }
+                }
+            }
+        }
+
+        private async Task WAVBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(Path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // Create a unique icon file name
+                    int Count = 1;
+                    string BaseName = "Video";
+                    string Extension = ".avi";
+                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                    // Check if the icon file already exists and increment the count if needed
+                    while (File.Exists(NPath))
+                    {
+                        Count++;
+                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                    }
+
+                    using (var reader = new AudioFileReader(NPath))
+                    {
+                        WaveFileWriter.CreateWaveFile(NPath, reader);
+                    }
+                }
+            }
+        }
+
+        public static void DeleteFolders(string rootPath)
+        {
+            foreach (var directory in Directory.GetDirectories(rootPath))
+            {
+                DeleteFolders(directory);  // Recursively call the function for all subdirectories
+
+                if (Directory.GetFiles(directory).Length == 0 &&
+                    Directory.GetDirectories(directory).Length == 0)  // If directory is empty
+                {
+                    try
+                    {
+                        Directory.Delete(directory);  // Delete the directory
+                        MessageBox.Show($"Deleted: {directory}");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred while deleting the directory. Details: {ex.Message}");
+                    }
+                }
+            }
         }
     }
 }
-
-

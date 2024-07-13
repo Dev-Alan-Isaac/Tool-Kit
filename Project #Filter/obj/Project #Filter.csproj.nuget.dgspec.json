@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj": {}
+    "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj": {}
   },
   "projects": {
-    "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj": {
+    "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj",
+        "projectUniqueName": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
         "projectName": "Project #Filter",
-        "projectPath": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj",
-        "packagesPath": "C:\\Users\\Alan_\\.nuget\\packages\\",
-        "outputPath": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\obj\\",
+        "projectPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
+        "packagesPath": "C:\\Users\\Sistemas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Alan_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Sistemas\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -48,7 +48,7 @@
           "dependencies": {
             "Aspose.Cells": {
               "target": "Package",
-              "version": "[24.6.0, )"
+              "version": "[24.7.0, )"
             },
             "Aspose.Slides.NET": {
               "target": "Package",
@@ -56,7 +56,7 @@
             },
             "Aspose.Words": {
               "target": "Package",
-              "version": "[24.6.0, )"
+              "version": "[24.7.0, )"
             },
             "Bunifu.UI.WinForms": {
               "target": "Package",
@@ -76,7 +76,7 @@
             },
             "Microsoft.Windows.Compatibility": {
               "target": "Package",
-              "version": "[8.0.6, )"
+              "version": "[8.0.7, )"
             },
             "NAudio": {
               "target": "Package",
@@ -96,11 +96,15 @@
             },
             "PDFsharp": {
               "target": "Package",
-              "version": "[6.1.0, )"
+              "version": "[6.1.1, )"
             },
             "SharpCompress": {
               "target": "Package",
               "version": "[0.37.2, )"
+            },
+            "System.Formats.Asn1": {
+              "target": "Package",
+              "version": "[8.0.1, )"
             },
             "iTextSharp": {
               "target": "Package",

@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net8.0-windows10.0.22621": {
-      "Aspose.Cells/24.6.0": {
+      "Aspose.Cells/24.7.0": {
         "type": "package",
         "dependencies": {
           "System.Drawing.Common": "6.0.0",
@@ -37,11 +37,11 @@
           }
         }
       },
-      "Aspose.Words/24.6.0": {
+      "Aspose.Words/24.7.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.Registry": "4.7.0",
-          "SkiaSharp": "2.88.6",
+          "SkiaSharp": "2.88.8",
           "System.Reflection.Emit": "4.3.0",
           "System.Text.Encoding.CodePages": "4.5.0"
         },
@@ -470,7 +470,7 @@
           }
         }
       },
-      "Microsoft.Windows.Compatibility/8.0.6": {
+      "Microsoft.Windows.Compatibility/8.0.7": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.Registry.AccessControl": "8.0.0",
@@ -487,7 +487,7 @@
           "System.DirectoryServices": "8.0.0",
           "System.DirectoryServices.AccountManagement": "8.0.0",
           "System.DirectoryServices.Protocols": "8.0.0",
-          "System.Drawing.Common": "8.0.6",
+          "System.Drawing.Common": "8.0.7",
           "System.IO.Packaging": "8.0.0",
           "System.IO.Ports": "8.0.0",
           "System.Management": "8.0.0",
@@ -668,7 +668,7 @@
           }
         }
       },
-      "PDFsharp/6.1.0": {
+      "PDFsharp/6.1.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Logging": "6.0.0"
@@ -850,11 +850,11 @@
           "lib/net8.0/SharpCompress.dll": {}
         }
       },
-      "SkiaSharp/2.88.6": {
+      "SkiaSharp/2.88.8": {
         "type": "package",
         "dependencies": {
-          "SkiaSharp.NativeAssets.Win32": "2.88.6",
-          "SkiaSharp.NativeAssets.macOS": "2.88.6"
+          "SkiaSharp.NativeAssets.Win32": "2.88.8",
+          "SkiaSharp.NativeAssets.macOS": "2.88.8"
         },
         "compile": {
           "lib/net6.0/SkiaSharp.dll": {
@@ -867,7 +867,7 @@
           }
         }
       },
-      "SkiaSharp.NativeAssets.macOS/2.88.6": {
+      "SkiaSharp.NativeAssets.macOS/2.88.8": {
         "type": "package",
         "compile": {
           "lib/net6.0/_._": {}
@@ -882,7 +882,7 @@
           }
         }
       },
-      "SkiaSharp.NativeAssets.Win32/2.88.6": {
+      "SkiaSharp.NativeAssets.Win32/2.88.8": {
         "type": "package",
         "compile": {
           "lib/net6.0/_._": {}
@@ -1233,7 +1233,7 @@
           }
         }
       },
-      "System.Drawing.Common/8.0.6": {
+      "System.Drawing.Common/8.0.7": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "8.0.0"
@@ -1252,7 +1252,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Formats.Asn1/8.0.0": {
+      "System.Formats.Asn1/8.0.1": {
         "type": "package",
         "compile": {
           "lib/net8.0/System.Formats.Asn1.dll": {
@@ -1992,10 +1992,10 @@
     }
   },
   "libraries": {
-    "Aspose.Cells/24.6.0": {
-      "sha512": "Xb1jZCx5bDFv9PsWu9TTIOkdoc8q19rcSLfxh7hglrNzW5ruwnO8AUKc3coXgA3nP8JyFWm2j+7/FXq6zqPmOQ==",
+    "Aspose.Cells/24.7.0": {
+      "sha512": "6RUhukDx2Ajl3h3vQ1Ka/l8rTpnNt+XMskDApTEWjq8Hn3C4HcufM/QwKoYGYs9DtJLeB8UZOmgviiEJkCCA+Q==",
       "type": "package",
-      "path": "aspose.cells/24.6.0",
+      "path": "aspose.cells/24.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2003,7 +2003,7 @@
         "Help/Aspose.Cells.GridJs for .NETSTANDARD Documentation.chm",
         "License/Aspose_End-User-License-Agreement.txt",
         "License/thirdpartylicenses.Aspose.Cells.for.NET.pdf",
-        "aspose.cells.24.6.0.nupkg.sha512",
+        "aspose.cells.24.7.0.nupkg.sha512",
         "aspose.cells.nuspec",
         "images/aspose_cells-for-net.png",
         "lib/net40-client/Aspose.Cells.dll",
@@ -2049,10 +2049,10 @@
         "thirdpartylicenses.Aspose.Slides.for.NET.pdf"
       ]
     },
-    "Aspose.Words/24.6.0": {
-      "sha512": "uZ9dzlG0/0nqTdjv6qpOAL/SGfPEAuLssI5xpLHOIO2ojSzfVFww3cNeZ3hYaOjfM1ADKTmeXPr+5BYhM+M6Fg==",
+    "Aspose.Words/24.7.0": {
+      "sha512": "NmjPbFd35yaAAl7QjVx4GPa+yUbWVIL1xUFTEy5pGs/leRv4yruSLkTd6DVmb/qoz5Q8E3PJJAUy3sx0Dvd3UA==",
       "type": "package",
-      "path": "aspose.words/24.6.0",
+      "path": "aspose.words/24.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2060,7 +2060,7 @@
         "Images/aspose_words-for-net.png",
         "License/Aspose_End-User-License-Agreement.txt",
         "License/thirdpartylicenses-Aspose.Words for .NET.pdf",
-        "aspose.words.24.6.0.nupkg.sha512",
+        "aspose.words.24.7.0.nupkg.sha512",
         "aspose.words.nuspec",
         "lib/net40-client/Aspose.Words.dll",
         "lib/net40-client/Aspose.Words.xml",
@@ -2699,16 +2699,16 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Windows.Compatibility/8.0.6": {
-      "sha512": "/Z5gcFGTaS9VdqnM9+87RwNU/8/A6eZ97SGfGgH3WW2bC1Zosc1JoR4ZZthztahMKnkYPlRvKknogNRqwOVQoQ==",
+    "Microsoft.Windows.Compatibility/8.0.7": {
+      "sha512": "Lvvc0pHg1IynXXvhlWOeyj60mXLnsJJ9due91NCrq7xM4zD+kr4VvXpUSwRXecAAZE/3YP50Lr0RhiYp1g0m3Q==",
       "type": "package",
-      "path": "microsoft.windows.compatibility/8.0.6",
+      "path": "microsoft.windows.compatibility/8.0.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
-        "microsoft.windows.compatibility.8.0.6.nupkg.sha512",
+        "microsoft.windows.compatibility.8.0.7.nupkg.sha512",
         "microsoft.windows.compatibility.nuspec"
       ]
     },
@@ -2882,10 +2882,10 @@
         "nreco.videoinfo.nuspec"
       ]
     },
-    "PDFsharp/6.1.0": {
-      "sha512": "Tvc3mzowW3XG6AWk4gRi836Hy7FwqhXirpjQRH6JJll0vxiz5yWbAVjr0iV5yKRnPCwVbjOfwjfaMlwYzcPASg==",
+    "PDFsharp/6.1.1": {
+      "sha512": "wxBLG2f713s2Fp2rYxTCReNOcXT/4YX4h4TJW6y75xAEq2iaEjLDjZRgtXW1/IgadzyluIVmw4RqHz1rL4BYKg==",
       "type": "package",
-      "path": "pdfsharp/6.1.0",
+      "path": "pdfsharp/6.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2929,7 +2929,7 @@
         "lib/netstandard2.0/PdfSharp.xml",
         "lib/netstandard2.0/de/PdfSharp.Charting.resources.dll",
         "lib/netstandard2.0/de/PdfSharp.resources.dll",
-        "pdfsharp.6.1.0.nupkg.sha512",
+        "pdfsharp.6.1.1.nupkg.sha512",
         "pdfsharp.nuspec"
       ]
     },
@@ -3152,10 +3152,10 @@
         "sharpcompress.nuspec"
       ]
     },
-    "SkiaSharp/2.88.6": {
-      "sha512": "wdfeBAQrEQCbJIRgAiargzP1Uy+0grZiG4CSgBnhAgcJTsPzlifIaO73JRdwIlT3TyBoeU9jEqzwFUhl4hTYnQ==",
+    "SkiaSharp/2.88.8": {
+      "sha512": "bRkp3uKp5ZI8gXYQT57uKwil1uobb2p8c69n7v5evlB/2JNcMAXVcw9DZAP5Ig3WSvgzGm2YSn27UVeOi05NlA==",
       "type": "package",
-      "path": "skiasharp/2.88.6",
+      "path": "skiasharp/2.88.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3222,14 +3222,14 @@
         "lib/xamarinwatchos1.0/SkiaSharp.dll",
         "lib/xamarinwatchos1.0/SkiaSharp.pdb",
         "lib/xamarinwatchos1.0/SkiaSharp.xml",
-        "skiasharp.2.88.6.nupkg.sha512",
+        "skiasharp.2.88.8.nupkg.sha512",
         "skiasharp.nuspec"
       ]
     },
-    "SkiaSharp.NativeAssets.macOS/2.88.6": {
-      "sha512": "Sko9LFxRXSjb3OGh5/RxrVRXxYo48tr5NKuuSy6jB85GrYt8WRqVY1iLOLwtjPiVAt4cp+pyD4i30azanS64dw==",
+    "SkiaSharp.NativeAssets.macOS/2.88.8": {
+      "sha512": "6Kn5TSkKlfyS6azWHF3Jk2sW5C4jCE5uSshM/5AbfFrR+5n6qM5XEnz9h4VaVl7LTxBvHvMkuPb/3bpbq0vxTw==",
       "type": "package",
-      "path": "skiasharp.nativeassets.macos/2.88.6",
+      "path": "skiasharp.nativeassets.macos/2.88.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3248,14 +3248,14 @@
         "lib/netstandard1.3/_._",
         "lib/xamarinmac2.0/_._",
         "runtimes/osx/native/libSkiaSharp.dylib",
-        "skiasharp.nativeassets.macos.2.88.6.nupkg.sha512",
+        "skiasharp.nativeassets.macos.2.88.8.nupkg.sha512",
         "skiasharp.nativeassets.macos.nuspec"
       ]
     },
-    "SkiaSharp.NativeAssets.Win32/2.88.6": {
-      "sha512": "7TzFO0u/g2MpQsTty4fyCDdMcfcWI+aLswwfnYXr3gtNS6VLKdMXPMeKpJa3pJSLnUBN6wD0JjuCe8OoLBQ6cQ==",
+    "SkiaSharp.NativeAssets.Win32/2.88.8": {
+      "sha512": "O9QXoWEXA+6cweR4h3BOnwMz+pO9vL9mXdjLrpDd0w1QzCgWmLQBxa1VgySDITiH7nQndrDG1h6937zm9pLj1Q==",
       "type": "package",
-      "path": "skiasharp.nativeassets.win32/2.88.6",
+      "path": "skiasharp.nativeassets.win32/2.88.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3270,7 +3270,7 @@
         "runtimes/win-arm64/native/libSkiaSharp.dll",
         "runtimes/win-x64/native/libSkiaSharp.dll",
         "runtimes/win-x86/native/libSkiaSharp.dll",
-        "skiasharp.nativeassets.win32.2.88.6.nupkg.sha512",
+        "skiasharp.nativeassets.win32.2.88.8.nupkg.sha512",
         "skiasharp.nativeassets.win32.nuspec"
       ]
     },
@@ -3788,10 +3788,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Drawing.Common/8.0.6": {
-      "sha512": "aSwRnJzz6fZ73JvWMMG0KvBwOnXsBTFtfHLriQyAPrDIZ+NrDfl15GWbO/A35k0dtH77D7jfxzEcFF7RONtU/w==",
+    "System.Drawing.Common/8.0.7": {
+      "sha512": "DoeBae0gZvxs3mtfoub6F1k28fSkFPzmhFuvblplKMnLYKmTMVy0j4Yxahh96KM532JzHGDxhJn1VpMKSB1pyg==",
       "type": "package",
-      "path": "system.drawing.common/8.0.6",
+      "path": "system.drawing.common/8.0.7",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3823,15 +3823,15 @@
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "system.drawing.common.8.0.6.nupkg.sha512",
+        "system.drawing.common.8.0.7.nupkg.sha512",
         "system.drawing.common.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Formats.Asn1/8.0.0": {
-      "sha512": "AJukBuLoe3QeAF+mfaRKQb2dgyrvt340iMBHYv+VdBzCUM06IxGlvl0o/uPOS7lHnXPN6u8fFRHSHudx5aTi8w==",
+    "System.Formats.Asn1/8.0.1": {
+      "sha512": "XqKba7Mm/koKSjKMfW82olQdmfbI5yqeoLV/tidRp7fbh5rmHAQ5raDI/7SU0swTzv+jgqtUGkzmFxuUg0it1A==",
       "type": "package",
-      "path": "system.formats.asn1/8.0.0",
+      "path": "system.formats.asn1/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3852,7 +3852,7 @@
         "lib/net8.0/System.Formats.Asn1.xml",
         "lib/netstandard2.0/System.Formats.Asn1.dll",
         "lib/netstandard2.0/System.Formats.Asn1.xml",
-        "system.formats.asn1.8.0.0.nupkg.sha512",
+        "system.formats.asn1.8.0.1.nupkg.sha512",
         "system.formats.asn1.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -5457,38 +5457,39 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-windows10.0.22621": [
-      "Aspose.Cells >= 24.6.0",
+      "Aspose.Cells >= 24.7.0",
       "Aspose.Slides.NET >= 24.6.0",
-      "Aspose.Words >= 24.6.0",
+      "Aspose.Words >= 24.7.0",
       "Bunifu.UI.WinForms >= 6.1.0",
       "HtmlAgilityPack >= 1.11.61",
       "Magick.NET-Q16-AnyCPU >= 13.9.1",
       "MediaToolkit >= 1.1.0.1",
-      "Microsoft.Windows.Compatibility >= 8.0.6",
+      "Microsoft.Windows.Compatibility >= 8.0.7",
       "NAudio >= 2.2.1",
       "NReco.VideoConverter >= 1.2.1",
       "NReco.VideoInfo >= 1.2.0",
       "Newtonsoft.Json >= 13.0.3",
-      "PDFsharp >= 6.1.0",
+      "PDFsharp >= 6.1.1",
       "SharpCompress >= 0.37.2",
+      "System.Formats.Asn1 >= 8.0.1",
       "iTextSharp >= 5.5.13.4",
       "taglib-sharp-netstandard2.0 >= 2.1.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Alan_\\.nuget\\packages\\": {}
+    "C:\\Users\\Sistemas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj",
+      "projectUniqueName": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
       "projectName": "Project #Filter",
-      "projectPath": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj",
-      "packagesPath": "C:\\Users\\Alan_\\.nuget\\packages\\",
-      "outputPath": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\obj\\",
+      "projectPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
+      "packagesPath": "C:\\Users\\Sistemas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Alan_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Sistemas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5522,7 +5523,7 @@
         "dependencies": {
           "Aspose.Cells": {
             "target": "Package",
-            "version": "[24.6.0, )"
+            "version": "[24.7.0, )"
           },
           "Aspose.Slides.NET": {
             "target": "Package",
@@ -5530,7 +5531,7 @@
           },
           "Aspose.Words": {
             "target": "Package",
-            "version": "[24.6.0, )"
+            "version": "[24.7.0, )"
           },
           "Bunifu.UI.WinForms": {
             "target": "Package",
@@ -5550,7 +5551,7 @@
           },
           "Microsoft.Windows.Compatibility": {
             "target": "Package",
-            "version": "[8.0.6, )"
+            "version": "[8.0.7, )"
           },
           "NAudio": {
             "target": "Package",
@@ -5570,11 +5571,15 @@
           },
           "PDFsharp": {
             "target": "Package",
-            "version": "[6.1.0, )"
+            "version": "[6.1.1, )"
           },
           "SharpCompress": {
             "target": "Package",
             "version": "[0.37.2, )"
+          },
+          "System.Formats.Asn1": {
+            "target": "Package",
+            "version": "[8.0.1, )"
           },
           "iTextSharp": {
             "target": "Package",
