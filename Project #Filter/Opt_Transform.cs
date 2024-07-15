@@ -99,7 +99,7 @@ namespace Project__Filter
                     title = askTitle(selectedPath);
                     files = askContent(selectedPath);
                     pdfByteArray = await PDFBuilder(files);
-                    pdfByteArray = PDFBuilderTitle(pdfByteArray, title);
+                    pdfByteArray = await PDFBuilderTitle(pdfByteArray, title);
                     CreatedPdf(pdfByteArray, title);
                     break;
                 case "IMAGE To PDF [NO TITLE]":
@@ -413,56 +413,59 @@ namespace Project__Filter
             });
         }
 
-        private byte[] PDFBuilderTitle(byte[] pdfBytes, string Title)
+        private async Task<byte[]> PDFBuilderTitle(byte[] pdfBytes, string Title)
         {
-            Document document = new Document();
-            using (MemoryStream stream = new MemoryStream())
+            return await Task.Run(() =>
             {
-                // Create a new PdfWriter object, pointing it to our MemoryStream
-                PdfWriter writer = PdfWriter.GetInstance(document, stream);
-
-                // Open the Document for writing
-                document.Open();
-
-                // Set the page size for the title page
-                document.SetPageSize(PageSize.LETTER);
-
-                for (int i = 0; i < 20; i++) // Adjust this value to move the title up or down
+                Document document = new Document();
+                using (MemoryStream stream = new MemoryStream())
                 {
-                    document.Add(new Paragraph("\n"));
+                    // Create a new PdfWriter object, pointing it to our MemoryStream
+                    PdfWriter writer = PdfWriter.GetInstance(document, stream);
+
+                    // Open the Document for writing
+                    document.Open();
+
+                    // Set the page size for the title page
+                    document.SetPageSize(PageSize.LETTER);
+
+                    for (int i = 0; i < 20; i++) // Adjust this value to move the title up or down
+                    {
+                        document.Add(new Paragraph("\n"));
+                    }
+
+                    // Create a new Paragraph with the title
+                    Paragraph title = new Paragraph(Title, FontFactory.GetFont(FontFactory.HELVETICA, 50f, iTextSharp.text.Font.BOLD));
+                    title.Alignment = Element.ALIGN_CENTER;
+
+                    // Add the title to the document
+                    document.Add(title);
+
+                    // Add some space after the title
+                    for (int i = 0; i < 10; i++) // Adjust this value to move the title up or down
+                    {
+                        document.Add(new Paragraph("\n"));
+                    }
+
+                    // Create a reader for the existing PDF document
+                    PdfReader reader = new PdfReader(pdfBytes);
+
+                    // Add the pages from the existing PDF document to the new document
+                    for (int i = 1; i <= reader.NumberOfPages; i++)
+                    {
+                        document.SetPageSize(reader.GetPageSizeWithRotation(i));
+                        document.NewPage();
+                        PdfImportedPage page = writer.GetImportedPage(reader, i);
+                        writer.DirectContent.AddTemplate(page, 0, 0);
+                    }
+
+                    // Close the Document - this saves it to the MemoryStream
+                    document.Close();
+
+                    // Convert the MemoryStream to an array and return it
+                    return stream.ToArray();
                 }
-
-                // Create a new Paragraph with the title
-                Paragraph title = new Paragraph(Title, FontFactory.GetFont(FontFactory.HELVETICA, 50f, iTextSharp.text.Font.BOLD));
-                title.Alignment = Element.ALIGN_CENTER;
-
-                // Add the title to the document
-                document.Add(title);
-
-                // Add some space after the title
-                for (int i = 0; i < 10; i++) // Adjust this value to move the title up or down
-                {
-                    document.Add(new Paragraph("\n"));
-                }
-
-                // Create a reader for the existing PDF document
-                PdfReader reader = new PdfReader(pdfBytes);
-
-                // Add the pages from the existing PDF document to the new document
-                for (int i = 1; i <= reader.NumberOfPages; i++)
-                {
-                    document.SetPageSize(reader.GetPageSizeWithRotation(i));
-                    document.NewPage();
-                    PdfImportedPage page = writer.GetImportedPage(reader, i);
-                    writer.DirectContent.AddTemplate(page, 0, 0);
-                }
-
-                // Close the Document - this saves it to the MemoryStream
-                document.Close();
-
-                // Convert the MemoryStream to an array and return it
-                return stream.ToArray();
-            }
+            });
         }
 
         private async void CreatedPdf(byte[] pdfByteArray, string title)
