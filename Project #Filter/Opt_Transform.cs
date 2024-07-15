@@ -384,30 +384,33 @@ namespace Project__Filter
 
         private async Task<byte[]> PDFBuilder(string[] arrayFiles)
         {
-            // Create a new PDF document
-            Document document = new Document();
-            using (MemoryStream stream = new MemoryStream())
+            return await Task.Run(() =>
             {
-                // Create a new PdfWriter object, pointing it to our MemoryStream
-                PdfWriter writer = PdfWriter.GetInstance(document, stream);
-
-                // Open the Document for writing
-                document.Open();
-
-                foreach (string file in arrayFiles)
+                // Create a new PDF document
+                Document document = new Document();
+                using (MemoryStream stream = new MemoryStream())
                 {
-                    // Add the image to the document
-                    iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
-                    document.SetPageSize(new Rectangle(0, 0, image.Width, image.Height));
-                    document.NewPage();
-                    image.SetAbsolutePosition(0, 0);
-                    document.Add(image);
+                    // Create a new PdfWriter object, pointing it to our MemoryStream
+                    PdfWriter writer = PdfWriter.GetInstance(document, stream);
+
+                    // Open the Document for writing
+                    document.Open();
+
+                    foreach (string file in arrayFiles)
+                    {
+                        // Add the image to the document
+                        iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
+                        document.SetPageSize(new Rectangle(0, 0, image.Width, image.Height));
+                        document.NewPage();
+                        image.SetAbsolutePosition(0, 0);
+                        document.Add(image);
+                    }
+                    // Close the Document - this saves it to the MemoryStream
+                    document.Close();
+                    // Convert the MemoryStream to an array and return it
+                    return stream.ToArray();
                 }
-                // Close the Document - this saves it to the MemoryStream
-                document.Close();
-                // Convert the MemoryStream to an array and return it
-                return stream.ToArray();
-            }
+            });
         }
 
         private byte[] PDFBuilderTitle(byte[] pdfBytes, string Title)
