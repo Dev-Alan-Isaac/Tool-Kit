@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="Aspose.Cells" Version="24.7.0" />
+    <PackageReference Include="Aspose.PDF" Version="24.6.0" />
     <PackageReference Include="Aspose.Slides.NET" Version="24.6.0" />
     <PackageReference Include="Aspose.Words" Version="24.7.0" />
     <PackageReference Include="Bunifu.UI.WinForms" Version="6.1.0" />

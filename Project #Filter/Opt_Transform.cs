@@ -58,6 +58,10 @@ namespace Project__Filter
         {
            ".mp3", ".aac", ".flac", ".m4a", ".ogg", ".wma", ".mpeg", ".mpg"
         };
+        private static readonly HashSet<string> DocxExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+           ".pdf"
+        };
 
         public Opt_Transform()
         {
@@ -127,6 +131,9 @@ namespace Project__Filter
                     break;
                 case "AUDIO To WAV":
                     WAVBuilder(selectedFileName);
+                    break;
+                case "DOC To PDF":
+                    DocBuilder(selectedFileName);
                     break;
                 default:
                     MessageBox.Show("Please select an option first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -253,6 +260,16 @@ namespace Project__Filter
                         break;
                     case "AUDIO To WAV":
                         filteredFiles = files.Where(file => WavExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+
+                        foreach (string file in filteredFiles)
+                        {
+                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
+                        }
+
+                        label_Count.Text = filteredFiles.Length.ToString();
+                        break;
+                    case "DOC To PDF":
+                        filteredFiles = files.Where(file => DocxExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
 
                         foreach (string file in filteredFiles)
                         {
@@ -806,6 +823,51 @@ namespace Project__Filter
                     {
                         WaveFileWriter.CreateWaveFile(NPath, reader);
                     }
+                }
+            }
+        }
+
+        private async Task DocBuilder(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+            {
+                // Handle the case when no file is selected
+                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                if (!File.Exists(path))
+                {
+                    // Handle the case when the selected file is no longer in the specified path
+                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    try
+                    {
+                        // Load the PDF document
+                        var pdfDocument = new Aspose.Pdf.Document(path);
+
+                        // Get the total number of pages in the PDF
+                        int totalPages = pdfDocument.Pages.Count;
+
+                        // Set the output format (DOC or DOCX)
+                        var saveOptions = new Aspose.Pdf.DocSaveOptions();
+                        saveOptions.Format = Aspose.Pdf.DocSaveOptions.DocFormat.DocX; // Choose either Docx or Doc
+
+                        // Save the PDF as a Word document
+                        var outputPath = System.IO.Path.Combine(selectedPath, $"{System.IO.Path.GetFileNameWithoutExtension(selectedFileName)}.docx");
+                        pdfDocument.Save(outputPath, saveOptions);
+
+                        MessageBox.Show($"PDF successfully converted to Word document ({totalPages} pages): {outputPath}", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred during PDF-to-Word conversion: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                 }
             }
         }
