@@ -384,6 +384,12 @@ namespace Project__Filter
 
         private async Task<byte[]> PDFBuilder(string[] arrayFiles)
         {
+            var progress = new Progress<int>(value =>
+            {
+                // Update your progress bar here
+                progressBar_Time.Value = value;
+            });
+
             return await Task.Run(() =>
             {
                 // Create a new PDF document
@@ -396,25 +402,41 @@ namespace Project__Filter
                     // Open the Document for writing
                     document.Open();
 
-                    foreach (string file in arrayFiles)
+                    for (int i = 0; i < arrayFiles.Length; i++)
                     {
+                        string file = arrayFiles[i];
                         // Add the image to the document
                         iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
                         document.SetPageSize(new Rectangle(0, 0, image.Width, image.Height));
                         document.NewPage();
                         image.SetAbsolutePosition(0, 0);
                         document.Add(image);
+
+                        // Calculate progress percentage
+                        int progressPercentage = (i + 1) * 100 / arrayFiles.Length;
+
+                        // Report progress
+                        ((IProgress<int>)progress).Report(progressPercentage);
                     }
+
                     // Close the Document - this saves it to the MemoryStream
                     document.Close();
+
                     // Convert the MemoryStream to an array and return it
                     return stream.ToArray();
                 }
             });
+          
         }
 
         private async Task<byte[]> PDFBuilderTitle(byte[] pdfBytes, string Title)
         {
+            var progress = new Progress<int>(value =>
+            {
+                // Update your progress bar here
+                progressBar_Time.Value = value;
+            });
+
             return await Task.Run(() =>
             {
                 Document document = new Document();
@@ -457,6 +479,12 @@ namespace Project__Filter
                         document.NewPage();
                         PdfImportedPage page = writer.GetImportedPage(reader, i);
                         writer.DirectContent.AddTemplate(page, 0, 0);
+
+                        // Calculate progress percentage
+                        int progressPercentage = i * 100 / reader.NumberOfPages;
+
+                        // Report progress
+                        ((IProgress<int>)progress).Report(progressPercentage);
                     }
 
                     // Close the Document - this saves it to the MemoryStream
@@ -489,177 +517,233 @@ namespace Project__Filter
 
         private async Task IconBuilder(string fileName)
         {
-            // Define the maximum width and height
-            int maxWidth = 256;
-            int maxHeight = 256;
-
-            if (string.IsNullOrEmpty(fileName))
+            await Task.Run(() =>
             {
-                // Handle the case when no file is selected
-                MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+                // Define the maximum width and height
+                int maxWidth = 256;
+                int maxHeight = 256;
 
-                if (!File.Exists(Path))
+                if (string.IsNullOrEmpty(fileName))
                 {
-                    // Handle the case when the selected file is no longer in the specified path
-                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Handle the case when no file is selected
+                    MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    using (MagickImage image = new MagickImage(Path))
+                    string path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                    if (!File.Exists(path))
                     {
-                        if (image.Width <= maxWidth && image.Height <= maxHeight)
+                        // Handle the case when the selected file is no longer in the specified path
+                        MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        using (MagickImage image = new MagickImage(path))
                         {
-                            // Convert the image to .ico format
-                            image.Format = MagickFormat.Icon;
-
-                            // Create a unique icon file name
-                            int iconCount = 1;
-                            string iconBaseName = "Icon";
-                            string iconExtension = ".ico";
-                            string iconPath = System.IO.Path.Combine(selectedPath, $"{iconBaseName} {iconCount}{iconExtension}");
-
-                            // Check if the icon file already exists and increment the count if needed
-                            while (File.Exists(iconPath))
+                            if (image.Width <= maxWidth && image.Height <= maxHeight)
                             {
-                                iconCount++;
-                                iconPath = System.IO.Path.Combine(selectedPath, $"{iconBaseName} {iconCount}{iconExtension}");
-                            }
+                                // Convert the image to .ico format
+                                image.Format = MagickFormat.Icon;
 
-                            // Save the icon file
-                            image.Write(iconPath);
-                        }
-                        else
-                        {
-                            // Handle the case when the selected file is no longer in the specified path
-                            MessageBox.Show($"The file '{selectedFileName}' is over the limit of 256 x 256.", "File Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                // Create a unique icon file name
+                                int iconCount = 1;
+                                string iconBaseName = "Icon";
+                                string iconExtension = ".ico";
+                                string iconPath = System.IO.Path.Combine(selectedPath, $"{iconBaseName} {iconCount}{iconExtension}");
+
+                                // Check if the icon file already exists and increment the count if needed
+                                while (File.Exists(iconPath))
+                                {
+                                    iconCount++;
+                                    iconPath = System.IO.Path.Combine(selectedPath, $"{iconBaseName} {iconCount}{iconExtension}");
+                                }
+
+                                // Save the icon file
+                                image.Write(iconPath);
+                            }
+                            else
+                            {
+                                // Handle the case when the selected file exceeds the limit of 256 x 256
+                                MessageBox.Show($"The file '{selectedFileName}' is over the limit of 256 x 256.", "File Limit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
                         }
                     }
                 }
-            }
+            });
         }
 
         private async Task WebpBuilder(string fileName)
         {
-            if (string.IsNullOrEmpty(fileName))
+            await Task.Run(() =>
             {
-                // Handle the case when no file is selected
-                MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
-
-                if (!File.Exists(Path))
+                if (string.IsNullOrEmpty(fileName))
                 {
-                    // Handle the case when the selected file is no longer in the specified path
-                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Handle the case when no file is selected
+                    MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    using (MagickImage image = new MagickImage(Path))
+                    string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                    if (!File.Exists(Path))
                     {
-                        // Convert the image to .webp format
-                        image.Format = MagickFormat.WebP;
-
-                        // Create a unique icon file name
-                        int Count = 1;
-                        string BaseName = "Web Picture";
-                        string Extension = ".webp";
-                        string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
-
-                        // Check if the icon file already exists and increment the count if needed
-                        while (File.Exists(NPath))
+                        // Handle the case when the selected file is no longer in the specified path
+                        MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        using (MagickImage image = new MagickImage(Path))
                         {
-                            Count++;
-                            NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
-                        }
+                            // Convert the image to .webp format
+                            image.Format = MagickFormat.WebP;
 
-                        // Save the icon file
-                        image.Write(NPath);
+                            // Create a unique icon file name
+                            int Count = 1;
+                            string BaseName = "Web Picture";
+                            string Extension = ".webp";
+                            string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                            // Check if the icon file already exists and increment the count if needed
+                            while (File.Exists(NPath))
+                            {
+                                Count++;
+                                NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                            }
+
+                            // Save the icon file
+                            image.Write(NPath);
+                        }
                     }
                 }
-            }
+            });
         }
 
         private async Task BmpBuilder(string fileName)
         {
-            if (string.IsNullOrEmpty(fileName))
+            await Task.Run(() =>
             {
-                // Handle the case when no file is selected
-                MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
-
-                if (!File.Exists(Path))
+                if (string.IsNullOrEmpty(fileName))
                 {
-                    // Handle the case when the selected file is no longer in the specified path
-                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Handle the case when no file is selected
+                    MessageBox.Show($"Missing file", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    using (MagickImage image = new MagickImage(Path))
+                    string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                    if (!File.Exists(Path))
                     {
-                        // Convert the image to .webp format
-                        image.Format = MagickFormat.Bmp;
-
-                        // Create a unique icon file name
-                        int Count = 1;
-                        string BaseName = "Bump";
-                        string Extension = ".Bmp";
-                        string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
-
-                        // Check if the icon file already exists and increment the count if needed
-                        while (File.Exists(NPath))
+                        // Handle the case when the selected file is no longer in the specified path
+                        MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        using (MagickImage image = new MagickImage(Path))
                         {
-                            Count++;
-                            NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
-                        }
+                            // Convert the image to .webp format
+                            image.Format = MagickFormat.Bmp;
 
-                        // Save the icon file
-                        image.Write(NPath);
+                            // Create a unique icon file name
+                            int Count = 1;
+                            string BaseName = "Bump";
+                            string Extension = ".Bmp";
+                            string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                            // Check if the icon file already exists and increment the count if needed
+                            while (File.Exists(NPath))
+                            {
+                                Count++;
+                                NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                            }
+
+                            // Save the icon file
+                            image.Write(NPath);
+                        }
                     }
                 }
-            }
+            });
         }
 
         private async Task GIFBuilder(string fileName)
         {
-            if (string.IsNullOrEmpty(fileName))
+            await Task.Run(() =>
             {
-                // Handle the case when no file is selected
-                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
-
-                if (!File.Exists(Path))
+                if (string.IsNullOrEmpty(fileName))
                 {
-                    // Handle the case when the selected file is no longer in the specified path
-                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Handle the case when no file is selected
+                    MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    // Create a new instance of FFProbe
-                    var ffProbe = new NReco.VideoInfo.FFProbe();
+                    string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
 
-                    // Get the duration of the video
-                    var videoInfo = ffProbe.GetMediaInfo(Path);
-                    double videoDuration = videoInfo.Duration.TotalSeconds;
-
-                    if (videoDuration <= 15)
+                    if (!File.Exists(Path))
                     {
+                        // Handle the case when the selected file is no longer in the specified path
+                        MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
+                        // Create a new instance of FFProbe
+                        var ffProbe = new NReco.VideoInfo.FFProbe();
 
+                        // Get the duration of the video
+                        var videoInfo = ffProbe.GetMediaInfo(Path);
+                        double videoDuration = videoInfo.Duration.TotalSeconds;
+
+                        if (videoDuration <= 15)
+                        {
+
+                            // Create a unique icon file name
+                            int Count = 1;
+                            string BaseName = "Animated";
+                            string Extension = ".gif";
+                            string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                            // Check if the icon file already exists and increment the count if needed
+                            while (File.Exists(NPath))
+                            {
+                                Count++;
+                                NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                            }
+
+                            var converter = new NReco.VideoConverter.FFMpegConverter();
+                            converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.gif);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"The video at {fileName} is longer than 15 seconds and will not be converted.");
+                        }
+                    }
+                }
+            });
+        }
+
+        private async Task WEBMBuilder(string fileName)
+        {
+            await Task.Run(() =>
+            {
+                if (string.IsNullOrEmpty(fileName))
+                {
+                    // Handle the case when no file is selected
+                    MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                    if (!File.Exists(Path))
+                    {
+                        // Handle the case when the selected file is no longer in the specified path
+                        MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else
+                    {
                         // Create a unique icon file name
                         int Count = 1;
-                        string BaseName = "Animated";
-                        string Extension = ".gif";
+                        string BaseName = "Web Video";
+                        string Extension = ".webm";
                         string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
 
                         // Check if the icon file already exists and increment the count if needed
@@ -670,212 +754,182 @@ namespace Project__Filter
                         }
 
                         var converter = new NReco.VideoConverter.FFMpegConverter();
-                        converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.gif);
-                    }
-                    else
-                    {
-                        Console.WriteLine($"The video at {fileName} is longer than 15 seconds and will not be converted.");
+                        converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.webm);
                     }
                 }
-            }
-
-        }
-
-        private async Task WEBMBuilder(string fileName)
-        {
-            if (string.IsNullOrEmpty(fileName))
-            {
-                // Handle the case when no file is selected
-                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
-
-                if (!File.Exists(Path))
-                {
-                    // Handle the case when the selected file is no longer in the specified path
-                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    // Create a unique icon file name
-                    int Count = 1;
-                    string BaseName = "Web Video";
-                    string Extension = ".webm";
-                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
-
-                    // Check if the icon file already exists and increment the count if needed
-                    while (File.Exists(NPath))
-                    {
-                        Count++;
-                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
-                    }
-
-                    var converter = new NReco.VideoConverter.FFMpegConverter();
-                    converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.webm);
-                }
-            }
+            });
         }
 
         private async Task AVIBuilder(string fileName)
         {
-            if (string.IsNullOrEmpty(fileName))
+            await Task.Run(() =>
             {
-                // Handle the case when no file is selected
-                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
-
-                if (!File.Exists(Path))
+                if (string.IsNullOrEmpty(fileName))
                 {
-                    // Handle the case when the selected file is no longer in the specified path
-                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Handle the case when no file is selected
+                    MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    // Create a unique icon file name
-                    int Count = 1;
-                    string BaseName = "Video";
-                    string Extension = ".avi";
-                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                    string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
 
-                    // Check if the icon file already exists and increment the count if needed
-                    while (File.Exists(NPath))
+                    if (!File.Exists(Path))
                     {
-                        Count++;
-                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        // Handle the case when the selected file is no longer in the specified path
+                        MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
+                    else
+                    {
+                        // Create a unique icon file name
+                        int Count = 1;
+                        string BaseName = "Video";
+                        string Extension = ".avi";
+                        string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
 
-                    var converter = new NReco.VideoConverter.FFMpegConverter();
-                    converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.avi);
+                        // Check if the icon file already exists and increment the count if needed
+                        while (File.Exists(NPath))
+                        {
+                            Count++;
+                            NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        }
+
+                        var converter = new NReco.VideoConverter.FFMpegConverter();
+                        converter.ConvertMedia(fileName, NPath, NReco.VideoConverter.Format.avi);
+                    }
                 }
-            }
+            });
         }
 
         private async Task AudioBuilder(string fileName)
         {
-            if (string.IsNullOrEmpty(fileName))
+            await Task.Run(() =>
             {
-                // Handle the case when no file is selected
-                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
-
-                if (!File.Exists(Path))
+                if (string.IsNullOrEmpty(fileName))
                 {
-                    // Handle the case when the selected file is no longer in the specified path
-                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Handle the case when no file is selected
+                    MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    // Create a unique icon file name
-                    int Count = 1;
-                    string BaseName = "Video";
-                    string Extension = ".avi";
-                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                    string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
 
-                    // Check if the icon file already exists and increment the count if needed
-                    while (File.Exists(NPath))
+                    if (!File.Exists(Path))
                     {
-                        Count++;
-                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        // Handle the case when the selected file is no longer in the specified path
+                        MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-
-                    using (var reader = new NAudio.Wave.AudioFileReader(NPath))
+                    else
                     {
-                        MediaFoundationEncoder.EncodeToMp3(reader, NPath);
+                        // Create a unique icon file name
+                        int Count = 1;
+                        string BaseName = "Video";
+                        string Extension = ".avi";
+                        string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                        // Check if the icon file already exists and increment the count if needed
+                        while (File.Exists(NPath))
+                        {
+                            Count++;
+                            NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        }
+
+                        using (var reader = new NAudio.Wave.AudioFileReader(NPath))
+                        {
+                            MediaFoundationEncoder.EncodeToMp3(reader, NPath);
+                        }
                     }
                 }
-            }
+            });
         }
 
         private async Task WAVBuilder(string fileName)
         {
-            if (string.IsNullOrEmpty(fileName))
+            await Task.Run(() =>
             {
-                // Handle the case when no file is selected
-                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
-
-                if (!File.Exists(Path))
+                if (string.IsNullOrEmpty(fileName))
                 {
-                    // Handle the case when the selected file is no longer in the specified path
-                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Handle the case when no file is selected
+                    MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    // Create a unique icon file name
-                    int Count = 1;
-                    string BaseName = "Video";
-                    string Extension = ".avi";
-                    string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                    string Path = System.IO.Path.Combine(selectedPath, selectedFileName);
 
-                    // Check if the icon file already exists and increment the count if needed
-                    while (File.Exists(NPath))
+                    if (!File.Exists(Path))
                     {
-                        Count++;
-                        NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        // Handle the case when the selected file is no longer in the specified path
+                        MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-
-                    using (var reader = new AudioFileReader(NPath))
+                    else
                     {
-                        WaveFileWriter.CreateWaveFile(NPath, reader);
+                        // Create a unique icon file name
+                        int Count = 1;
+                        string BaseName = "Video";
+                        string Extension = ".avi";
+                        string NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+
+                        // Check if the icon file already exists and increment the count if needed
+                        while (File.Exists(NPath))
+                        {
+                            Count++;
+                            NPath = System.IO.Path.Combine(selectedPath, $"{BaseName} ({Count}){Extension}");
+                        }
+
+                        using (var reader = new AudioFileReader(NPath))
+                        {
+                            WaveFileWriter.CreateWaveFile(NPath, reader);
+                        }
                     }
                 }
-            }
+            });
         }
 
         private async Task DocBuilder(string fileName)
         {
-            if (string.IsNullOrEmpty(fileName))
+            await Task.Run(() =>
             {
-                // Handle the case when no file is selected
-                MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                string path = System.IO.Path.Combine(selectedPath, selectedFileName);
-
-                if (!File.Exists(path))
+                if (string.IsNullOrEmpty(fileName))
                 {
-                    // Handle the case when the selected file is no longer in the specified path
-                    MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Handle the case when no file is selected
+                    MessageBox.Show($"Missing file", "File Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
-                    try
+                    string path = System.IO.Path.Combine(selectedPath, selectedFileName);
+
+                    if (!File.Exists(path))
                     {
-                        // Load the PDF document
-                        var pdfDocument = new Aspose.Pdf.Document(path);
-
-                        // Get the total number of pages in the PDF
-                        int totalPages = pdfDocument.Pages.Count;
-
-                        // Set the output format (DOC or DOCX)
-                        var saveOptions = new Aspose.Pdf.DocSaveOptions();
-                        saveOptions.Format = Aspose.Pdf.DocSaveOptions.DocFormat.DocX; // Choose either Docx or Doc
-
-                        // Save the PDF as a Word document
-                        var outputPath = System.IO.Path.Combine(selectedPath, $"{System.IO.Path.GetFileNameWithoutExtension(selectedFileName)}.docx");
-                        pdfDocument.Save(outputPath, saveOptions);
-
-                        MessageBox.Show($"PDF successfully converted to Word document ({totalPages} pages): {outputPath}", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Handle the case when the selected file is no longer in the specified path
+                        MessageBox.Show($"The file '{selectedFileName}' is no longer in the specified path.", "File Not Found", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show($"An error occurred during PDF-to-Word conversion: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                        try
+                        {
+                            // Load the PDF document
+                            var pdfDocument = new Aspose.Pdf.Document(path);
 
+                            // Get the total number of pages in the PDF
+                            int totalPages = pdfDocument.Pages.Count;
+
+                            // Set the output format (DOC or DOCX)
+                            var saveOptions = new Aspose.Pdf.DocSaveOptions();
+                            saveOptions.Format = Aspose.Pdf.DocSaveOptions.DocFormat.DocX; // Choose either Docx or Doc
+
+                            // Save the PDF as a Word document
+                            var outputPath = System.IO.Path.Combine(selectedPath, $"{System.IO.Path.GetFileNameWithoutExtension(selectedFileName)}.docx");
+                            pdfDocument.Save(outputPath, saveOptions);
+
+                            MessageBox.Show($"PDF successfully converted to Word document ({totalPages} pages): {outputPath}", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"An error occurred during PDF-to-Word conversion: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                    }
                 }
-            }
+            });
         }
 
         public static void DeleteFolders(string rootPath)
