@@ -14,6 +14,7 @@ namespace Project__Filter
             home1.BringToFront();
             this.Text = "Tool Kit 2.0";
             loadJsonfiles();
+            pictureBox1.Image = Properties.Resources.Logo;
         }
 
         private void button_Exit_Click(object sender, EventArgs e)
@@ -35,6 +36,7 @@ namespace Project__Filter
             Panel_Index.Height = button_Home.Height;
             Panel_Index.Top = button_Home.Top;
             home1.BringToFront();
+            pictureBox1.Image = Properties.Resources.Logo;
         }
 
         private void button_Filter_Click_1(object sender, EventArgs e)
@@ -42,6 +44,7 @@ namespace Project__Filter
             Panel_Index.Height = button_Filter.Height;
             Panel_Index.Top = button_Filter.Top;
             filter1.BringToFront();
+            pictureBox1.Image = Properties.Resources.Filter;
         }
 
         private void button_Convert_Click(object sender, EventArgs e)
@@ -49,6 +52,7 @@ namespace Project__Filter
             Panel_Index.Height = button_Convert.Height;
             Panel_Index.Top = button_Convert.Top;
             convert1.BringToFront();
+            pictureBox1.Image = Properties.Resources.Filter;
         }
 
         private void button_Extract_Click(object sender, EventArgs e)
@@ -56,6 +60,7 @@ namespace Project__Filter
             Panel_Index.Height = button_Extract.Height;
             Panel_Index.Top = button_Extract.Top;
             extract1.BringToFront();
+            pictureBox1.Image = Properties.Resources.Filter;
         }
 
         private void button_Merge_Click(object sender, EventArgs e)
@@ -63,6 +68,7 @@ namespace Project__Filter
             Panel_Index.Height = button_Merge.Height;
             Panel_Index.Top = button_Merge.Top;
             merge1.BringToFront();
+            pictureBox1.Image = Properties.Resources.Filter;
         }
 
         private void button_Privacy_Click(object sender, EventArgs e)
@@ -70,6 +76,7 @@ namespace Project__Filter
             Panel_Index.Height = button_Privacy.Height;
             Panel_Index.Top = button_Privacy.Top;
             privacy1.BringToFront();
+            pictureBox1.Image = Properties.Resources.Filter;
         }
 
         private void button_Config_Click(object sender, EventArgs e)
@@ -77,6 +84,7 @@ namespace Project__Filter
             config_Menu1.BringToFront();
             Panel_Index.Height = button_Home.Height;
             Panel_Index.Top = button_Home.Top;
+            pictureBox1.Image = Properties.Resources.Filter;
         }
 
         private void loadJsonfiles()
@@ -95,7 +103,6 @@ namespace Project__Filter
             }
             if (!File.Exists("Duration.json"))
             {
-
                 var dictduration = new Dictionary<string, Tuple<int, int>>
                 {
                     { "Less than 5 Min", new Tuple<int, int>(1, 299)},
@@ -107,7 +114,6 @@ namespace Project__Filter
                     { "50 Min to 1 Hr", new Tuple<int, int>(3001, 3600) },
                     { "More than 1 Hr", new Tuple<int, int>(3601,284018400) }
                 };
-
 
                 string durationJson = JsonConvert.SerializeObject(dictduration, Formatting.Indented);
                 File.WriteAllText("Duration.json", durationJson);
