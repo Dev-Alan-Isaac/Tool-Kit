@@ -445,7 +445,7 @@ namespace Project__Filter
             // Get all directories
             var directories = Directory.GetDirectories(rootPath, "*", SearchOption.AllDirectories).ToList();
 
-            // Create a Progress<T> object to report progress from the background task to the UI thread
+            // Create a Progress<T> object to report progress
             var progress = new Progress<int>(value =>
             {
                 // Update your progress bar here
@@ -455,62 +455,72 @@ namespace Project__Filter
             // Run the sorting operation in a separate thread
             await Task.Run(() =>
             {
-                for (int i = 0; i < directories.Count; i++)
+                foreach (var directory in directories)
                 {
-                    var directory = directories[i];
-
-                    // Get all files in the directory
-                    var files = Directory.GetFiles(directory);
-
-                    foreach (var file in files)
+                    foreach (var file in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories))
                     {
-                        // Get the file size
-                        long fileSize = new FileInfo(file).Length;
-
-                        // Determine the destination folder based on the file size
-                        string destinationFolder;
-                        if (fileSize < below50MB)
+                        try
                         {
-                            destinationFolder = "Below 50 MB";
-                        }
-                        else if (fileSize < below100MB)
-                        {
-                            destinationFolder = "50 MB to 100 MB";
-                        }
-                        else if (fileSize < below500MB)
-                        {
-                            destinationFolder = "100 MB to 500 MB";
-                        }
-                        else if (fileSize < above1GB)
-                        {
-                            destinationFolder = "500 MB to 1 GB";
-                        }
-                        else
-                        {
-                            destinationFolder = "Above 1 GB";
-                        }
+                            // Get the file size
+                            long fileSize = new FileInfo(file).Length;
 
-                        // Get the directory of the file
-                        string fileDirectory = Path.GetDirectoryName(file);
+                            // Determine the destination folder based on the file size
+                            string destinationFolder;
+                            if (fileSize < below50MB)
+                            {
+                                destinationFolder = "Below 50 MB";
+                            }
+                            else if (fileSize < below100MB)
+                            {
+                                destinationFolder = "50 MB to 100 MB";
+                            }
+                            else if (fileSize < below500MB)
+                            {
+                                destinationFolder = "100 MB to 500 MB";
+                            }
+                            else if (fileSize < above1GB)
+                            {
+                                destinationFolder = "500 MB to 1 GB";
+                            }
+                            else
+                            {
+                                destinationFolder = "Above 1 GB";
+                            }
 
-                        // Create the destination folder if it doesn't exist
-                        string destinationDirectory = Path.Combine(fileDirectory, destinationFolder);
-                        Directory.CreateDirectory(destinationDirectory);
+                            // Get the directory of the file
+                            string fileDirectory = Path.GetDirectoryName(file);
 
-                        // Construct the source and destination paths
-                        string srcPath = file;
-                        string destPath = Path.Combine(destinationDirectory, Path.GetFileName(file));
+                            // Create the destination folder if it doesn't exist
+                            string destinationDirectory = Path.Combine(fileDirectory, destinationFolder);
+                            Directory.CreateDirectory(destinationDirectory);
 
-                        // Move the file
-                        File.Move(srcPath, destPath);
+                            // Construct the source and destination paths
+                            string srcPath = file;
+                            string destPath = Path.Combine(destinationDirectory, Path.GetFileName(file));
+
+                            // Check if the file already exists in the destination folder
+                            if (File.Exists(destPath))
+                            {
+                                // Skip the file if it already exists
+                                continue;
+                            }
+
+                            // Move the file
+                            File.Move(srcPath, destPath);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Show a message box with the error
+                            MessageBox.Show($"An error occurred while sorting the file {file}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-
-                    // Report progress
-                    ((IProgress<int>)progress).Report((i + 1) * 100 / directories.Count);
                 }
             });
+
+            // Reset progress bar
             progressBar_Time.Value = 0;
 
+            // Additional steps (ScanFiles and RepopulateTreeView) as needed
             ScanFiles(rootPath);
             RepopulateTreeView(rootPath);
         }
