@@ -360,12 +360,11 @@ namespace Project__Filter
             var ffProbe = new FFProbe();
 
             // Get all directories
-            var directories = Directory.GetDirectories(rootPath, "*", SearchOption.AllDirectories).ToList();
+            var directories = Directory.GetDirectories(rootPath, "*", SearchOption.AllDirectories)
+                .Where(dir => new DirectoryInfo(dir).Name == "Videos")
+                .ToList();
 
-            // Filter directories to only include those with the name "Videos"
-            directories = directories.Where(dir => new DirectoryInfo(dir).Name == "Videos").ToList();
-
-            // Create a Progress<T> object to report progress from the background task to the UI thread
+            // Create a Progress<T> object to report progress
             var progress = new Progress<int>(value =>
             {
                 // Update your progress bar here
@@ -379,11 +378,8 @@ namespace Project__Filter
             // Run the sorting operation in a separate thread
             await Task.Run(() =>
             {
-                for (int i = 0; i < directories.Count; i++)
+                foreach (var directory in directories)
                 {
-                    var directory = directories[i];
-
-                    // Walk through the directory
                     foreach (var file in Directory.EnumerateFiles(directory, "*.*", SearchOption.AllDirectories))
                     {
                         try
@@ -404,6 +400,13 @@ namespace Project__Filter
                             // Construct the destination path
                             string destPath = Path.Combine(resolutionFolder, Path.GetFileName(file));
 
+                            // Check if the file already exists in the destination folder
+                            if (File.Exists(destPath))
+                            {
+                                // Skip the file if it already exists
+                                continue;
+                            }
+
                             // Move the file
                             File.Move(file, destPath);
 
@@ -422,8 +425,11 @@ namespace Project__Filter
                     }
                 }
             });
+
+            // Reset progress bar
             progressBar_Time.Value = 0;
 
+            // Additional steps (ScanFiles and RepopulateTreeView) as needed
             ScanFiles(rootPath);
             RepopulateTreeView(rootPath);
         }
