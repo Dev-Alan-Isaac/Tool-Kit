@@ -258,10 +258,10 @@ namespace Project__Filter
         }
 
         // Add sorts
-        public async Task SortByDuration(string DurationJson, string rootPath)
+        public async Task SortByDuration(string durationJson, string rootPath)
         {
             // Load the JSON file
-            var durations = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, int>>>(File.ReadAllText(DurationJson));
+            var durations = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, int>>>(File.ReadAllText(durationJson));
 
             // Initialize FFProbe
             var ffProbe = new FFProbe();
@@ -286,72 +286,88 @@ namespace Project__Filter
             // Create a list to store files that caused exceptions
             List<string> exceptionFiles = new List<string>();
 
-            // Run the sorting operation in a separate thread
-            await Task.Run(() =>
+            // Create a cancellation token to handle task cancellation if needed
+            using (CancellationTokenSource cts = new CancellationTokenSource())
             {
-                for (int i = 0; i < videoDirectories.Count; i++)
+                var token = cts.Token;
+
+                // Run the sorting operation in a separate task to ensure responsiveness
+                await Task.Run(() =>
                 {
-                    var directory = videoDirectories[i];
-
-                    // Walk through the directory
-                    foreach (var file in Directory.EnumerateFiles(directory, "*.*", SearchOption.TopDirectoryOnly))
+                    // Use Parallel.ForEach for parallel processing of directories
+                    Parallel.ForEach(videoDirectories, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, (directory) =>
                     {
-                        try
+                        // Walk through the directory
+                        foreach (var file in Directory.EnumerateFiles(directory, "*.*", SearchOption.TopDirectoryOnly))
                         {
-                            // Get the file duration in seconds
-                            var videoInfo = ffProbe.GetMediaInfo(file);
-                            int fileDuration = (int)videoInfo.Duration.TotalSeconds;
+                            if (token.IsCancellationRequested)
+                                break;
 
-                            // Check if the file duration is in the dictionary
-                            foreach (var duration in durations)
+                            try
                             {
-                                int minDuration = duration.Value["Item1"];
-                                int maxDuration = duration.Value["Item2"];
+                                // Get the file duration in seconds using NReco.VideoInfo
+                                var videoInfo = ffProbe.GetMediaInfo(file);
+                                int fileDuration = (int)videoInfo.Duration.TotalSeconds;
 
-                                if (fileDuration >= minDuration && fileDuration <= maxDuration)
+                                // Check if the file duration is in the dictionary
+                                foreach (var duration in durations)
                                 {
-                                    // Get the parent directory of the file
-                                    string fileDirectory = Directory.GetParent(file).FullName;
+                                    int minDuration = duration.Value["Item1"];
+                                    int maxDuration = duration.Value["Item2"];
 
-                                    // Construct the source and destination paths
-                                    string srcPath = file;
-                                    string destPath = Path.Combine(fileDirectory, duration.Key, Path.GetFileName(file));
+                                    if (fileDuration >= minDuration && fileDuration <= maxDuration)
+                                    {
+                                        // Get the parent directory of the file
+                                        string fileDirectory = Directory.GetParent(file).FullName;
 
-                                    // Skip if the file is already in the correct directory
-                                    if (Path.GetDirectoryName(srcPath) == Path.GetDirectoryName(destPath))
-                                        continue;
+                                        // Construct the source and destination paths
+                                        string srcPath = file;
+                                        string destDirectory = Path.Combine(fileDirectory, duration.Key);
+                                        string destPath = Path.Combine(destDirectory, Path.GetFileName(file));
 
-                                    // Create the destination folder if it doesn't exist
-                                    Directory.CreateDirectory(Path.GetDirectoryName(destPath));
+                                        // Skip if the file is already in the correct directory
+                                        if (Path.GetDirectoryName(srcPath) == Path.GetDirectoryName(destPath))
+                                            break;
 
-                                    // Move the file
-                                    File.Move(srcPath, destPath);
+                                        // Skip if the file already exists at the destination
+                                        if (File.Exists(destPath))
+                                            break;
 
-                                    // Report progress
-                                    processedFiles++;
-                                    ((IProgress<int>)progress).Report((int)((double)processedFiles / totalFiles * 100));
-                                    break;
+                                        // Create the destination folder if it doesn't exist
+                                        Directory.CreateDirectory(destDirectory);
+
+                                        // Move the file
+                                        File.Move(srcPath, destPath);
+
+                                        // Report progress
+                                        Interlocked.Increment(ref processedFiles);
+                                        ((IProgress<int>)progress).Report((int)((double)processedFiles / totalFiles * 100));
+                                        break;
+                                    }
                                 }
                             }
+                            catch (Exception ex)
+                            {
+                                // Add the file to the exception list
+                                exceptionFiles.Add(file);
+                                // Log the exception for debugging
+                                Console.WriteLine($"Error processing file {file}: {ex.Message}");
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            // Add the file to the exception list
-                            exceptionFiles.Add(file);
-                        }
-                    }
+                    });
+                }, token);
+
+                progressBar_Time.Value = 0;
+
+                // Show a message box with all the files that caused exceptions
+                if (exceptionFiles.Count > 0)
+                {
+                    MessageBox.Show($"An error occurred while sorting the following files:\n{string.Join("\n", exceptionFiles)}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            });
-            progressBar_Time.Value = 0;
 
-            // Show a message box with all the files that caused exceptions
-            if (exceptionFiles.Count > 0)
-            {
-                MessageBox.Show($"An error occurred while sorting the following files:\n{string.Join("\n", exceptionFiles)}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ScanFiles(rootPath);
+                RepopulateTreeView(rootPath);
             }
-
-            ScanFiles(rootPath);
-            RepopulateTreeView(rootPath);
         }
 
         public async Task SortByResolution(string rootPath)
