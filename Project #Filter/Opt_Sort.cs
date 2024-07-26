@@ -623,6 +623,14 @@ namespace Project__Filter
                     foreach (var file in group)
                     {
                         string destPath = Path.Combine(similarFolder, Path.GetFileName(file));
+
+                        // Check if the file already exists in the destination folder
+                        if (File.Exists(destPath))
+                        {
+                            // Skip the file if it already exists
+                            continue;
+                        }
+
                         File.Move(file, destPath);
                     }
 
@@ -635,5 +643,6 @@ namespace Project__Filter
             ScanFiles(rootPath);
             RepopulateTreeView(rootPath);
         }
+
     }
 }
