@@ -553,64 +553,100 @@ namespace Project__Filter
                 progressBar_Time.Value = value;
             });
 
-            // Run the sorting operation in a separate thread
+            // Calculate total number of directories for progress reporting
+            int totalDirectories = directories.Count;
+            int processedDirectories = 0;
+
+            // Create a list to store files that caused exceptions
+            List<string> exceptionFiles = new List<string>();
+
+            // Run the sorting operation in a separate task
             await Task.Run(() =>
             {
-                for (int i = 0; i < directories.Count; i++)
+                // Use Parallel.ForEach for parallel processing of directories
+                Parallel.ForEach(directories, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, (directory) =>
                 {
-                    var directory = directories[i];
-
-                    // Get all files in the directory
-                    var files = Directory.GetFiles(directory);
-
-                    foreach (var file in files)
+                    try
                     {
-                        // Get the first letter of the file name
-                        char firstLetter = Char.ToUpper(Path.GetFileName(file)[0]);
+                        // Get all files in the directory
+                        var files = Directory.GetFiles(directory);
 
-                        // If the first letter is not a letter, get the next character that is a letter
-                        if (!Char.IsLetter(firstLetter))
+                        foreach (var file in files)
                         {
-                            foreach (char c in Path.GetFileName(file))
+                            try
                             {
-                                if (Char.IsLetter(c))
+                                // Get the first letter of the file name
+                                char firstLetter = Char.ToUpper(Path.GetFileName(file)[0]);
+
+                                // If the first letter is not a letter, get the next character that is a letter
+                                if (!Char.IsLetter(firstLetter))
                                 {
-                                    firstLetter = Char.ToUpper(c);
-                                    break;
+                                    foreach (char c in Path.GetFileName(file))
+                                    {
+                                        if (Char.IsLetter(c))
+                                        {
+                                            firstLetter = Char.ToUpper(c);
+                                            break;
+                                        }
+                                    }
                                 }
+
+                                // Get the directory of the file
+                                string fileDirectory = Path.GetDirectoryName(file);
+
+                                // Determine the destination folder based on the first letter
+                                string letterFolder;
+                                if (firstLetter < 128)  // ASCII characters
+                                {
+                                    letterFolder = firstLetter.ToString();
+                                }
+                                else  // Non-ASCII characters
+                                {
+                                    letterFolder = "Special Characters";
+                                }
+
+                                // Create the destination folder if it doesn't exist
+                                string destinationDirectory = Path.Combine(fileDirectory, letterFolder);
+                                Directory.CreateDirectory(destinationDirectory);
+
+                                // Construct the destination path
+                                string destPath = Path.Combine(destinationDirectory, Path.GetFileName(file));
+
+                                // Skip if the file already exists at the destination
+                                if (File.Exists(destPath))
+                                    continue;
+
+                                // Move the file
+                                File.Move(file, destPath);
+                            }
+                            catch (Exception ex)
+                            {
+                                // Add the file to the exception list
+                                exceptionFiles.Add(file);
+                                // Log the exception for debugging
+                                Console.WriteLine($"Error processing file {file}: {ex.Message}");
                             }
                         }
-
-                        // Get the directory of the file
-                        string fileDirectory = Path.GetDirectoryName(file);
-
-                        // Determine the destination folder based on the first letter
-                        string letterFolder;
-                        if (firstLetter < 128)  // ASCII characters
-                        {
-                            letterFolder = firstLetter.ToString();
-                        }
-                        else  // Non-ASCII characters
-                        {
-                            letterFolder = "Special Characters";
-                        }
-
-                        // Create the destination folder if it doesn't exist
-                        string destinationDirectory = Path.Combine(fileDirectory, letterFolder);
-                        Directory.CreateDirectory(destinationDirectory);
-
-                        // Construct the destination path
-                        string destPath = Path.Combine(destinationDirectory, Path.GetFileName(file));
-
-                        // Move the file
-                        File.Move(file, destPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log directory-level exceptions
+                        Console.WriteLine($"Error processing directory {directory}: {ex.Message}");
                     }
 
                     // Report progress
-                    ((IProgress<int>)progress).Report((i + 1) * 100 / directories.Count);
-                }
+                    Interlocked.Increment(ref processedDirectories);
+                    ((IProgress<int>)progress).Report((int)((double)processedDirectories / totalDirectories * 100));
+                });
             });
+
             progressBar_Time.Value = 0;
+
+            // Show a message box with all the files that caused exceptions
+            if (exceptionFiles.Count > 0)
+            {
+                MessageBox.Show($"An error occurred while sorting the following files:\n{string.Join("\n", exceptionFiles)}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             ScanFiles(rootPath);
             RepopulateTreeView(rootPath);
