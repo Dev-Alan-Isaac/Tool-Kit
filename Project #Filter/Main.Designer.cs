@@ -132,7 +132,7 @@
             // 
             // button_Git
             // 
-            button_Git.BackgroundImage = Properties.Resources.icons8_github_50;
+            button_Git.BackgroundImage = Properties.Resources.GitHub;
             button_Git.BackgroundImageLayout = ImageLayout.Zoom;
             button_Git.Cursor = Cursors.Hand;
             button_Git.FlatAppearance.BorderSize = 0;
