@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
@@ -67,10 +68,10 @@ namespace Project__Filter
             }
         }
 
-        private void button_Add_Click(object sender, EventArgs e)
+        private void button_Add_Click_1(object sender, EventArgs e)
         {
             // Get the new item from the text box
-            string newItem = textBox_Item.Text.Trim().ToLower();
+            string newItem = Interaction.InputBox("Please enter the new item:", "New Item", "", -1, -1).ToLower().Trim();
 
             if (radioButton_Folder.Checked)
             {
@@ -95,17 +96,19 @@ namespace Project__Filter
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Please select one of the options.", "Option Not Selected", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             // Serialize the dictionary back into JSON
             string json = JsonConvert.SerializeObject(myDict, Formatting.Indented);
 
             // Write the JSON back to the file
             File.WriteAllText("Folders.json", json);
-
-            textBox_Item.Text = "";
         }
 
-        private void button_Remove_Click(object sender, EventArgs e)
+        private void button_Remove_Click_1(object sender, EventArgs e)
         {
             if (radioButton_Folder.Checked)
             {
