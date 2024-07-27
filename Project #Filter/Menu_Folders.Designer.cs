@@ -28,128 +28,114 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button_Remove = new Button();
             listBox_Folders = new ListBox();
             listBox_Extension = new ListBox();
-            button_Add = new Button();
-            label1 = new Label();
-            textBox_Item = new TextBox();
-            radioButton_Folder = new RadioButton();
-            radioButton_Extension = new RadioButton();
-            groupBox = new GroupBox();
-            groupBox2 = new GroupBox();
             panel1 = new Panel();
             panel2 = new Panel();
             panel3 = new Panel();
             groupBox1 = new GroupBox();
-            groupBox.SuspendLayout();
-            groupBox2.SuspendLayout();
+            groupBox2 = new GroupBox();
+            radioButton_Extension = new RadioButton();
+            radioButton_Folder = new RadioButton();
+            button_Add = new Button();
+            button_Remove = new Button();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
-            // 
-            // button_Remove
-            // 
-            button_Remove.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button_Remove.BackColor = Color.Teal;
-            button_Remove.BackgroundImage = Properties.Resources.icons8_remove_50;
-            button_Remove.BackgroundImageLayout = ImageLayout.Zoom;
-            button_Remove.FlatAppearance.BorderSize = 0;
-            button_Remove.FlatStyle = FlatStyle.Flat;
-            button_Remove.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            button_Remove.ForeColor = Color.White;
-            button_Remove.Location = new Point(178, 262);
-            button_Remove.Margin = new Padding(3, 2, 3, 2);
-            button_Remove.Name = "button_Remove";
-            button_Remove.Size = new Size(128, 39);
-            button_Remove.TabIndex = 39;
-            button_Remove.UseVisualStyleBackColor = false;
-            button_Remove.Click += button_Remove_Click;
             // 
             // listBox_Folders
             // 
+            listBox_Folders.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             listBox_Folders.BackColor = Color.Gray;
             listBox_Folders.BorderStyle = BorderStyle.None;
             listBox_Folders.Cursor = Cursors.Hand;
-            listBox_Folders.Dock = DockStyle.Left;
             listBox_Folders.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold);
             listBox_Folders.ForeColor = Color.White;
             listBox_Folders.FormattingEnabled = true;
-            listBox_Folders.ItemHeight = 18;
-            listBox_Folders.Location = new Point(3, 24);
+            listBox_Folders.ItemHeight = 24;
+            listBox_Folders.Location = new Point(3, 32);
+            listBox_Folders.Margin = new Padding(3, 4, 3, 4);
             listBox_Folders.Name = "listBox_Folders";
-            listBox_Folders.Size = new Size(143, 280);
+            listBox_Folders.Size = new Size(440, 288);
             listBox_Folders.TabIndex = 40;
             listBox_Folders.SelectedIndexChanged += listBox_Folders_SelectedIndexChanged;
             // 
             // listBox_Extension
             // 
+            listBox_Extension.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             listBox_Extension.BackColor = Color.Gray;
             listBox_Extension.BorderStyle = BorderStyle.None;
             listBox_Extension.Cursor = Cursors.Hand;
-            listBox_Extension.Dock = DockStyle.Right;
             listBox_Extension.Font = new Font("Microsoft Sans Serif", 11.25F, FontStyle.Bold);
             listBox_Extension.ForeColor = Color.White;
             listBox_Extension.FormattingEnabled = true;
-            listBox_Extension.ItemHeight = 18;
-            listBox_Extension.Location = new Point(154, 24);
+            listBox_Extension.ItemHeight = 24;
+            listBox_Extension.Location = new Point(449, 32);
+            listBox_Extension.Margin = new Padding(3, 4, 3, 4);
             listBox_Extension.Name = "listBox_Extension";
-            listBox_Extension.Size = new Size(110, 280);
+            listBox_Extension.Size = new Size(209, 288);
             listBox_Extension.TabIndex = 41;
             // 
-            // button_Add
+            // panel1
             // 
-            button_Add.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button_Add.BackColor = Color.Teal;
-            button_Add.BackgroundImage = Properties.Resources.icons8_add_50;
-            button_Add.BackgroundImageLayout = ImageLayout.Zoom;
-            button_Add.FlatAppearance.BorderSize = 0;
-            button_Add.FlatStyle = FlatStyle.Flat;
-            button_Add.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            button_Add.ForeColor = Color.White;
-            button_Add.Location = new Point(5, 262);
-            button_Add.Margin = new Padding(3, 2, 3, 2);
-            button_Add.Name = "button_Add";
-            button_Add.Size = new Size(128, 39);
-            button_Add.TabIndex = 43;
-            button_Add.UseVisualStyleBackColor = false;
-            button_Add.Click += button_Add_Click;
+            panel1.BackColor = Color.FromArgb(0, 64, 64);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(698, 43);
+            panel1.TabIndex = 51;
             // 
-            // label1
+            // panel2
             // 
-            label1.AutoSize = true;
-            label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(6, 35);
-            label1.Name = "label1";
-            label1.Size = new Size(109, 30);
-            label1.TabIndex = 44;
-            label1.Text = "Extension";
+            panel2.BackColor = Color.FromArgb(0, 64, 64);
+            panel2.Dock = DockStyle.Right;
+            panel2.Location = new Point(661, 43);
+            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(37, 450);
+            panel2.TabIndex = 52;
             // 
-            // textBox_Item
+            // panel3
             // 
-            textBox_Item.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox_Item.BackColor = Color.FromArgb(64, 64, 64);
-            textBox_Item.BorderStyle = BorderStyle.FixedSingle;
-            textBox_Item.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox_Item.ForeColor = Color.White;
-            textBox_Item.Location = new Point(7, 67);
-            textBox_Item.Name = "textBox_Item";
-            textBox_Item.Size = new Size(300, 33);
-            textBox_Item.TabIndex = 45;
+            panel3.BackColor = Color.FromArgb(0, 64, 64);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(0, 450);
+            panel3.Margin = new Padding(3, 4, 3, 4);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(661, 43);
+            panel3.TabIndex = 53;
             // 
-            // radioButton_Folder
+            // groupBox1
             // 
-            radioButton_Folder.AutoSize = true;
-            radioButton_Folder.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            radioButton_Folder.ForeColor = Color.White;
-            radioButton_Folder.Location = new Point(19, 42);
-            radioButton_Folder.Name = "radioButton_Folder";
-            radioButton_Folder.Size = new Size(71, 24);
-            radioButton_Folder.TabIndex = 48;
-            radioButton_Folder.TabStop = true;
-            radioButton_Folder.Text = "Folder";
-            radioButton_Folder.UseVisualStyleBackColor = true;
+            groupBox1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            groupBox1.Controls.Add(groupBox2);
+            groupBox1.Controls.Add(listBox_Folders);
+            groupBox1.Controls.Add(listBox_Extension);
+            groupBox1.Dock = DockStyle.Fill;
+            groupBox1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox1.ForeColor = Color.White;
+            groupBox1.Location = new Point(0, 43);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(661, 407);
+            groupBox1.TabIndex = 54;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Folder / Extension";
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(radioButton_Extension);
+            groupBox2.Controls.Add(radioButton_Folder);
+            groupBox2.Controls.Add(button_Add);
+            groupBox2.Controls.Add(button_Remove);
+            groupBox2.Dock = DockStyle.Bottom;
+            groupBox2.ForeColor = Color.White;
+            groupBox2.Location = new Point(3, 324);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(655, 80);
+            groupBox2.TabIndex = 53;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Merge";
             // 
             // radioButton_Extension
             // 
@@ -157,127 +143,94 @@
             radioButton_Extension.AutoSize = true;
             radioButton_Extension.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
             radioButton_Extension.ForeColor = Color.White;
-            radioButton_Extension.Location = new Point(199, 42);
+            radioButton_Extension.Location = new Point(529, 34);
+            radioButton_Extension.Margin = new Padding(3, 4, 3, 4);
             radioButton_Extension.Name = "radioButton_Extension";
-            radioButton_Extension.Size = new Size(95, 24);
+            radioButton_Extension.Size = new Size(120, 29);
             radioButton_Extension.TabIndex = 49;
             radioButton_Extension.TabStop = true;
             radioButton_Extension.Text = "Extension";
             radioButton_Extension.UseVisualStyleBackColor = true;
             // 
-            // groupBox
+            // radioButton_Folder
             // 
-            groupBox.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            groupBox.Controls.Add(groupBox2);
-            groupBox.Controls.Add(button_Remove);
-            groupBox.Controls.Add(button_Add);
-            groupBox.Controls.Add(textBox_Item);
-            groupBox.Controls.Add(label1);
-            groupBox.Dock = DockStyle.Fill;
-            groupBox.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox.ForeColor = Color.White;
-            groupBox.Location = new Point(267, 32);
-            groupBox.Name = "groupBox";
-            groupBox.Size = new Size(312, 306);
-            groupBox.TabIndex = 50;
-            groupBox.TabStop = false;
-            groupBox.Text = "Configuration";
+            radioButton_Folder.AutoSize = true;
+            radioButton_Folder.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            radioButton_Folder.ForeColor = Color.White;
+            radioButton_Folder.Location = new Point(19, 34);
+            radioButton_Folder.Margin = new Padding(3, 4, 3, 4);
+            radioButton_Folder.Name = "radioButton_Folder";
+            radioButton_Folder.Size = new Size(90, 29);
+            radioButton_Folder.TabIndex = 48;
+            radioButton_Folder.TabStop = true;
+            radioButton_Folder.Text = "Folder";
+            radioButton_Folder.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // button_Add
             // 
-            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox2.Controls.Add(radioButton_Extension);
-            groupBox2.Controls.Add(radioButton_Folder);
-            groupBox2.ForeColor = Color.White;
-            groupBox2.Location = new Point(7, 116);
-            groupBox2.Margin = new Padding(3, 2, 3, 2);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(3, 2, 3, 2);
-            groupBox2.Size = new Size(299, 94);
-            groupBox2.TabIndex = 50;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Merge";
+            button_Add.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            button_Add.BackColor = Color.Teal;
+            button_Add.BackgroundImage = Properties.Resources.Add;
+            button_Add.BackgroundImageLayout = ImageLayout.Zoom;
+            button_Add.FlatAppearance.BorderSize = 0;
+            button_Add.FlatStyle = FlatStyle.Flat;
+            button_Add.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
+            button_Add.ForeColor = Color.White;
+            button_Add.Location = new Point(191, 22);
+            button_Add.Name = "button_Add";
+            button_Add.Size = new Size(146, 52);
+            button_Add.TabIndex = 52;
+            button_Add.UseVisualStyleBackColor = false;
+            button_Add.Click += button_Add_Click_1;
             // 
-            // panel1
+            // button_Remove
             // 
-            panel1.BackColor = Color.FromArgb(0, 64, 64);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(611, 32);
-            panel1.TabIndex = 51;
+            button_Remove.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button_Remove.BackColor = Color.Teal;
+            button_Remove.BackgroundImage = Properties.Resources.Remove;
+            button_Remove.BackgroundImageLayout = ImageLayout.Zoom;
+            button_Remove.FlatAppearance.BorderSize = 0;
+            button_Remove.FlatStyle = FlatStyle.Flat;
+            button_Remove.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
+            button_Remove.ForeColor = Color.White;
+            button_Remove.Location = new Point(349, 22);
+            button_Remove.Name = "button_Remove";
+            button_Remove.Size = new Size(146, 52);
+            button_Remove.TabIndex = 51;
+            button_Remove.UseVisualStyleBackColor = false;
+            button_Remove.Click += button_Remove_Click_1;
             // 
-            // panel2
+            // Menu_Folders
             // 
-            panel2.BackColor = Color.FromArgb(0, 64, 64);
-            panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(579, 32);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(32, 338);
-            panel2.TabIndex = 52;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.FromArgb(0, 64, 64);
-            panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 338);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(579, 32);
-            panel3.TabIndex = 53;
-            // 
-            // groupBox1
-            // 
-            groupBox1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            groupBox1.Controls.Add(listBox_Folders);
-            groupBox1.Controls.Add(listBox_Extension);
-            groupBox1.Dock = DockStyle.Left;
-            groupBox1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox1.ForeColor = Color.White;
-            groupBox1.Location = new Point(0, 32);
-            groupBox1.Margin = new Padding(3, 2, 3, 2);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(267, 306);
-            groupBox1.TabIndex = 54;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Folder / Extension";
-            // 
-            // Config_Extensions
-            // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            Controls.Add(groupBox);
             Controls.Add(groupBox1);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
             ForeColor = Color.White;
-            Name = "Config_Extensions";
-            Size = new Size(611, 370);
+            Margin = new Padding(3, 4, 3, 4);
+            Name = "Menu_Folders";
+            Size = new Size(698, 493);
             Load += Config_Load;
-            groupBox.ResumeLayout(false);
-            groupBox.PerformLayout();
+            groupBox1.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
-            groupBox1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-        private Button button_Remove;
         private ListBox listBox_Folders;
         private ListBox listBox_Extension;
-        private Button button_Add;
-        private Label label1;
-        private TextBox textBox_Item;
-        private RadioButton radioButton_Folder;
-        private RadioButton radioButton_Extension;
-        private GroupBox groupBox;
         private Panel panel1;
         private Panel panel2;
         private Panel panel3;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
+        private RadioButton radioButton_Extension;
+        private RadioButton radioButton_Folder;
+        private Button button_Remove;
+        private Button button_Add;
     }
 }
