@@ -20,7 +20,7 @@
           }
         }
       },
-      "Aspose.PDF/24.6.0": {
+      "Aspose.PDF/24.7.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyModel": "8.0.0",
@@ -44,7 +44,7 @@
           }
         }
       },
-      "Aspose.Slides.NET/24.6.0": {
+      "Aspose.Slides.NET/24.7.0": {
         "type": "package",
         "dependencies": {
           "System.Drawing.Common": "7.0.0",
@@ -196,10 +196,10 @@
           "lib/net461/itextsharp.dll": {}
         }
       },
-      "Magick.NET-Q16-AnyCPU/13.9.1": {
+      "Magick.NET-Q16-AnyCPU/13.10.0": {
         "type": "package",
         "dependencies": {
-          "Magick.NET.Core": "13.9.1"
+          "Magick.NET.Core": "13.10.0"
         },
         "compile": {
           "lib/netstandard21/Magick.NET-Q16-AnyCPU.dll": {
@@ -249,7 +249,7 @@
           }
         }
       },
-      "Magick.NET.Core/13.9.1": {
+      "Magick.NET.Core/13.10.0": {
         "type": "package",
         "compile": {
           "lib/netstandard21/Magick.NET.Core.dll": {
@@ -2111,14 +2111,14 @@
         "lib/netstandard2.0/Aspose.Cells.xml"
       ]
     },
-    "Aspose.PDF/24.6.0": {
-      "sha512": "dmQEFAX2qFf+a53NcJcNjM8ZTq0CiUu3uwEjidf5odg8CGV2YTm/oxEbg4YMVliIdS9Lg0vxRnLfG+beblVpgw==",
+    "Aspose.PDF/24.7.0": {
+      "sha512": "IAbrfAeHlQszGf2Jj+2bfZBuOlW4bq1YfZ3w0PhQoXkEvyvjO1WxCdDtDPRKaYbRVB9hVcAomevBj6GC/nkyXw==",
       "type": "package",
-      "path": "aspose.pdf/24.6.0",
+      "path": "aspose.pdf/24.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "aspose.pdf.24.6.0.nupkg.sha512",
+        "aspose.pdf.24.7.0.nupkg.sha512",
         "aspose.pdf.nuspec",
         "images/aspose_pdf-for-net.png",
         "lib/net4.8.1/Aspose.PDF.dll",
@@ -2136,16 +2136,16 @@
         "license/thirdpartylicenses-Aspose.PDF for .NET.txt"
       ]
     },
-    "Aspose.Slides.NET/24.6.0": {
-      "sha512": "XN6UUjGCwTtqJpbW2H3sZeU1MnC+DeGwLndfgcizTnd6ytRpZBTkRV5Z3uhiIJIFY8owa8VtXJ5ugcRqdaNOfw==",
+    "Aspose.Slides.NET/24.7.0": {
+      "sha512": "CZEzzrCnlJ0oVb4HlqihmYT/cIeXGsBc/eG1H6XHpt9JuXmsd7RYr/BMwVBbYDb8l65strqqma5iQLM/wEIYLg==",
       "type": "package",
-      "path": "aspose.slides.net/24.6.0",
+      "path": "aspose.slides.net/24.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Aspose_End-User-License-Agreement.md",
         "Help/Aspose.Slides.chm",
-        "aspose.slides.net.24.6.0.nupkg.sha512",
+        "aspose.slides.net.24.7.0.nupkg.sha512",
         "aspose.slides.net.nuspec",
         "aspose_slides-for-net-min.png",
         "lib/net2.0/Aspose.Slides.dll",
@@ -2387,10 +2387,10 @@
         "notice.txt"
       ]
     },
-    "Magick.NET-Q16-AnyCPU/13.9.1": {
-      "sha512": "F4EBW7xQfQkNf4+m5VQzgqbjlkUAEMNeCtcFq/PyY5LWDjzwusezWLMrJCDeYdGP7HXOBRMoDViJLcSq3UUzlg==",
+    "Magick.NET-Q16-AnyCPU/13.10.0": {
+      "sha512": "9BkP6lGTGliyuDVpIh0SWstLpGloF+Ib96MFQSvEaYEp9qaOcS6Rv1MF3FoXzQ+YSQtgqw3D0xrvczklhdN6aA==",
       "type": "package",
-      "path": "magick.net-q16-anycpu/13.9.1",
+      "path": "magick.net-q16-anycpu/13.10.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2406,7 +2406,7 @@
         "lib/netstandard20/Magick.NET-Q16-AnyCPU.xml",
         "lib/netstandard21/Magick.NET-Q16-AnyCPU.dll",
         "lib/netstandard21/Magick.NET-Q16-AnyCPU.xml",
-        "magick.net-q16-anycpu.13.9.1.nupkg.sha512",
+        "magick.net-q16-anycpu.13.10.0.nupkg.sha512",
         "magick.net-q16-anycpu.nuspec",
         "runtimes/linux-arm64/native/Magick.Native-Q16-arm64.dll.so",
         "runtimes/linux-musl-x64/native/Magick.Native-Q16-x64.dll.so",
@@ -2418,10 +2418,10 @@
         "runtimes/win-x86/native/Magick.Native-Q16-x86.dll"
       ]
     },
-    "Magick.NET.Core/13.9.1": {
-      "sha512": "zZUl649l0AtS8VqR2NAe4Jmxd8ibY3QyYpe1RSNW33qPdmpI5RWkyUrheJ2HgMviNbUBG5IbhU3m/Oj+yPfimA==",
+    "Magick.NET.Core/13.10.0": {
+      "sha512": "qss+Y4/K6SiGwbyCThqTl9ykevnSzFuT4AMIaymq8jN+6kimKjMHf4rvtagLWQ+vPH9xU1+pX6MmBOZe+D+fyA==",
       "type": "package",
-      "path": "magick.net.core/13.9.1",
+      "path": "magick.net.core/13.10.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2432,7 +2432,7 @@
         "lib/netstandard20/Magick.NET.Core.xml",
         "lib/netstandard21/Magick.NET.Core.dll",
         "lib/netstandard21/Magick.NET.Core.xml",
-        "magick.net.core.13.9.1.nupkg.sha512",
+        "magick.net.core.13.10.0.nupkg.sha512",
         "magick.net.core.nuspec"
       ]
     },
@@ -5738,12 +5738,12 @@
   "projectFileDependencyGroups": {
     "net8.0-windows10.0.22621": [
       "Aspose.Cells >= 24.7.0",
-      "Aspose.PDF >= 24.6.0",
-      "Aspose.Slides.NET >= 24.6.0",
+      "Aspose.PDF >= 24.7.0",
+      "Aspose.Slides.NET >= 24.7.0",
       "Aspose.Words >= 24.7.0",
       "Bunifu.UI.WinForms >= 6.1.0",
       "HtmlAgilityPack >= 1.11.61",
-      "Magick.NET-Q16-AnyCPU >= 13.9.1",
+      "Magick.NET-Q16-AnyCPU >= 13.10.0",
       "MediaToolkit >= 1.1.0.1",
       "Microsoft.Windows.Compatibility >= 8.0.7",
       "NAudio >= 2.2.1",
@@ -5808,11 +5808,11 @@
           },
           "Aspose.PDF": {
             "target": "Package",
-            "version": "[24.6.0, )"
+            "version": "[24.7.0, )"
           },
           "Aspose.Slides.NET": {
             "target": "Package",
-            "version": "[24.6.0, )"
+            "version": "[24.7.0, )"
           },
           "Aspose.Words": {
             "target": "Package",
@@ -5828,7 +5828,7 @@
           },
           "Magick.NET-Q16-AnyCPU": {
             "target": "Package",
-            "version": "[13.9.1, )"
+            "version": "[13.10.0, )"
           },
           "MediaToolkit": {
             "target": "Package",

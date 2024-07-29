@@ -52,11 +52,11 @@
             },
             "Aspose.PDF": {
               "target": "Package",
-              "version": "[24.6.0, )"
+              "version": "[24.7.0, )"
             },
             "Aspose.Slides.NET": {
               "target": "Package",
-              "version": "[24.6.0, )"
+              "version": "[24.7.0, )"
             },
             "Aspose.Words": {
               "target": "Package",
@@ -72,7 +72,7 @@
             },
             "Magick.NET-Q16-AnyCPU": {
               "target": "Package",
-              "version": "[13.9.1, )"
+              "version": "[13.10.0, )"
             },
             "MediaToolkit": {
               "target": "Package",
