@@ -13,8 +13,6 @@ namespace Project__Filter
 {
     public partial class Menu_Sizes : UserControl
     {
-        private Dictionary<string, int> myDict;
-
         public Menu_Sizes()
         {
             InitializeComponent();
