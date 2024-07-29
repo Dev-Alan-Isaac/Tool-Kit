@@ -75,46 +75,40 @@ namespace Project__Filter
 
         private async void button_Extract_Click(object sender, EventArgs e)
         {
-            try
+            // Get the selected item from the ComboBox
+            string selectedItem = comboBox_Select.SelectedItem.ToString();
+            if (!string.IsNullOrEmpty(selectedItem))
             {
-                // Get the selected item from the ComboBox
-                string selectedItem = comboBox_Select.SelectedItem.ToString();
-                if (!string.IsNullOrEmpty(selectedItem))
+                switch (selectedItem)
                 {
-                    switch (selectedItem)
-                    {
-                        case "Extract Files":
-                            await MoveFiles(selectedPath);
-                            break;
-                        case "Uncompress RAR":
-                            UncompressRar(selectedPath);
-                            break;
-                        case "Uncompress TAR":
-                            UncompressTar(selectedPath);
-                            break;
-                        case "Uncompress ZIP":
-                            UnzipDirectory(selectedPath);
-                            break;
-                        default:
-                            // Handle the case where no valid option is selected
-                            MessageBox.Show("Please select a valid option.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            break;
-                    }
-
-                    if (checkBox_Delete.Checked)
-                    {
-                        DeleteFolders(selectedPath);
-                    }
+                    case "Extract Files":
+                        await MoveFiles(selectedPath);
+                        break;
+                    case "Uncompress RAR":
+                        UncompressRar(selectedPath);
+                        break;
+                    case "Uncompress TAR":
+                        UncompressTar(selectedPath);
+                        break;
+                    case "Uncompress ZIP":
+                        UnzipDirectory(selectedPath);
+                        break;
+                    default:
+                        // Handle the case where no valid option is selected
+                        MessageBox.Show("Please select a valid option.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        break;
                 }
-                else
+
+                if (checkBox_Delete.Checked)
                 {
-                    MessageBox.Show("Please select a valid option.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DeleteFolders(selectedPath);
                 }
             }
-            catch (Exception ex)
+            else
             {
                 MessageBox.Show("Please select a valid option.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         // Functions
