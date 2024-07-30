@@ -275,7 +275,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.Home_BreadCrub;
+            pictureBox1.Image = Properties.Resources.Home_BreadCrumb;
             pictureBox1.Location = new Point(3, 35);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(63, 61);

@@ -71,12 +71,12 @@ namespace Project__Filter.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] Background_Home {
+        internal static System.Drawing.Bitmap Background_Home {
             get {
                 object obj = ResourceManager.GetObject("Background_Home", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -233,6 +233,16 @@ namespace Project__Filter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Config_BreadCrumb {
+            get {
+                object obj = ResourceManager.GetObject("Config_BreadCrumb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Extract_BreadCrumb {
             get {
                 object obj = ResourceManager.GetObject("Extract_BreadCrumb", resourceCulture);
@@ -243,9 +253,9 @@ namespace Project__Filter.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Home_BreadCrub {
+        internal static System.Drawing.Bitmap Home_BreadCrumb {
             get {
-                object obj = ResourceManager.GetObject("Home_BreadCrub", resourceCulture);
+                object obj = ResourceManager.GetObject("Home_BreadCrumb", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
