@@ -108,7 +108,7 @@
             // 
             button_Path.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             button_Path.BackColor = Color.FromArgb(0, 64, 64);
-            button_Path.BackgroundImage = Properties.Resources.Add_File;
+            button_Path.BackgroundImage = Properties.Resources.Button_Icon_AddFile;
             button_Path.BackgroundImageLayout = ImageLayout.Zoom;
             button_Path.FlatAppearance.BorderSize = 0;
             button_Path.FlatStyle = FlatStyle.Flat;

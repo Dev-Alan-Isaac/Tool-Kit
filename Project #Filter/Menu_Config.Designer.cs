@@ -67,7 +67,7 @@
             button_Size.FlatStyle = FlatStyle.Flat;
             button_Size.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Size.ForeColor = Color.White;
-            button_Size.Image = Properties.Resources.Aspect_Ratio;
+            button_Size.Image = Properties.Resources.Button_Icon_Aspect;
             button_Size.Location = new Point(30, 70);
             button_Size.Margin = new Padding(3, 2, 3, 2);
             button_Size.Name = "button_Size";
@@ -86,7 +86,7 @@
             button_Folder.FlatStyle = FlatStyle.Flat;
             button_Folder.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Folder.ForeColor = Color.White;
-            button_Folder.Image = Properties.Resources.Folder;
+            button_Folder.Image = Properties.Resources.Button_Icon_Folder;
             button_Folder.Location = new Point(30, 26);
             button_Folder.Margin = new Padding(3, 2, 3, 2);
             button_Folder.Name = "button_Folder";

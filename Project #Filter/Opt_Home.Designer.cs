@@ -68,7 +68,6 @@
             // pictureBox1
             // 
             pictureBox1.BackColor = Color.FromArgb(64, 64, 64);
-            pictureBox1.BackgroundImage = Properties.Resources.Background;
             pictureBox1.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(0, 32);
