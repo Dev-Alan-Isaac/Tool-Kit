@@ -226,14 +226,15 @@
             // 
             // button_Config
             // 
-            button_Config.Anchor = AnchorStyles.Right;
             button_Config.Cursor = Cursors.Hand;
+            button_Config.Dock = DockStyle.Right;
             button_Config.FlatAppearance.BorderSize = 0;
+            button_Config.FlatAppearance.MouseOverBackColor = SystemColors.Highlight;
             button_Config.FlatStyle = FlatStyle.Flat;
             button_Config.Image = Properties.Resources.Button_Icon_Config;
-            button_Config.Location = new Point(806, 11);
+            button_Config.Location = new Point(778, 0);
             button_Config.Name = "button_Config";
-            button_Config.Size = new Size(29, 33);
+            button_Config.Size = new Size(50, 53);
             button_Config.TabIndex = 8;
             button_Config.UseVisualStyleBackColor = true;
             button_Config.Click += button_Config_Click;
@@ -252,14 +253,15 @@
             // 
             // button_Exit
             // 
-            button_Exit.Anchor = AnchorStyles.Right;
             button_Exit.Cursor = Cursors.Hand;
+            button_Exit.Dock = DockStyle.Right;
             button_Exit.FlatAppearance.BorderSize = 0;
+            button_Exit.FlatAppearance.MouseOverBackColor = Color.FromArgb(192, 0, 0);
             button_Exit.FlatStyle = FlatStyle.Flat;
             button_Exit.Image = Properties.Resources.Button_Icon_Power;
-            button_Exit.Location = new Point(848, 11);
+            button_Exit.Location = new Point(828, 0);
             button_Exit.Name = "button_Exit";
-            button_Exit.Size = new Size(29, 33);
+            button_Exit.Size = new Size(57, 53);
             button_Exit.TabIndex = 3;
             button_Exit.UseVisualStyleBackColor = true;
             button_Exit.Click += button_Exit_Click;
@@ -372,12 +374,12 @@
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             panel1.BackColor = Color.FromArgb(0, 64, 64);
-            panel1.Location = new Point(1098, 51);
+            panel1.Dock = DockStyle.Right;
+            panel1.Location = new Point(1098, 53);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(37, 60);
+            panel1.Size = new Size(37, 630);
             panel1.TabIndex = 13;
             // 
             // config_Menu1
