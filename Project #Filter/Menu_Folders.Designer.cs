@@ -170,7 +170,7 @@
             // 
             button_Add.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button_Add.BackColor = Color.Teal;
-            button_Add.BackgroundImage = Properties.Resources.Add;
+            button_Add.BackgroundImage = Properties.Resources.Button_Icon_Add;
             button_Add.BackgroundImageLayout = ImageLayout.Zoom;
             button_Add.FlatAppearance.BorderSize = 0;
             button_Add.FlatStyle = FlatStyle.Flat;
@@ -187,7 +187,7 @@
             // 
             button_Remove.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             button_Remove.BackColor = Color.Teal;
-            button_Remove.BackgroundImage = Properties.Resources.Remove;
+            button_Remove.BackgroundImage = Properties.Resources.Button_Icon_Remove;
             button_Remove.BackgroundImageLayout = ImageLayout.Zoom;
             button_Remove.FlatAppearance.BorderSize = 0;
             button_Remove.FlatStyle = FlatStyle.Flat;

@@ -68,7 +68,7 @@
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.WIP;
+            pictureBox1.Image = Properties.Resources.Background_WIP;
             pictureBox1.Location = new Point(0, 43);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(661, 407);
