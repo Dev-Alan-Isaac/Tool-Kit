@@ -56,7 +56,7 @@
             },
             "Aspose.Slides.NET": {
               "target": "Package",
-              "version": "[24.7.0, )"
+              "version": "[24.8.0, )"
             },
             "Aspose.Words": {
               "target": "Package",
@@ -68,7 +68,7 @@
             },
             "HtmlAgilityPack": {
               "target": "Package",
-              "version": "[1.11.61, )"
+              "version": "[1.11.62, )"
             },
             "Magick.NET-Q16-AnyCPU": {
               "target": "Package",
@@ -109,6 +109,10 @@
             "System.Formats.Asn1": {
               "target": "Package",
               "version": "[8.0.1, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[8.0.4, )"
             },
             "iTextSharp": {
               "target": "Package",

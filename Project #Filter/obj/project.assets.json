@@ -44,7 +44,7 @@
           }
         }
       },
-      "Aspose.Slides.NET/24.7.0": {
+      "Aspose.Slides.NET/24.8.0": {
         "type": "package",
         "dependencies": {
           "System.Drawing.Common": "7.0.0",
@@ -171,7 +171,7 @@
           "build/_._": {}
         }
       },
-      "HtmlAgilityPack/1.11.61": {
+      "HtmlAgilityPack/1.11.62": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {
@@ -1929,7 +1929,7 @@
           }
         }
       },
-      "System.Text.Json/8.0.0": {
+      "System.Text.Json/8.0.4": {
         "type": "package",
         "dependencies": {
           "System.Text.Encodings.Web": "8.0.0"
@@ -2136,16 +2136,16 @@
         "license/thirdpartylicenses-Aspose.PDF for .NET.txt"
       ]
     },
-    "Aspose.Slides.NET/24.7.0": {
-      "sha512": "CZEzzrCnlJ0oVb4HlqihmYT/cIeXGsBc/eG1H6XHpt9JuXmsd7RYr/BMwVBbYDb8l65strqqma5iQLM/wEIYLg==",
+    "Aspose.Slides.NET/24.8.0": {
+      "sha512": "WLhfv7YwMVAGT/m6R9MmA8b7/PRp3rF6L4gi2L7994Vvp1XmEpw1g9iQ7oCmIFw1Q7R2HNuvv5UwELN8aAHBVQ==",
       "type": "package",
-      "path": "aspose.slides.net/24.7.0",
+      "path": "aspose.slides.net/24.8.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Aspose_End-User-License-Agreement.md",
         "Help/Aspose.Slides.chm",
-        "aspose.slides.net.24.7.0.nupkg.sha512",
+        "aspose.slides.net.24.8.0.nupkg.sha512",
         "aspose.slides.net.nuspec",
         "aspose_slides-for-net-min.png",
         "lib/net2.0/Aspose.Slides.dll",
@@ -2323,14 +2323,14 @@
         "netstandardtask/Mono.Cecil.pdb"
       ]
     },
-    "HtmlAgilityPack/1.11.61": {
-      "sha512": "hqZASeEFHS9quHvfZSwaULoAJLWkOYVPiQjc3P9J4pQS8vSYzrP3bxe04Vm7vYYuxwbQhq9hCSVvZVLTyRaNaQ==",
+    "HtmlAgilityPack/1.11.62": {
+      "sha512": "KS4h7ZjWsO6YixRfQgYdR+PZMbTaZod1LBPi+1Ph7dJCARzQm7DOKe5HPhP/o0EWX5l7QCgAZHa4VOa4pQa8JQ==",
       "type": "package",
-      "path": "htmlagilitypack/1.11.61",
+      "path": "htmlagilitypack/1.11.62",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "htmlagilitypack.1.11.61.nupkg.sha512",
+        "htmlagilitypack.1.11.62.nupkg.sha512",
         "htmlagilitypack.nuspec",
         "lib/Net35/HtmlAgilityPack.dll",
         "lib/Net35/HtmlAgilityPack.pdb",
@@ -5469,10 +5469,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Text.Json/8.0.0": {
-      "sha512": "OdrZO2WjkiEG6ajEFRABTRCi/wuXQPxeV6g8xvUJqdxMvvuCCEk86zPla8UiIQJz3durtUEbNyY/3lIhS0yZvQ==",
+    "System.Text.Json/8.0.4": {
+      "sha512": "bAkhgDJ88XTsqczoxEMliSrpijKZHhbJQldhAmObj/RbrN3sU5dcokuXmWJWsdQAhiMJ9bTayWsL1C9fbbCRhw==",
       "type": "package",
-      "path": "system.text.json/8.0.0",
+      "path": "system.text.json/8.0.4",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5537,7 +5537,7 @@
         "lib/net8.0/System.Text.Json.xml",
         "lib/netstandard2.0/System.Text.Json.dll",
         "lib/netstandard2.0/System.Text.Json.xml",
-        "system.text.json.8.0.0.nupkg.sha512",
+        "system.text.json.8.0.4.nupkg.sha512",
         "system.text.json.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -5739,10 +5739,10 @@
     "net8.0-windows10.0.22621": [
       "Aspose.Cells >= 24.7.0",
       "Aspose.PDF >= 24.7.0",
-      "Aspose.Slides.NET >= 24.7.0",
+      "Aspose.Slides.NET >= 24.8.0",
       "Aspose.Words >= 24.7.0",
       "Bunifu.UI.WinForms >= 6.1.0",
-      "HtmlAgilityPack >= 1.11.61",
+      "HtmlAgilityPack >= 1.11.62",
       "Magick.NET-Q16-AnyCPU >= 13.10.0",
       "MediaToolkit >= 1.1.0.1",
       "Microsoft.Windows.Compatibility >= 8.0.7",
@@ -5753,6 +5753,7 @@
       "PDFsharp >= 6.1.1",
       "SharpCompress >= 0.37.2",
       "System.Formats.Asn1 >= 8.0.1",
+      "System.Text.Json >= 8.0.4",
       "iTextSharp >= 5.5.13.4",
       "taglib-sharp-netstandard2.0 >= 2.1.0"
     ]
@@ -5812,7 +5813,7 @@
           },
           "Aspose.Slides.NET": {
             "target": "Package",
-            "version": "[24.7.0, )"
+            "version": "[24.8.0, )"
           },
           "Aspose.Words": {
             "target": "Package",
@@ -5824,7 +5825,7 @@
           },
           "HtmlAgilityPack": {
             "target": "Package",
-            "version": "[1.11.61, )"
+            "version": "[1.11.62, )"
           },
           "Magick.NET-Q16-AnyCPU": {
             "target": "Package",
@@ -5865,6 +5866,10 @@
           "System.Formats.Asn1": {
             "target": "Package",
             "version": "[8.0.1, )"
+          },
+          "System.Text.Json": {
+            "target": "Package",
+            "version": "[8.0.4, )"
           },
           "iTextSharp": {
             "target": "Package",
