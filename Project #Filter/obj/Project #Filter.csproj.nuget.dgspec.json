@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj": {}
+    "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj": {
+    "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
+        "projectUniqueName": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj",
         "projectName": "Project #Filter",
-        "projectPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
-        "packagesPath": "C:\\Users\\Sistemas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\obj\\",
+        "projectPath": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj",
+        "packagesPath": "C:\\Users\\Alan_\\.nuget\\packages\\",
+        "outputPath": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Sistemas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Alan_\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -56,7 +56,7 @@
             },
             "Aspose.Slides.NET": {
               "target": "Package",
-              "version": "[24.7.0, )"
+              "version": "[24.8.0, )"
             },
             "Aspose.Words": {
               "target": "Package",
@@ -68,7 +68,7 @@
             },
             "HtmlAgilityPack": {
               "target": "Package",
-              "version": "[1.11.61, )"
+              "version": "[1.11.62, )"
             },
             "Magick.NET-Q16-AnyCPU": {
               "target": "Package",
@@ -109,6 +109,10 @@
             "System.Formats.Asn1": {
               "target": "Package",
               "version": "[8.0.1, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[8.0.4, )"
             },
             "iTextSharp": {
               "target": "Package",
