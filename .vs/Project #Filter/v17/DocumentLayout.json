@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "E:\\ReposVisualStudio\\Project #Filter\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_folders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_folders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_folders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_folders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\opt_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\opt_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\opt_sort.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_sort.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -13,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\opt_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,20 +58,58 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Menu_Folders.cs",
+              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Folders.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Menu_Folders.cs",
+              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Folders.cs",
+              "RelativeToolTip": "Project #Filter\\Menu_Folders.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-22T20:51:25.384Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Menu_Folders.cs [Design]",
+              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Folders.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Menu_Folders.cs",
+              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Folders.cs [Design]",
+              "RelativeToolTip": "Project #Filter\\Menu_Folders.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-22T20:42:42.953Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Opt_Sort.Designer.cs",
+              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Sort.Designer.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Opt_Sort.Designer.cs",
+              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Sort.Designer.cs",
+              "RelativeToolTip": "Project #Filter\\Opt_Sort.Designer.cs",
+              "ViewState": "AgIAAJcAAAAAAAAAAAAnwLYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-22T19:58:46.968Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Opt_Sort.cs",
               "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Sort.cs",
               "RelativeDocumentMoniker": "Project #Filter\\Opt_Sort.cs",
               "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Sort.cs",
               "RelativeToolTip": "Project #Filter\\Opt_Sort.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-22T19:13:24.321Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Opt_Sort.cs [Design]",
               "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Sort.cs",
               "RelativeDocumentMoniker": "Project #Filter\\Opt_Sort.cs",
@@ -71,20 +121,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "Main.cs",
               "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Main.cs",
               "RelativeDocumentMoniker": "Project #Filter\\Main.cs",
               "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Main.cs",
               "RelativeToolTip": "Project #Filter\\Main.cs",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAYwFYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-22T19:03:17.811Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "Main.cs [Design]",
               "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Main.cs",
               "RelativeDocumentMoniker": "Project #Filter\\Main.cs",

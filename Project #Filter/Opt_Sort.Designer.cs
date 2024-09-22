@@ -42,11 +42,17 @@
             panel_Header = new Panel();
             panel_Footer = new Panel();
             panel_Options = new Panel();
-            checkBox_Duration = new CheckBox();
-            checkBox_Resolution = new CheckBox();
-            checkBox_Alphabet = new CheckBox();
-            checkBox_Size = new CheckBox();
-            checkBox_Include = new CheckBox();
+            panel1 = new Panel();
+            checkBox8 = new CheckBox();
+            checkBox9 = new CheckBox();
+            checkBox10 = new CheckBox();
+            checkBox7 = new CheckBox();
+            checkBox6 = new CheckBox();
+            checkBox5 = new CheckBox();
+            checkBox4 = new CheckBox();
+            checkBox3 = new CheckBox();
+            checkBox2 = new CheckBox();
+            checkBox1 = new CheckBox();
             panel2 = new Panel();
             treeView1 = new TreeView();
             label_Count = new Label();
@@ -55,11 +61,20 @@
             optionsToolStripMenuItem = new ToolStripMenuItem();
             sortToolStripMenuItem = new ToolStripMenuItem();
             fileTypeToolStripMenuItem = new ToolStripMenuItem();
-            extensionToolStripMenuItem = new ToolStripMenuItem();
+            fileSizeToolStripMenuItem = new ToolStripMenuItem();
+            fileDateToolStripMenuItem = new ToolStripMenuItem();
+            fileNameToolStripMenuItem = new ToolStripMenuItem();
+            fileUsageToolStripMenuItem = new ToolStripMenuItem();
+            filePermissionsToolStripMenuItem = new ToolStripMenuItem();
+            customTagsToolStripMenuItem = new ToolStripMenuItem();
+            folderLocationToolStripMenuItem = new ToolStripMenuItem();
+            fileContentTextDocsToolStripMenuItem = new ToolStripMenuItem();
+            mediaMetadataVideosAudioToolStripMenuItem = new ToolStripMenuItem();
             panel_Top.SuspendLayout();
             panel_Header.SuspendLayout();
             panel_Footer.SuspendLayout();
             panel_Options.SuspendLayout();
+            panel1.SuspendLayout();
             panel2.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -95,7 +110,7 @@
             // 
             panel_Bottom.BackColor = Color.FromArgb(0, 64, 64);
             panel_Bottom.Dock = DockStyle.Bottom;
-            panel_Bottom.Location = new Point(0, 373);
+            panel_Bottom.Location = new Point(0, 488);
             panel_Bottom.Margin = new Padding(3, 2, 3, 2);
             panel_Bottom.Name = "panel_Bottom";
             panel_Bottom.Size = new Size(699, 32);
@@ -108,7 +123,7 @@
             panel_Right.Location = new Point(667, 32);
             panel_Right.Margin = new Padding(3, 2, 3, 2);
             panel_Right.Name = "panel_Right";
-            panel_Right.Size = new Size(32, 341);
+            panel_Right.Size = new Size(32, 456);
             panel_Right.TabIndex = 7;
             // 
             // label1
@@ -165,7 +180,6 @@
             button_Filter.TabIndex = 28;
             button_Filter.Text = "Filter";
             button_Filter.UseVisualStyleBackColor = false;
-            button_Filter.Click += button_Filter_Click;
             // 
             // progressBar_Time
             // 
@@ -209,7 +223,7 @@
             panel_Header.Location = new Point(0, 32);
             panel_Header.Margin = new Padding(3, 2, 3, 2);
             panel_Header.Name = "panel_Header";
-            panel_Header.Size = new Size(667, 72);
+            panel_Header.Size = new Size(667, 49);
             panel_Header.TabIndex = 30;
             // 
             // panel_Footer
@@ -219,7 +233,7 @@
             panel_Footer.Controls.Add(button_Filter);
             panel_Footer.Controls.Add(progressBar_Time);
             panel_Footer.Dock = DockStyle.Bottom;
-            panel_Footer.Location = new Point(0, 309);
+            panel_Footer.Location = new Point(0, 424);
             panel_Footer.Margin = new Padding(3, 2, 3, 2);
             panel_Footer.Name = "panel_Footer";
             panel_Footer.Size = new Size(667, 64);
@@ -227,94 +241,163 @@
             // 
             // panel_Options
             // 
-            panel_Options.Controls.Add(checkBox_Duration);
-            panel_Options.Controls.Add(checkBox_Resolution);
-            panel_Options.Controls.Add(checkBox_Alphabet);
-            panel_Options.Controls.Add(checkBox_Size);
-            panel_Options.Controls.Add(checkBox_Include);
+            panel_Options.Controls.Add(panel1);
             panel_Options.Controls.Add(panel2);
             panel_Options.Controls.Add(menuStrip1);
             panel_Options.Dock = DockStyle.Fill;
-            panel_Options.Location = new Point(0, 104);
+            panel_Options.Location = new Point(0, 81);
             panel_Options.Margin = new Padding(3, 2, 3, 2);
             panel_Options.Name = "panel_Options";
-            panel_Options.Size = new Size(667, 205);
+            panel_Options.Size = new Size(667, 343);
             panel_Options.TabIndex = 33;
             // 
-            // checkBox_Duration
+            // panel1
             // 
-            checkBox_Duration.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox_Duration.AutoSize = true;
-            checkBox_Duration.Enabled = false;
-            checkBox_Duration.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            checkBox_Duration.ForeColor = Color.White;
-            checkBox_Duration.Location = new Point(177, 64);
-            checkBox_Duration.Name = "checkBox_Duration";
-            checkBox_Duration.Size = new Size(120, 25);
-            checkBox_Duration.TabIndex = 56;
-            checkBox_Duration.Text = "By Duration";
-            checkBox_Duration.UseVisualStyleBackColor = true;
-            checkBox_Duration.CheckedChanged += checkBox_CheckedChanged;
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panel1.Controls.Add(checkBox8);
+            panel1.Controls.Add(checkBox9);
+            panel1.Controls.Add(checkBox10);
+            panel1.Controls.Add(checkBox7);
+            panel1.Controls.Add(checkBox6);
+            panel1.Controls.Add(checkBox5);
+            panel1.Controls.Add(checkBox4);
+            panel1.Controls.Add(checkBox3);
+            panel1.Controls.Add(checkBox2);
+            panel1.Controls.Add(checkBox1);
+            panel1.Location = new Point(3, 29);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(411, 309);
+            panel1.TabIndex = 58;
             // 
-            // checkBox_Resolution
+            // checkBox8
             // 
-            checkBox_Resolution.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox_Resolution.AutoSize = true;
-            checkBox_Resolution.Enabled = false;
-            checkBox_Resolution.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            checkBox_Resolution.ForeColor = Color.White;
-            checkBox_Resolution.Location = new Point(19, 52);
-            checkBox_Resolution.Name = "checkBox_Resolution";
-            checkBox_Resolution.Size = new Size(134, 25);
-            checkBox_Resolution.TabIndex = 55;
-            checkBox_Resolution.Text = "By Resolution";
-            checkBox_Resolution.UseVisualStyleBackColor = true;
-            checkBox_Resolution.CheckedChanged += checkBox_CheckedChanged;
+            checkBox8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox8.AutoSize = true;
+            checkBox8.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox8.ForeColor = SystemColors.Control;
+            checkBox8.Location = new Point(3, 186);
+            checkBox8.Name = "checkBox8";
+            checkBox8.Size = new Size(143, 25);
+            checkBox8.TabIndex = 9;
+            checkBox8.Text = "Folder Location";
+            checkBox8.UseVisualStyleBackColor = true;
             // 
-            // checkBox_Alphabet
+            // checkBox9
             // 
-            checkBox_Alphabet.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox_Alphabet.AutoSize = true;
-            checkBox_Alphabet.Enabled = false;
-            checkBox_Alphabet.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            checkBox_Alphabet.ForeColor = Color.White;
-            checkBox_Alphabet.Location = new Point(280, 135);
-            checkBox_Alphabet.Name = "checkBox_Alphabet";
-            checkBox_Alphabet.Size = new Size(122, 25);
-            checkBox_Alphabet.TabIndex = 54;
-            checkBox_Alphabet.Text = "By Alphabet";
-            checkBox_Alphabet.UseVisualStyleBackColor = true;
-            checkBox_Alphabet.CheckedChanged += checkBox_CheckedChanged;
+            checkBox9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox9.AutoSize = true;
+            checkBox9.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox9.ForeColor = SystemColors.Control;
+            checkBox9.Location = new Point(3, 212);
+            checkBox9.Name = "checkBox9";
+            checkBox9.Size = new Size(204, 25);
+            checkBox9.TabIndex = 8;
+            checkBox9.Text = "File Content (Text/Docs)";
+            checkBox9.UseVisualStyleBackColor = true;
             // 
-            // checkBox_Size
+            // checkBox10
             // 
-            checkBox_Size.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox_Size.AutoSize = true;
-            checkBox_Size.Enabled = false;
-            checkBox_Size.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            checkBox_Size.ForeColor = Color.White;
-            checkBox_Size.Location = new Point(161, 135);
-            checkBox_Size.Name = "checkBox_Size";
-            checkBox_Size.Size = new Size(83, 25);
-            checkBox_Size.TabIndex = 53;
-            checkBox_Size.Text = "By Size";
-            checkBox_Size.UseVisualStyleBackColor = true;
-            checkBox_Size.CheckedChanged += checkBox_CheckedChanged;
+            checkBox10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox10.AutoSize = true;
+            checkBox10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox10.ForeColor = SystemColors.Control;
+            checkBox10.Location = new Point(3, 238);
+            checkBox10.Name = "checkBox10";
+            checkBox10.Size = new Size(264, 25);
+            checkBox10.TabIndex = 7;
+            checkBox10.Text = "Media Metadata (Videos/Audio)";
+            checkBox10.UseVisualStyleBackColor = true;
             // 
-            // checkBox_Include
+            // checkBox7
             // 
-            checkBox_Include.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox_Include.AutoSize = true;
-            checkBox_Include.Enabled = false;
-            checkBox_Include.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            checkBox_Include.ForeColor = Color.White;
-            checkBox_Include.Location = new Point(19, 135);
-            checkBox_Include.Name = "checkBox_Include";
-            checkBox_Include.Size = new Size(98, 25);
-            checkBox_Include.TabIndex = 52;
-            checkBox_Include.Text = "By Name";
-            checkBox_Include.UseVisualStyleBackColor = true;
-            checkBox_Include.CheckedChanged += checkBox_CheckedChanged;
+            checkBox7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox7.AutoSize = true;
+            checkBox7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox7.ForeColor = SystemColors.Control;
+            checkBox7.Location = new Point(3, 160);
+            checkBox7.Name = "checkBox7";
+            checkBox7.Size = new Size(121, 25);
+            checkBox7.TabIndex = 6;
+            checkBox7.Text = "Custom Tags";
+            checkBox7.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            checkBox6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox6.AutoSize = true;
+            checkBox6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox6.ForeColor = SystemColors.Control;
+            checkBox6.Location = new Point(3, 134);
+            checkBox6.Name = "checkBox6";
+            checkBox6.Size = new Size(143, 25);
+            checkBox6.TabIndex = 5;
+            checkBox6.Text = "File Permissions";
+            checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // checkBox5
+            // 
+            checkBox5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox5.AutoSize = true;
+            checkBox5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox5.ForeColor = SystemColors.Control;
+            checkBox5.Location = new Point(3, 108);
+            checkBox5.Name = "checkBox5";
+            checkBox5.Size = new Size(103, 25);
+            checkBox5.TabIndex = 4;
+            checkBox5.Text = "File Usage";
+            checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            checkBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox4.AutoSize = true;
+            checkBox4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox4.ForeColor = SystemColors.Control;
+            checkBox4.Location = new Point(3, 82);
+            checkBox4.Name = "checkBox4";
+            checkBox4.Size = new Size(101, 25);
+            checkBox4.TabIndex = 3;
+            checkBox4.Text = "File Name";
+            checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            checkBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox3.AutoSize = true;
+            checkBox3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox3.ForeColor = SystemColors.Control;
+            checkBox3.Location = new Point(3, 56);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(92, 25);
+            checkBox3.TabIndex = 2;
+            checkBox3.Text = "File Date";
+            checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox2.AutoSize = true;
+            checkBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox2.ForeColor = SystemColors.Control;
+            checkBox2.Location = new Point(3, 30);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(87, 25);
+            checkBox2.TabIndex = 1;
+            checkBox2.Text = "File Size";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            checkBox1.AutoSize = true;
+            checkBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox1.ForeColor = SystemColors.Control;
+            checkBox1.Location = new Point(3, 4);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(93, 25);
+            checkBox1.TabIndex = 0;
+            checkBox1.Text = "File Type";
+            checkBox1.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -324,7 +407,7 @@
             panel2.Dock = DockStyle.Right;
             panel2.Location = new Point(420, 24);
             panel2.Name = "panel2";
-            panel2.Size = new Size(247, 181);
+            panel2.Size = new Size(247, 319);
             panel2.TabIndex = 27;
             // 
             // treeView1
@@ -333,7 +416,7 @@
             treeView1.Location = new Point(9, 37);
             treeView1.Margin = new Padding(3, 2, 3, 2);
             treeView1.Name = "treeView1";
-            treeView1.Size = new Size(233, 145);
+            treeView1.Size = new Size(233, 283);
             treeView1.TabIndex = 4;
             // 
             // label_Count
@@ -371,29 +454,77 @@
             // 
             // optionsToolStripMenuItem
             // 
-            optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sortToolStripMenuItem, extensionToolStripMenuItem });
+            optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sortToolStripMenuItem });
             optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             optionsToolStripMenuItem.Size = new Size(61, 20);
             optionsToolStripMenuItem.Text = "Options";
             // 
             // sortToolStripMenuItem
             // 
-            sortToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fileTypeToolStripMenuItem });
+            sortToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fileTypeToolStripMenuItem, fileSizeToolStripMenuItem, fileDateToolStripMenuItem, fileNameToolStripMenuItem, fileUsageToolStripMenuItem, filePermissionsToolStripMenuItem, customTagsToolStripMenuItem, folderLocationToolStripMenuItem, fileContentTextDocsToolStripMenuItem, mediaMetadataVideosAudioToolStripMenuItem });
             sortToolStripMenuItem.Name = "sortToolStripMenuItem";
-            sortToolStripMenuItem.Size = new Size(180, 22);
+            sortToolStripMenuItem.Size = new Size(112, 22);
             sortToolStripMenuItem.Text = "Sorting";
             // 
             // fileTypeToolStripMenuItem
             // 
             fileTypeToolStripMenuItem.Name = "fileTypeToolStripMenuItem";
-            fileTypeToolStripMenuItem.Size = new Size(180, 22);
+            fileTypeToolStripMenuItem.Size = new Size(243, 22);
             fileTypeToolStripMenuItem.Text = "File Type";
             // 
-            // extensionToolStripMenuItem
+            // fileSizeToolStripMenuItem
             // 
-            extensionToolStripMenuItem.Name = "extensionToolStripMenuItem";
-            extensionToolStripMenuItem.Size = new Size(180, 22);
-            extensionToolStripMenuItem.Text = "Extension";
+            fileSizeToolStripMenuItem.Name = "fileSizeToolStripMenuItem";
+            fileSizeToolStripMenuItem.Size = new Size(243, 22);
+            fileSizeToolStripMenuItem.Text = "File Size";
+            // 
+            // fileDateToolStripMenuItem
+            // 
+            fileDateToolStripMenuItem.Name = "fileDateToolStripMenuItem";
+            fileDateToolStripMenuItem.Size = new Size(243, 22);
+            fileDateToolStripMenuItem.Text = "File Date";
+            // 
+            // fileNameToolStripMenuItem
+            // 
+            fileNameToolStripMenuItem.Name = "fileNameToolStripMenuItem";
+            fileNameToolStripMenuItem.Size = new Size(243, 22);
+            fileNameToolStripMenuItem.Text = "File Name";
+            // 
+            // fileUsageToolStripMenuItem
+            // 
+            fileUsageToolStripMenuItem.Name = "fileUsageToolStripMenuItem";
+            fileUsageToolStripMenuItem.Size = new Size(243, 22);
+            fileUsageToolStripMenuItem.Text = "File Usage";
+            // 
+            // filePermissionsToolStripMenuItem
+            // 
+            filePermissionsToolStripMenuItem.Name = "filePermissionsToolStripMenuItem";
+            filePermissionsToolStripMenuItem.Size = new Size(243, 22);
+            filePermissionsToolStripMenuItem.Text = "File Permissions";
+            // 
+            // customTagsToolStripMenuItem
+            // 
+            customTagsToolStripMenuItem.Name = "customTagsToolStripMenuItem";
+            customTagsToolStripMenuItem.Size = new Size(243, 22);
+            customTagsToolStripMenuItem.Text = "Custom Tags";
+            // 
+            // folderLocationToolStripMenuItem
+            // 
+            folderLocationToolStripMenuItem.Name = "folderLocationToolStripMenuItem";
+            folderLocationToolStripMenuItem.Size = new Size(243, 22);
+            folderLocationToolStripMenuItem.Text = "Folder Location";
+            // 
+            // fileContentTextDocsToolStripMenuItem
+            // 
+            fileContentTextDocsToolStripMenuItem.Name = "fileContentTextDocsToolStripMenuItem";
+            fileContentTextDocsToolStripMenuItem.Size = new Size(243, 22);
+            fileContentTextDocsToolStripMenuItem.Text = "File Content (Text/Docs)";
+            // 
+            // mediaMetadataVideosAudioToolStripMenuItem
+            // 
+            mediaMetadataVideosAudioToolStripMenuItem.Name = "mediaMetadataVideosAudioToolStripMenuItem";
+            mediaMetadataVideosAudioToolStripMenuItem.Size = new Size(243, 22);
+            mediaMetadataVideosAudioToolStripMenuItem.Text = "Media Metadata (Videos/Audio)";
             // 
             // Opt_Sort
             // 
@@ -408,7 +539,7 @@
             Controls.Add(panel_Top);
             Margin = new Padding(3, 2, 3, 2);
             Name = "Opt_Sort";
-            Size = new Size(699, 405);
+            Size = new Size(699, 520);
             panel_Top.ResumeLayout(false);
             panel_Header.ResumeLayout(false);
             panel_Header.PerformLayout();
@@ -416,6 +547,8 @@
             panel_Footer.PerformLayout();
             panel_Options.ResumeLayout(false);
             panel_Options.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             menuStrip1.ResumeLayout(false);
@@ -441,16 +574,30 @@
         private Panel panel2;
         private Label label_Count;
         private Label label4;
-        private CheckBox checkBox_Alphabet;
-        private CheckBox checkBox_Duration;
-        private CheckBox checkBox_Resolution;
-        private CheckBox checkBox_Size;
-        private CheckBox checkBox_Include;
         private TreeView treeView1;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem optionsToolStripMenuItem;
         private ToolStripMenuItem sortToolStripMenuItem;
         private ToolStripMenuItem fileTypeToolStripMenuItem;
-        private ToolStripMenuItem extensionToolStripMenuItem;
+        private Panel panel1;
+        private CheckBox checkBox2;
+        private CheckBox checkBox1;
+        private CheckBox checkBox7;
+        private CheckBox checkBox6;
+        private CheckBox checkBox5;
+        private CheckBox checkBox4;
+        private CheckBox checkBox3;
+        private CheckBox checkBox8;
+        private CheckBox checkBox9;
+        private CheckBox checkBox10;
+        private ToolStripMenuItem fileSizeToolStripMenuItem;
+        private ToolStripMenuItem fileDateToolStripMenuItem;
+        private ToolStripMenuItem fileNameToolStripMenuItem;
+        private ToolStripMenuItem fileUsageToolStripMenuItem;
+        private ToolStripMenuItem filePermissionsToolStripMenuItem;
+        private ToolStripMenuItem customTagsToolStripMenuItem;
+        private ToolStripMenuItem folderLocationToolStripMenuItem;
+        private ToolStripMenuItem fileContentTextDocsToolStripMenuItem;
+        private ToolStripMenuItem mediaMetadataVideosAudioToolStripMenuItem;
     }
 }
