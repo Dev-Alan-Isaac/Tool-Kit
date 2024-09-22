@@ -57,26 +57,12 @@
             treeView1 = new TreeView();
             label_Count = new Label();
             label4 = new Label();
-            menuStrip1 = new MenuStrip();
-            optionsToolStripMenuItem = new ToolStripMenuItem();
-            sortToolStripMenuItem = new ToolStripMenuItem();
-            fileTypeToolStripMenuItem = new ToolStripMenuItem();
-            fileSizeToolStripMenuItem = new ToolStripMenuItem();
-            fileDateToolStripMenuItem = new ToolStripMenuItem();
-            fileNameToolStripMenuItem = new ToolStripMenuItem();
-            fileUsageToolStripMenuItem = new ToolStripMenuItem();
-            filePermissionsToolStripMenuItem = new ToolStripMenuItem();
-            customTagsToolStripMenuItem = new ToolStripMenuItem();
-            folderLocationToolStripMenuItem = new ToolStripMenuItem();
-            fileContentTextDocsToolStripMenuItem = new ToolStripMenuItem();
-            mediaMetadataVideosAudioToolStripMenuItem = new ToolStripMenuItem();
             panel_Top.SuspendLayout();
             panel_Header.SuspendLayout();
             panel_Footer.SuspendLayout();
             panel_Options.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
-            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // panel_Top
@@ -110,7 +96,7 @@
             // 
             panel_Bottom.BackColor = Color.FromArgb(0, 64, 64);
             panel_Bottom.Dock = DockStyle.Bottom;
-            panel_Bottom.Location = new Point(0, 488);
+            panel_Bottom.Location = new Point(0, 530);
             panel_Bottom.Margin = new Padding(3, 2, 3, 2);
             panel_Bottom.Name = "panel_Bottom";
             panel_Bottom.Size = new Size(699, 32);
@@ -123,7 +109,7 @@
             panel_Right.Location = new Point(667, 32);
             panel_Right.Margin = new Padding(3, 2, 3, 2);
             panel_Right.Name = "panel_Right";
-            panel_Right.Size = new Size(32, 456);
+            panel_Right.Size = new Size(32, 498);
             panel_Right.TabIndex = 7;
             // 
             // label1
@@ -157,7 +143,7 @@
             checkBox_Delete.AutoSize = true;
             checkBox_Delete.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
             checkBox_Delete.ForeColor = Color.White;
-            checkBox_Delete.Location = new Point(334, 13);
+            checkBox_Delete.Location = new Point(408, 13);
             checkBox_Delete.Margin = new Padding(3, 2, 3, 2);
             checkBox_Delete.Name = "checkBox_Delete";
             checkBox_Delete.Size = new Size(15, 14);
@@ -195,11 +181,11 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.FromArgb(64, 64, 64);
-            label2.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
+            label2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(3, 10);
+            label2.Location = new Point(3, 7);
             label2.Name = "label2";
-            label2.Size = new Size(307, 19);
+            label2.Size = new Size(391, 25);
             label2.TabIndex = 26;
             label2.Text = "Would you like to delete unused directories?";
             // 
@@ -233,7 +219,7 @@
             panel_Footer.Controls.Add(button_Filter);
             panel_Footer.Controls.Add(progressBar_Time);
             panel_Footer.Dock = DockStyle.Bottom;
-            panel_Footer.Location = new Point(0, 424);
+            panel_Footer.Location = new Point(0, 466);
             panel_Footer.Margin = new Padding(3, 2, 3, 2);
             panel_Footer.Name = "panel_Footer";
             panel_Footer.Size = new Size(667, 64);
@@ -243,12 +229,11 @@
             // 
             panel_Options.Controls.Add(panel1);
             panel_Options.Controls.Add(panel2);
-            panel_Options.Controls.Add(menuStrip1);
             panel_Options.Dock = DockStyle.Fill;
             panel_Options.Location = new Point(0, 81);
             panel_Options.Margin = new Padding(3, 2, 3, 2);
             panel_Options.Name = "panel_Options";
-            panel_Options.Size = new Size(667, 343);
+            panel_Options.Size = new Size(667, 385);
             panel_Options.TabIndex = 33;
             // 
             // panel1
@@ -264,20 +249,20 @@
             panel1.Controls.Add(checkBox3);
             panel1.Controls.Add(checkBox2);
             panel1.Controls.Add(checkBox1);
-            panel1.Location = new Point(3, 29);
+            panel1.Location = new Point(3, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(411, 309);
+            panel1.Size = new Size(411, 380);
             panel1.TabIndex = 58;
             // 
             // checkBox8
             // 
             checkBox8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox8.AutoSize = true;
-            checkBox8.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox8.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             checkBox8.ForeColor = SystemColors.Control;
-            checkBox8.Location = new Point(3, 186);
+            checkBox8.Location = new Point(3, 256);
             checkBox8.Name = "checkBox8";
-            checkBox8.Size = new Size(143, 25);
+            checkBox8.Size = new Size(201, 36);
             checkBox8.TabIndex = 9;
             checkBox8.Text = "Folder Location";
             checkBox8.UseVisualStyleBackColor = true;
@@ -286,11 +271,11 @@
             // 
             checkBox9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox9.AutoSize = true;
-            checkBox9.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox9.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             checkBox9.ForeColor = SystemColors.Control;
-            checkBox9.Location = new Point(3, 212);
+            checkBox9.Location = new Point(3, 292);
             checkBox9.Name = "checkBox9";
-            checkBox9.Size = new Size(204, 25);
+            checkBox9.Size = new Size(295, 36);
             checkBox9.TabIndex = 8;
             checkBox9.Text = "File Content (Text/Docs)";
             checkBox9.UseVisualStyleBackColor = true;
@@ -299,11 +284,11 @@
             // 
             checkBox10.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox10.AutoSize = true;
-            checkBox10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox10.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             checkBox10.ForeColor = SystemColors.Control;
-            checkBox10.Location = new Point(3, 238);
+            checkBox10.Location = new Point(3, 328);
             checkBox10.Name = "checkBox10";
-            checkBox10.Size = new Size(264, 25);
+            checkBox10.Size = new Size(383, 36);
             checkBox10.TabIndex = 7;
             checkBox10.Text = "Media Metadata (Videos/Audio)";
             checkBox10.UseVisualStyleBackColor = true;
@@ -312,11 +297,11 @@
             // 
             checkBox7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox7.AutoSize = true;
-            checkBox7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox7.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             checkBox7.ForeColor = SystemColors.Control;
-            checkBox7.Location = new Point(3, 160);
+            checkBox7.Location = new Point(3, 220);
             checkBox7.Name = "checkBox7";
-            checkBox7.Size = new Size(121, 25);
+            checkBox7.Size = new Size(171, 36);
             checkBox7.TabIndex = 6;
             checkBox7.Text = "Custom Tags";
             checkBox7.UseVisualStyleBackColor = true;
@@ -325,11 +310,11 @@
             // 
             checkBox6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox6.AutoSize = true;
-            checkBox6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox6.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             checkBox6.ForeColor = SystemColors.Control;
-            checkBox6.Location = new Point(3, 134);
+            checkBox6.Location = new Point(3, 184);
             checkBox6.Name = "checkBox6";
-            checkBox6.Size = new Size(143, 25);
+            checkBox6.Size = new Size(203, 36);
             checkBox6.TabIndex = 5;
             checkBox6.Text = "File Permissions";
             checkBox6.UseVisualStyleBackColor = true;
@@ -338,11 +323,11 @@
             // 
             checkBox5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox5.AutoSize = true;
-            checkBox5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox5.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             checkBox5.ForeColor = SystemColors.Control;
-            checkBox5.Location = new Point(3, 108);
+            checkBox5.Location = new Point(3, 148);
             checkBox5.Name = "checkBox5";
-            checkBox5.Size = new Size(103, 25);
+            checkBox5.Size = new Size(144, 36);
             checkBox5.TabIndex = 4;
             checkBox5.Text = "File Usage";
             checkBox5.UseVisualStyleBackColor = true;
@@ -351,11 +336,11 @@
             // 
             checkBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox4.AutoSize = true;
-            checkBox4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox4.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             checkBox4.ForeColor = SystemColors.Control;
-            checkBox4.Location = new Point(3, 82);
+            checkBox4.Location = new Point(3, 112);
             checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(101, 25);
+            checkBox4.Size = new Size(142, 36);
             checkBox4.TabIndex = 3;
             checkBox4.Text = "File Name";
             checkBox4.UseVisualStyleBackColor = true;
@@ -364,11 +349,11 @@
             // 
             checkBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox3.AutoSize = true;
-            checkBox3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox3.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             checkBox3.ForeColor = SystemColors.Control;
-            checkBox3.Location = new Point(3, 56);
+            checkBox3.Location = new Point(3, 76);
             checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(92, 25);
+            checkBox3.Size = new Size(129, 36);
             checkBox3.TabIndex = 2;
             checkBox3.Text = "File Date";
             checkBox3.UseVisualStyleBackColor = true;
@@ -377,11 +362,11 @@
             // 
             checkBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox2.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             checkBox2.ForeColor = SystemColors.Control;
-            checkBox2.Location = new Point(3, 30);
+            checkBox2.Location = new Point(3, 40);
             checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(87, 25);
+            checkBox2.Size = new Size(120, 36);
             checkBox2.TabIndex = 1;
             checkBox2.Text = "File Size";
             checkBox2.UseVisualStyleBackColor = true;
@@ -390,11 +375,11 @@
             // 
             checkBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox1.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             checkBox1.ForeColor = SystemColors.Control;
             checkBox1.Location = new Point(3, 4);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(93, 25);
+            checkBox1.Size = new Size(128, 36);
             checkBox1.TabIndex = 0;
             checkBox1.Text = "File Type";
             checkBox1.UseVisualStyleBackColor = true;
@@ -405,9 +390,9 @@
             panel2.Controls.Add(label_Count);
             panel2.Controls.Add(label4);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(420, 24);
+            panel2.Location = new Point(420, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(247, 319);
+            panel2.Size = new Size(247, 385);
             panel2.TabIndex = 27;
             // 
             // treeView1
@@ -416,7 +401,7 @@
             treeView1.Location = new Point(9, 37);
             treeView1.Margin = new Padding(3, 2, 3, 2);
             treeView1.Name = "treeView1";
-            treeView1.Size = new Size(233, 283);
+            treeView1.Size = new Size(233, 349);
             treeView1.TabIndex = 4;
             // 
             // label_Count
@@ -443,89 +428,6 @@
             label4.TabIndex = 2;
             label4.Text = "File List           #";
             // 
-            // menuStrip1
-            // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { optionsToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(667, 24);
-            menuStrip1.TabIndex = 57;
-            menuStrip1.Text = "menuStrip1";
-            // 
-            // optionsToolStripMenuItem
-            // 
-            optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sortToolStripMenuItem });
-            optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            optionsToolStripMenuItem.Size = new Size(61, 20);
-            optionsToolStripMenuItem.Text = "Options";
-            // 
-            // sortToolStripMenuItem
-            // 
-            sortToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fileTypeToolStripMenuItem, fileSizeToolStripMenuItem, fileDateToolStripMenuItem, fileNameToolStripMenuItem, fileUsageToolStripMenuItem, filePermissionsToolStripMenuItem, customTagsToolStripMenuItem, folderLocationToolStripMenuItem, fileContentTextDocsToolStripMenuItem, mediaMetadataVideosAudioToolStripMenuItem });
-            sortToolStripMenuItem.Name = "sortToolStripMenuItem";
-            sortToolStripMenuItem.Size = new Size(112, 22);
-            sortToolStripMenuItem.Text = "Sorting";
-            // 
-            // fileTypeToolStripMenuItem
-            // 
-            fileTypeToolStripMenuItem.Name = "fileTypeToolStripMenuItem";
-            fileTypeToolStripMenuItem.Size = new Size(243, 22);
-            fileTypeToolStripMenuItem.Text = "File Type";
-            // 
-            // fileSizeToolStripMenuItem
-            // 
-            fileSizeToolStripMenuItem.Name = "fileSizeToolStripMenuItem";
-            fileSizeToolStripMenuItem.Size = new Size(243, 22);
-            fileSizeToolStripMenuItem.Text = "File Size";
-            // 
-            // fileDateToolStripMenuItem
-            // 
-            fileDateToolStripMenuItem.Name = "fileDateToolStripMenuItem";
-            fileDateToolStripMenuItem.Size = new Size(243, 22);
-            fileDateToolStripMenuItem.Text = "File Date";
-            // 
-            // fileNameToolStripMenuItem
-            // 
-            fileNameToolStripMenuItem.Name = "fileNameToolStripMenuItem";
-            fileNameToolStripMenuItem.Size = new Size(243, 22);
-            fileNameToolStripMenuItem.Text = "File Name";
-            // 
-            // fileUsageToolStripMenuItem
-            // 
-            fileUsageToolStripMenuItem.Name = "fileUsageToolStripMenuItem";
-            fileUsageToolStripMenuItem.Size = new Size(243, 22);
-            fileUsageToolStripMenuItem.Text = "File Usage";
-            // 
-            // filePermissionsToolStripMenuItem
-            // 
-            filePermissionsToolStripMenuItem.Name = "filePermissionsToolStripMenuItem";
-            filePermissionsToolStripMenuItem.Size = new Size(243, 22);
-            filePermissionsToolStripMenuItem.Text = "File Permissions";
-            // 
-            // customTagsToolStripMenuItem
-            // 
-            customTagsToolStripMenuItem.Name = "customTagsToolStripMenuItem";
-            customTagsToolStripMenuItem.Size = new Size(243, 22);
-            customTagsToolStripMenuItem.Text = "Custom Tags";
-            // 
-            // folderLocationToolStripMenuItem
-            // 
-            folderLocationToolStripMenuItem.Name = "folderLocationToolStripMenuItem";
-            folderLocationToolStripMenuItem.Size = new Size(243, 22);
-            folderLocationToolStripMenuItem.Text = "Folder Location";
-            // 
-            // fileContentTextDocsToolStripMenuItem
-            // 
-            fileContentTextDocsToolStripMenuItem.Name = "fileContentTextDocsToolStripMenuItem";
-            fileContentTextDocsToolStripMenuItem.Size = new Size(243, 22);
-            fileContentTextDocsToolStripMenuItem.Text = "File Content (Text/Docs)";
-            // 
-            // mediaMetadataVideosAudioToolStripMenuItem
-            // 
-            mediaMetadataVideosAudioToolStripMenuItem.Name = "mediaMetadataVideosAudioToolStripMenuItem";
-            mediaMetadataVideosAudioToolStripMenuItem.Size = new Size(243, 22);
-            mediaMetadataVideosAudioToolStripMenuItem.Text = "Media Metadata (Videos/Audio)";
-            // 
             // Opt_Sort
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -539,20 +441,17 @@
             Controls.Add(panel_Top);
             Margin = new Padding(3, 2, 3, 2);
             Name = "Opt_Sort";
-            Size = new Size(699, 520);
+            Size = new Size(699, 562);
             panel_Top.ResumeLayout(false);
             panel_Header.ResumeLayout(false);
             panel_Header.PerformLayout();
             panel_Footer.ResumeLayout(false);
             panel_Footer.PerformLayout();
             panel_Options.ResumeLayout(false);
-            panel_Options.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -575,10 +474,6 @@
         private Label label_Count;
         private Label label4;
         private TreeView treeView1;
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem optionsToolStripMenuItem;
-        private ToolStripMenuItem sortToolStripMenuItem;
-        private ToolStripMenuItem fileTypeToolStripMenuItem;
         private Panel panel1;
         private CheckBox checkBox2;
         private CheckBox checkBox1;
@@ -590,14 +485,5 @@
         private CheckBox checkBox8;
         private CheckBox checkBox9;
         private CheckBox checkBox10;
-        private ToolStripMenuItem fileSizeToolStripMenuItem;
-        private ToolStripMenuItem fileDateToolStripMenuItem;
-        private ToolStripMenuItem fileNameToolStripMenuItem;
-        private ToolStripMenuItem fileUsageToolStripMenuItem;
-        private ToolStripMenuItem filePermissionsToolStripMenuItem;
-        private ToolStripMenuItem customTagsToolStripMenuItem;
-        private ToolStripMenuItem folderLocationToolStripMenuItem;
-        private ToolStripMenuItem fileContentTextDocsToolStripMenuItem;
-        private ToolStripMenuItem mediaMetadataVideosAudioToolStripMenuItem;
     }
 }

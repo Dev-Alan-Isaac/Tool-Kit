@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net8.0-windows10.0.22621": {
-      "Aspose.Cells/24.7.0": {
+      "Aspose.Cells/24.9.0": {
         "type": "package",
         "dependencies": {
           "System.Drawing.Common": "6.0.0",
@@ -20,7 +20,7 @@
           }
         }
       },
-      "Aspose.PDF/24.7.0": {
+      "Aspose.PDF/24.9.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyModel": "8.0.0",
@@ -44,7 +44,7 @@
           }
         }
       },
-      "Aspose.Slides.NET/24.8.0": {
+      "Aspose.Slides.NET/24.9.0": {
         "type": "package",
         "dependencies": {
           "System.Drawing.Common": "7.0.0",
@@ -61,7 +61,7 @@
           }
         }
       },
-      "Aspose.Words/24.7.0": {
+      "Aspose.Words/24.9.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.Registry": "4.7.0",
@@ -119,7 +119,7 @@
           "Microsoft.WindowsDesktop.App.WindowsForms"
         ]
       },
-      "Bunifu.UI.WinForms/6.1.0": {
+      "Bunifu.UI.WinForms/6.0.1": {
         "type": "package",
         "dependencies": {
           "Bunifu.Licensing": "5.0.0",
@@ -171,7 +171,7 @@
           "build/_._": {}
         }
       },
-      "HtmlAgilityPack/1.11.62": {
+      "HtmlAgilityPack/1.11.66": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {
@@ -196,18 +196,18 @@
           "lib/net461/itextsharp.dll": {}
         }
       },
-      "Magick.NET-Q16-AnyCPU/13.10.0": {
+      "Magick.NET-Q16-AnyCPU/14.0.0": {
         "type": "package",
         "dependencies": {
-          "Magick.NET.Core": "13.10.0"
+          "Magick.NET.Core": "14.0.0"
         },
         "compile": {
-          "lib/netstandard21/Magick.NET-Q16-AnyCPU.dll": {
+          "lib/net8.0/Magick.NET-Q16-AnyCPU.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard21/Magick.NET-Q16-AnyCPU.dll": {
+          "lib/net8.0/Magick.NET-Q16-AnyCPU.dll": {
             "related": ".xml"
           }
         },
@@ -249,15 +249,15 @@
           }
         }
       },
-      "Magick.NET.Core/13.10.0": {
+      "Magick.NET.Core/14.0.0": {
         "type": "package",
         "compile": {
-          "lib/netstandard21/Magick.NET.Core.dll": {
+          "lib/net8.0/Magick.NET.Core.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard21/Magick.NET.Core.dll": {
+          "lib/net8.0/Magick.NET.Core.dll": {
             "related": ".xml"
           }
         }
@@ -517,7 +517,7 @@
           }
         }
       },
-      "Microsoft.Windows.Compatibility/8.0.7": {
+      "Microsoft.Windows.Compatibility/8.0.8": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.Registry.AccessControl": "8.0.0",
@@ -534,7 +534,7 @@
           "System.DirectoryServices": "8.0.0",
           "System.DirectoryServices.AccountManagement": "8.0.0",
           "System.DirectoryServices.Protocols": "8.0.0",
-          "System.Drawing.Common": "8.0.7",
+          "System.Drawing.Common": "8.0.8",
           "System.IO.Packaging": "8.0.0",
           "System.IO.Ports": "8.0.0",
           "System.Management": "8.0.0",
@@ -885,16 +885,20 @@
           }
         }
       },
-      "SharpCompress/0.37.2": {
+      "SharpCompress/0.38.0": {
         "type": "package",
         "dependencies": {
-          "ZstdSharp.Port": "0.8.0"
+          "ZstdSharp.Port": "0.8.1"
         },
         "compile": {
-          "lib/net8.0/SharpCompress.dll": {}
+          "lib/net8.0/SharpCompress.dll": {
+            "related": ".pdb"
+          }
         },
         "runtime": {
-          "lib/net8.0/SharpCompress.dll": {}
+          "lib/net8.0/SharpCompress.dll": {
+            "related": ".pdb"
+          }
         }
       },
       "SkiaSharp/2.88.8": {
@@ -1277,7 +1281,7 @@
           }
         }
       },
-      "System.Drawing.Common/8.0.7": {
+      "System.Drawing.Common/8.0.8": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "8.0.0"
@@ -2065,7 +2069,7 @@
           "lib/netstandard2.0/taglib-sharp.dll": {}
         }
       },
-      "ZstdSharp.Port/0.8.0": {
+      "ZstdSharp.Port/0.8.1": {
         "type": "package",
         "compile": {
           "lib/net8.0/ZstdSharp.dll": {}
@@ -2077,18 +2081,17 @@
     }
   },
   "libraries": {
-    "Aspose.Cells/24.7.0": {
-      "sha512": "6RUhukDx2Ajl3h3vQ1Ka/l8rTpnNt+XMskDApTEWjq8Hn3C4HcufM/QwKoYGYs9DtJLeB8UZOmgviiEJkCCA+Q==",
+    "Aspose.Cells/24.9.0": {
+      "sha512": "QpnHwYZd0M9W58Upqifd195FlSdID3Wz6UuZsxW8L5QHhCxsxG3m9cJVI2Ps4iBaQ6PfXNEqslFAfiPqGRuNXw==",
       "type": "package",
-      "path": "aspose.cells/24.7.0",
+      "path": "aspose.cells/24.9.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Help/Aspose.Cells For .NET Documentation.chm",
-        "Help/Aspose.Cells.GridJs for .NETSTANDARD Documentation.chm",
         "License/Aspose_End-User-License-Agreement.txt",
         "License/thirdpartylicenses.Aspose.Cells.for.NET.pdf",
-        "aspose.cells.24.7.0.nupkg.sha512",
+        "aspose.cells.24.9.0.nupkg.sha512",
         "aspose.cells.nuspec",
         "images/aspose_cells-for-net.png",
         "lib/net40-client/Aspose.Cells.dll",
@@ -2111,14 +2114,14 @@
         "lib/netstandard2.0/Aspose.Cells.xml"
       ]
     },
-    "Aspose.PDF/24.7.0": {
-      "sha512": "IAbrfAeHlQszGf2Jj+2bfZBuOlW4bq1YfZ3w0PhQoXkEvyvjO1WxCdDtDPRKaYbRVB9hVcAomevBj6GC/nkyXw==",
+    "Aspose.PDF/24.9.0": {
+      "sha512": "GfcUQ5/bROukhYb3Tw11sLf0h9V085dAVI/YZwqE5rJruSi1q4fPejb2DCPThS0lcvLcrxqbv/5E7NaiKWH1Ug==",
       "type": "package",
-      "path": "aspose.pdf/24.7.0",
+      "path": "aspose.pdf/24.9.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "aspose.pdf.24.7.0.nupkg.sha512",
+        "aspose.pdf.24.9.0.nupkg.sha512",
         "aspose.pdf.nuspec",
         "images/aspose_pdf-for-net.png",
         "lib/net4.8.1/Aspose.PDF.dll",
@@ -2136,16 +2139,16 @@
         "license/thirdpartylicenses-Aspose.PDF for .NET.txt"
       ]
     },
-    "Aspose.Slides.NET/24.8.0": {
-      "sha512": "WLhfv7YwMVAGT/m6R9MmA8b7/PRp3rF6L4gi2L7994Vvp1XmEpw1g9iQ7oCmIFw1Q7R2HNuvv5UwELN8aAHBVQ==",
+    "Aspose.Slides.NET/24.9.0": {
+      "sha512": "Bv8EBnJ1D8m5Dyfq631Guil8Pv0ssh3HkmHnpQ4oTAUD18a5fPr5QORsO+xbDuRBxeM3iWvMiUEgwiZ/M/Mdlg==",
       "type": "package",
-      "path": "aspose.slides.net/24.8.0",
+      "path": "aspose.slides.net/24.9.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Aspose_End-User-License-Agreement.md",
         "Help/Aspose.Slides.chm",
-        "aspose.slides.net.24.8.0.nupkg.sha512",
+        "aspose.slides.net.24.9.0.nupkg.sha512",
         "aspose.slides.net.nuspec",
         "aspose_slides-for-net-min.png",
         "lib/net2.0/Aspose.Slides.dll",
@@ -2159,10 +2162,10 @@
         "thirdpartylicenses.Aspose.Slides.for.NET.pdf"
       ]
     },
-    "Aspose.Words/24.7.0": {
-      "sha512": "NmjPbFd35yaAAl7QjVx4GPa+yUbWVIL1xUFTEy5pGs/leRv4yruSLkTd6DVmb/qoz5Q8E3PJJAUy3sx0Dvd3UA==",
+    "Aspose.Words/24.9.0": {
+      "sha512": "6ooa+GldT1W4UuWF1rnQZgEEnMX5VopsVq+wCL3MNeKzOGrEM77IL/lmZ41/iCDtou0cZNlxFqcNMAGVXVh3UQ==",
       "type": "package",
-      "path": "aspose.words/24.7.0",
+      "path": "aspose.words/24.9.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2170,7 +2173,7 @@
         "Images/aspose_words-for-net.png",
         "License/Aspose_End-User-License-Agreement.txt",
         "License/thirdpartylicenses-Aspose.Words for .NET.pdf",
-        "aspose.words.24.7.0.nupkg.sha512",
+        "aspose.words.24.9.0.nupkg.sha512",
         "aspose.words.nuspec",
         "lib/net40-client/Aspose.Words.dll",
         "lib/net40-client/Aspose.Words.xml",
@@ -2234,17 +2237,16 @@
         "lib/net6.0-windows7.0/System.Management.dll"
       ]
     },
-    "Bunifu.UI.WinForms/6.1.0": {
-      "sha512": "VZNrL3q8RonT6UR2cPIhwai0mvRJKQ8wF2mIU90eJibYLudBl60Dc56WQ+6/P8UAH84D8DgU7v/JDULzKdsdnQ==",
+    "Bunifu.UI.WinForms/6.0.1": {
+      "sha512": "g79iNB+yYozGsRJgecYl84puMTBDWq7m9CrgTA0+lva7U4tExhJ48AYnZjm+1O0Zr65eLd6PhrMXJIF5/oZGbQ==",
       "type": "package",
-      "path": "bunifu.ui.winforms/6.1.0",
+      "path": "bunifu.ui.winforms/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.txt",
-        "README.md",
-        "bunifu.ui.winforms.6.1.0.nupkg.sha512",
+        "bunifu.ui.winforms.6.0.1.nupkg.sha512",
         "bunifu.ui.winforms.nuspec",
         "lib/net40/Bunifu.UI.WinForms.dll",
         "lib/net40/Bunifu.UI.WinForms.xml"
@@ -2323,14 +2325,14 @@
         "netstandardtask/Mono.Cecil.pdb"
       ]
     },
-    "HtmlAgilityPack/1.11.62": {
-      "sha512": "KS4h7ZjWsO6YixRfQgYdR+PZMbTaZod1LBPi+1Ph7dJCARzQm7DOKe5HPhP/o0EWX5l7QCgAZHa4VOa4pQa8JQ==",
+    "HtmlAgilityPack/1.11.66": {
+      "sha512": "kRlJ/rnvDzSPZv294uR+k3IR04eQO1IxdYJuUPPFETZ0W2NDDRiuZlfgYaDX17OVvODJFWj6+lsMOko/Xj5XVQ==",
       "type": "package",
-      "path": "htmlagilitypack/1.11.62",
+      "path": "htmlagilitypack/1.11.66",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "htmlagilitypack.1.11.62.nupkg.sha512",
+        "htmlagilitypack.1.11.66.nupkg.sha512",
         "htmlagilitypack.nuspec",
         "lib/Net35/HtmlAgilityPack.dll",
         "lib/Net35/HtmlAgilityPack.pdb",
@@ -2387,10 +2389,10 @@
         "notice.txt"
       ]
     },
-    "Magick.NET-Q16-AnyCPU/13.10.0": {
-      "sha512": "9BkP6lGTGliyuDVpIh0SWstLpGloF+Ib96MFQSvEaYEp9qaOcS6Rv1MF3FoXzQ+YSQtgqw3D0xrvczklhdN6aA==",
+    "Magick.NET-Q16-AnyCPU/14.0.0": {
+      "sha512": "C2wKA2wSv0Zf2vuS1+PYdASUCMm4QgBA8yxUyd338AtYQ0MPul5zV11eLYxAv8w3mIESxC/P1y+RnQp/r1Mv1A==",
       "type": "package",
-      "path": "magick.net-q16-anycpu/13.10.0",
+      "path": "magick.net-q16-anycpu/14.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2402,11 +2404,11 @@
         "build/netstandard20/Magick.NET-Q16-AnyCPU.targets",
         "buildTransitive/netstandard20/Magick.NET-Q16-AnyCPU.targets",
         "docs/Readme.md",
+        "lib/net8.0/Magick.NET-Q16-AnyCPU.dll",
+        "lib/net8.0/Magick.NET-Q16-AnyCPU.xml",
         "lib/netstandard20/Magick.NET-Q16-AnyCPU.dll",
         "lib/netstandard20/Magick.NET-Q16-AnyCPU.xml",
-        "lib/netstandard21/Magick.NET-Q16-AnyCPU.dll",
-        "lib/netstandard21/Magick.NET-Q16-AnyCPU.xml",
-        "magick.net-q16-anycpu.13.10.0.nupkg.sha512",
+        "magick.net-q16-anycpu.14.0.0.nupkg.sha512",
         "magick.net-q16-anycpu.nuspec",
         "runtimes/linux-arm64/native/Magick.Native-Q16-arm64.dll.so",
         "runtimes/linux-musl-x64/native/Magick.Native-Q16-x64.dll.so",
@@ -2418,21 +2420,21 @@
         "runtimes/win-x86/native/Magick.Native-Q16-x86.dll"
       ]
     },
-    "Magick.NET.Core/13.10.0": {
-      "sha512": "qss+Y4/K6SiGwbyCThqTl9ykevnSzFuT4AMIaymq8jN+6kimKjMHf4rvtagLWQ+vPH9xU1+pX6MmBOZe+D+fyA==",
+    "Magick.NET.Core/14.0.0": {
+      "sha512": "xChjeg8OT6l/ZBFJl+8ojSQQhKYgMt1f9X3g0HJ6sTvWZxj3j0eZrsKCguFSBAtz/gsdzpaSjJBKGtP5ZSaJhA==",
       "type": "package",
-      "path": "magick.net.core/13.10.0",
+      "path": "magick.net.core/14.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Copyright.txt",
         "Magick.NET.icon.png",
         "docs/Readme.md",
+        "lib/net8.0/Magick.NET.Core.dll",
+        "lib/net8.0/Magick.NET.Core.xml",
         "lib/netstandard20/Magick.NET.Core.dll",
         "lib/netstandard20/Magick.NET.Core.xml",
-        "lib/netstandard21/Magick.NET.Core.dll",
-        "lib/netstandard21/Magick.NET.Core.xml",
-        "magick.net.core.13.10.0.nupkg.sha512",
+        "magick.net.core.14.0.0.nupkg.sha512",
         "magick.net.core.nuspec"
       ]
     },
@@ -2867,16 +2869,16 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Windows.Compatibility/8.0.7": {
-      "sha512": "Lvvc0pHg1IynXXvhlWOeyj60mXLnsJJ9due91NCrq7xM4zD+kr4VvXpUSwRXecAAZE/3YP50Lr0RhiYp1g0m3Q==",
+    "Microsoft.Windows.Compatibility/8.0.8": {
+      "sha512": "9FWk4D5mNFz99rT7NvsqrDdT/6bjkNtxo7CPwajyudBTMXi7kro8ixr5pUnFYrhUBfimR+OUGDYk/se4NxJ6sA==",
       "type": "package",
-      "path": "microsoft.windows.compatibility/8.0.7",
+      "path": "microsoft.windows.compatibility/8.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
-        "microsoft.windows.compatibility.8.0.7.nupkg.sha512",
+        "microsoft.windows.compatibility.8.0.8.nupkg.sha512",
         "microsoft.windows.compatibility.nuspec"
       ]
     },
@@ -3303,20 +3305,25 @@
         "version.txt"
       ]
     },
-    "SharpCompress/0.37.2": {
-      "sha512": "cFBpTct57aubLQXkdqMmgP8GGTFRh7fnRWP53lgE/EYUpDZJ27SSvTkdjB4OYQRZ20SJFpzczUquKLbt/9xkhw==",
+    "SharpCompress/0.38.0": {
+      "sha512": "8i6KqjAFI3mvya8W8rnQrf5h4vz6ilw4zqk2AzInVqqqZ25TD6fmVeYBnlisjTWwP26eltZc0buSmJ8a3YIGxg==",
       "type": "package",
-      "path": "sharpcompress/0.37.2",
+      "path": "sharpcompress/0.38.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
         "lib/net462/SharpCompress.dll",
+        "lib/net462/SharpCompress.pdb",
         "lib/net6.0/SharpCompress.dll",
+        "lib/net6.0/SharpCompress.pdb",
         "lib/net8.0/SharpCompress.dll",
+        "lib/net8.0/SharpCompress.pdb",
         "lib/netstandard2.0/SharpCompress.dll",
+        "lib/netstandard2.0/SharpCompress.pdb",
         "lib/netstandard2.1/SharpCompress.dll",
-        "sharpcompress.0.37.2.nupkg.sha512",
+        "lib/netstandard2.1/SharpCompress.pdb",
+        "sharpcompress.0.38.0.nupkg.sha512",
         "sharpcompress.nuspec"
       ]
     },
@@ -3960,10 +3967,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Drawing.Common/8.0.7": {
-      "sha512": "DoeBae0gZvxs3mtfoub6F1k28fSkFPzmhFuvblplKMnLYKmTMVy0j4Yxahh96KM532JzHGDxhJn1VpMKSB1pyg==",
+    "System.Drawing.Common/8.0.8": {
+      "sha512": "4ZM1wvLjz9nVVExsfPAaSl/qOvU+QNedJL5rQ+2Wbow+iGeyO0e7XN07707rMBgaffEeeLrCZBwC0oHUuvRdPw==",
       "type": "package",
-      "path": "system.drawing.common/8.0.7",
+      "path": "system.drawing.common/8.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3995,7 +4002,7 @@
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "system.drawing.common.8.0.7.nupkg.sha512",
+        "system.drawing.common.8.0.8.nupkg.sha512",
         "system.drawing.common.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -5715,10 +5722,10 @@
         "taglib-sharp-netstandard2.0.nuspec"
       ]
     },
-    "ZstdSharp.Port/0.8.0": {
-      "sha512": "Z62eNBIu8E8YtbqlMy57tK3dV1+m2b9NhPeaYovB5exmLKvrGCqOhJTzrEUH5VyUWU6vwX3c1XHJGhW5HVs8dA==",
+    "ZstdSharp.Port/0.8.1": {
+      "sha512": "19tNz33kn2EkyViFXuxfVn338UJaRmkwBphVqP2dVJIYQUQgFrgG5h061mxkRRg1Ax6r+6WOj1FxaFZ5qaWqqg==",
       "type": "package",
-      "path": "zstdsharp.port/0.8.0",
+      "path": "zstdsharp.port/0.8.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5730,28 +5737,28 @@
         "lib/netcoreapp3.1/ZstdSharp.dll",
         "lib/netstandard2.0/ZstdSharp.dll",
         "lib/netstandard2.1/ZstdSharp.dll",
-        "zstdsharp.port.0.8.0.nupkg.sha512",
+        "zstdsharp.port.0.8.1.nupkg.sha512",
         "zstdsharp.port.nuspec"
       ]
     }
   },
   "projectFileDependencyGroups": {
     "net8.0-windows10.0.22621": [
-      "Aspose.Cells >= 24.7.0",
-      "Aspose.PDF >= 24.7.0",
-      "Aspose.Slides.NET >= 24.8.0",
-      "Aspose.Words >= 24.7.0",
-      "Bunifu.UI.WinForms >= 6.1.0",
-      "HtmlAgilityPack >= 1.11.62",
-      "Magick.NET-Q16-AnyCPU >= 13.10.0",
+      "Aspose.Cells >= 24.9.0",
+      "Aspose.PDF >= 24.9.0",
+      "Aspose.Slides.NET >= 24.9.0",
+      "Aspose.Words >= 24.9.0",
+      "Bunifu.UI.WinForms >= 6.0.1",
+      "HtmlAgilityPack >= 1.11.66",
+      "Magick.NET-Q16-AnyCPU >= 14.0.0",
       "MediaToolkit >= 1.1.0.1",
-      "Microsoft.Windows.Compatibility >= 8.0.7",
+      "Microsoft.Windows.Compatibility >= 8.0.8",
       "NAudio >= 2.2.1",
       "NReco.VideoConverter >= 1.2.1",
       "NReco.VideoInfo >= 1.2.0",
       "Newtonsoft.Json >= 13.0.3",
       "PDFsharp >= 6.1.1",
-      "SharpCompress >= 0.37.2",
+      "SharpCompress >= 0.38.0",
       "System.Formats.Asn1 >= 8.0.1",
       "System.Text.Json >= 8.0.4",
       "iTextSharp >= 5.5.13.4",
@@ -5759,19 +5766,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sistemas\\.nuget\\packages\\": {}
+    "C:\\Users\\Alan_\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
+      "projectUniqueName": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj",
       "projectName": "Project #Filter",
-      "projectPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
-      "packagesPath": "C:\\Users\\Sistemas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\obj\\",
+      "projectPath": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj",
+      "packagesPath": "C:\\Users\\Alan_\\.nuget\\packages\\",
+      "outputPath": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Sistemas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Alan_\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5805,31 +5812,31 @@
         "dependencies": {
           "Aspose.Cells": {
             "target": "Package",
-            "version": "[24.7.0, )"
+            "version": "[24.9.0, )"
           },
           "Aspose.PDF": {
             "target": "Package",
-            "version": "[24.7.0, )"
+            "version": "[24.9.0, )"
           },
           "Aspose.Slides.NET": {
             "target": "Package",
-            "version": "[24.8.0, )"
+            "version": "[24.9.0, )"
           },
           "Aspose.Words": {
             "target": "Package",
-            "version": "[24.7.0, )"
+            "version": "[24.9.0, )"
           },
           "Bunifu.UI.WinForms": {
             "target": "Package",
-            "version": "[6.1.0, )"
+            "version": "[6.0.1, )"
           },
           "HtmlAgilityPack": {
             "target": "Package",
-            "version": "[1.11.62, )"
+            "version": "[1.11.66, )"
           },
           "Magick.NET-Q16-AnyCPU": {
             "target": "Package",
-            "version": "[13.10.0, )"
+            "version": "[14.0.0, )"
           },
           "MediaToolkit": {
             "target": "Package",
@@ -5837,7 +5844,7 @@
           },
           "Microsoft.Windows.Compatibility": {
             "target": "Package",
-            "version": "[8.0.7, )"
+            "version": "[8.0.8, )"
           },
           "NAudio": {
             "target": "Package",
@@ -5861,7 +5868,7 @@
           },
           "SharpCompress": {
             "target": "Package",
-            "version": "[0.37.2, )"
+            "version": "[0.38.0, )"
           },
           "System.Formats.Asn1": {
             "target": "Package",
@@ -5917,7 +5924,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Bunifu.UI.WinForms 6.1.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows10.0.22621'. This package may not be fully compatible with your project.",
+      "message": "Package 'Bunifu.UI.WinForms 6.0.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows10.0.22621'. This package may not be fully compatible with your project.",
       "libraryId": "Bunifu.UI.WinForms",
       "targetGraphs": [
         "net8.0-windows10.0.22621"
