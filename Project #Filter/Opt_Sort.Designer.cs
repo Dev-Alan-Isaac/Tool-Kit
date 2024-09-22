@@ -47,16 +47,21 @@
             checkBox_Alphabet = new CheckBox();
             checkBox_Size = new CheckBox();
             checkBox_Include = new CheckBox();
-            label5 = new Label();
             panel2 = new Panel();
             treeView1 = new TreeView();
             label_Count = new Label();
             label4 = new Label();
+            menuStrip1 = new MenuStrip();
+            optionsToolStripMenuItem = new ToolStripMenuItem();
+            sortToolStripMenuItem = new ToolStripMenuItem();
+            fileTypeToolStripMenuItem = new ToolStripMenuItem();
+            extensionToolStripMenuItem = new ToolStripMenuItem();
             panel_Top.SuspendLayout();
             panel_Header.SuspendLayout();
             panel_Footer.SuspendLayout();
             panel_Options.SuspendLayout();
             panel2.SuspendLayout();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // panel_Top
@@ -227,8 +232,8 @@
             panel_Options.Controls.Add(checkBox_Alphabet);
             panel_Options.Controls.Add(checkBox_Size);
             panel_Options.Controls.Add(checkBox_Include);
-            panel_Options.Controls.Add(label5);
             panel_Options.Controls.Add(panel2);
+            panel_Options.Controls.Add(menuStrip1);
             panel_Options.Dock = DockStyle.Fill;
             panel_Options.Location = new Point(0, 104);
             panel_Options.Margin = new Padding(3, 2, 3, 2);
@@ -258,7 +263,7 @@
             checkBox_Resolution.Enabled = false;
             checkBox_Resolution.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             checkBox_Resolution.ForeColor = Color.White;
-            checkBox_Resolution.Location = new Point(19, 64);
+            checkBox_Resolution.Location = new Point(19, 52);
             checkBox_Resolution.Name = "checkBox_Resolution";
             checkBox_Resolution.Size = new Size(134, 25);
             checkBox_Resolution.TabIndex = 55;
@@ -311,27 +316,15 @@
             checkBox_Include.UseVisualStyleBackColor = true;
             checkBox_Include.CheckedChanged += checkBox_CheckedChanged;
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.BackColor = Color.FromArgb(64, 64, 64);
-            label5.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
-            label5.ForeColor = Color.White;
-            label5.Location = new Point(3, 5);
-            label5.Name = "label5";
-            label5.Size = new Size(104, 32);
-            label5.TabIndex = 41;
-            label5.Text = "Options";
-            // 
             // panel2
             // 
             panel2.Controls.Add(treeView1);
             panel2.Controls.Add(label_Count);
             panel2.Controls.Add(label4);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(420, 0);
+            panel2.Location = new Point(420, 24);
             panel2.Name = "panel2";
-            panel2.Size = new Size(247, 205);
+            panel2.Size = new Size(247, 181);
             panel2.TabIndex = 27;
             // 
             // treeView1
@@ -340,7 +333,7 @@
             treeView1.Location = new Point(9, 37);
             treeView1.Margin = new Padding(3, 2, 3, 2);
             treeView1.Name = "treeView1";
-            treeView1.Size = new Size(233, 169);
+            treeView1.Size = new Size(233, 145);
             treeView1.TabIndex = 4;
             // 
             // label_Count
@@ -367,6 +360,41 @@
             label4.TabIndex = 2;
             label4.Text = "File List           #";
             // 
+            // menuStrip1
+            // 
+            menuStrip1.Items.AddRange(new ToolStripItem[] { optionsToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(667, 24);
+            menuStrip1.TabIndex = 57;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // optionsToolStripMenuItem
+            // 
+            optionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sortToolStripMenuItem, extensionToolStripMenuItem });
+            optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            optionsToolStripMenuItem.Size = new Size(61, 20);
+            optionsToolStripMenuItem.Text = "Options";
+            // 
+            // sortToolStripMenuItem
+            // 
+            sortToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fileTypeToolStripMenuItem });
+            sortToolStripMenuItem.Name = "sortToolStripMenuItem";
+            sortToolStripMenuItem.Size = new Size(180, 22);
+            sortToolStripMenuItem.Text = "Sorting";
+            // 
+            // fileTypeToolStripMenuItem
+            // 
+            fileTypeToolStripMenuItem.Name = "fileTypeToolStripMenuItem";
+            fileTypeToolStripMenuItem.Size = new Size(180, 22);
+            fileTypeToolStripMenuItem.Text = "File Type";
+            // 
+            // extensionToolStripMenuItem
+            // 
+            extensionToolStripMenuItem.Name = "extensionToolStripMenuItem";
+            extensionToolStripMenuItem.Size = new Size(180, 22);
+            extensionToolStripMenuItem.Text = "Extension";
+            // 
             // Opt_Sort
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -390,6 +418,8 @@
             panel_Options.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -411,12 +441,16 @@
         private Panel panel2;
         private Label label_Count;
         private Label label4;
-        private Label label5;
         private CheckBox checkBox_Alphabet;
         private CheckBox checkBox_Duration;
         private CheckBox checkBox_Resolution;
         private CheckBox checkBox_Size;
         private CheckBox checkBox_Include;
         private TreeView treeView1;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem optionsToolStripMenuItem;
+        private ToolStripMenuItem sortToolStripMenuItem;
+        private ToolStripMenuItem fileTypeToolStripMenuItem;
+        private ToolStripMenuItem extensionToolStripMenuItem;
     }
 }
