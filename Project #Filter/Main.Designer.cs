@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             panel_Menu = new Panel();
             Panel_Index = new Panel();
@@ -52,6 +53,12 @@
             privacy1 = new Opt_Encrypt();
             panel1 = new Panel();
             config_Menu1 = new Menu_Config();
+            bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(components);
+            bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(components);
+            bunifuDragControl3 = new Bunifu.Framework.UI.BunifuDragControl(components);
+            bunifuDragControl4 = new Bunifu.Framework.UI.BunifuDragControl(components);
+            bunifuDragControl5 = new Bunifu.Framework.UI.BunifuDragControl(components);
+            bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel_Menu.SuspendLayout();
             panel_Accent.SuspendLayout();
             Panel_Banner.SuspendLayout();
@@ -371,6 +378,46 @@
             config_Menu1.Size = new Size(774, 563);
             config_Menu1.TabIndex = 14;
             // 
+            // bunifuDragControl1
+            // 
+            bunifuDragControl1.Fixed = true;
+            bunifuDragControl1.Horizontal = true;
+            bunifuDragControl1.TargetControl = panel_Accent;
+            bunifuDragControl1.Vertical = true;
+            // 
+            // bunifuDragControl2
+            // 
+            bunifuDragControl2.Fixed = true;
+            bunifuDragControl2.Horizontal = true;
+            bunifuDragControl2.TargetControl = panel_Menu;
+            bunifuDragControl2.Vertical = true;
+            // 
+            // bunifuDragControl3
+            // 
+            bunifuDragControl3.Fixed = true;
+            bunifuDragControl3.Horizontal = true;
+            bunifuDragControl3.TargetControl = this;
+            bunifuDragControl3.Vertical = true;
+            // 
+            // bunifuDragControl4
+            // 
+            bunifuDragControl4.Fixed = true;
+            bunifuDragControl4.Horizontal = true;
+            bunifuDragControl4.TargetControl = pictureBox1;
+            bunifuDragControl4.Vertical = true;
+            // 
+            // bunifuDragControl5
+            // 
+            bunifuDragControl5.Fixed = true;
+            bunifuDragControl5.Horizontal = true;
+            bunifuDragControl5.TargetControl = Panel_Banner;
+            bunifuDragControl5.Vertical = true;
+            // 
+            // bunifuElipse1
+            // 
+            bunifuElipse1.ElipseRadius = 5;
+            bunifuElipse1.TargetControl = this;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -425,13 +472,13 @@
         private Opt_Merge merge1;
         private Opt_Encrypt privacy1;
         private Button button_Config;
-        private Bunifu.Framework.UI.BunifuDragControl DragControl_Accent;
-        private Bunifu.Framework.UI.BunifuDragControl DragControl_Tittle;
-        private Bunifu.Framework.UI.BunifuDragControl DragControl_Menu;
-        private Bunifu.Framework.UI.BunifuDragControl DragControl_Banner;
-        private Bunifu.Framework.UI.BunifuDragControl DragControl_Main;
         private Panel panel1;
         private Menu_Config config_Menu1;
+        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
+        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;
+        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl3;
+        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl4;
+        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl5;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
     }
 }
