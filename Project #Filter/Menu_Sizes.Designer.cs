@@ -42,6 +42,13 @@
             panel4 = new Panel();
             panel9 = new Panel();
             panel5 = new Panel();
+            comboBox7 = new ComboBox();
+            textBox7 = new TextBox();
+            comboBox6 = new ComboBox();
+            textBox6 = new TextBox();
+            comboBox5 = new ComboBox();
+            textBox5 = new TextBox();
+            label8 = new Label();
             comboBox4 = new ComboBox();
             textBox4 = new TextBox();
             comboBox3 = new ComboBox();
@@ -54,9 +61,8 @@
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
-            label8 = new Label();
-            comboBox5 = new ComboBox();
-            textBox5 = new TextBox();
+            label9 = new Label();
+            label10 = new Label();
             panel10.SuspendLayout();
             panel8.SuspendLayout();
             panel7.SuspendLayout();
@@ -202,6 +208,12 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panel5.Controls.Add(label10);
+            panel5.Controls.Add(label9);
+            panel5.Controls.Add(comboBox7);
+            panel5.Controls.Add(textBox7);
+            panel5.Controls.Add(comboBox6);
+            panel5.Controls.Add(textBox6);
             panel5.Controls.Add(comboBox5);
             panel5.Controls.Add(textBox5);
             panel5.Controls.Add(label8);
@@ -224,18 +236,78 @@
             panel5.Size = new Size(333, 394);
             panel5.TabIndex = 58;
             // 
+            // comboBox7
+            // 
+            comboBox7.FormattingEnabled = true;
+            comboBox7.Items.AddRange(new object[] { "KB", "MB", "GB" });
+            comboBox7.Location = new Point(260, 314);
+            comboBox7.Name = "comboBox7";
+            comboBox7.Size = new Size(68, 23);
+            comboBox7.TabIndex = 78;
+            // 
+            // textBox7
+            // 
+            textBox7.Location = new Point(154, 314);
+            textBox7.Name = "textBox7";
+            textBox7.Size = new Size(100, 23);
+            textBox7.TabIndex = 77;
+            // 
+            // comboBox6
+            // 
+            comboBox6.FormattingEnabled = true;
+            comboBox6.Items.AddRange(new object[] { "KB", "MB", "GB" });
+            comboBox6.Location = new Point(260, 224);
+            comboBox6.Name = "comboBox6";
+            comboBox6.Size = new Size(68, 23);
+            comboBox6.TabIndex = 75;
+            // 
+            // textBox6
+            // 
+            textBox6.Location = new Point(154, 224);
+            textBox6.Name = "textBox6";
+            textBox6.Size = new Size(100, 23);
+            textBox6.TabIndex = 74;
+            // 
+            // comboBox5
+            // 
+            comboBox5.FormattingEnabled = true;
+            comboBox5.Items.AddRange(new object[] { "KB", "MB", "GB" });
+            comboBox5.Location = new Point(260, 134);
+            comboBox5.Name = "comboBox5";
+            comboBox5.Size = new Size(68, 23);
+            comboBox5.TabIndex = 72;
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(154, 134);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(100, 23);
+            textBox5.TabIndex = 71;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.BackColor = Color.Transparent;
+            label8.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            label8.ForeColor = SystemColors.Control;
+            label8.Location = new Point(250, 116);
+            label8.Name = "label8";
+            label8.Size = new Size(15, 15);
+            label8.TabIndex = 70;
+            label8.Text = "V";
+            // 
             // comboBox4
             // 
             comboBox4.FormattingEnabled = true;
             comboBox4.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox4.Location = new Point(260, 224);
+            comboBox4.Location = new Point(260, 269);
             comboBox4.Name = "comboBox4";
             comboBox4.Size = new Size(68, 23);
             comboBox4.TabIndex = 69;
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(154, 224);
+            textBox4.Location = new Point(154, 269);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(100, 23);
             textBox4.TabIndex = 68;
@@ -244,14 +316,14 @@
             // 
             comboBox3.FormattingEnabled = true;
             comboBox3.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox3.Location = new Point(260, 187);
+            comboBox3.Location = new Point(260, 179);
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(68, 23);
             comboBox3.TabIndex = 67;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(154, 187);
+            textBox3.Location = new Point(154, 179);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(100, 23);
             textBox3.TabIndex = 66;
@@ -260,14 +332,14 @@
             // 
             comboBox2.FormattingEnabled = true;
             comboBox2.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox2.Location = new Point(260, 81);
+            comboBox2.Location = new Point(260, 89);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(68, 23);
             comboBox2.TabIndex = 65;
             // 
             // textBox2
             // 
-            textBox2.Location = new Point(154, 81);
+            textBox2.Location = new Point(154, 89);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(100, 23);
             textBox2.TabIndex = 64;
@@ -293,22 +365,22 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(3, 225);
+            label7.Location = new Point(3, 268);
             label7.Name = "label7";
-            label7.Size = new Size(124, 21);
+            label7.Size = new Size(128, 21);
             label7.TabIndex = 61;
-            label7.Text = "Very Large Files";
+            label7.Text = "Very Large Files:";
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(3, 188);
+            label6.Location = new Point(3, 175);
             label6.Name = "label6";
-            label6.Size = new Size(87, 21);
+            label6.Size = new Size(91, 21);
             label6.TabIndex = 60;
-            label6.Text = "Large Files";
+            label6.Text = "Large Files:";
             // 
             // label5
             // 
@@ -317,9 +389,9 @@
             label5.ForeColor = SystemColors.Control;
             label5.Location = new Point(3, 82);
             label5.Name = "label5";
-            label5.Size = new Size(107, 21);
+            label5.Size = new Size(111, 21);
             label5.TabIndex = 59;
-            label5.Text = "Medium Files";
+            label5.Text = "Medium Files:";
             // 
             // label4
             // 
@@ -328,36 +400,33 @@
             label4.ForeColor = SystemColors.Control;
             label4.Location = new Point(3, 45);
             label4.Name = "label4";
-            label4.Size = new Size(85, 21);
+            label4.Size = new Size(89, 21);
             label4.TabIndex = 58;
-            label4.Text = "Small Files";
+            label4.Text = "Small Files:";
             // 
-            // label8
+            // label9
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.ForeColor = SystemColors.Control;
-            label8.Location = new Point(245, 107);
-            label8.Name = "label8";
-            label8.Size = new Size(30, 21);
-            label8.TabIndex = 70;
-            label8.Text = "TO";
+            label9.AutoSize = true;
+            label9.BackColor = Color.Transparent;
+            label9.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            label9.ForeColor = SystemColors.Control;
+            label9.Location = new Point(250, 205);
+            label9.Name = "label9";
+            label9.Size = new Size(15, 15);
+            label9.TabIndex = 79;
+            label9.Text = "V";
             // 
-            // comboBox5
+            // label10
             // 
-            comboBox5.FormattingEnabled = true;
-            comboBox5.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox5.Location = new Point(260, 131);
-            comboBox5.Name = "comboBox5";
-            comboBox5.Size = new Size(68, 23);
-            comboBox5.TabIndex = 72;
-            // 
-            // textBox5
-            // 
-            textBox5.Location = new Point(154, 131);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(100, 23);
-            textBox5.TabIndex = 71;
+            label10.AutoSize = true;
+            label10.BackColor = Color.Transparent;
+            label10.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            label10.ForeColor = SystemColors.Control;
+            label10.Location = new Point(250, 296);
+            label10.Name = "label10";
+            label10.Size = new Size(15, 15);
+            label10.TabIndex = 80;
+            label10.Text = "V";
             // 
             // Menu_Sizes
             // 
@@ -417,5 +486,11 @@
         private ComboBox comboBox5;
         private TextBox textBox5;
         private Label label8;
+        private ComboBox comboBox7;
+        private TextBox textBox7;
+        private ComboBox comboBox6;
+        private TextBox textBox6;
+        private Label label10;
+        private Label label9;
     }
 }
