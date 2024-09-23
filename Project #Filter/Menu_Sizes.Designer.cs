@@ -54,6 +54,9 @@
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
+            label8 = new Label();
+            comboBox5 = new ComboBox();
+            textBox5 = new TextBox();
             panel10.SuspendLayout();
             panel8.SuspendLayout();
             panel7.SuspendLayout();
@@ -199,6 +202,9 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panel5.Controls.Add(comboBox5);
+            panel5.Controls.Add(textBox5);
+            panel5.Controls.Add(label8);
             panel5.Controls.Add(comboBox4);
             panel5.Controls.Add(textBox4);
             panel5.Controls.Add(comboBox3);
@@ -222,14 +228,14 @@
             // 
             comboBox4.FormattingEnabled = true;
             comboBox4.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox4.Location = new Point(260, 155);
+            comboBox4.Location = new Point(260, 224);
             comboBox4.Name = "comboBox4";
             comboBox4.Size = new Size(68, 23);
             comboBox4.TabIndex = 69;
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(154, 155);
+            textBox4.Location = new Point(154, 224);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(100, 23);
             textBox4.TabIndex = 68;
@@ -238,14 +244,14 @@
             // 
             comboBox3.FormattingEnabled = true;
             comboBox3.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox3.Location = new Point(260, 118);
+            comboBox3.Location = new Point(260, 187);
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(68, 23);
             comboBox3.TabIndex = 67;
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(154, 118);
+            textBox3.Location = new Point(154, 187);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(100, 23);
             textBox3.TabIndex = 66;
@@ -287,7 +293,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(3, 156);
+            label7.Location = new Point(3, 225);
             label7.Name = "label7";
             label7.Size = new Size(124, 21);
             label7.TabIndex = 61;
@@ -298,7 +304,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(3, 119);
+            label6.Location = new Point(3, 188);
             label6.Name = "label6";
             label6.Size = new Size(87, 21);
             label6.TabIndex = 60;
@@ -325,6 +331,33 @@
             label4.Size = new Size(85, 21);
             label4.TabIndex = 58;
             label4.Text = "Small Files";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = SystemColors.Control;
+            label8.Location = new Point(245, 107);
+            label8.Name = "label8";
+            label8.Size = new Size(30, 21);
+            label8.TabIndex = 70;
+            label8.Text = "TO";
+            // 
+            // comboBox5
+            // 
+            comboBox5.FormattingEnabled = true;
+            comboBox5.Items.AddRange(new object[] { "KB", "MB", "GB" });
+            comboBox5.Location = new Point(260, 131);
+            comboBox5.Name = "comboBox5";
+            comboBox5.Size = new Size(68, 23);
+            comboBox5.TabIndex = 72;
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(154, 131);
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(100, 23);
+            textBox5.TabIndex = 71;
             // 
             // Menu_Sizes
             // 
@@ -381,5 +414,8 @@
         private TextBox textBox2;
         private ComboBox comboBox1;
         private TextBox textBox1;
+        private ComboBox comboBox5;
+        private TextBox textBox5;
+        private Label label8;
     }
 }

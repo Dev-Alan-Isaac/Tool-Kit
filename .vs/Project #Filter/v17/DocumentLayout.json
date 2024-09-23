@@ -7,8 +7,12 @@
       "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_sizes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_sizes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_sizes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_type.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_type.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_type.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -22,8 +26,62 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Menu_Type.cs [Design]",
+              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Type.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Menu_Type.cs",
+              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Type.cs [Design]*",
+              "RelativeToolTip": "Project #Filter\\Menu_Type.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T05:03:13.899Z",
+              "IsPinned": true,
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Menu_Type.cs",
+              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Type.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Menu_Type.cs",
+              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Type.cs*",
+              "RelativeToolTip": "Project #Filter\\Menu_Type.cs*",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwDQAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T05:10:27.005Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Menu_Sizes.cs [Design]",
+              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Sizes.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Menu_Sizes.cs",
+              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Sizes.cs [Design]*",
+              "RelativeToolTip": "Project #Filter\\Menu_Sizes.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T05:10:03.972Z",
+              "IsPinned": true,
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Menu_Sizes.cs",
+              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Sizes.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Menu_Sizes.cs",
+              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Sizes.cs*",
+              "RelativeToolTip": "Project #Filter\\Menu_Sizes.cs*",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T05:10:30.994Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -39,42 +97,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Menu_Type.cs [Design]",
-              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Type.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Menu_Type.cs",
-              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Type.cs [Design]*",
-              "RelativeToolTip": "Project #Filter\\Menu_Type.cs [Design]*",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-23T05:03:13.899Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Menu_Config.cs [Design]",
-              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Config.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Menu_Config.cs",
-              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Config.cs [Design]",
-              "RelativeToolTip": "Project #Filter\\Menu_Config.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-23T04:48:04.884Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Menu_Sizes.cs [Design]",
-              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Sizes.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Menu_Sizes.cs",
-              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Sizes.cs [Design]",
-              "RelativeToolTip": "Project #Filter\\Menu_Sizes.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-23T04:48:03.258Z",
-              "EditorCaption": " [Design]"
             }
           ]
         }

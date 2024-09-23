@@ -1,6 +1,6 @@
 ﻿namespace Project__Filter
 {
-    partial class Menu_Config
+    partial class Menu_Screen
     {
         /// <summary> 
         /// Required designer variable.

@@ -1,8 +1,8 @@
 ﻿namespace Project__Filter
 {
-    public partial class Menu_Config : UserControl
+    public partial class Menu_Screen : UserControl
     {
-        public Menu_Config()
+        public Menu_Screen()
         {
             InitializeComponent();
         }

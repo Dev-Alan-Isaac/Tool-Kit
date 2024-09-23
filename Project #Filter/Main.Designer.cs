@@ -52,7 +52,7 @@
             merge1 = new Opt_Merge();
             privacy1 = new Opt_Encrypt();
             panel1 = new Panel();
-            config_Menu1 = new Menu_Config();
+            config_Menu1 = new Menu_Screen();
             bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(components);
             bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(components);
             bunifuDragControl3 = new Bunifu.Framework.UI.BunifuDragControl(components);
@@ -473,7 +473,7 @@
         private Opt_Encrypt privacy1;
         private Button button_Config;
         private Panel panel1;
-        private Menu_Config config_Menu1;
+        private Menu_Screen config_Menu1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl3;
