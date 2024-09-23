@@ -23,16 +23,24 @@ namespace Project__Filter
                 {
                     // Create the JSON object
                     var jsonContent = new JObject(
-                        new JProperty("Extensions", new JObject(
-                            new JProperty("Images", new JArray("jpg", "png", "gif", "bmp", "jpeg")),
-                            new JProperty("Videos", new JArray("mp4", "m4v", "avi", "mkv", "3gp", "mov", "wmv", "webm", "ts", "mpg", "asf", "flv", "mpeg")),
-                            new JProperty("Documents", new JArray("txt", "docx", "pdf", "pptx")),
-                            new JProperty("Audio", new JArray("mp3", "wav", "aac", "flac", "ogg", "m4a", "wma", "alac", "aiff")),
-                            new JProperty("Archives", new JArray("zip", "rar", "7z", "tar", "gz", "bz2", "iso", "xz")),
-                            new JProperty("Executables", new JArray("exe", "bat", "sh", "msi", "bin", "cmd", "apk", "com", "jar"))
-                        )),
-                        new JProperty("Allow", new JObject())
-                    );
+                         new JProperty("Extensions", new JObject(
+                             new JProperty("Images", new JArray("jpg", "png", "gif", "bmp", "jpeg")),
+                             new JProperty("Videos", new JArray("mp4", "m4v", "avi", "mkv", "3gp", "mov", "wmv", "webm", "ts", "mpg", "asf", "flv", "mpeg")),
+                             new JProperty("Documents", new JArray("txt", "docx", "pdf", "pptx")),
+                             new JProperty("Audio", new JArray("mp3", "wav", "aac", "flac", "ogg", "m4a", "wma", "alac", "aiff")),
+                             new JProperty("Archives", new JArray("zip", "rar", "7z", "tar", "gz", "bz2", "iso", "xz")),
+                             new JProperty("Executables", new JArray("exe", "bat", "sh", "msi", "bin", "cmd", "apk", "com", "jar"))
+                         )),
+                         new JProperty("Allow", new JObject(
+                             new JProperty("Documents", true),
+                             new JProperty("Images", true),
+                             new JProperty("Audio", true),
+                             new JProperty("Videos", true),
+                             new JProperty("Archives", true),
+                             new JProperty("Executables", true)
+                         ))
+                     );
+
 
                     // Save to a file (e.g., "Extensions.json")
                     File.WriteAllText("Extensions.json", jsonContent.ToString());
@@ -156,15 +164,18 @@ namespace Project__Filter
                     // Get the array of extensions for this category
                     var extensionArray = (JArray)category.Value;
 
-                    // Check if the extension exists in this category
-                    if (extensionArray.Contains(NodeBranch))
+                    // Check if the extension exists in this category (case-insensitive comparison)
+                    var itemToRemove = extensionArray.FirstOrDefault(x => string.Equals(x.ToString().Trim(), NodeBranch.Trim(), StringComparison.OrdinalIgnoreCase));
+
+                    if (itemToRemove != null)
                     {
                         // Remove the extension
-                        extensionArray.Remove(NodeBranch);
+                        extensionArray.Remove(itemToRemove);
                         isRemoved = true;
                         break; // Exit the loop once the extension is found and removed
                     }
                 }
+
 
                 if (isRemoved)
                 {
@@ -190,7 +201,6 @@ namespace Project__Filter
                 MessageBox.Show("Extensions.json file not found!");
             }
         }
-
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
         {
