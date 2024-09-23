@@ -5,12 +5,12 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Project__Filter
 {
-    public partial class Menu_Folders : UserControl
+    public partial class Menu_Type : UserControl
     {
         private List<string> checkedItems = new List<string>();
         private string NodeBranch;
 
-        public Menu_Folders()
+        public Menu_Type()
         {
             InitializeComponent();
         }

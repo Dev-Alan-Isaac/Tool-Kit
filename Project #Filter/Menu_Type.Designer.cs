@@ -1,6 +1,6 @@
 ﻿namespace Project__Filter
 {
-    partial class Menu_Folders
+    partial class Menu_Type
     {
         /// <summary> 
         /// Required designer variable.
@@ -331,7 +331,7 @@
             button_Add.UseVisualStyleBackColor = false;
             button_Add.Click += button_Add_Click;
             // 
-            // Menu_Folders
+            // Menu_Type
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -343,7 +343,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             ForeColor = Color.White;
-            Name = "Menu_Folders";
+            Name = "Menu_Type";
             Size = new Size(611, 514);
             Load += UserControl1_Load;
             panel4.ResumeLayout(false);
