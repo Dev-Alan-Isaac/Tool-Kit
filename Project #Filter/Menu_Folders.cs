@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.VisualBasic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
@@ -16,6 +6,8 @@ namespace Project__Filter
 {
     public partial class Menu_Folders : UserControl
     {
+        private List<string> checkedItems = new List<string>();
+
         public Menu_Folders()
         {
             InitializeComponent();
@@ -91,5 +83,90 @@ namespace Project__Filter
                 }
             }
         }
+
+        private void button_Saved_Click(object sender, EventArgs e)
+        {
+            // Replace 'panelCheckBoxes' with the actual container where your checkboxes are placed
+            Control container = this.Controls["panel5"]; // Change this if necessary
+
+            if (File.Exists("Extensions.json"))
+            {
+                // Read the existing JSON content
+                string jsonString = File.ReadAllText("Extensions.json");
+                var jsonContent = JObject.Parse(jsonString);
+
+                // Get the "Allow" section
+                var allowSection = (JObject)jsonContent["Allow"];
+
+                // Process each item in the list, setting true if checked, false if unchecked
+                foreach (string item in checkedItems)
+                {
+                    // Check if the corresponding checkbox is checked or unchecked
+                    bool isChecked = false;
+
+                    foreach (Control control in container.Controls) // Use the container, not this.Controls
+                    {
+                        if (control is System.Windows.Forms.CheckBox checkBox && checkBox.Text == item)
+                        {
+                            isChecked = checkBox.Checked;
+                            break;
+                        }
+                    }
+
+                    // Update the "Allow" section in the JSON
+                    allowSection[item] = isChecked;
+                }
+
+                // Save the updated JSON back to the file
+                File.WriteAllText("Extensions.json", jsonContent.ToString());
+
+                // Optional: Notify the user that the file has been saved
+                MessageBox.Show("Extensions.json has been updated with allowed/disallowed items.");
+            }
+            else
+            {
+                MessageBox.Show("Extensions.json file not found!");
+            }
+        }
+
+
+        private void button_Cancel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_Add_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_Remove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            // Cast the sender to a CheckBox
+            if (sender is System.Windows.Forms.CheckBox checkBox)
+            {
+                // Get the text of the checkbox
+                string checkboxText = checkBox.Text;
+
+                if (checkBox.Checked)
+                {
+                    // Add to the list if checked
+                    if (!checkedItems.Contains(checkboxText))
+                        checkedItems.Add(checkboxText);
+                }
+                else
+                {
+                    // If unchecked, we still keep the item in the list but mark it as false later
+                    if (!checkedItems.Contains(checkboxText))
+                        checkedItems.Add(checkboxText);
+                }
+            }
+        }
+
     }
 }

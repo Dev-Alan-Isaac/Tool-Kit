@@ -7,7 +7,7 @@ namespace Project__Filter
     public partial class Opt_Sort : UserControl
     {
         private string Path;
-        List<string> checkedItems = new List<string>();
+        private List<string> checkedItems = new List<string>();
 
         public Opt_Sort()
         {
@@ -28,10 +28,41 @@ namespace Project__Filter
             }
         }
 
-
-        private void button_Filter_Click_1(object sender, EventArgs e)
+        private async void button_Filter_Click_1(object sender, EventArgs e)
         {
+            // Iterate through each item in the checkedItems list
+            foreach (string item in checkedItems)
+            {
+                MessageBox.Show($"Item: {item}");
+                switch (item)
+                {
+                    case "File Type":
+                        await Task.Run(() => SortTypes(Path, "Json"));
+                        break;
+                    case "File Size":
+                        break;
+                    case "File Date":
+                        break;
+                    case "File Name":
+                        break;
+                    case "File Usage":
+                        break;
+                    case "File Permissions":
+                        break;
+                    case "Custom Tags":
+                        break;
+                    case "Folder Location":
+                        break;
+                    case "File Content (Text/Docs)":
+                        break;
+                    case "Media Metadata (Videos/Audio)":
+                        break;
+                    default:
+                        break;
+                }
+            }
 
+            // Optionally, you can split the list into sub-lists or do other kinds of processing here.
         }
 
         private void checkBox_CheckedChanged(object sender, EventArgs e)
@@ -53,11 +84,8 @@ namespace Project__Filter
                     // Remove from the list if unchecked
                     checkedItems.Remove(checkboxText);
                 }
-
-                // Show the content of the list
-                string listContent = string.Join(", ", checkedItems); // Join elements with a comma
-                MessageBox.Show($"Lista de elementos seleccionados:\n{listContent}");
             }
+            button_Filter.Enabled = true;
         }
 
 
@@ -122,6 +150,6 @@ namespace Project__Filter
 
         }
 
-     
+
     }
 }

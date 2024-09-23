@@ -35,8 +35,7 @@
             label1 = new Label();
             panel5 = new Panel();
             panel10 = new Panel();
-            button1 = new Button();
-            button2 = new Button();
+            button_Saved = new Button();
             checkBox6 = new CheckBox();
             checkBox5 = new CheckBox();
             checkBox4 = new CheckBox();
@@ -128,46 +127,29 @@
             // panel10
             // 
             panel10.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel10.Controls.Add(button1);
-            panel10.Controls.Add(button2);
+            panel10.Controls.Add(button_Saved);
             panel10.Location = new Point(3, 348);
             panel10.Name = "panel10";
             panel10.Size = new Size(325, 43);
             panel10.TabIndex = 57;
             // 
-            // button1
+            // button_Saved
             // 
-            button1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            button1.BackColor = Color.Teal;
-            button1.BackgroundImage = Properties.Resources.Button_Icon_Remove;
-            button1.BackgroundImageLayout = ImageLayout.Zoom;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(234, 4);
-            button1.Margin = new Padding(3, 2, 3, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(88, 37);
-            button1.TabIndex = 51;
-            button1.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            button2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            button2.BackColor = Color.Teal;
-            button2.BackgroundImage = Properties.Resources.Button_Icon_Add;
-            button2.BackgroundImageLayout = ImageLayout.Zoom;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(3, 4);
-            button2.Margin = new Padding(3, 2, 3, 2);
-            button2.Name = "button2";
-            button2.Size = new Size(88, 37);
-            button2.TabIndex = 52;
-            button2.UseVisualStyleBackColor = false;
+            button_Saved.BackColor = Color.Teal;
+            button_Saved.BackgroundImage = Properties.Resources.Button_Icon_Add;
+            button_Saved.BackgroundImageLayout = ImageLayout.Zoom;
+            button_Saved.Dock = DockStyle.Fill;
+            button_Saved.FlatAppearance.BorderSize = 0;
+            button_Saved.FlatStyle = FlatStyle.Flat;
+            button_Saved.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
+            button_Saved.ForeColor = Color.White;
+            button_Saved.Location = new Point(0, 0);
+            button_Saved.Margin = new Padding(3, 2, 3, 2);
+            button_Saved.Name = "button_Saved";
+            button_Saved.Size = new Size(325, 43);
+            button_Saved.TabIndex = 52;
+            button_Saved.UseVisualStyleBackColor = false;
+            button_Saved.Click += button_Saved_Click;
             // 
             // checkBox6
             // 
@@ -179,6 +161,7 @@
             checkBox6.TabIndex = 7;
             checkBox6.Text = "Executables";
             checkBox6.UseVisualStyleBackColor = true;
+            checkBox6.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox5
             // 
@@ -190,6 +173,7 @@
             checkBox5.TabIndex = 6;
             checkBox5.Text = "Archives";
             checkBox5.UseVisualStyleBackColor = true;
+            checkBox5.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox4
             // 
@@ -201,6 +185,7 @@
             checkBox4.TabIndex = 5;
             checkBox4.Text = "Videos";
             checkBox4.UseVisualStyleBackColor = true;
+            checkBox4.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox3
             // 
@@ -212,6 +197,7 @@
             checkBox3.TabIndex = 4;
             checkBox3.Text = "Audio";
             checkBox3.UseVisualStyleBackColor = true;
+            checkBox3.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox2
             // 
@@ -223,6 +209,7 @@
             checkBox2.TabIndex = 3;
             checkBox2.Text = "Images";
             checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox1
             // 
@@ -234,6 +221,7 @@
             checkBox1.TabIndex = 2;
             checkBox1.Text = "Documents";
             checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox_CheckedChanged;
             // 
             // panel9
             // 
@@ -322,6 +310,7 @@
             button_Remove.Size = new Size(88, 37);
             button_Remove.TabIndex = 51;
             button_Remove.UseVisualStyleBackColor = false;
+            button_Remove.Click += button_Remove_Click;
             // 
             // button_Add
             // 
@@ -339,6 +328,7 @@
             button_Add.Size = new Size(88, 37);
             button_Add.TabIndex = 52;
             button_Add.UseVisualStyleBackColor = false;
+            button_Add.Click += button_Add_Click;
             // 
             // Menu_Folders
             // 
@@ -387,8 +377,7 @@
         private CheckBox checkBox1;
         private TreeView treeView1;
         private Panel panel10;
-        private Button button1;
-        private Button button2;
+        private Button button_Saved;
         private CheckBox checkBox6;
         private CheckBox checkBox5;
         private Panel panel6;
