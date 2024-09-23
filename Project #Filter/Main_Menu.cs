@@ -34,7 +34,7 @@
 
         private void button_Date_Click(object sender, EventArgs e)
         {
-            config_Sizes1.BringToFront();
+            menu_Date1.BringToFront();
             FollowButton(sender as Button);
         }
     }

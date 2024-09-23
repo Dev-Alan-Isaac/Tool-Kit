@@ -244,7 +244,8 @@
             // menu_Date1
             // 
             menu_Date1.BackColor = Color.FromArgb(64, 64, 64);
-            menu_Date1.Location = new Point(166, 3);
+            menu_Date1.Dock = DockStyle.Fill;
+            menu_Date1.Location = new Point(160, 0);
             menu_Date1.Name = "menu_Date1";
             menu_Date1.Size = new Size(516, 422);
             menu_Date1.TabIndex = 9;
