@@ -1,6 +1,6 @@
 ﻿namespace Project__Filter
 {
-    partial class Menu_Screen
+    partial class Main_Menu
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,17 +29,18 @@
         private void InitializeComponent()
         {
             panel_Menu_Config = new Panel();
+            button5 = new Button();
+            button6 = new Button();
+            button3 = new Button();
+            button4 = new Button();
+            button1 = new Button();
+            button_Date = new Button();
             Panel_Index_Config = new Panel();
             button_Size = new Button();
             button_Folder = new Button();
             config_Folders1 = new Menu_Type();
             config_Sizes1 = new Menu_Sizes();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
-            button6 = new Button();
+            menu_Date1 = new Menu_Date();
             panel_Menu_Config.SuspendLayout();
             SuspendLayout();
             // 
@@ -51,7 +52,7 @@
             panel_Menu_Config.Controls.Add(button3);
             panel_Menu_Config.Controls.Add(button4);
             panel_Menu_Config.Controls.Add(button1);
-            panel_Menu_Config.Controls.Add(button2);
+            panel_Menu_Config.Controls.Add(button_Date);
             panel_Menu_Config.Controls.Add(Panel_Index_Config);
             panel_Menu_Config.Controls.Add(button_Size);
             panel_Menu_Config.Controls.Add(button_Folder);
@@ -61,6 +62,115 @@
             panel_Menu_Config.Name = "panel_Menu_Config";
             panel_Menu_Config.Size = new Size(160, 422);
             panel_Menu_Config.TabIndex = 1;
+            // 
+            // button5
+            // 
+            button5.BackColor = Color.Transparent;
+            button5.Cursor = Cursors.Hand;
+            button5.FlatAppearance.BorderSize = 0;
+            button5.FlatStyle = FlatStyle.Flat;
+            button5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button5.ForeColor = Color.White;
+            button5.Image = Properties.Resources.Button_Icon_Aspect;
+            button5.Location = new Point(30, 334);
+            button5.Margin = new Padding(3, 2, 3, 2);
+            button5.Name = "button5";
+            button5.Size = new Size(120, 40);
+            button5.TabIndex = 8;
+            button5.Text = "   WIP";
+            button5.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button5.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            button6.BackColor = Color.Transparent;
+            button6.Cursor = Cursors.Hand;
+            button6.FlatAppearance.BorderSize = 0;
+            button6.FlatStyle = FlatStyle.Flat;
+            button6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button6.ForeColor = Color.White;
+            button6.Image = Properties.Resources.Button_Icon_Folder;
+            button6.Location = new Point(30, 290);
+            button6.Margin = new Padding(3, 2, 3, 2);
+            button6.Name = "button6";
+            button6.Size = new Size(120, 40);
+            button6.TabIndex = 7;
+            button6.Text = "   WIP";
+            button6.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button6.UseVisualStyleBackColor = false;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.Transparent;
+            button3.Cursor = Cursors.Hand;
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button3.ForeColor = Color.White;
+            button3.Image = Properties.Resources.Button_Icon_Aspect;
+            button3.Location = new Point(30, 246);
+            button3.Margin = new Padding(3, 2, 3, 2);
+            button3.Name = "button3";
+            button3.Size = new Size(120, 40);
+            button3.TabIndex = 6;
+            button3.Text = "   WIP";
+            button3.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button3.UseVisualStyleBackColor = false;
+            // 
+            // button4
+            // 
+            button4.BackColor = Color.Transparent;
+            button4.Cursor = Cursors.Hand;
+            button4.FlatAppearance.BorderSize = 0;
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button4.ForeColor = Color.White;
+            button4.Image = Properties.Resources.Button_Icon_Folder;
+            button4.Location = new Point(30, 202);
+            button4.Margin = new Padding(3, 2, 3, 2);
+            button4.Name = "button4";
+            button4.Size = new Size(120, 40);
+            button4.TabIndex = 5;
+            button4.Text = "   WIP";
+            button4.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button4.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Transparent;
+            button1.Cursor = Cursors.Hand;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button1.ForeColor = Color.White;
+            button1.Image = Properties.Resources.Button_Icon_Aspect;
+            button1.Location = new Point(30, 158);
+            button1.Margin = new Padding(3, 2, 3, 2);
+            button1.Name = "button1";
+            button1.Size = new Size(120, 40);
+            button1.TabIndex = 4;
+            button1.Text = "   WIP";
+            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // button_Date
+            // 
+            button_Date.BackColor = Color.Transparent;
+            button_Date.Cursor = Cursors.Hand;
+            button_Date.FlatAppearance.BorderSize = 0;
+            button_Date.FlatStyle = FlatStyle.Flat;
+            button_Date.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button_Date.ForeColor = Color.White;
+            button_Date.Image = Properties.Resources.Button_Icon_Folder;
+            button_Date.Location = new Point(30, 114);
+            button_Date.Margin = new Padding(3, 2, 3, 2);
+            button_Date.Name = "button_Date";
+            button_Date.Size = new Size(120, 40);
+            button_Date.TabIndex = 3;
+            button_Date.Text = "   Date";
+            button_Date.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button_Date.UseVisualStyleBackColor = false;
+            button_Date.Click += button_Date_Click;
             // 
             // Panel_Index_Config
             // 
@@ -131,123 +241,24 @@
             config_Sizes1.Size = new Size(516, 422);
             config_Sizes1.TabIndex = 3;
             // 
-            // button1
+            // menu_Date1
             // 
-            button1.BackColor = Color.Transparent;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button1.ForeColor = Color.White;
-            button1.Image = Properties.Resources.Button_Icon_Aspect;
-            button1.Location = new Point(30, 158);
-            button1.Margin = new Padding(3, 2, 3, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(120, 40);
-            button1.TabIndex = 4;
-            button1.Text = "   WIP";
-            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button1.UseVisualStyleBackColor = false;
+            menu_Date1.BackColor = Color.FromArgb(64, 64, 64);
+            menu_Date1.Location = new Point(166, 3);
+            menu_Date1.Name = "menu_Date1";
+            menu_Date1.Size = new Size(516, 422);
+            menu_Date1.TabIndex = 9;
             // 
-            // button2
-            // 
-            button2.BackColor = Color.Transparent;
-            button2.Cursor = Cursors.Hand;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button2.ForeColor = Color.White;
-            button2.Image = Properties.Resources.Button_Icon_Folder;
-            button2.Location = new Point(30, 114);
-            button2.Margin = new Padding(3, 2, 3, 2);
-            button2.Name = "button2";
-            button2.Size = new Size(120, 40);
-            button2.TabIndex = 3;
-            button2.Text = "   WIP";
-            button2.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button2.UseVisualStyleBackColor = false;
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.Transparent;
-            button3.Cursor = Cursors.Hand;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button3.ForeColor = Color.White;
-            button3.Image = Properties.Resources.Button_Icon_Aspect;
-            button3.Location = new Point(30, 246);
-            button3.Margin = new Padding(3, 2, 3, 2);
-            button3.Name = "button3";
-            button3.Size = new Size(120, 40);
-            button3.TabIndex = 6;
-            button3.Text = "   WIP";
-            button3.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button3.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            button4.BackColor = Color.Transparent;
-            button4.Cursor = Cursors.Hand;
-            button4.FlatAppearance.BorderSize = 0;
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button4.ForeColor = Color.White;
-            button4.Image = Properties.Resources.Button_Icon_Folder;
-            button4.Location = new Point(30, 202);
-            button4.Margin = new Padding(3, 2, 3, 2);
-            button4.Name = "button4";
-            button4.Size = new Size(120, 40);
-            button4.TabIndex = 5;
-            button4.Text = "   WIP";
-            button4.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button4.UseVisualStyleBackColor = false;
-            // 
-            // button5
-            // 
-            button5.BackColor = Color.Transparent;
-            button5.Cursor = Cursors.Hand;
-            button5.FlatAppearance.BorderSize = 0;
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button5.ForeColor = Color.White;
-            button5.Image = Properties.Resources.Button_Icon_Aspect;
-            button5.Location = new Point(30, 334);
-            button5.Margin = new Padding(3, 2, 3, 2);
-            button5.Name = "button5";
-            button5.Size = new Size(120, 40);
-            button5.TabIndex = 8;
-            button5.Text = "   WIP";
-            button5.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button5.UseVisualStyleBackColor = false;
-            // 
-            // button6
-            // 
-            button6.BackColor = Color.Transparent;
-            button6.Cursor = Cursors.Hand;
-            button6.FlatAppearance.BorderSize = 0;
-            button6.FlatStyle = FlatStyle.Flat;
-            button6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button6.ForeColor = Color.White;
-            button6.Image = Properties.Resources.Button_Icon_Folder;
-            button6.Location = new Point(30, 290);
-            button6.Margin = new Padding(3, 2, 3, 2);
-            button6.Name = "button6";
-            button6.Size = new Size(120, 40);
-            button6.TabIndex = 7;
-            button6.Text = "   WIP";
-            button6.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button6.UseVisualStyleBackColor = false;
-            // 
-            // Menu_Config
+            // Main_Menu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
+            Controls.Add(menu_Date1);
             Controls.Add(config_Folders1);
             Controls.Add(config_Sizes1);
             Controls.Add(panel_Menu_Config);
-            Name = "Menu_Config";
+            Name = "Main_Menu";
             Size = new Size(676, 422);
             panel_Menu_Config.ResumeLayout(false);
             ResumeLayout(false);
@@ -266,6 +277,7 @@
         private Button button3;
         private Button button4;
         private Button button1;
-        private Button button2;
+        private Button button_Date;
+        private Menu_Date menu_Date1;
     }
 }
