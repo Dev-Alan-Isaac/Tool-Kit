@@ -132,13 +132,13 @@
             // 
             // button_Git
             // 
-            button_Git.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            button_Git.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button_Git.BackgroundImage = Properties.Resources.Button_Icon_Github;
             button_Git.BackgroundImageLayout = ImageLayout.Zoom;
             button_Git.Cursor = Cursors.Hand;
             button_Git.FlatAppearance.BorderSize = 0;
             button_Git.FlatStyle = FlatStyle.Flat;
-            button_Git.Location = new Point(181, 613);
+            button_Git.Location = new Point(3, 613);
             button_Git.Margin = new Padding(3, 2, 3, 2);
             button_Git.Name = "button_Git";
             button_Git.Size = new Size(35, 30);

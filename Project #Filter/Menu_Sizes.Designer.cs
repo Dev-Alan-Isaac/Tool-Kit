@@ -42,8 +42,7 @@
             panel4 = new Panel();
             panel9 = new Panel();
             panel5 = new Panel();
-            comboBox7 = new ComboBox();
-            textBox7 = new TextBox();
+            label9 = new Label();
             comboBox6 = new ComboBox();
             textBox6 = new TextBox();
             comboBox5 = new ComboBox();
@@ -61,8 +60,6 @@
             label6 = new Label();
             label5 = new Label();
             label4 = new Label();
-            label9 = new Label();
-            label10 = new Label();
             panel10.SuspendLayout();
             panel8.SuspendLayout();
             panel7.SuspendLayout();
@@ -135,6 +132,7 @@
             button_Saved.Size = new Size(325, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
+            button_Saved.Click += button_Saved_Click;
             // 
             // panel8
             // 
@@ -208,10 +206,7 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel5.Controls.Add(label10);
             panel5.Controls.Add(label9);
-            panel5.Controls.Add(comboBox7);
-            panel5.Controls.Add(textBox7);
             panel5.Controls.Add(comboBox6);
             panel5.Controls.Add(textBox6);
             panel5.Controls.Add(comboBox5);
@@ -236,21 +231,17 @@
             panel5.Size = new Size(333, 394);
             panel5.TabIndex = 58;
             // 
-            // comboBox7
+            // label9
             // 
-            comboBox7.FormattingEnabled = true;
-            comboBox7.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox7.Location = new Point(260, 314);
-            comboBox7.Name = "comboBox7";
-            comboBox7.Size = new Size(68, 23);
-            comboBox7.TabIndex = 78;
-            // 
-            // textBox7
-            // 
-            textBox7.Location = new Point(154, 314);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(100, 23);
-            textBox7.TabIndex = 77;
+            label9.AutoSize = true;
+            label9.BackColor = Color.Transparent;
+            label9.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
+            label9.ForeColor = SystemColors.Control;
+            label9.Location = new Point(250, 205);
+            label9.Name = "label9";
+            label9.Size = new Size(15, 15);
+            label9.TabIndex = 79;
+            label9.Text = "V";
             // 
             // comboBox6
             // 
@@ -404,30 +395,6 @@
             label4.TabIndex = 58;
             label4.Text = "Small Files:";
             // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.BackColor = Color.Transparent;
-            label9.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label9.ForeColor = SystemColors.Control;
-            label9.Location = new Point(250, 205);
-            label9.Name = "label9";
-            label9.Size = new Size(15, 15);
-            label9.TabIndex = 79;
-            label9.Text = "V";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.BackColor = Color.Transparent;
-            label10.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
-            label10.ForeColor = SystemColors.Control;
-            label10.Location = new Point(250, 296);
-            label10.Name = "label10";
-            label10.Size = new Size(15, 15);
-            label10.TabIndex = 80;
-            label10.Text = "V";
-            // 
             // Menu_Sizes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -486,11 +453,8 @@
         private ComboBox comboBox5;
         private TextBox textBox5;
         private Label label8;
-        private ComboBox comboBox7;
-        private TextBox textBox7;
         private ComboBox comboBox6;
         private TextBox textBox6;
-        private Label label10;
         private Label label9;
     }
 }
