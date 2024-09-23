@@ -7,6 +7,7 @@ namespace Project__Filter
     public partial class Menu_Folders : UserControl
     {
         private List<string> checkedItems = new List<string>();
+        private string NodeBranch;
 
         public Menu_Folders()
         {
@@ -129,12 +130,6 @@ namespace Project__Filter
             }
         }
 
-
-        private void button_Cancel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button_Add_Click(object sender, EventArgs e)
         {
 
@@ -166,6 +161,14 @@ namespace Project__Filter
                         checkedItems.Add(checkboxText);
                 }
             }
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            // Get the selected node
+            TreeNode selectedNode = e.Node;
+
+            NodeBranch = selectedNode.Text;
         }
 
     }
