@@ -17,5 +17,10 @@ namespace Project__Filter
         {
             InitializeComponent();
         }
+
+        private void Menu_Sizes_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
