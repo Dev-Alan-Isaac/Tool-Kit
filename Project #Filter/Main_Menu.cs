@@ -14,27 +14,63 @@
             Panel_Index_Config.Top = button.Top;
         }
 
-        private void button_Folder_Click(object sender, EventArgs e)
+        private void button_Type_Click(object sender, EventArgs e)
         {
-            config_Folders1.BringToFront();
+            menu_Type1.BringToFront();
             FollowButton(sender as Button);
         }
 
         private void button_Size_Click(object sender, EventArgs e)
         {
-            config_Sizes1.BringToFront();
-            FollowButton(sender as Button);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            config_Sizes1.BringToFront();
+            menu_Sizes1.BringToFront();
             FollowButton(sender as Button);
         }
 
         private void button_Date_Click(object sender, EventArgs e)
         {
             menu_Date1.BringToFront();
+            FollowButton(sender as Button);
+        }
+
+        private void button_Name_Click(object sender, EventArgs e)
+        {
+            menu_Name1.BringToFront();
+            FollowButton(sender as Button);
+        }
+
+        private void button_Usage_Click(object sender, EventArgs e)
+        {
+            menu_Usage1.BringToFront();
+            FollowButton(sender as Button);
+        }
+
+        private void button_Auth_Click(object sender, EventArgs e)
+        {
+            menu_Auth1.BringToFront();
+            FollowButton(sender as Button);
+        }
+
+        private void button_Tags_Click(object sender, EventArgs e)
+        {
+            menu_Tags1.BringToFront();
+            FollowButton(sender as Button);
+        }
+
+        private void button_Folders_Click(object sender, EventArgs e)
+        {
+            menu_Folder1.BringToFront();
+            FollowButton(sender as Button);
+        }
+
+        private void button_Content_Click(object sender, EventArgs e)
+        {          
+            menu_Content1.BringToFront();
+            FollowButton(sender as Button);
+        }
+
+        private void button_Media_Click(object sender, EventArgs e)
+        {
+            menu_Media1.BringToFront();
             FollowButton(sender as Button);
         }
     }

@@ -7,16 +7,37 @@
     <Compile Update="Main.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Menu_Auth.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Menu_Content.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Menu_Date.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Main_Menu.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Menu_Folder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Menu_Media.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Menu_Name.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Menu_Tags.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Menu_Type.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Menu_Sizes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Menu_Usage.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Opt_Encrypt.cs">
