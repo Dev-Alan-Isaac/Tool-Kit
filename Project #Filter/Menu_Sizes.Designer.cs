@@ -109,17 +109,17 @@
             // 
             // panel10
             // 
-            panel10.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel10.Controls.Add(button_Saved);
-            panel10.Location = new Point(3, 348);
+            panel10.Dock = DockStyle.Bottom;
+            panel10.Location = new Point(0, 351);
             panel10.Name = "panel10";
-            panel10.Size = new Size(325, 43);
+            panel10.Size = new Size(333, 43);
             panel10.TabIndex = 57;
             // 
             // button_Saved
             // 
             button_Saved.BackColor = Color.Teal;
-            button_Saved.BackgroundImage = Properties.Resources.Button_Icon_Add;
+            button_Saved.BackgroundImage = Properties.Resources.Button_Icon_Save;
             button_Saved.BackgroundImageLayout = ImageLayout.Zoom;
             button_Saved.Dock = DockStyle.Fill;
             button_Saved.FlatAppearance.BorderSize = 0;
@@ -129,7 +129,7 @@
             button_Saved.Location = new Point(0, 0);
             button_Saved.Margin = new Padding(3, 2, 3, 2);
             button_Saved.Name = "button_Saved";
-            button_Saved.Size = new Size(325, 43);
+            button_Saved.Size = new Size(333, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
             button_Saved.Click += button_Saved_Click;
