@@ -207,6 +207,7 @@
             Controls.Add(panel1);
             Name = "Menu_Folder";
             Size = new Size(611, 514);
+            Load += Menu_Load;
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             panel4.ResumeLayout(false);
