@@ -322,6 +322,7 @@
             Controls.Add(panel1);
             Name = "Menu_Date";
             Size = new Size(611, 514);
+            Load += Menu_Load;
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             panel10.ResumeLayout(false);

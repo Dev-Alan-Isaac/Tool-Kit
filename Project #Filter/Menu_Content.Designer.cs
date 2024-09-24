@@ -329,6 +329,7 @@
             button_Saved.Size = new Size(333, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
+            button_Saved.Click += button_Saved_Click;
             // 
             // panel10
             // 
@@ -407,6 +408,7 @@
             Controls.Add(panel1);
             Name = "Menu_Content";
             Size = new Size(611, 514);
+            Load += Menu_Load;
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             panel4.ResumeLayout(false);

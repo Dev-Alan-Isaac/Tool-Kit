@@ -407,6 +407,7 @@
             Controls.Add(panel1);
             Name = "Menu_Auth";
             Size = new Size(611, 514);
+            Load += Menu_Auth_Load;
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             panel4.ResumeLayout(false);
