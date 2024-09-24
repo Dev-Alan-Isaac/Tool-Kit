@@ -335,3 +335,10 @@ E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows10.
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Type.resources
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Main_Menu.resources
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Date.resources
+E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Auth.resources
+E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Content.resources
+E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Folder.resources
+E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Media.resources
+E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Name.resources
+E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Tags.resources
+E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Usage.resources
