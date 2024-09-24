@@ -47,6 +47,13 @@
             menu_Type1 = new Menu_Type();
             menu_Sizes1 = new Menu_Sizes();
             menu_Date1 = new Menu_Date();
+            menu_Name1 = new Menu_Name();
+            menu_Usage1 = new Menu_Usage();
+            menu_Auth1 = new Menu_Auth();
+            menu_Tags1 = new Menu_Tags();
+            menu_Folder1 = new Menu_Folder();
+            menu_Content1 = new Menu_Content();
+            menu_Media1 = new Menu_Media();
             panel_Menu_Config.SuspendLayout();
             SuspendLayout();
             // 
@@ -378,11 +385,81 @@
             menu_Date1.Size = new Size(594, 541);
             menu_Date1.TabIndex = 9;
             // 
+            // menu_Name1
+            // 
+            menu_Name1.BackColor = Color.FromArgb(64, 64, 64);
+            menu_Name1.Dock = DockStyle.Fill;
+            menu_Name1.Location = new Point(171, 0);
+            menu_Name1.Name = "menu_Name1";
+            menu_Name1.Size = new Size(594, 541);
+            menu_Name1.TabIndex = 16;
+            // 
+            // menu_Usage1
+            // 
+            menu_Usage1.BackColor = Color.FromArgb(64, 64, 64);
+            menu_Usage1.Dock = DockStyle.Fill;
+            menu_Usage1.Location = new Point(171, 0);
+            menu_Usage1.Name = "menu_Usage1";
+            menu_Usage1.Size = new Size(594, 541);
+            menu_Usage1.TabIndex = 16;
+            // 
+            // menu_Auth1
+            // 
+            menu_Auth1.BackColor = Color.FromArgb(64, 64, 64);
+            menu_Auth1.Dock = DockStyle.Fill;
+            menu_Auth1.Location = new Point(171, 0);
+            menu_Auth1.Name = "menu_Auth1";
+            menu_Auth1.Size = new Size(594, 541);
+            menu_Auth1.TabIndex = 16;
+            // 
+            // menu_Tags1
+            // 
+            menu_Tags1.BackColor = Color.FromArgb(64, 64, 64);
+            menu_Tags1.Dock = DockStyle.Fill;
+            menu_Tags1.Location = new Point(171, 0);
+            menu_Tags1.Name = "menu_Tags1";
+            menu_Tags1.Size = new Size(594, 541);
+            menu_Tags1.TabIndex = 16;
+            // 
+            // menu_Folder1
+            // 
+            menu_Folder1.BackColor = Color.FromArgb(64, 64, 64);
+            menu_Folder1.Dock = DockStyle.Fill;
+            menu_Folder1.Location = new Point(171, 0);
+            menu_Folder1.Name = "menu_Folder1";
+            menu_Folder1.Size = new Size(594, 541);
+            menu_Folder1.TabIndex = 16;
+            // 
+            // menu_Content1
+            // 
+            menu_Content1.BackColor = Color.FromArgb(64, 64, 64);
+            menu_Content1.Dock = DockStyle.Fill;
+            menu_Content1.Location = new Point(171, 0);
+            menu_Content1.Name = "menu_Content1";
+            menu_Content1.Size = new Size(594, 541);
+            menu_Content1.TabIndex = 16;
+            // 
+            // menu_Media1
+            // 
+            menu_Media1.BackColor = Color.FromArgb(64, 64, 64);
+            menu_Media1.Dock = DockStyle.Fill;
+            menu_Media1.Location = new Point(171, 0);
+            menu_Media1.Name = "menu_Media1";
+            menu_Media1.Size = new Size(594, 541);
+            menu_Media1.TabIndex = 16;
+            // 
             // Main_Menu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
+            Controls.Add(menu_Media1);
+            Controls.Add(menu_Content1);
+            Controls.Add(menu_Folder1);
+            Controls.Add(menu_Tags1);
+            Controls.Add(menu_Auth1);
+            Controls.Add(menu_Usage1);
+            Controls.Add(menu_Name1);
             Controls.Add(menu_Date1);
             Controls.Add(menu_Type1);
             Controls.Add(menu_Sizes1);
@@ -414,5 +491,12 @@
         private Button button_Content;
         private Button button10;
         private Button button11;
+        private Menu_Name menu_Name1;
+        private Menu_Usage menu_Usage1;
+        private Menu_Auth menu_Auth1;
+        private Menu_Tags menu_Tags1;
+        private Menu_Folder menu_Folder1;
+        private Menu_Content menu_Content1;
+        private Menu_Media menu_Media1;
     }
 }

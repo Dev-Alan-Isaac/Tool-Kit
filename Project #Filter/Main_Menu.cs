@@ -34,36 +34,43 @@
 
         private void button_Name_Click(object sender, EventArgs e)
         {
+            menu_Name1.BringToFront();
             FollowButton(sender as Button);
         }
 
         private void button_Usage_Click(object sender, EventArgs e)
         {
+            menu_Usage1.BringToFront();
             FollowButton(sender as Button);
         }
 
         private void button_Auth_Click(object sender, EventArgs e)
         {
+            menu_Auth1.BringToFront();
             FollowButton(sender as Button);
         }
 
         private void button_Tags_Click(object sender, EventArgs e)
         {
+            menu_Tags1.BringToFront();
             FollowButton(sender as Button);
         }
 
         private void button_Folders_Click(object sender, EventArgs e)
         {
+            menu_Folder1.BringToFront();
             FollowButton(sender as Button);
         }
 
         private void button_Content_Click(object sender, EventArgs e)
-        {
+        {          
+            menu_Content1.BringToFront();
             FollowButton(sender as Button);
         }
 
         private void button_Media_Click(object sender, EventArgs e)
         {
+            menu_Media1.BringToFront();
             FollowButton(sender as Button);
         }
     }
