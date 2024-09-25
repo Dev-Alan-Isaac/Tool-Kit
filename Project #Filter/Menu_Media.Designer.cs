@@ -39,6 +39,12 @@
             button_Saved = new Button();
             panel10 = new Panel();
             panel5 = new Panel();
+            radioButton6 = new RadioButton();
+            radioButton5 = new RadioButton();
+            radioButton4 = new RadioButton();
+            radioButton3 = new RadioButton();
+            radioButton2 = new RadioButton();
+            radioButton1 = new RadioButton();
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
@@ -160,12 +166,96 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panel5.Controls.Add(radioButton6);
+            panel5.Controls.Add(radioButton5);
+            panel5.Controls.Add(radioButton4);
+            panel5.Controls.Add(radioButton3);
+            panel5.Controls.Add(radioButton2);
+            panel5.Controls.Add(radioButton1);
             panel5.Controls.Add(panel10);
             panel5.Controls.Add(panel9);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
             panel5.Size = new Size(333, 394);
             panel5.TabIndex = 64;
+            // 
+            // radioButton6
+            // 
+            radioButton6.AutoSize = true;
+            radioButton6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton6.ForeColor = SystemColors.Control;
+            radioButton6.Location = new Point(3, 253);
+            radioButton6.Name = "radioButton6";
+            radioButton6.Size = new Size(248, 25);
+            radioButton6.TabIndex = 64;
+            radioButton6.TabStop = true;
+            radioButton6.Text = "Date Taken (Newest to Oldest)";
+            radioButton6.UseVisualStyleBackColor = true;
+            // 
+            // radioButton5
+            // 
+            radioButton5.AutoSize = true;
+            radioButton5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton5.ForeColor = SystemColors.Control;
+            radioButton5.Location = new Point(3, 212);
+            radioButton5.Name = "radioButton5";
+            radioButton5.Size = new Size(248, 25);
+            radioButton5.TabIndex = 63;
+            radioButton5.TabStop = true;
+            radioButton5.Text = "Date Taken (Oldest to Newest)";
+            radioButton5.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            radioButton4.AutoSize = true;
+            radioButton4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton4.ForeColor = SystemColors.Control;
+            radioButton4.Location = new Point(3, 171);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(253, 25);
+            radioButton4.TabIndex = 62;
+            radioButton4.TabStop = true;
+            radioButton4.Text = "Resolution (Highest to Lowest)";
+            radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            radioButton3.AutoSize = true;
+            radioButton3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton3.ForeColor = SystemColors.Control;
+            radioButton3.Location = new Point(3, 130);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(253, 25);
+            radioButton3.TabIndex = 61;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "Resolution (Lowest to Highest)";
+            radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton2.ForeColor = SystemColors.Control;
+            radioButton2.Location = new Point(3, 89);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(250, 25);
+            radioButton2.TabIndex = 60;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Duration (Longest to Shortest)";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton1.ForeColor = SystemColors.Control;
+            radioButton1.Location = new Point(3, 48);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(254, 25);
+            radioButton1.TabIndex = 59;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Duration (Shortest to Longest) ";
+            radioButton1.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -217,6 +307,7 @@
             panel8.PerformLayout();
             panel10.ResumeLayout(false);
             panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -235,5 +326,11 @@
         private Panel panel3;
         private Panel panel2;
         private Panel panel1;
+        private RadioButton radioButton6;
+        private RadioButton radioButton5;
+        private RadioButton radioButton4;
+        private RadioButton radioButton3;
+        private RadioButton radioButton2;
+        private RadioButton radioButton1;
     }
 }

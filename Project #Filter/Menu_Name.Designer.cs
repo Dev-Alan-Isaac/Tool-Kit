@@ -39,6 +39,10 @@
             button_Saved = new Button();
             panel10 = new Panel();
             panel5 = new Panel();
+            panel6 = new Panel();
+            checkBox2 = new CheckBox();
+            checkBox1 = new CheckBox();
+            label4 = new Label();
             radioButton4 = new RadioButton();
             radioButton3 = new RadioButton();
             radioButton2 = new RadioButton();
@@ -46,10 +50,6 @@
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
-            panel6 = new Panel();
-            label4 = new Label();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
             panel9.SuspendLayout();
             panel4.SuspendLayout();
             panel7.SuspendLayout();
@@ -181,6 +181,52 @@
             panel5.Size = new Size(333, 394);
             panel5.TabIndex = 64;
             // 
+            // panel6
+            // 
+            panel6.Controls.Add(checkBox2);
+            panel6.Controls.Add(checkBox1);
+            panel6.Controls.Add(label4);
+            panel6.Location = new Point(3, 233);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(327, 112);
+            panel6.TabIndex = 62;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox2.ForeColor = SystemColors.Control;
+            checkBox2.Location = new Point(3, 63);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(215, 25);
+            checkBox2.TabIndex = 2;
+            checkBox2.Text = "Ignore Special Characters";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox1.ForeColor = SystemColors.Control;
+            checkBox1.Location = new Point(3, 38);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(192, 25);
+            checkBox1.TabIndex = 1;
+            checkBox1.Text = "Case-Sensitive Sorting";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Dock = DockStyle.Top;
+            label4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = SystemColors.Control;
+            label4.Location = new Point(0, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(178, 25);
+            label4.TabIndex = 0;
+            label4.Text = "Additional Options:";
+            // 
             // radioButton4
             // 
             radioButton4.AutoSize = true;
@@ -259,52 +305,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(611, 32);
             panel1.TabIndex = 60;
-            // 
-            // panel6
-            // 
-            panel6.Controls.Add(checkBox2);
-            panel6.Controls.Add(checkBox1);
-            panel6.Controls.Add(label4);
-            panel6.Location = new Point(3, 233);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(327, 112);
-            panel6.TabIndex = 62;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Dock = DockStyle.Top;
-            label4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(0, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(178, 25);
-            label4.TabIndex = 0;
-            label4.Text = "Additional Options:";
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            checkBox1.ForeColor = SystemColors.Control;
-            checkBox1.Location = new Point(3, 38);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(192, 25);
-            checkBox1.TabIndex = 1;
-            checkBox1.Text = "Case-Sensitive Sorting";
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            checkBox2.ForeColor = SystemColors.Control;
-            checkBox2.Location = new Point(3, 63);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(215, 25);
-            checkBox2.TabIndex = 2;
-            checkBox2.Text = "Ignore Special Characters";
-            checkBox2.UseVisualStyleBackColor = true;
             // 
             // Menu_Name
             // 

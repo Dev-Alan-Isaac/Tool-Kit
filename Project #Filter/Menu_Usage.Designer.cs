@@ -39,13 +39,13 @@
             button_Saved = new Button();
             panel10 = new Panel();
             panel5 = new Panel();
+            radioButton4 = new RadioButton();
             radioButton3 = new RadioButton();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
-            radioButton4 = new RadioButton();
             panel9.SuspendLayout();
             panel4.SuspendLayout();
             panel7.SuspendLayout();
@@ -175,6 +175,19 @@
             panel5.Size = new Size(402, 487);
             panel5.TabIndex = 64;
             // 
+            // radioButton4
+            // 
+            radioButton4.AutoSize = true;
+            radioButton4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton4.ForeColor = SystemColors.Control;
+            radioButton4.Location = new Point(3, 183);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(367, 29);
+            radioButton4.TabIndex = 64;
+            radioButton4.TabStop = true;
+            radioButton4.Text = "Access Frequency (Least Accessed First)";
+            radioButton4.UseVisualStyleBackColor = true;
+            // 
             // radioButton3
             // 
             radioButton3.AutoSize = true;
@@ -208,10 +221,10 @@
             radioButton1.ForeColor = SystemColors.Control;
             radioButton1.Location = new Point(3, 48);
             radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(266, 29);
+            radioButton1.Size = new Size(261, 29);
             radioButton1.TabIndex = 61;
             radioButton1.TabStop = true;
-            radioButton1.Text = " Last Accessed (Old to New)";
+            radioButton1.Text = "Last Accessed (Old to New)";
             radioButton1.UseVisualStyleBackColor = true;
             // 
             // panel3
@@ -240,19 +253,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(680, 32);
             panel1.TabIndex = 60;
-            // 
-            // radioButton4
-            // 
-            radioButton4.AutoSize = true;
-            radioButton4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton4.ForeColor = SystemColors.Control;
-            radioButton4.Location = new Point(3, 183);
-            radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(367, 29);
-            radioButton4.TabIndex = 64;
-            radioButton4.TabStop = true;
-            radioButton4.Text = "Access Frequency (Least Accessed First)";
-            radioButton4.UseVisualStyleBackColor = true;
             // 
             // Menu_Usage
             // 
