@@ -39,9 +39,13 @@
             button_Saved = new Button();
             panel10 = new Panel();
             panel5 = new Panel();
+            radioButton3 = new RadioButton();
+            radioButton2 = new RadioButton();
+            radioButton1 = new RadioButton();
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
+            radioButton4 = new RadioButton();
             panel9.SuspendLayout();
             panel4.SuspendLayout();
             panel7.SuspendLayout();
@@ -56,7 +60,7 @@
             panel9.Dock = DockStyle.Top;
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(333, 42);
+            panel9.Size = new Size(402, 42);
             panel9.TabIndex = 1;
             // 
             // label3
@@ -77,7 +81,7 @@
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 32);
             panel4.Name = "panel4";
-            panel4.Size = new Size(579, 44);
+            panel4.Size = new Size(648, 44);
             panel4.TabIndex = 63;
             // 
             // label1
@@ -97,9 +101,9 @@
             panel7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             panel7.Controls.Add(treeView1);
             panel7.Controls.Add(panel8);
-            panel7.Location = new Point(342, 82);
+            panel7.Location = new Point(411, 82);
             panel7.Name = "panel7";
-            panel7.Size = new Size(234, 394);
+            panel7.Size = new Size(234, 487);
             panel7.TabIndex = 65;
             // 
             // treeView1
@@ -107,7 +111,7 @@
             treeView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             treeView1.Location = new Point(3, 48);
             treeView1.Name = "treeView1";
-            treeView1.Size = new Size(262, 637);
+            treeView1.Size = new Size(262, 730);
             treeView1.TabIndex = 57;
             // 
             // panel8
@@ -144,7 +148,7 @@
             button_Saved.Location = new Point(0, 0);
             button_Saved.Margin = new Padding(3, 2, 3, 2);
             button_Saved.Name = "button_Saved";
-            button_Saved.Size = new Size(333, 43);
+            button_Saved.Size = new Size(402, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
             // 
@@ -152,37 +156,80 @@
             // 
             panel10.Controls.Add(button_Saved);
             panel10.Dock = DockStyle.Bottom;
-            panel10.Location = new Point(0, 351);
+            panel10.Location = new Point(0, 444);
             panel10.Name = "panel10";
-            panel10.Size = new Size(333, 43);
+            panel10.Size = new Size(402, 43);
             panel10.TabIndex = 57;
             // 
             // panel5
             // 
-            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel5.Controls.Add(radioButton4);
+            panel5.Controls.Add(radioButton3);
+            panel5.Controls.Add(radioButton2);
+            panel5.Controls.Add(radioButton1);
             panel5.Controls.Add(panel10);
             panel5.Controls.Add(panel9);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
-            panel5.Size = new Size(333, 394);
+            panel5.Size = new Size(402, 487);
             panel5.TabIndex = 64;
+            // 
+            // radioButton3
+            // 
+            radioButton3.AutoSize = true;
+            radioButton3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton3.ForeColor = SystemColors.Control;
+            radioButton3.Location = new Point(3, 138);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(367, 29);
+            radioButton3.TabIndex = 63;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "Access Frequency (Most Accessed First)";
+            radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton2.ForeColor = SystemColors.Control;
+            radioButton2.Location = new Point(3, 93);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(266, 29);
+            radioButton2.TabIndex = 62;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Last Accessed (New to Old) ";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton1.ForeColor = SystemColors.Control;
+            radioButton1.Location = new Point(3, 48);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(266, 29);
+            radioButton1.TabIndex = 61;
+            radioButton1.TabStop = true;
+            radioButton1.Text = " Last Accessed (Old to New)";
+            radioButton1.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(0, 64, 64);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 482);
+            panel3.Location = new Point(0, 575);
             panel3.Name = "panel3";
-            panel3.Size = new Size(579, 32);
+            panel3.Size = new Size(648, 32);
             panel3.TabIndex = 62;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 64, 64);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(579, 32);
+            panel2.Location = new Point(648, 32);
             panel2.Name = "panel2";
-            panel2.Size = new Size(32, 482);
+            panel2.Size = new Size(32, 575);
             panel2.TabIndex = 61;
             // 
             // panel1
@@ -191,8 +238,21 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(611, 32);
+            panel1.Size = new Size(680, 32);
             panel1.TabIndex = 60;
+            // 
+            // radioButton4
+            // 
+            radioButton4.AutoSize = true;
+            radioButton4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton4.ForeColor = SystemColors.Control;
+            radioButton4.Location = new Point(3, 183);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(367, 29);
+            radioButton4.TabIndex = 64;
+            radioButton4.TabStop = true;
+            radioButton4.Text = "Access Frequency (Least Accessed First)";
+            radioButton4.UseVisualStyleBackColor = true;
             // 
             // Menu_Usage
             // 
@@ -206,7 +266,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Menu_Usage";
-            Size = new Size(611, 514);
+            Size = new Size(680, 607);
             Load += Menu_Load;
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
@@ -217,6 +277,7 @@
             panel8.PerformLayout();
             panel10.ResumeLayout(false);
             panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -235,5 +296,9 @@
         private Panel panel3;
         private Panel panel2;
         private Panel panel1;
+        private RadioButton radioButton3;
+        private RadioButton radioButton2;
+        private RadioButton radioButton1;
+        private RadioButton radioButton4;
     }
 }

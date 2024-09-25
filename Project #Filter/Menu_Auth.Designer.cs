@@ -42,12 +42,22 @@
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
+            panel6 = new Panel();
+            label4 = new Label();
+            radioButton1 = new RadioButton();
+            radioButton2 = new RadioButton();
+            radioButton3 = new RadioButton();
+            checkBox1 = new CheckBox();
+            checkBox2 = new CheckBox();
+            checkBox3 = new CheckBox();
+            radioButton4 = new RadioButton();
             panel9.SuspendLayout();
             panel4.SuspendLayout();
             panel7.SuspendLayout();
             panel8.SuspendLayout();
             panel10.SuspendLayout();
             panel5.SuspendLayout();
+            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // panel9
@@ -56,7 +66,7 @@
             panel9.Dock = DockStyle.Top;
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(333, 42);
+            panel9.Size = new Size(382, 42);
             panel9.TabIndex = 1;
             // 
             // label3
@@ -77,7 +87,7 @@
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 32);
             panel4.Name = "panel4";
-            panel4.Size = new Size(579, 44);
+            panel4.Size = new Size(628, 44);
             panel4.TabIndex = 63;
             // 
             // label1
@@ -97,7 +107,7 @@
             panel7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             panel7.Controls.Add(treeView1);
             panel7.Controls.Add(panel8);
-            panel7.Location = new Point(342, 82);
+            panel7.Location = new Point(391, 82);
             panel7.Name = "panel7";
             panel7.Size = new Size(234, 394);
             panel7.TabIndex = 65;
@@ -144,7 +154,7 @@
             button_Saved.Location = new Point(0, 0);
             button_Saved.Margin = new Padding(3, 2, 3, 2);
             button_Saved.Name = "button_Saved";
-            button_Saved.Size = new Size(333, 43);
+            button_Saved.Size = new Size(382, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
             // 
@@ -154,17 +164,22 @@
             panel10.Dock = DockStyle.Bottom;
             panel10.Location = new Point(0, 351);
             panel10.Name = "panel10";
-            panel10.Size = new Size(333, 43);
+            panel10.Size = new Size(382, 43);
             panel10.TabIndex = 57;
             // 
             // panel5
             // 
-            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel5.Controls.Add(radioButton4);
+            panel5.Controls.Add(radioButton3);
+            panel5.Controls.Add(radioButton2);
+            panel5.Controls.Add(radioButton1);
+            panel5.Controls.Add(panel6);
             panel5.Controls.Add(panel10);
             panel5.Controls.Add(panel9);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
-            panel5.Size = new Size(333, 394);
+            panel5.Size = new Size(382, 394);
             panel5.TabIndex = 64;
             // 
             // panel3
@@ -173,14 +188,14 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 482);
             panel3.Name = "panel3";
-            panel3.Size = new Size(579, 32);
+            panel3.Size = new Size(628, 32);
             panel3.TabIndex = 62;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 64, 64);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(579, 32);
+            panel2.Location = new Point(628, 32);
             panel2.Name = "panel2";
             panel2.Size = new Size(32, 482);
             panel2.TabIndex = 61;
@@ -191,8 +206,119 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(611, 32);
+            panel1.Size = new Size(660, 32);
             panel1.TabIndex = 60;
+            // 
+            // panel6
+            // 
+            panel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel6.Controls.Add(checkBox3);
+            panel6.Controls.Add(checkBox2);
+            panel6.Controls.Add(checkBox1);
+            panel6.Controls.Add(label4);
+            panel6.Location = new Point(3, 215);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(376, 131);
+            panel6.TabIndex = 58;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            label4.ForeColor = SystemColors.Control;
+            label4.Location = new Point(3, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(64, 25);
+            label4.TabIndex = 0;
+            label4.Text = "label4";
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton1.ForeColor = SystemColors.Control;
+            radioButton1.Location = new Point(3, 48);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(193, 29);
+            radioButton1.TabIndex = 59;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Readable Files First";
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton2.ForeColor = SystemColors.Control;
+            radioButton2.Location = new Point(3, 89);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(188, 29);
+            radioButton2.TabIndex = 60;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Writable Files First";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            radioButton3.AutoSize = true;
+            radioButton3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton3.ForeColor = SystemColors.Control;
+            radioButton3.Location = new Point(3, 130);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(208, 29);
+            radioButton3.TabIndex = 61;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "Executable Files First";
+            radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox1.ForeColor = SystemColors.Control;
+            checkBox1.Location = new Point(3, 28);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(263, 29);
+            checkBox1.TabIndex = 1;
+            checkBox1.Text = "Files with Read Permissions";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox2.ForeColor = SystemColors.Control;
+            checkBox2.Location = new Point(3, 57);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(268, 29);
+            checkBox2.TabIndex = 2;
+            checkBox2.Text = "Files with Write Permissions";
+            checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox3.ForeColor = SystemColors.Control;
+            checkBox3.Location = new Point(3, 86);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(288, 29);
+            checkBox3.TabIndex = 3;
+            checkBox3.Text = "Files with Execute Permissions";
+            checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            radioButton4.AutoSize = true;
+            radioButton4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton4.ForeColor = SystemColors.Control;
+            radioButton4.Location = new Point(6, 171);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(350, 29);
+            radioButton4.TabIndex = 62;
+            radioButton4.TabStop = true;
+            radioButton4.Text = "Custom Permission Levels (Set Below)";
+            radioButton4.UseVisualStyleBackColor = true;
             // 
             // Menu_Auth
             // 
@@ -206,7 +332,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Menu_Auth";
-            Size = new Size(611, 514);
+            Size = new Size(660, 514);
             Load += Menu_Auth_Load;
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
@@ -217,6 +343,9 @@
             panel8.PerformLayout();
             panel10.ResumeLayout(false);
             panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -235,5 +364,14 @@
         private Panel panel3;
         private Panel panel2;
         private Panel panel1;
+        private RadioButton radioButton3;
+        private RadioButton radioButton2;
+        private RadioButton radioButton1;
+        private Panel panel6;
+        private Label label4;
+        private CheckBox checkBox3;
+        private CheckBox checkBox2;
+        private CheckBox checkBox1;
+        private RadioButton radioButton4;
     }
 }
