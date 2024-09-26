@@ -32,10 +32,6 @@
             label3 = new Label();
             panel4 = new Panel();
             label1 = new Label();
-            panel7 = new Panel();
-            treeView1 = new TreeView();
-            panel8 = new Panel();
-            label2 = new Label();
             button_Saved = new Button();
             panel10 = new Panel();
             panel5 = new Panel();
@@ -50,8 +46,6 @@
             panel1 = new Panel();
             panel9.SuspendLayout();
             panel4.SuspendLayout();
-            panel7.SuspendLayout();
-            panel8.SuspendLayout();
             panel10.SuspendLayout();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
@@ -63,7 +57,7 @@
             panel9.Dock = DockStyle.Top;
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(387, 42);
+            panel9.Size = new Size(624, 42);
             panel9.TabIndex = 1;
             // 
             // label3
@@ -99,45 +93,6 @@
             label1.TabIndex = 0;
             label1.Text = "SORT BY NAME";
             // 
-            // panel7
-            // 
-            panel7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            panel7.Controls.Add(treeView1);
-            panel7.Controls.Add(panel8);
-            panel7.Location = new Point(396, 82);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(234, 394);
-            panel7.TabIndex = 65;
-            // 
-            // treeView1
-            // 
-            treeView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            treeView1.Location = new Point(3, 48);
-            treeView1.Name = "treeView1";
-            treeView1.Size = new Size(228, 343);
-            treeView1.TabIndex = 57;
-            // 
-            // panel8
-            // 
-            panel8.Controls.Add(label2);
-            panel8.Dock = DockStyle.Top;
-            panel8.Location = new Point(0, 0);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(234, 42);
-            panel8.TabIndex = 0;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Dock = DockStyle.Fill;
-            label2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(0, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(85, 25);
-            label2.TabIndex = 0;
-            label2.Text = "Size List:";
-            // 
             // button_Saved
             // 
             button_Saved.BackColor = Color.Teal;
@@ -151,7 +106,7 @@
             button_Saved.Location = new Point(0, 0);
             button_Saved.Margin = new Padding(3, 2, 3, 2);
             button_Saved.Name = "button_Saved";
-            button_Saved.Size = new Size(387, 43);
+            button_Saved.Size = new Size(624, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
             // 
@@ -161,7 +116,7 @@
             panel10.Dock = DockStyle.Bottom;
             panel10.Location = new Point(0, 351);
             panel10.Name = "panel10";
-            panel10.Size = new Size(387, 43);
+            panel10.Size = new Size(624, 43);
             panel10.TabIndex = 57;
             // 
             // panel5
@@ -174,7 +129,7 @@
             panel5.Controls.Add(panel9);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
-            panel5.Size = new Size(387, 394);
+            panel5.Size = new Size(624, 394);
             panel5.TabIndex = 64;
             // 
             // panel6
@@ -185,7 +140,7 @@
             panel6.Controls.Add(label4);
             panel6.Location = new Point(3, 233);
             panel6.Name = "panel6";
-            panel6.Size = new Size(381, 112);
+            panel6.Size = new Size(618, 112);
             panel6.TabIndex = 62;
             // 
             // checkBox2
@@ -283,7 +238,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             Controls.Add(panel4);
-            Controls.Add(panel7);
             Controls.Add(panel5);
             Controls.Add(panel3);
             Controls.Add(panel2);
@@ -295,9 +249,6 @@
             panel9.PerformLayout();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
-            panel7.ResumeLayout(false);
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
             panel10.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
@@ -311,10 +262,6 @@
         private Label label3;
         private Panel panel4;
         private Label label1;
-        private Panel panel7;
-        private TreeView treeView1;
-        private Panel panel8;
-        private Label label2;
         private Button button_Saved;
         private Panel panel10;
         private Panel panel5;
