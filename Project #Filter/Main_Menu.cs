@@ -5,6 +5,7 @@
         public Main_Menu()
         {
             InitializeComponent();
+            menu_Type1.BringToFront();
         }
 
         private void FollowButton(Button button)

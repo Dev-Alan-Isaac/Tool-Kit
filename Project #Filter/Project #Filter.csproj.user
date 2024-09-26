@@ -22,6 +22,9 @@
     <Compile Update="Menu_Name.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Menu_Saver.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Menu_Tags.cs">
       <SubType>UserControl</SubType>
     </Compile>

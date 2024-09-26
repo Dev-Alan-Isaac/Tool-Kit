@@ -32,7 +32,6 @@ namespace Project__Filter
                          ))
                      );
 
-
                     // Save to a file (e.g., "Extensions.json")
                     File.WriteAllText("Config_Tags.json", jsonContent.ToString());
                 }
@@ -55,7 +54,7 @@ namespace Project__Filter
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
                 // Access the Extensions object
-                var extensionsObject = jsonObject["Extensions"] as JObject; // Explicit cast to JObject
+                var extensionsObject = jsonObject["Option"] as JObject; // Explicit cast to JObject
 
                 if (extensionsObject != null)
                 {
@@ -77,11 +76,6 @@ namespace Project__Filter
                         // Add the category node to the TreeView
                         treeView1.Nodes.Add(categoryNode);
                     }
-                }
-                else
-                {
-                    // Handle the case where "Extensions" is not found in the JSON
-                    // You might want to log an error or display a message to the user
                 }
             }
         }

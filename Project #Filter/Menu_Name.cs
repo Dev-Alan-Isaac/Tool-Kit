@@ -59,37 +59,44 @@ namespace Project__Filter
                 // Deserialize the JSON content into a JObject
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
-                // Access the Extensions object
-                var extensionsObject = jsonObject["Extensions"] as JObject; // Explicit cast to JObject
-
-                if (extensionsObject != null)
+                // Access the "Option" object
+                var optionObject = jsonObject["Option"] as JObject;
+                if (optionObject != null)
                 {
-                    // Iterate through extension categories
-                    foreach (var category in extensionsObject.Properties())
+                    // Create a parent node for Options
+                    var optionNode = new TreeNode("Option");
+
+                    // Iterate through each key-value pair in the Option object
+                    foreach (var option in optionObject.Properties())
                     {
-                        // Create a branch node for the category
-                        var categoryNode = new TreeNode(category.Name);
-
-                        // Get the list of extensions for this category
-                        var extensionList = category.Value.ToObject<List<string>>();
-
-                        // Create child nodes for each extension
-                        foreach (var extension in extensionList)
-                        {
-                            categoryNode.Nodes.Add(extension);
-                        }
-
-                        // Add the category node to the TreeView
-                        treeView1.Nodes.Add(categoryNode);
+                        var optionChildNode = new TreeNode($"{option.Name}: {option.Value}");
+                        optionNode.Nodes.Add(optionChildNode);
                     }
+
+                    // Add the Option node to the TreeView
+                    treeView1.Nodes.Add(optionNode);
                 }
-                else
+
+                // Access the "Additional" object
+                var additionalObject = jsonObject["Additional"] as JObject;
+                if (additionalObject != null)
                 {
-                    // Handle the case where "Extensions" is not found in the JSON
-                    // You might want to log an error or display a message to the user
+                    // Create a parent node for Additional
+                    var additionalNode = new TreeNode("Additional");
+
+                    // Iterate through each key-value pair in the Additional object
+                    foreach (var additional in additionalObject.Properties())
+                    {
+                        var additionalChildNode = new TreeNode($"{additional.Name}: {additional.Value}");
+                        additionalNode.Nodes.Add(additionalChildNode);
+                    }
+
+                    // Add the Additional node to the TreeView
+                    treeView1.Nodes.Add(additionalNode);
                 }
             }
         }
+
 
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
