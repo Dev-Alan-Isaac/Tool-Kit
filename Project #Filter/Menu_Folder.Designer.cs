@@ -39,13 +39,11 @@
             button_Saved = new Button();
             panel10 = new Panel();
             panel5 = new Panel();
+            radioButton3 = new RadioButton();
+            radioButton1 = new RadioButton();
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
-            radioButton3 = new RadioButton();
-            radioButton4 = new RadioButton();
             panel9.SuspendLayout();
             panel4.SuspendLayout();
             panel7.SuspendLayout();
@@ -164,9 +162,7 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel5.Controls.Add(radioButton4);
             panel5.Controls.Add(radioButton3);
-            panel5.Controls.Add(radioButton2);
             panel5.Controls.Add(radioButton1);
             panel5.Controls.Add(panel10);
             panel5.Controls.Add(panel9);
@@ -174,6 +170,32 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(333, 394);
             panel5.TabIndex = 64;
+            // 
+            // radioButton3
+            // 
+            radioButton3.AutoSize = true;
+            radioButton3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton3.ForeColor = SystemColors.Control;
+            radioButton3.Location = new Point(3, 98);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(173, 29);
+            radioButton3.TabIndex = 60;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "By Folder Depth ";
+            radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton1.ForeColor = SystemColors.Control;
+            radioButton1.Location = new Point(3, 48);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(137, 29);
+            radioButton1.TabIndex = 58;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "Alphabetical";
+            radioButton1.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -201,58 +223,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(611, 32);
             panel1.TabIndex = 60;
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton1.ForeColor = SystemColors.Control;
-            radioButton1.Location = new Point(3, 48);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(186, 29);
-            radioButton1.TabIndex = 58;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Alphabetical (A-Z)";
-            radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton2.ForeColor = SystemColors.Control;
-            radioButton2.Location = new Point(3, 97);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(186, 29);
-            radioButton2.TabIndex = 59;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Alphabetical (Z-A)";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            radioButton3.AutoSize = true;
-            radioButton3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton3.ForeColor = SystemColors.Control;
-            radioButton3.Location = new Point(3, 146);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(324, 29);
-            radioButton3.TabIndex = 60;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "By Folder Depth (Shallow to Deep)";
-            radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // radioButton4
-            // 
-            radioButton4.AutoSize = true;
-            radioButton4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton4.ForeColor = SystemColors.Control;
-            radioButton4.Location = new Point(3, 195);
-            radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(324, 29);
-            radioButton4.TabIndex = 61;
-            radioButton4.TabStop = true;
-            radioButton4.Text = "By Folder Depth (Deep to Shallow)";
-            radioButton4.UseVisualStyleBackColor = true;
             // 
             // Menu_Folder
             // 
@@ -296,9 +266,7 @@
         private Panel panel3;
         private Panel panel2;
         private Panel panel1;
-        private RadioButton radioButton4;
         private RadioButton radioButton3;
-        private RadioButton radioButton2;
         private RadioButton radioButton1;
     }
 }

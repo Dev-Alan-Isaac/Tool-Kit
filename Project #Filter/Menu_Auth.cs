@@ -23,35 +23,23 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Permissions.json"))
+                if (!File.Exists("Config_Permissions.json"))
                 {
                     // Create the JSON object
                     var jsonContent = new JObject(
-                         new JProperty("Extensions", new JObject(
-                             new JProperty("Images", new JArray("jpg", "png", "gif", "bmp", "jpeg")),
-                             new JProperty("Videos", new JArray("mp4", "m4v", "avi", "mkv", "3gp", "mov", "wmv", "webm", "ts", "mpg", "asf", "flv", "mpeg")),
-                             new JProperty("Documents", new JArray("txt", "docx", "pdf", "pptx")),
-                             new JProperty("Audio", new JArray("mp3", "wav", "aac", "flac", "ogg", "m4a", "wma", "alac", "aiff")),
-                             new JProperty("Archives", new JArray("zip", "rar", "7z", "tar", "gz", "bz2", "iso", "xz")),
-                             new JProperty("Executables", new JArray("exe", "bat", "sh", "msi", "bin", "cmd", "apk", "com", "jar"))
-                         )),
-                         new JProperty("Allow", new JObject(
-                             new JProperty("Documents", true),
-                             new JProperty("Images", true),
-                             new JProperty("Audio", true),
-                             new JProperty("Videos", true),
-                             new JProperty("Archives", true),
-                             new JProperty("Executables", true)
+                         new JProperty("Option", new JObject(
+                             new JProperty("Readable", true),
+                             new JProperty("Writable", false),
+                             new JProperty("Executable", false)
                          ))
                      );
 
-
                     // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Permissions.json", jsonContent.ToString());
+                    File.WriteAllText("Config_Permissions.json", jsonContent.ToString());
                 }
 
                 // File already exists; get the filepath
-                string filePath = Path.GetFullPath("Permissions.json");
+                string filePath = Path.GetFullPath("Config_Permissions.json");
                 PopulateTree(filePath);
                 break;
             }

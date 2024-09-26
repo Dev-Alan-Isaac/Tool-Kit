@@ -121,8 +121,8 @@
   <data name="Button_Icon_Tags" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Tags.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Button_Icon_Power" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Button_Icon_Power.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Button_Icon_Tree" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Button_Icon_Folder1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Button_Icon_Content" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Content.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -135,6 +135,9 @@
   </data>
   <data name="Button_Icon_Security" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Security.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Security_BreadCrumb" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Security_BreadCrumb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Button_Icon_Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -150,9 +153,6 @@
   </data>
   <data name="Button_Icon_Calendar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Calendar1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Button_Icon_Aspect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Button_Icon_Aspect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Button_Icon_Add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,8 +178,8 @@
   <data name="Button_Icon_Merge" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Merge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Button_Icon_Tree" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Button_Icon_Folder1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Background_WIP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Background_WIP.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Button_Icon_Remove" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Remove.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -187,14 +187,14 @@
   <data name="Transform_BreadCrumb" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Transform_BreadCrumb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Button_Icon_Media" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Button_Icon_Media.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Button_Icon_Size" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Size.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Button_Icon_Github" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Github_Button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Background_WIP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Background_WIP.jpeg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Home_BreadCrumb" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Home_BreadCrub.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -202,11 +202,14 @@
   <data name="App_Logo_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\App_Logo_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Button_Icon_Power" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Button_Icon_Power.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Button_Icon_Home" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Home.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Security_BreadCrumb" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Security_BreadCrumb.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Button_Icon_Aspect" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Button_Icon_Aspect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Button_Icon_Auth" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Auth.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -217,7 +220,7 @@
   <data name="Button_Icon_Extract" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Button_Icon_Extract.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Button_Icon_Media" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Button_Icon_Media.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Button_Icon_Start" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Button_Icon_Start.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

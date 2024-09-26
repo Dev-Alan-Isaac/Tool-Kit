@@ -29,30 +29,20 @@
         private void InitializeComponent()
         {
             panel_Menu_Config = new Panel();
-            button10 = new Button();
-            button11 = new Button();
-            button8 = new Button();
-            button9 = new Button();
             button_Media = new Button();
-            button_Content = new Button();
             button_Folders = new Button();
             button_Tags = new Button();
             button_Auth = new Button();
-            button_Usage = new Button();
             button_Name = new Button();
-            button_Date = new Button();
             Panel_Index_Config = new Panel();
             button_Size = new Button();
             button_Type = new Button();
             menu_Type1 = new Menu_Type();
             menu_Sizes1 = new Menu_Sizes();
-            menu_Date1 = new Menu_Date();
             menu_Name1 = new Menu_Name();
-            menu_Usage1 = new Menu_Usage();
             menu_Auth1 = new Menu_Auth();
             menu_Tags1 = new Menu_Tags();
             menu_Folder1 = new Menu_Folder();
-            menu_Content1 = new Menu_Content();
             menu_Media1 = new Menu_Media();
             panel_Menu_Config.SuspendLayout();
             SuspendLayout();
@@ -61,18 +51,11 @@
             // 
             panel_Menu_Config.AutoScroll = true;
             panel_Menu_Config.BackColor = Color.FromArgb(0, 64, 64);
-            panel_Menu_Config.Controls.Add(button10);
-            panel_Menu_Config.Controls.Add(button11);
-            panel_Menu_Config.Controls.Add(button8);
-            panel_Menu_Config.Controls.Add(button9);
             panel_Menu_Config.Controls.Add(button_Media);
-            panel_Menu_Config.Controls.Add(button_Content);
             panel_Menu_Config.Controls.Add(button_Folders);
             panel_Menu_Config.Controls.Add(button_Tags);
             panel_Menu_Config.Controls.Add(button_Auth);
-            panel_Menu_Config.Controls.Add(button_Usage);
             panel_Menu_Config.Controls.Add(button_Name);
-            panel_Menu_Config.Controls.Add(button_Date);
             panel_Menu_Config.Controls.Add(Panel_Index_Config);
             panel_Menu_Config.Controls.Add(button_Size);
             panel_Menu_Config.Controls.Add(button_Type);
@@ -82,78 +65,6 @@
             panel_Menu_Config.Name = "panel_Menu_Config";
             panel_Menu_Config.Size = new Size(171, 541);
             panel_Menu_Config.TabIndex = 1;
-            // 
-            // button10
-            // 
-            button10.BackColor = Color.Transparent;
-            button10.Cursor = Cursors.Hand;
-            button10.FlatAppearance.BorderSize = 0;
-            button10.FlatStyle = FlatStyle.Flat;
-            button10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button10.ForeColor = Color.White;
-            button10.Image = Properties.Resources.Button_Icon_Aspect;
-            button10.Location = new Point(25, 598);
-            button10.Margin = new Padding(3, 2, 3, 2);
-            button10.Name = "button10";
-            button10.Size = new Size(120, 40);
-            button10.TabIndex = 15;
-            button10.Text = "   WIP";
-            button10.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button10.UseVisualStyleBackColor = false;
-            // 
-            // button11
-            // 
-            button11.BackColor = Color.Transparent;
-            button11.Cursor = Cursors.Hand;
-            button11.FlatAppearance.BorderSize = 0;
-            button11.FlatStyle = FlatStyle.Flat;
-            button11.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button11.ForeColor = Color.White;
-            button11.Image = Properties.Resources.Button_Icon_Folder;
-            button11.Location = new Point(25, 554);
-            button11.Margin = new Padding(3, 2, 3, 2);
-            button11.Name = "button11";
-            button11.Size = new Size(120, 40);
-            button11.TabIndex = 14;
-            button11.Text = "   WIP";
-            button11.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button11.UseVisualStyleBackColor = false;
-            // 
-            // button8
-            // 
-            button8.BackColor = Color.Transparent;
-            button8.Cursor = Cursors.Hand;
-            button8.FlatAppearance.BorderSize = 0;
-            button8.FlatStyle = FlatStyle.Flat;
-            button8.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button8.ForeColor = Color.White;
-            button8.Image = Properties.Resources.Button_Icon_Aspect;
-            button8.Location = new Point(25, 510);
-            button8.Margin = new Padding(3, 2, 3, 2);
-            button8.Name = "button8";
-            button8.Size = new Size(120, 40);
-            button8.TabIndex = 13;
-            button8.Text = "   WIP";
-            button8.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button8.UseVisualStyleBackColor = false;
-            // 
-            // button9
-            // 
-            button9.BackColor = Color.Transparent;
-            button9.Cursor = Cursors.Hand;
-            button9.FlatAppearance.BorderSize = 0;
-            button9.FlatStyle = FlatStyle.Flat;
-            button9.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button9.ForeColor = Color.White;
-            button9.Image = Properties.Resources.Button_Icon_Folder;
-            button9.Location = new Point(25, 466);
-            button9.Margin = new Padding(3, 2, 3, 2);
-            button9.Name = "button9";
-            button9.Size = new Size(120, 40);
-            button9.TabIndex = 12;
-            button9.Text = "   WIP";
-            button9.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button9.UseVisualStyleBackColor = false;
             // 
             // button_Media
             // 
@@ -174,25 +85,6 @@
             button_Media.UseVisualStyleBackColor = false;
             button_Media.Click += button_Media_Click;
             // 
-            // button_Content
-            // 
-            button_Content.BackColor = Color.Transparent;
-            button_Content.Cursor = Cursors.Hand;
-            button_Content.FlatAppearance.BorderSize = 0;
-            button_Content.FlatStyle = FlatStyle.Flat;
-            button_Content.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button_Content.ForeColor = Color.White;
-            button_Content.Image = Properties.Resources.Button_Icon_Content;
-            button_Content.Location = new Point(25, 378);
-            button_Content.Margin = new Padding(3, 2, 3, 2);
-            button_Content.Name = "button_Content";
-            button_Content.Size = new Size(120, 40);
-            button_Content.TabIndex = 10;
-            button_Content.Text = "   Content";
-            button_Content.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button_Content.UseVisualStyleBackColor = false;
-            button_Content.Click += button_Content_Click;
-            // 
             // button_Folders
             // 
             button_Folders.BackColor = Color.Transparent;
@@ -202,7 +94,7 @@
             button_Folders.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Folders.ForeColor = Color.White;
             button_Folders.Image = Properties.Resources.Button_Icon_Tree;
-            button_Folders.Location = new Point(25, 334);
+            button_Folders.Location = new Point(25, 356);
             button_Folders.Margin = new Padding(3, 2, 3, 2);
             button_Folders.Name = "button_Folders";
             button_Folders.Size = new Size(120, 40);
@@ -240,7 +132,7 @@
             button_Auth.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Auth.ForeColor = Color.White;
             button_Auth.Image = Properties.Resources.Button_Icon_Auth;
-            button_Auth.Location = new Point(25, 246);
+            button_Auth.Location = new Point(25, 224);
             button_Auth.Margin = new Padding(3, 2, 3, 2);
             button_Auth.Name = "button_Auth";
             button_Auth.Size = new Size(120, 40);
@@ -249,25 +141,6 @@
             button_Auth.TextImageRelation = TextImageRelation.ImageBeforeText;
             button_Auth.UseVisualStyleBackColor = false;
             button_Auth.Click += button_Auth_Click;
-            // 
-            // button_Usage
-            // 
-            button_Usage.BackColor = Color.Transparent;
-            button_Usage.Cursor = Cursors.Hand;
-            button_Usage.FlatAppearance.BorderSize = 0;
-            button_Usage.FlatStyle = FlatStyle.Flat;
-            button_Usage.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button_Usage.ForeColor = Color.White;
-            button_Usage.Image = Properties.Resources.Button_Icon_Usage;
-            button_Usage.Location = new Point(25, 202);
-            button_Usage.Margin = new Padding(3, 2, 3, 2);
-            button_Usage.Name = "button_Usage";
-            button_Usage.Size = new Size(120, 40);
-            button_Usage.TabIndex = 5;
-            button_Usage.Text = "   Usage";
-            button_Usage.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button_Usage.UseVisualStyleBackColor = false;
-            button_Usage.Click += button_Usage_Click;
             // 
             // button_Name
             // 
@@ -288,25 +161,6 @@
             button_Name.UseVisualStyleBackColor = false;
             button_Name.Click += button_Name_Click;
             // 
-            // button_Date
-            // 
-            button_Date.BackColor = Color.Transparent;
-            button_Date.Cursor = Cursors.Hand;
-            button_Date.FlatAppearance.BorderSize = 0;
-            button_Date.FlatStyle = FlatStyle.Flat;
-            button_Date.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button_Date.ForeColor = Color.White;
-            button_Date.Image = Properties.Resources.Button_Icon_Calendar;
-            button_Date.Location = new Point(25, 114);
-            button_Date.Margin = new Padding(3, 2, 3, 2);
-            button_Date.Name = "button_Date";
-            button_Date.Size = new Size(120, 40);
-            button_Date.TabIndex = 3;
-            button_Date.Text = "   Date";
-            button_Date.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button_Date.UseVisualStyleBackColor = false;
-            button_Date.Click += button_Date_Click;
-            // 
             // Panel_Index_Config
             // 
             Panel_Index_Config.BackColor = Color.Teal;
@@ -325,7 +179,7 @@
             button_Size.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Size.ForeColor = Color.White;
             button_Size.Image = Properties.Resources.Button_Icon_Size;
-            button_Size.Location = new Point(25, 70);
+            button_Size.Location = new Point(25, 92);
             button_Size.Margin = new Padding(3, 2, 3, 2);
             button_Size.Name = "button_Size";
             button_Size.Size = new Size(120, 40);
@@ -376,15 +230,6 @@
             menu_Sizes1.Size = new Size(594, 541);
             menu_Sizes1.TabIndex = 3;
             // 
-            // menu_Date1
-            // 
-            menu_Date1.BackColor = Color.FromArgb(64, 64, 64);
-            menu_Date1.Dock = DockStyle.Fill;
-            menu_Date1.Location = new Point(171, 0);
-            menu_Date1.Name = "menu_Date1";
-            menu_Date1.Size = new Size(594, 541);
-            menu_Date1.TabIndex = 9;
-            // 
             // menu_Name1
             // 
             menu_Name1.BackColor = Color.FromArgb(64, 64, 64);
@@ -393,15 +238,6 @@
             menu_Name1.Name = "menu_Name1";
             menu_Name1.Size = new Size(594, 541);
             menu_Name1.TabIndex = 16;
-            // 
-            // menu_Usage1
-            // 
-            menu_Usage1.BackColor = Color.FromArgb(64, 64, 64);
-            menu_Usage1.Dock = DockStyle.Fill;
-            menu_Usage1.Location = new Point(171, 0);
-            menu_Usage1.Name = "menu_Usage1";
-            menu_Usage1.Size = new Size(594, 541);
-            menu_Usage1.TabIndex = 16;
             // 
             // menu_Auth1
             // 
@@ -430,15 +266,6 @@
             menu_Folder1.Size = new Size(594, 541);
             menu_Folder1.TabIndex = 16;
             // 
-            // menu_Content1
-            // 
-            menu_Content1.BackColor = Color.FromArgb(64, 64, 64);
-            menu_Content1.Dock = DockStyle.Fill;
-            menu_Content1.Location = new Point(171, 0);
-            menu_Content1.Name = "menu_Content1";
-            menu_Content1.Size = new Size(594, 541);
-            menu_Content1.TabIndex = 16;
-            // 
             // menu_Media1
             // 
             menu_Media1.BackColor = Color.FromArgb(64, 64, 64);
@@ -454,13 +281,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             Controls.Add(menu_Media1);
-            Controls.Add(menu_Content1);
             Controls.Add(menu_Folder1);
             Controls.Add(menu_Tags1);
             Controls.Add(menu_Auth1);
-            Controls.Add(menu_Usage1);
             Controls.Add(menu_Name1);
-            Controls.Add(menu_Date1);
             Controls.Add(menu_Type1);
             Controls.Add(menu_Sizes1);
             Controls.Add(panel_Menu_Config);
@@ -481,22 +305,12 @@
         private Button button_Folders;
         private Button button_Tags;
         private Button button_Auth;
-        private Button button_Usage;
         private Button button_Name;
-        private Button button_Date;
-        private Menu_Date menu_Date1;
-        private Button button8;
-        private Button button9;
         private Button button_Media;
-        private Button button_Content;
-        private Button button10;
-        private Button button11;
         private Menu_Name menu_Name1;
-        private Menu_Usage menu_Usage1;
         private Menu_Auth menu_Auth1;
         private Menu_Tags menu_Tags1;
         private Menu_Folder menu_Folder1;
-        private Menu_Content menu_Content1;
         private Menu_Media menu_Media1;
     }
 }

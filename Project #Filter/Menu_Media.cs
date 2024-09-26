@@ -14,35 +14,28 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Media.json"))
+                if (!File.Exists("Config_Media.json"))
                 {
                     // Create the JSON object
                     var jsonContent = new JObject(
-                         new JProperty("Extensions", new JObject(
-                             new JProperty("Images", new JArray("jpg", "png", "gif", "bmp", "jpeg")),
-                             new JProperty("Videos", new JArray("mp4", "m4v", "avi", "mkv", "3gp", "mov", "wmv", "webm", "ts", "mpg", "asf", "flv", "mpeg")),
-                             new JProperty("Documents", new JArray("txt", "docx", "pdf", "pptx")),
-                             new JProperty("Audio", new JArray("mp3", "wav", "aac", "flac", "ogg", "m4a", "wma", "alac", "aiff")),
-                             new JProperty("Archives", new JArray("zip", "rar", "7z", "tar", "gz", "bz2", "iso", "xz")),
-                             new JProperty("Executables", new JArray("exe", "bat", "sh", "msi", "bin", "cmd", "apk", "com", "jar"))
-                         )),
-                         new JProperty("Allow", new JObject(
-                             new JProperty("Documents", true),
-                             new JProperty("Images", true),
-                             new JProperty("Audio", true),
-                             new JProperty("Videos", true),
-                             new JProperty("Archives", true),
-                             new JProperty("Executables", true)
+                         new JProperty("Option", new JObject(
+                             new JProperty("Duration", true),
+                             new JProperty("Resolution ", false),
+                             new JProperty("Frame_Rate", false),
+                             new JProperty("Codec", false),
+                             new JProperty("Audio", false),
+                             new JProperty("Aspect", false),
+                             new JProperty("BitDepth", false)
                          ))
-                     );
+                    );
 
 
                     // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Media.json", jsonContent.ToString());
+                    File.WriteAllText("Config_Media.json", jsonContent.ToString());
                 }
 
                 // File already exists; get the filepath
-                string filePath = Path.GetFullPath("Media.json");
+                string filePath = Path.GetFullPath("Config_Media.json");
                 PopulateTree(filePath);
                 break;
             }

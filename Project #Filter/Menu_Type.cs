@@ -19,7 +19,7 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Extensions.json"))
+                if (!File.Exists("Config_Type.json"))
                 {
                     // Create the JSON object
                     var jsonContent = new JObject(
@@ -39,15 +39,14 @@ namespace Project__Filter
                              new JProperty("Archives", true),
                              new JProperty("Executables", true)
                          ))
-                     );
-
+                    );
 
                     // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Extensions.json", jsonContent.ToString());
+                    File.WriteAllText("Config_Type.json", jsonContent.ToString());
                 }
 
                 // File already exists; get the filepath
-                string filePath = Path.GetFullPath("Extensions.json");
+                string filePath = Path.GetFullPath("Config_Type.json");
                 PopulateTree(filePath);
                 break;
             }
@@ -175,7 +174,6 @@ namespace Project__Filter
                         break; // Exit the loop once the extension is found and removed
                     }
                 }
-
 
                 if (isRemoved)
                 {

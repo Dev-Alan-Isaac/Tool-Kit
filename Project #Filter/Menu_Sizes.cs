@@ -23,7 +23,7 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Size.json"))
+                if (!File.Exists("Config_Size.json"))
                 {
                     var jsonContent = new JObject(
                          new JProperty("Size", new JObject(
@@ -34,11 +34,11 @@ namespace Project__Filter
                          ))
                     );
 
-                    File.WriteAllText("Size.json", jsonContent.ToString());
+                    File.WriteAllText("Config_Size.json", jsonContent.ToString());
                 }
 
                 // File already exists; get the filepath
-                string filePath = Path.GetFullPath("Size.json");
+                string filePath = Path.GetFullPath("Config_Size.json");
                 PopulateTree(filePath);
                 break;
             }
