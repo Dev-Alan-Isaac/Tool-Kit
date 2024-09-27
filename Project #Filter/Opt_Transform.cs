@@ -70,18 +70,7 @@ namespace Project__Filter
 
         private void button_Path_Click(object sender, EventArgs e)
         {
-            using (var fbd = new FolderBrowserDialog())
-            {
-                DialogResult result = fbd.ShowDialog();
 
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    selectedPath = fbd.SelectedPath;
-                    textBox_Path.Text = selectedPath;
-
-                    button_Convert.Enabled = true;
-                }
-            }
         }
 
         private async void button_Convert_Click(object sender, EventArgs e)
@@ -161,54 +150,54 @@ namespace Project__Filter
             }
         }
 
-        private string[] askContent(string selectedPath)
-        {
-            DialogResult result = MessageBox.Show("Do you want a custom content?", "Title", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        //private string[] askContent(string selectedPath)
+        //{
+        //    DialogResult result = MessageBox.Show("Do you want a custom content?", "Title", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (result == DialogResult.Yes)
-            {
-                string selectedItem = string.Empty;
+        //    if (result == DialogResult.Yes)
+        //    {
+        //        string selectedItem = string.Empty;
 
-                foreach (RadioButton radioButton in panel_Action.Controls.OfType<RadioButton>())
-                {
-                    if (radioButton.Checked)
-                    {
-                        selectedItem = radioButton.Text; // Use the text of the selected radio button
-                        break; // Exit the loop once a selection is found
-                    }
-                }
+        //        foreach (RadioButton radioButton in panel_Action.Controls.OfType<RadioButton>())
+        //        {
+        //            if (radioButton.Checked)
+        //            {
+        //                selectedItem = radioButton.Text; // Use the text of the selected radio button
+        //                break; // Exit the loop once a selection is found
+        //            }
+        //        }
 
-                // Get the files in the selected path
-                string[] files = Directory.GetFiles(selectedPath);
-                string[] sort = [];
+        //        // Get the files in the selected path
+        //        string[] files = Directory.GetFiles(selectedPath);
+        //        string[] sort = [];
 
-                // Sort the files based on the user's selection
-                switch (selectedItem)
-                {
-                    case "Sort by name":
-                        sort = SortByName(files);
-                        break;
-                    case "Sort by date":
-                        sort = SortByDate(files);
-                        break;
-                    case "Sort by size":
-                        sort = SortBySize(files);
-                        break;
-                    default:
-                        break;
-                }
-                return sort;
-            }
-            else
-            {
-                // Get the files in the selected path without sorting
-                string[] files = Directory.GetFiles(selectedPath);
+        //        // Sort the files based on the user's selection
+        //        switch (selectedItem)
+        //        {
+        //            case "Sort by name":
+        //                sort = SortByName(files);
+        //                break;
+        //            case "Sort by date":
+        //                sort = SortByDate(files);
+        //                break;
+        //            case "Sort by size":
+        //                sort = SortBySize(files);
+        //                break;
+        //            default:
+        //                break;
+        //        }
+        //        return sort;
+        //    }
+        //    else
+        //    {
+        //        // Get the files in the selected path without sorting
+        //        string[] files = Directory.GetFiles(selectedPath);
 
-                var filteredFiles = files.Where(file => PDFExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
+        //        var filteredFiles = files.Where(file => PDFExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
 
-                return filteredFiles;
-            }
-        }
+        //        return filteredFiles;
+        //    }
+        //}
 
         public string[] SortByName(string[] arrayFiles)
         {
@@ -243,119 +232,101 @@ namespace Project__Filter
             return filteredFiles;
         }
 
-        private async Task<byte[]> PDFBuilder(string[] arrayFiles)
-        {
-            var progress = new Progress<int>(value =>
-            {
-                // Update your progress bar here
-                progressBar_Time.Value = value;
-            });
+        //private async Task<byte[]> PDFBuilder(string[] arrayFiles)
+        //{
+        //    var progress = new Progress<int>(value =>
+        //    {
+        //        // Update your progress bar here
+        //        progressBar_Time.Value = value;
+        //    });
 
-            return await Task.Run(() =>
-            {
-                // Create a new PDF document
-                Document document = new Document();
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    // Create a new PdfWriter object, pointing it to our MemoryStream
-                    PdfWriter writer = PdfWriter.GetInstance(document, stream);
+        //    return await Task.Run(() =>
+        //    {
+        //        // Create a new PDF document
+        //        Document document = new Document();
+        //        using (MemoryStream stream = new MemoryStream())
+        //        {
+        //            // Create a new PdfWriter object, pointing it to our MemoryStream
+        //            PdfWriter writer = PdfWriter.GetInstance(document, stream);
 
-                    // Open the Document for writing
-                    document.Open();
+        //            // Open the Document for writing
+        //            document.Open();
 
-                    for (int i = 0; i < arrayFiles.Length; i++)
-                    {
-                        string file = arrayFiles[i];
-                        // Add the image to the document
-                        iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
-                        document.SetPageSize(new Rectangle(0, 0, image.Width, image.Height));
-                        document.NewPage();
-                        image.SetAbsolutePosition(0, 0);
-                        document.Add(image);
+        //            for (int i = 0; i < arrayFiles.Length; i++)
+        //            {
+        //                string file = arrayFiles[i];
+        //                // Add the image to the document
+        //                iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
+        //                document.SetPageSize(new Rectangle(0, 0, image.Width, image.Height));
+        //                document.NewPage();
+        //                image.SetAbsolutePosition(0, 0);
+        //                document.Add(image);
 
-                        // Calculate progress percentage
-                        int progressPercentage = (i + 1) * 100 / arrayFiles.Length;
+        //                // Calculate progress percentage
+        //                int progressPercentage = (i + 1) * 100 / arrayFiles.Length;
 
-                        // Report progress
-                        ((IProgress<int>)progress).Report(progressPercentage);
-                    }
+        //                // Report progress
+        //                ((IProgress<int>)progress).Report(progressPercentage);
+        //            }
 
-                    // Close the Document - this saves it to the MemoryStream
-                    document.Close();
+        //            // Close the Document - this saves it to the MemoryStream
+        //            document.Close();
 
-                    // Convert the MemoryStream to an array and return it
-                    return stream.ToArray();
-                }
-            });
+        //            // Convert the MemoryStream to an array and return it
+        //            return stream.ToArray();
+        //        }
+        //    });
 
-        }
+        //}
 
-        private async Task<byte[]> PDFBuilderTitle(byte[] pdfBytes, string Title)
-        {
-            var progress = new Progress<int>(value =>
-            {
-                // Update your progress bar here
-                progressBar_Time.Value = value;
-            });
+        //private string[] askContent(string selectedPath)
+        //      {
+        //          DialogResult result = MessageBox.Show("Do you want a custom content?", "Title", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            return await Task.Run(() =>
-            {
-                Document document = new Document();
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    // Create a new PdfWriter object, pointing it to our MemoryStream
-                    PdfWriter writer = PdfWriter.GetInstance(document, stream);
+        //          if (result == DialogResult.Yes)
+        //          {
+        //              string selectedItem = string.Empty;
 
-                    // Open the Document for writing
-                    document.Open();
+        //              foreach (RadioButton radioButton in panel_Action.Controls.OfType<RadioButton>())
+        //              {
+        //                  if (radioButton.Checked)
+        //                  {
+        //                      selectedItem = radioButton.Text; // Use the text of the selected radio button
+        //                      break; // Exit the loop once a selection is found
+        //                  }
+        //              }
 
-                    // Set the page size for the title page
-                    document.SetPageSize(PageSize.LETTER);
+        //              // Get the files in the selected path
+        //              string[] files = Directory.GetFiles(selectedPath);
+        //              string[] sort = [];
 
-                    for (int i = 0; i < 20; i++) // Adjust this value to move the title up or down
-                    {
-                        document.Add(new Paragraph("\n"));
-                    }
+        //              // Sort the files based on the user's selection
+        //              switch (selectedItem)
+        //              {
+        //                  case "Sort by name":
+        //                      sort = SortByName(files);
+        //                      break;
+        //                  case "Sort by date":
+        //                      sort = SortByDate(files);
+        //                      break;
+        //                  case "Sort by size":
+        //                      sort = SortBySize(files);
+        //                      break;
+        //                  default:
+        //                      break;
+        //              }
+        //              return sort;
+        //          }
+        //          else
+        //          {
+        //              // Get the files in the selected path without sorting
+        //              string[] files = Directory.GetFiles(selectedPath);
 
-                    // Create a new Paragraph with the title
-                    Paragraph title = new Paragraph(Title, FontFactory.GetFont(FontFactory.HELVETICA, 50f, iTextSharp.text.Font.BOLD));
-                    title.Alignment = Element.ALIGN_CENTER;
+        //              var filteredFiles = files.Where(file => PDFExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
 
-                    // Add the title to the document
-                    document.Add(title);
-
-                    // Add some space after the title
-                    for (int i = 0; i < 10; i++) // Adjust this value to move the title up or down
-                    {
-                        document.Add(new Paragraph("\n"));
-                    }
-
-                    // Create a reader for the existing PDF document
-                    PdfReader reader = new PdfReader(pdfBytes);
-
-                    // Add the pages from the existing PDF document to the new document
-                    for (int i = 1; i <= reader.NumberOfPages; i++)
-                    {
-                        document.SetPageSize(reader.GetPageSizeWithRotation(i));
-                        document.NewPage();
-                        PdfImportedPage page = writer.GetImportedPage(reader, i);
-                        writer.DirectContent.AddTemplate(page, 0, 0);
-
-                        // Calculate progress percentage
-                        int progressPercentage = i * 100 / reader.NumberOfPages;
-
-                        // Report progress
-                        ((IProgress<int>)progress).Report(progressPercentage);
-                    }
-
-                    // Close the Document - this saves it to the MemoryStream
-                    document.Close();
-
-                    // Convert the MemoryStream to an array and return it
-                    return stream.ToArray();
-                }
-            });
-        }
+        //              return filteredFiles;
+        //          }
+        //      }
 
         private async void CreatedPdf(byte[] pdfByteArray, string title)
         {

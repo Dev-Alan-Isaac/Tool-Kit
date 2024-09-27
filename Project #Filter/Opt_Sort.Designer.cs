@@ -42,12 +42,12 @@
             panel_Header = new Panel();
             panel2 = new Panel();
             panel_Footer = new Panel();
-            panel_Options = new Panel();
             panel3 = new Panel();
             treeView1 = new TreeView();
             panel4 = new Panel();
             label5 = new Label();
             label4 = new Label();
+            panel_Options = new Panel();
             panel1 = new Panel();
             label3 = new Label();
             checkBox9 = new CheckBox();
@@ -62,9 +62,9 @@
             panel_Top.SuspendLayout();
             panel_Header.SuspendLayout();
             panel_Footer.SuspendLayout();
-            panel_Options.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
+            panel_Options.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -238,17 +238,6 @@
             panel_Footer.Size = new Size(667, 64);
             panel_Footer.TabIndex = 32;
             // 
-            // panel_Options
-            // 
-            panel_Options.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel_Options.Controls.Add(panel3);
-            panel_Options.Controls.Add(panel1);
-            panel_Options.Location = new Point(0, 81);
-            panel_Options.Margin = new Padding(3, 2, 3, 2);
-            panel_Options.Name = "panel_Options";
-            panel_Options.Size = new Size(667, 385);
-            panel_Options.TabIndex = 33;
-            // 
             // panel3
             // 
             panel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -302,6 +291,17 @@
             label4.Size = new Size(119, 30);
             label4.TabIndex = 0;
             label4.Text = "File Count:";
+            // 
+            // panel_Options
+            // 
+            panel_Options.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel_Options.Controls.Add(panel3);
+            panel_Options.Controls.Add(panel1);
+            panel_Options.Location = new Point(0, 81);
+            panel_Options.Margin = new Padding(3, 2, 3, 2);
+            panel_Options.Name = "panel_Options";
+            panel_Options.Size = new Size(667, 385);
+            panel_Options.TabIndex = 33;
             // 
             // panel1
             // 
@@ -479,10 +479,10 @@
             panel_Header.PerformLayout();
             panel_Footer.ResumeLayout(false);
             panel_Footer.PerformLayout();
-            panel_Options.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
+            panel_Options.ResumeLayout(false);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -502,23 +502,23 @@
         private Label label2;
         private Label label_Warning;
         private Panel panel_Footer;
+        private Panel panel2;
+        private Panel panel3;
+        private TreeView treeView1;
+        private Panel panel4;
+        private Label label5;
+        private Label label4;
         private Panel panel_Options;
         private Panel panel1;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
+        private Label label3;
+        private CheckBox checkBox9;
+        private CheckBox checkBox8;
         private CheckBox checkBox7;
         private CheckBox checkBox6;
         private CheckBox checkBox5;
         private CheckBox checkBox4;
         private CheckBox checkBox3;
-        private CheckBox checkBox8;
-        private CheckBox checkBox9;
-        private Label label3;
-        private Panel panel2;
-        private Panel panel3;
-        private Panel panel4;
-        private Label label5;
-        private Label label4;
-        private TreeView treeView1;
+        private CheckBox checkBox2;
+        private CheckBox checkBox1;
     }
 }
