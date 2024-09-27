@@ -48,11 +48,38 @@ namespace Project__Filter
                 // File already exists; get the filepath
                 string filePath = Path.GetFullPath("Config_Type.json");
                 PopulateTree(filePath);
+                CheckBoxes(filePath);
                 break;
             }
         }
 
         private void PopulateTree(string FilePath)
+        {
+            if (File.Exists(FilePath))
+            {
+                // Read the JSON content from the file
+                string jsonContent = File.ReadAllText(FilePath);
+
+                // Deserialize the JSON content into a JObject
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
+
+                // Access the "Allow" object inside the JSON
+                var extensionsObject = jsonObject["Allow"] as JObject;
+
+                if (extensionsObject != null)
+                {
+                    // Update checkboxes based on JSON values
+                    checkBox_Documents.Checked = extensionsObject["Documents"]?.Value<bool>() ?? false;
+                    checkBox_Images.Checked = extensionsObject["Images"]?.Value<bool>() ?? false;
+                    checkBox_Audio.Checked = extensionsObject["Audio"]?.Value<bool>() ?? false;
+                    checkBox_Videos.Checked = extensionsObject["Videos"]?.Value<bool>() ?? false;
+                    checkBox_Archives.Checked = extensionsObject["Archives"]?.Value<bool>() ?? false;
+                    checkBox_Executables.Checked = extensionsObject["Executables"]?.Value<bool>() ?? false;
+                }
+            }
+        }
+
+        private void CheckBoxes(string FilePath)
         {
             if (File.Exists(FilePath))
             {
@@ -86,11 +113,6 @@ namespace Project__Filter
                         treeView1.Nodes.Add(categoryNode);
                     }
                 }
-                else
-                {
-                    // Handle the case where "Extensions" is not found in the JSON
-                    // You might want to log an error or display a message to the user
-                }
             }
         }
 
@@ -99,10 +121,10 @@ namespace Project__Filter
             // Replace 'panelCheckBoxes' with the actual container where your checkboxes are placed
             Control container = this.Controls["panel5"]; // Change this if necessary
 
-            if (File.Exists("Extensions.json"))
+            if (File.Exists("Config_Type.json"))
             {
                 // Read the existing JSON content
-                string jsonString = File.ReadAllText("Extensions.json");
+                string jsonString = File.ReadAllText("Config_Type.json");
                 var jsonContent = JObject.Parse(jsonString);
 
                 // Get the "Allow" section
@@ -128,14 +150,14 @@ namespace Project__Filter
                 }
 
                 // Save the updated JSON back to the file
-                File.WriteAllText("Extensions.json", jsonContent.ToString());
+                File.WriteAllText("Config_Type.json", jsonContent.ToString());
 
                 // Optional: Notify the user that the file has been saved
-                MessageBox.Show("Extensions.json has been updated with allowed/disallowed items.");
+                MessageBox.Show("Config_Type.json has been updated with allowed/disallowed items.");
             }
             else
             {
-                MessageBox.Show("Extensions.json file not found!");
+                MessageBox.Show("Config_Type.json file not found!");
             }
         }
 

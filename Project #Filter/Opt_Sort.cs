@@ -37,34 +37,28 @@ namespace Project__Filter
                 switch (item)
                 {
                     case "File Type":
-                        await Task.Run(() => SortTypes(Path, "Extensions.json"));
+                        await Task.Run(() => SortTypes(Path, "Config_Type.json"));
                         break;
                     case "File Size":
-                        await Task.Run(() => SortTypes(Path, "Size.json"));
+                        await Task.Run(() => SortSize(Path, "Config_Size.json"));
                         break;
                     case "File Date":
-                        await Task.Run(() => SortTypes(Path, "Date.json"));
+                        await Task.Run(() => SortDates(Path));
                         break;
                     case "File Name":
-                        await Task.Run(() => SortTypes(Path, "Name.json"));
-                        break;
-                    case "File Usage":
-                        await Task.Run(() => SortTypes(Path, "Usage.json"));
+                        await Task.Run(() => SortNames(Path, "Config_Names.json"));
                         break;
                     case "File Permissions":
-                        await Task.Run(() => SortTypes(Path, "Permissions.json"));
+                        await Task.Run(() => SortPermissions(Path, "Config_Permissions.json"));
                         break;
                     case "Custom Tags":
-                        await Task.Run(() => SortTypes(Path, "Tags.json"));
+                        await Task.Run(() => SortCustomTags(Path, "Config_Tags.json"));
                         break;
                     case "Folder Location":
-                        await Task.Run(() => SortTypes(Path, "Folder.json"));
-                        break;
-                    case "File Content (Text/Docs)":
-                        await Task.Run(() => SortTypes(Path, "Content.json"));
+                        await Task.Run(() => SortFolderLocation(Path, "Config_Folder.json"));
                         break;
                     case "Media Metadata (Videos/Audio)":
-                        await Task.Run(() => SortTypes(Path, "Media.json"));
+                        await Task.Run(() => SortMedia(Path, "Config_Media.json"));
                         break;
                     default:
                         break;
@@ -123,17 +117,12 @@ namespace Project__Filter
 
         }
 
-        private async void SortDates(string Path, string File)
+        private async void SortDates(string Path)
         {
 
         }
 
         private async void SortNames(string Path, string File)
-        {
-
-        }
-
-        private async void SortUsages(string Path, string File)
         {
 
         }

@@ -38,20 +38,20 @@
             panel4 = new Panel();
             panel9 = new Panel();
             panel5 = new Panel();
-            comboBox6 = new ComboBox();
-            textBox6 = new TextBox();
+            comboBox_LargeUnit1 = new ComboBox();
+            textBox_Large1 = new TextBox();
             label2 = new Label();
-            comboBox5 = new ComboBox();
-            textBox5 = new TextBox();
+            comboBox_MediumUnit1 = new ComboBox();
+            textBox_Medium1 = new TextBox();
             label8 = new Label();
-            comboBox4 = new ComboBox();
-            textBox4 = new TextBox();
-            comboBox3 = new ComboBox();
-            textBox3 = new TextBox();
-            comboBox2 = new ComboBox();
-            textBox2 = new TextBox();
-            comboBox1 = new ComboBox();
-            textBox1 = new TextBox();
+            comboBox_VeryLargeUnit = new ComboBox();
+            textBox_VeryLarge = new TextBox();
+            comboBox_LargeUnit = new ComboBox();
+            textBox_Large = new TextBox();
+            comboBox_MediumUnit = new ComboBox();
+            textBox_Medium = new TextBox();
+            comboBox_SmallUnit = new ComboBox();
+            textBox_Small = new TextBox();
             label7 = new Label();
             label6 = new Label();
             label5 = new Label();
@@ -114,7 +114,6 @@
             button_Saved.Size = new Size(570, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
-            button_Saved.Click += button_Saved_Click;
             // 
             // label3
             // 
@@ -161,20 +160,20 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel5.Controls.Add(comboBox6);
-            panel5.Controls.Add(textBox6);
+            panel5.Controls.Add(comboBox_LargeUnit1);
+            panel5.Controls.Add(textBox_Large1);
             panel5.Controls.Add(label2);
-            panel5.Controls.Add(comboBox5);
-            panel5.Controls.Add(textBox5);
+            panel5.Controls.Add(comboBox_MediumUnit1);
+            panel5.Controls.Add(textBox_Medium1);
             panel5.Controls.Add(label8);
-            panel5.Controls.Add(comboBox4);
-            panel5.Controls.Add(textBox4);
-            panel5.Controls.Add(comboBox3);
-            panel5.Controls.Add(textBox3);
-            panel5.Controls.Add(comboBox2);
-            panel5.Controls.Add(textBox2);
-            panel5.Controls.Add(comboBox1);
-            panel5.Controls.Add(textBox1);
+            panel5.Controls.Add(comboBox_VeryLargeUnit);
+            panel5.Controls.Add(textBox_VeryLarge);
+            panel5.Controls.Add(comboBox_LargeUnit);
+            panel5.Controls.Add(textBox_Large);
+            panel5.Controls.Add(comboBox_MediumUnit);
+            panel5.Controls.Add(textBox_Medium);
+            panel5.Controls.Add(comboBox_SmallUnit);
+            panel5.Controls.Add(textBox_Small);
             panel5.Controls.Add(label7);
             panel5.Controls.Add(label6);
             panel5.Controls.Add(label5);
@@ -186,22 +185,22 @@
             panel5.Size = new Size(570, 394);
             panel5.TabIndex = 58;
             // 
-            // comboBox6
+            // comboBox_LargeUnit1
             // 
-            comboBox6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBox6.FormattingEnabled = true;
-            comboBox6.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox6.Location = new Point(495, 192);
-            comboBox6.Name = "comboBox6";
-            comboBox6.Size = new Size(65, 23);
-            comboBox6.TabIndex = 75;
+            comboBox_LargeUnit1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox_LargeUnit1.FormattingEnabled = true;
+            comboBox_LargeUnit1.Items.AddRange(new object[] { "KB", "MB", "GB" });
+            comboBox_LargeUnit1.Location = new Point(495, 192);
+            comboBox_LargeUnit1.Name = "comboBox_LargeUnit1";
+            comboBox_LargeUnit1.Size = new Size(65, 23);
+            comboBox_LargeUnit1.TabIndex = 75;
             // 
-            // textBox6
+            // textBox_Large1
             // 
-            textBox6.Location = new Point(369, 192);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(120, 23);
-            textBox6.TabIndex = 74;
+            textBox_Large1.Location = new Point(369, 192);
+            textBox_Large1.Name = "textBox_Large1";
+            textBox_Large1.Size = new Size(120, 23);
+            textBox_Large1.TabIndex = 74;
             // 
             // label2
             // 
@@ -215,22 +214,22 @@
             label2.TabIndex = 73;
             label2.Text = "<";
             // 
-            // comboBox5
+            // comboBox_MediumUnit1
             // 
-            comboBox5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBox5.FormattingEnabled = true;
-            comboBox5.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox5.Location = new Point(495, 118);
-            comboBox5.Name = "comboBox5";
-            comboBox5.Size = new Size(65, 23);
-            comboBox5.TabIndex = 72;
+            comboBox_MediumUnit1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox_MediumUnit1.FormattingEnabled = true;
+            comboBox_MediumUnit1.Items.AddRange(new object[] { "KB", "MB", "GB" });
+            comboBox_MediumUnit1.Location = new Point(495, 118);
+            comboBox_MediumUnit1.Name = "comboBox_MediumUnit1";
+            comboBox_MediumUnit1.Size = new Size(65, 23);
+            comboBox_MediumUnit1.TabIndex = 72;
             // 
-            // textBox5
+            // textBox_Medium1
             // 
-            textBox5.Location = new Point(369, 118);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(120, 23);
-            textBox5.TabIndex = 71;
+            textBox_Medium1.Location = new Point(369, 118);
+            textBox_Medium1.Name = "textBox_Medium1";
+            textBox_Medium1.Size = new Size(120, 23);
+            textBox_Medium1.TabIndex = 71;
             // 
             // label8
             // 
@@ -244,73 +243,73 @@
             label8.TabIndex = 70;
             label8.Text = "<";
             // 
-            // comboBox4
+            // comboBox_VeryLargeUnit
             // 
-            comboBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox4.Location = new Point(280, 266);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(65, 23);
-            comboBox4.TabIndex = 69;
+            comboBox_VeryLargeUnit.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox_VeryLargeUnit.FormattingEnabled = true;
+            comboBox_VeryLargeUnit.Items.AddRange(new object[] { "KB", "MB", "GB" });
+            comboBox_VeryLargeUnit.Location = new Point(280, 266);
+            comboBox_VeryLargeUnit.Name = "comboBox_VeryLargeUnit";
+            comboBox_VeryLargeUnit.Size = new Size(65, 23);
+            comboBox_VeryLargeUnit.TabIndex = 69;
             // 
-            // textBox4
+            // textBox_VeryLarge
             // 
-            textBox4.Location = new Point(154, 266);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(120, 23);
-            textBox4.TabIndex = 68;
+            textBox_VeryLarge.Location = new Point(154, 266);
+            textBox_VeryLarge.Name = "textBox_VeryLarge";
+            textBox_VeryLarge.Size = new Size(120, 23);
+            textBox_VeryLarge.TabIndex = 68;
             // 
-            // comboBox3
+            // comboBox_LargeUnit
             // 
-            comboBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox3.Location = new Point(280, 192);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(65, 23);
-            comboBox3.TabIndex = 67;
+            comboBox_LargeUnit.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox_LargeUnit.FormattingEnabled = true;
+            comboBox_LargeUnit.Items.AddRange(new object[] { "KB", "MB", "GB" });
+            comboBox_LargeUnit.Location = new Point(280, 192);
+            comboBox_LargeUnit.Name = "comboBox_LargeUnit";
+            comboBox_LargeUnit.Size = new Size(65, 23);
+            comboBox_LargeUnit.TabIndex = 67;
             // 
-            // textBox3
+            // textBox_Large
             // 
-            textBox3.Location = new Point(154, 192);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(120, 23);
-            textBox3.TabIndex = 66;
+            textBox_Large.Location = new Point(154, 192);
+            textBox_Large.Name = "textBox_Large";
+            textBox_Large.Size = new Size(120, 23);
+            textBox_Large.TabIndex = 66;
             // 
-            // comboBox2
+            // comboBox_MediumUnit
             // 
-            comboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox2.Location = new Point(280, 118);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(65, 23);
-            comboBox2.TabIndex = 65;
+            comboBox_MediumUnit.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox_MediumUnit.FormattingEnabled = true;
+            comboBox_MediumUnit.Items.AddRange(new object[] { "KB", "MB", "GB" });
+            comboBox_MediumUnit.Location = new Point(280, 118);
+            comboBox_MediumUnit.Name = "comboBox_MediumUnit";
+            comboBox_MediumUnit.Size = new Size(65, 23);
+            comboBox_MediumUnit.TabIndex = 65;
             // 
-            // textBox2
+            // textBox_Medium
             // 
-            textBox2.Location = new Point(154, 118);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(120, 23);
-            textBox2.TabIndex = 64;
+            textBox_Medium.Location = new Point(154, 118);
+            textBox_Medium.Name = "textBox_Medium";
+            textBox_Medium.Size = new Size(120, 23);
+            textBox_Medium.TabIndex = 64;
             // 
-            // comboBox1
+            // comboBox_SmallUnit
             // 
-            comboBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox1.Location = new Point(280, 45);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(65, 23);
-            comboBox1.TabIndex = 63;
+            comboBox_SmallUnit.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox_SmallUnit.FormattingEnabled = true;
+            comboBox_SmallUnit.Items.AddRange(new object[] { "KB", "MB", "GB" });
+            comboBox_SmallUnit.Location = new Point(280, 45);
+            comboBox_SmallUnit.Name = "comboBox_SmallUnit";
+            comboBox_SmallUnit.Size = new Size(65, 23);
+            comboBox_SmallUnit.TabIndex = 63;
             // 
-            // textBox1
+            // textBox_Small
             // 
-            textBox1.Location = new Point(154, 45);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(120, 23);
-            textBox1.TabIndex = 62;
+            textBox_Small.Location = new Point(154, 45);
+            textBox_Small.Name = "textBox_Small";
+            textBox_Small.Size = new Size(120, 23);
+            textBox_Small.TabIndex = 62;
             // 
             // label7
             // 
@@ -395,19 +394,19 @@
         private Label label7;
         private Label label6;
         private Label label5;
-        private ComboBox comboBox4;
-        private TextBox textBox4;
-        private ComboBox comboBox3;
-        private TextBox textBox3;
-        private ComboBox comboBox2;
-        private TextBox textBox2;
-        private ComboBox comboBox1;
-        private TextBox textBox1;
-        private ComboBox comboBox5;
-        private TextBox textBox5;
+        private ComboBox comboBox_VeryLargeUnit;
+        private TextBox textBox_VeryLarge;
+        private ComboBox comboBox_LargeUnit;
+        private TextBox textBox_Large;
+        private ComboBox comboBox_MediumUnit;
+        private TextBox textBox_Medium;
+        private ComboBox comboBox_SmallUnit;
+        private TextBox textBox_Small;
+        private ComboBox comboBox_MediumUnit1;
+        private TextBox textBox_Medium1;
         private Label label8;
-        private ComboBox comboBox6;
-        private TextBox textBox6;
+        private ComboBox comboBox_LargeUnit1;
+        private TextBox textBox_Large1;
         private Label label2;
     }
 }

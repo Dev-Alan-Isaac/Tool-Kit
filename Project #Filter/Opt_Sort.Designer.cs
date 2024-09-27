@@ -54,7 +54,6 @@
             checkBox8 = new CheckBox();
             checkBox7 = new CheckBox();
             checkBox6 = new CheckBox();
-            checkBox5 = new CheckBox();
             checkBox4 = new CheckBox();
             checkBox3 = new CheckBox();
             checkBox2 = new CheckBox();
@@ -312,7 +311,6 @@
             panel1.Controls.Add(checkBox8);
             panel1.Controls.Add(checkBox7);
             panel1.Controls.Add(checkBox6);
-            panel1.Controls.Add(checkBox5);
             panel1.Controls.Add(checkBox4);
             panel1.Controls.Add(checkBox3);
             panel1.Controls.Add(checkBox2);
@@ -340,7 +338,7 @@
             checkBox9.AutoSize = true;
             checkBox9.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
             checkBox9.ForeColor = SystemColors.Control;
-            checkBox9.Location = new Point(3, 333);
+            checkBox9.Location = new Point(3, 331);
             checkBox9.Name = "checkBox9";
             checkBox9.Size = new Size(316, 29);
             checkBox9.TabIndex = 7;
@@ -354,7 +352,7 @@
             checkBox8.AutoSize = true;
             checkBox8.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
             checkBox8.ForeColor = SystemColors.Control;
-            checkBox8.Location = new Point(3, 259);
+            checkBox8.Location = new Point(3, 247);
             checkBox8.Name = "checkBox8";
             checkBox8.Size = new Size(170, 29);
             checkBox8.TabIndex = 9;
@@ -368,7 +366,7 @@
             checkBox7.AutoSize = true;
             checkBox7.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
             checkBox7.ForeColor = SystemColors.Control;
-            checkBox7.Location = new Point(3, 296);
+            checkBox7.Location = new Point(3, 289);
             checkBox7.Name = "checkBox7";
             checkBox7.Size = new Size(143, 29);
             checkBox7.TabIndex = 6;
@@ -382,7 +380,7 @@
             checkBox6.AutoSize = true;
             checkBox6.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
             checkBox6.ForeColor = SystemColors.Control;
-            checkBox6.Location = new Point(3, 222);
+            checkBox6.Location = new Point(3, 205);
             checkBox6.Name = "checkBox6";
             checkBox6.Size = new Size(170, 29);
             checkBox6.TabIndex = 5;
@@ -390,27 +388,13 @@
             checkBox6.UseVisualStyleBackColor = true;
             checkBox6.CheckedChanged += checkBox_CheckedChanged;
             // 
-            // checkBox5
-            // 
-            checkBox5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            checkBox5.AutoSize = true;
-            checkBox5.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
-            checkBox5.ForeColor = SystemColors.Control;
-            checkBox5.Location = new Point(3, 185);
-            checkBox5.Name = "checkBox5";
-            checkBox5.Size = new Size(120, 29);
-            checkBox5.TabIndex = 4;
-            checkBox5.Text = "File Usage";
-            checkBox5.UseVisualStyleBackColor = true;
-            checkBox5.CheckedChanged += checkBox_CheckedChanged;
-            // 
             // checkBox4
             // 
             checkBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox4.AutoSize = true;
             checkBox4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
             checkBox4.ForeColor = SystemColors.Control;
-            checkBox4.Location = new Point(3, 148);
+            checkBox4.Location = new Point(3, 163);
             checkBox4.Name = "checkBox4";
             checkBox4.Size = new Size(118, 29);
             checkBox4.TabIndex = 3;
@@ -424,7 +408,7 @@
             checkBox3.AutoSize = true;
             checkBox3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
             checkBox3.ForeColor = SystemColors.Control;
-            checkBox3.Location = new Point(3, 111);
+            checkBox3.Location = new Point(3, 121);
             checkBox3.Name = "checkBox3";
             checkBox3.Size = new Size(107, 29);
             checkBox3.TabIndex = 2;
@@ -438,7 +422,7 @@
             checkBox2.AutoSize = true;
             checkBox2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
             checkBox2.ForeColor = SystemColors.Control;
-            checkBox2.Location = new Point(3, 74);
+            checkBox2.Location = new Point(3, 79);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(101, 29);
             checkBox2.TabIndex = 1;
@@ -515,7 +499,6 @@
         private CheckBox checkBox8;
         private CheckBox checkBox7;
         private CheckBox checkBox6;
-        private CheckBox checkBox5;
         private CheckBox checkBox4;
         private CheckBox checkBox3;
         private CheckBox checkBox2;
