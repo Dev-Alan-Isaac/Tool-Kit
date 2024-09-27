@@ -37,7 +37,7 @@ namespace Project__Filter
                     File.WriteAllText("Config_Size.json", jsonContent.ToString());
                 }
 
-              
+
                 break;
             }
         }
@@ -46,6 +46,10 @@ namespace Project__Filter
         {
 
         }
-     
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

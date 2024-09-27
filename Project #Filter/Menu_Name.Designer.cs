@@ -145,10 +145,11 @@
             // 
             // checkBox2
             // 
+            checkBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             checkBox2.AutoSize = true;
             checkBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             checkBox2.ForeColor = SystemColors.Control;
-            checkBox2.Location = new Point(3, 63);
+            checkBox2.Location = new Point(13, 69);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(215, 25);
             checkBox2.TabIndex = 2;
@@ -157,10 +158,11 @@
             // 
             // checkBox1
             // 
+            checkBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             checkBox1.ForeColor = SystemColors.Control;
-            checkBox1.Location = new Point(3, 30);
+            checkBox1.Location = new Point(13, 28);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(192, 25);
             checkBox1.TabIndex = 1;
