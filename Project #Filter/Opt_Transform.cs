@@ -66,7 +66,6 @@ namespace Project__Filter
         public Opt_Transform()
         {
             InitializeComponent();
-            listBox_File.SelectionMode = SelectionMode.MultiExtended;
         }
 
         private void button_Path_Click(object sender, EventArgs e)
@@ -80,7 +79,6 @@ namespace Project__Filter
                     selectedPath = fbd.SelectedPath;
                     textBox_Path.Text = selectedPath;
 
-                    comboBox_Select.Enabled = true;
                     button_Convert.Enabled = true;
                 }
             }
@@ -88,201 +86,64 @@ namespace Project__Filter
 
         private async void button_Convert_Click(object sender, EventArgs e)
         {
-            string title = string.Empty;
-            string[] files = [];
-            byte[] pdfByteArray = [];
+            //string title = string.Empty;
+            //string[] files = [];
+            //byte[] pdfByteArray = [];
 
-            string selectedItem = comboBox_Select.SelectedItem?.ToString();
-            switch (selectedItem)
-            {
-                case "IMAGE To PDF [TITLE]":
-                    title = askTitle(selectedPath);
-                    files = askContent(selectedPath);
-                    pdfByteArray = await PDFBuilder(files);
-                    pdfByteArray = await PDFBuilderTitle(pdfByteArray, title);
-                    CreatedPdf(pdfByteArray, title);
-                    break;
-                case "IMAGE To PDF [NO TITLE]":
-                    title = "Untitled";
-                    files = askContent(selectedPath);
-                    pdfByteArray = await PDFBuilder(files);
-                    CreatedPdf(pdfByteArray, title);
-                    break;
-                case "IMAGE To ICO":
-                    IconBuilder(selectedFileName);
-                    break;
-                case "IMAGE To WEBP":
-                    WebpBuilder(selectedFileName);
-                    break;
-                case "IMAGE To BMP":
-                    BmpBuilder(selectedFileName);
-                    break;
-                case "VIDEO To GIF":
-                    GIFBuilder(selectedFileName);
-                    break;
-                case "VIDEO To WEBM":
-                    WEBMBuilder(selectedFileName);
-                    break;
-                case "VIDEO To AVI":
-                    AVIBuilder(selectedFileName);
-                    break;
-                case "VIDEO To AUDIO":
-                    AudioBuilder(selectedFileName);
-                    break;
-                case "AUDIO To WAV":
-                    WAVBuilder(selectedFileName);
-                    break;
-                case "DOC To PDF":
-                    DocBuilder(selectedFileName);
-                    break;
-                default:
-                    MessageBox.Show("Please select an option first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    break;
-            }
+            ////string selectedItem = comboBox_Select.SelectedItem?.ToString();
+            //switch (selectedItem)
+            //{
+            //    case "IMAGE To PDF [TITLE]":
+            //        title = askTitle(selectedPath);
+            //        files = askContent(selectedPath);
+            //        pdfByteArray = await PDFBuilder(files);
+            //        pdfByteArray = await PDFBuilderTitle(pdfByteArray, title);
+            //        CreatedPdf(pdfByteArray, title);
+            //        break;
+            //    case "IMAGE To PDF [NO TITLE]":
+            //        title = "Untitled";
+            //        files = askContent(selectedPath);
+            //        pdfByteArray = await PDFBuilder(files);
+            //        CreatedPdf(pdfByteArray, title);
+            //        break;
+            //    case "IMAGE To ICO":
+            //        IconBuilder(selectedFileName);
+            //        break;
+            //    case "IMAGE To WEBP":
+            //        WebpBuilder(selectedFileName);
+            //        break;
+            //    case "IMAGE To BMP":
+            //        BmpBuilder(selectedFileName);
+            //        break;
+            //    case "VIDEO To GIF":
+            //        GIFBuilder(selectedFileName);
+            //        break;
+            //    case "VIDEO To WEBM":
+            //        WEBMBuilder(selectedFileName);
+            //        break;
+            //    case "VIDEO To AVI":
+            //        AVIBuilder(selectedFileName);
+            //        break;
+            //    case "VIDEO To AUDIO":
+            //        AudioBuilder(selectedFileName);
+            //        break;
+            //    case "AUDIO To WAV":
+            //        WAVBuilder(selectedFileName);
+            //        break;
+            //    case "DOC To PDF":
+            //        DocBuilder(selectedFileName);
+            //        break;
+            //    default:
+            //        MessageBox.Show("Please select an option first.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //        break;
+            //}
 
-            if (checkBox_Delete.Checked)
-            {
-                DeleteFolders(selectedPath);
-            }
+            //if (checkBox_Delete.Checked)
+            //{
+            //    DeleteFolders(selectedPath);
+            //}
         }
 
-        private void comboBox_Select_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string selectedItem = comboBox_Select.SelectedItem?.ToString();
-            PopulatedList(selectedItem);
-        }
-
-        private void listBox_File_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Get the selected item (if any)
-            selectedFileName = listBox_File.SelectedItem?.ToString();
-        }
-
-        private void PopulatedList(string selectedItem)
-        {
-            string[] filteredFiles = [];
-            string[] files = Directory.GetFiles(selectedPath);
-
-            if (files.Length > 0)
-            {
-                listBox_File.Items.Clear();
-
-                radioButton_Size.Enabled = false;
-                radioButton_Date.Enabled = false;
-                radioButton_Name.Enabled = false;
-
-                switch (selectedItem)
-                {
-                    case "IMAGE To PDF [TITLE]":
-                    case "IMAGE To PDF [NO TITLE]":
-                        filteredFiles = files.Where(file => PDFExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
-
-                        foreach (string file in filteredFiles)
-                        {
-                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
-                        }
-
-                        label_Count.Text = filteredFiles.Length.ToString();
-
-                        radioButton_Size.Enabled = true;
-                        radioButton_Date.Enabled = true;
-                        radioButton_Name.Enabled = true;
-                        break;
-                    case "IMAGE To ICO":
-                        filteredFiles = files.Where(file => IconExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
-
-                        foreach (string file in filteredFiles)
-                        {
-                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
-                        }
-
-                        label_Count.Text = filteredFiles.Length.ToString();
-                        break;
-                    case "IMAGE To WEBP":
-                        filteredFiles = files.Where(file => WebPExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
-
-                        foreach (string file in filteredFiles)
-                        {
-                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
-                        }
-
-                        label_Count.Text = filteredFiles.Length.ToString();
-                        break;
-                    case "IMAGE To BMP":
-                        filteredFiles = files.Where(file => BMPExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
-
-                        foreach (string file in filteredFiles)
-                        {
-                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
-                        }
-
-                        label_Count.Text = filteredFiles.Length.ToString();
-                        break;
-                    case "VIDEO To GIF":
-                        filteredFiles = files.Where(file => GifExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
-
-                        foreach (string file in filteredFiles)
-                        {
-                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
-                        }
-
-                        label_Count.Text = filteredFiles.Length.ToString();
-                        break;
-                    case "VIDEO To WEBM":
-                        filteredFiles = files.Where(file => WebMExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
-
-                        foreach (string file in filteredFiles)
-                        {
-                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
-                        }
-
-                        label_Count.Text = filteredFiles.Length.ToString();
-                        break;
-                    case "VIDEO To AVI":
-                        filteredFiles = files.Where(file => AviExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
-
-                        foreach (string file in filteredFiles)
-                        {
-                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
-                        }
-
-                        label_Count.Text = filteredFiles.Length.ToString();
-                        break;
-                    case "VIDEO To AUDIO":
-                        filteredFiles = files.Where(file => AudioExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
-
-                        foreach (string file in filteredFiles)
-                        {
-                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
-                        }
-
-                        label_Count.Text = filteredFiles.Length.ToString();
-                        break;
-                    case "AUDIO To WAV":
-                        filteredFiles = files.Where(file => WavExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
-
-                        foreach (string file in filteredFiles)
-                        {
-                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
-                        }
-
-                        label_Count.Text = filteredFiles.Length.ToString();
-                        break;
-                    case "DOC To PDF":
-                        filteredFiles = files.Where(file => DocxExtensions.Contains(System.IO.Path.GetExtension(file))).ToArray();
-
-                        foreach (string file in filteredFiles)
-                        {
-                            listBox_File.Items.Add(System.IO.Path.GetFileName(file));
-                        }
-
-                        label_Count.Text = filteredFiles.Length.ToString();
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
 
         private string askTitle(string selectedPath)
         {
@@ -426,7 +287,7 @@ namespace Project__Filter
                     return stream.ToArray();
                 }
             });
-          
+
         }
 
         private async Task<byte[]> PDFBuilderTitle(byte[] pdfBytes, string Title)
