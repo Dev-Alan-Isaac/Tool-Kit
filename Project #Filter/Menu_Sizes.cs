@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SharpCompress.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -93,6 +94,57 @@ namespace Project__Filter
                         textBox_VeryLarge.Text = veryLargeValues[0]; // The numeric value
                         comboBox_VeryLargeUnit.SelectedItem = veryLargeValues[1]; // The unit
                     }
+                }
+            }
+        }
+
+        private void button_Saved_Click(object sender, EventArgs e)
+        {
+            if (File.Exists("Config_Size.json"))
+            {
+                // Read the existing JSON content
+                string jsonString = File.ReadAllText("Config_Size.json");
+                var jsonContent = JObject.Parse(jsonString);
+
+                // Access the "Size" section
+                var sizeSection = jsonContent["Size"] as JObject;
+
+                if (sizeSection != null)
+                {
+                    // Update Small
+                    sizeSection["Small"] = new JArray
+            {
+                textBox_Small.Text,
+                comboBox_SmallUnit.SelectedItem.ToString()
+            };
+
+                    // Update Medium
+                    sizeSection["Medium"] = new JArray
+            {
+                textBox_Medium.Text,
+                comboBox_MediumUnit.SelectedItem.ToString(),
+                textBox_Medium1.Text,
+                comboBox_MediumUnit1.SelectedItem.ToString()
+            };
+
+                    // Update Large
+                    sizeSection["Large"] = new JArray
+            {
+                textBox_Large.Text,
+                comboBox_LargeUnit.SelectedItem.ToString(),
+                textBox_Large1.Text,
+                comboBox_LargeUnit1.SelectedItem.ToString()
+            };
+
+                    // Update Very Large
+                    sizeSection["Very Large"] = new JArray
+            {
+                textBox_VeryLarge.Text,
+                comboBox_VeryLargeUnit.SelectedItem.ToString()
+            };
+
+                    // Write the updated JSON content back to the file
+                    File.WriteAllText("Config_Size.json", jsonContent.ToString());
                 }
             }
         }
