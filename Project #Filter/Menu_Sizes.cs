@@ -100,54 +100,101 @@ namespace Project__Filter
 
         private void button_Saved_Click(object sender, EventArgs e)
         {
-            if (File.Exists("Config_Size.json"))
+            // A helper function to convert size + unit into bytes for comparison
+            long ConvertToBytes(string sizeText, string unit)
             {
-                // Read the existing JSON content
-                string jsonString = File.ReadAllText("Config_Size.json");
-                var jsonContent = JObject.Parse(jsonString);
-
-                // Access the "Size" section
-                var sizeSection = jsonContent["Size"] as JObject;
-
-                if (sizeSection != null)
+                if (!long.TryParse(sizeText, out long size))
                 {
-                    // Update Small
-                    sizeSection["Small"] = new JArray
-            {
-                textBox_Small.Text,
-                comboBox_SmallUnit.SelectedItem.ToString()
-            };
+                    MessageBox.Show("Invalid size input. Please enter valid numbers.");
+                    return -1;
+                }
 
-                    // Update Medium
-                    sizeSection["Medium"] = new JArray
-            {
-                textBox_Medium.Text,
-                comboBox_MediumUnit.SelectedItem.ToString(),
-                textBox_Medium1.Text,
-                comboBox_MediumUnit1.SelectedItem.ToString()
-            };
-
-                    // Update Large
-                    sizeSection["Large"] = new JArray
-            {
-                textBox_Large.Text,
-                comboBox_LargeUnit.SelectedItem.ToString(),
-                textBox_Large1.Text,
-                comboBox_LargeUnit1.SelectedItem.ToString()
-            };
-
-                    // Update Very Large
-                    sizeSection["Very Large"] = new JArray
-            {
-                textBox_VeryLarge.Text,
-                comboBox_VeryLargeUnit.SelectedItem.ToString()
-            };
-
-                    // Write the updated JSON content back to the file
-                    File.WriteAllText("Config_Size.json", jsonContent.ToString());
+                switch (unit.ToLower())
+                {
+                    case "bytes": return size;
+                    case "kb": return size * 1024;
+                    case "mb": return size * 1024 * 1024;
+                    case "gb": return size * 1024 * 1024 * 1024;
+                    case "tb": return size * 1024L * 1024L * 1024L * 1024L;
+                    default:
+                        MessageBox.Show("Invalid unit input.");
+                        return -1;
                 }
             }
-        }
 
+            // Ensure the config file exists
+            if (!File.Exists("Config_Size.json"))
+            {
+                MessageBox.Show("Config_Size.json file not found.");
+                return;
+            }
+
+            // Read the existing JSON content
+            string jsonString = File.ReadAllText("Config_Size.json");
+            var jsonContent = JObject.Parse(jsonString);
+
+            // Access the "Size" section
+            var sizeSection = jsonContent["Size"] as JObject;
+
+            if (sizeSection != null)
+            {
+                // Convert each size value to bytes for comparison
+                long smallSize = ConvertToBytes(textBox_Small.Text, comboBox_SmallUnit.SelectedItem.ToString());
+                long mediumSizeMin = ConvertToBytes(textBox_Medium.Text, comboBox_MediumUnit.SelectedItem.ToString());
+                long mediumSizeMax = ConvertToBytes(textBox_Medium1.Text, comboBox_MediumUnit1.SelectedItem.ToString());
+                long largeSizeMin = ConvertToBytes(textBox_Large.Text, comboBox_LargeUnit.SelectedItem.ToString());
+                long largeSizeMax = ConvertToBytes(textBox_Large1.Text, comboBox_LargeUnit1.SelectedItem.ToString());
+                long veryLargeSize = ConvertToBytes(textBox_VeryLarge.Text, comboBox_VeryLargeUnit.SelectedItem.ToString());
+
+                // Ensure all sizes are valid (not -1)
+                if (smallSize == -1 || mediumSizeMin == -1 || mediumSizeMax == -1 || largeSizeMin == -1 || largeSizeMax == -1 || veryLargeSize == -1)
+                {
+                    return;
+                }
+
+                // Validate size logic
+                if (smallSize >= mediumSizeMin || mediumSizeMin >= mediumSizeMax || mediumSizeMax >= largeSizeMin || largeSizeMin >= largeSizeMax || largeSizeMax >= veryLargeSize)
+                {
+                    MessageBox.Show("Invalid size logic. Ensure that Small < Medium < Large < Very Large.");
+                    return;
+                }
+
+                // Update Small
+                sizeSection["Small"] = new JArray
+                {
+                    textBox_Small.Text,
+                    comboBox_SmallUnit.SelectedItem.ToString()
+                };
+
+                // Update Medium
+                sizeSection["Medium"] = new JArray
+                {
+                    textBox_Medium.Text,
+                    comboBox_MediumUnit.SelectedItem.ToString(),
+                    textBox_Medium1.Text,
+                    comboBox_MediumUnit1.SelectedItem.ToString()
+                };
+
+                // Update Large
+                sizeSection["Large"] = new JArray
+                {
+                    textBox_Large.Text,
+                    comboBox_LargeUnit.SelectedItem.ToString(),
+                    textBox_Large1.Text,
+                    comboBox_LargeUnit1.SelectedItem.ToString()
+                };
+
+                // Update Very Large
+                sizeSection["Very Large"] = new JArray
+                {
+                    textBox_VeryLarge.Text,
+                    comboBox_VeryLargeUnit.SelectedItem.ToString()
+                };
+
+                // Write the updated JSON content back to the file
+                File.WriteAllText("Config_Size.json", jsonContent.ToString());
+                MessageBox.Show("Size configuration saved successfully.");
+            }
+        }
     }
 }

@@ -177,8 +177,98 @@ namespace Project__Filter
 
         private async void SortSize(string folderPath, string jsonPath)
         {
+            if (!File.Exists(jsonPath))
+            {
+                MessageBox.Show("Config file not found.");
+                return;
+            }
 
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
+
+            // Get the "Size" section from the JSON
+            var sizeSection = jsonContent["Size"] as JObject;
+
+            if (sizeSection == null)
+            {
+                MessageBox.Show("Invalid JSON structure.");
+                return;
+            }
+
+            // Define a function to convert size strings and units to bytes
+            long ConvertToBytes(string sizeText, string unit)
+            {
+                if (!long.TryParse(sizeText, out long size))
+                {
+                    return -1;  // Invalid size
+                }
+
+                switch (unit.ToLower())
+                {
+                    case "bytes": return size;
+                    case "kb": return size * 1024;
+                    case "mb": return size * 1024 * 1024;
+                    case "gb": return size * 1024 * 1024 * 1024;
+                    case "tb": return size * 1024L * 1024L * 1024L * 1024L;
+                    default: return -1;
+                }
+            }
+
+            // Extract and convert size ranges to bytes
+            long smallMax = ConvertToBytes(sizeSection["Small"][0].ToString(), sizeSection["Small"][1].ToString());
+            long mediumMin = ConvertToBytes(sizeSection["Medium"][0].ToString(), sizeSection["Medium"][1].ToString());
+            long mediumMax = ConvertToBytes(sizeSection["Medium"][2].ToString(), sizeSection["Medium"][3].ToString());
+            long largeMin = ConvertToBytes(sizeSection["Large"][0].ToString(), sizeSection["Large"][1].ToString());
+            long largeMax = ConvertToBytes(sizeSection["Large"][2].ToString(), sizeSection["Large"][3].ToString());
+            long veryLargeMin = ConvertToBytes(sizeSection["Very Large"][0].ToString(), sizeSection["Very Large"][1].ToString());
+
+            // Get all files in the folder
+            var files = Directory.GetFiles(folderPath);
+
+            foreach (var file in files)
+            {
+                FileInfo fileInfo = new FileInfo(file);
+                long fileSize = fileInfo.Length;  // Size in bytes
+
+                string targetCategory = null;
+
+                // Determine the size category for the file
+                if (fileSize <= smallMax)
+                {
+                    targetCategory = "Small";
+                }
+                else if (fileSize >= mediumMin && fileSize <= mediumMax)
+                {
+                    targetCategory = "Medium";
+                }
+                else if (fileSize >= largeMin && fileSize <= largeMax)
+                {
+                    targetCategory = "Large";
+                }
+                else if (fileSize >= veryLargeMin)
+                {
+                    targetCategory = "Very Large";
+                }
+
+                // If a category was determined, move the file
+                if (targetCategory != null)
+                {
+                    string targetDirectory = System.IO.Path.Combine(folderPath, targetCategory);
+
+                    if (!Directory.Exists(targetDirectory))
+                    {
+                        Directory.CreateDirectory(targetDirectory);
+                    }
+
+                    string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
+                    File.Move(file, targetPath);
+                }
+            }
+
+            MessageBox.Show("Sorting completed! You're making great progress!");
         }
+
 
         private async void SortDates(string folderPath, string jsonPath)
         {
