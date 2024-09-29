@@ -48,7 +48,8 @@ namespace Project__Filter
                         await Task.Run(() => SortSize(Path, config_Path));
                         break;
                     case "File Date":
-                        await Task.Run(() => SortDates(Path));
+                        config_Path = System.IO.Path.GetFullPath("Config_Date.json");
+                        await Task.Run(() => SortDates(Path, config_Path));
                         break;
                     case "File Name":
                         await Task.Run(() => SortNames(Path, "Config_Names.json"));
@@ -69,7 +70,6 @@ namespace Project__Filter
                         break;
                 }
             }
-
             // Optionally, you can split the list into sub-lists or do other kinds of processing here.
         }
 
@@ -175,42 +175,42 @@ namespace Project__Filter
 
         }
 
-        private async void SortSize(string Path, string File)
+        private async void SortSize(string folderPath, string jsonPath)
         {
 
         }
 
-        private async void SortDates(string Path)
+        private async void SortDates(string folderPath, string jsonPath)
         {
 
         }
 
-        private async void SortNames(string Path, string File)
+        private async void SortNames(string folderPath, string jsonPath)
         {
 
         }
 
-        private async void SortPermissions(string Path, string File)
+        private async void SortPermissions(string folderPath, string jsonPath)
         {
 
         }
 
-        private async void SortCustomTags(string Path, string File)
+        private async void SortCustomTags(string folderPath, string jsonPath)
         {
 
         }
 
-        private async void SortFolderLocation(string Path, string File)
+        private async void SortFolderLocation(string folderPath, string jsonPath)
         {
 
         }
 
-        private async void SortFileContent(string Path, string File)
+        private async void SortFileContent(string folderPath, string jsonPath)
         {
 
         }
 
-        private async void SortMedia(string Path, string File)
+        private async void SortMedia(string folderPath, string jsonPath)
         {
 
         }
