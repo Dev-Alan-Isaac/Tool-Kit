@@ -57,5 +57,11 @@
             menu_Media1.BringToFront();
             FollowButton(sender as Button);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            menu_Date1.BringToFront();
+            FollowButton(sender as Button);
+        }
     }
 }

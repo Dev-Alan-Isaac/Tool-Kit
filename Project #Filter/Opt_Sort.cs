@@ -44,7 +44,8 @@ namespace Project__Filter
                         await Task.Run(() => SortTypes(Path, config_Path));
                         break;
                     case "File Size":
-                        await Task.Run(() => SortSize(Path, "Config_Size.json"));
+                        config_Path = System.IO.Path.GetFullPath("Config_Size.json");
+                        await Task.Run(() => SortSize(Path, config_Path));
                         break;
                     case "File Date":
                         await Task.Run(() => SortDates(Path));
@@ -118,8 +119,10 @@ namespace Project__Filter
             int totalFiles = files.Length;
             int processedFiles = 0;
 
+            // Update the file count label
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
+            // Process each file in the folder
             foreach (var file in files)
             {
                 // Get the file extension (without the dot, in lowercase)
@@ -137,35 +140,39 @@ namespace Project__Filter
                         // Get the list of extensions for this category
                         JArray categoryExtensions = (JArray)extensions[category];
 
-                        // If the file's extension is in the allowed extensions
-                        if (categoryExtensions.Contains(fileExtension))
+                        // Ensure the comparison is string-based and case-insensitive
+                        bool extensionExists = categoryExtensions
+                            .Select(ext => ext.ToString().Trim().ToLower()) // Convert each extension to lowercase string
+                            .Contains(fileExtension);
+
+                        // If the file's extension matches any of the allowed extensions
+                        if (extensionExists)
                         {
                             // Create the target directory if it doesn't exist
-                            string targetDirectory = System.IO.Path.Combine(folderPath, category); // Path.Combine correctly used here
+                            string targetDirectory = System.IO.Path.Combine(folderPath, category);
                             if (!Directory.Exists(targetDirectory))
                             {
                                 Directory.CreateDirectory(targetDirectory);
                             }
 
                             // Move the file to the target directory
-                            string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file)); // Correct use of Path.Combine
+                            string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
                             File.Move(file, targetPath);
-
-                            MessageBox.Show($"Moved {file} to {targetDirectory}");
                         }
                     }
                 }
 
-                // Update progress
+                // Update the progress bar
                 processedFiles++;
                 int progress = (int)((double)processedFiles / totalFiles * 100);
 
-                // Update the ProgressBar using Invoke to update the UI from a non-UI thread
+                // Update the ProgressBar using Invoke to ensure thread safety
                 progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = progress));
             }
 
-            // Ensure the progress bar reaches 100% at the end
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 100));
+            // Ensure the progress bar reaches 0% at the end
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
+
         }
 
         private async void SortSize(string Path, string File)
