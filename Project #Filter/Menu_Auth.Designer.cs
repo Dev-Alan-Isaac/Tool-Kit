@@ -35,9 +35,9 @@
             button_Saved = new Button();
             panel10 = new Panel();
             panel5 = new Panel();
-            radioButton3 = new RadioButton();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
+            radioButton_Executable = new RadioButton();
+            radioButton_Writable = new RadioButton();
+            radioButton_Readable = new RadioButton();
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
@@ -105,6 +105,7 @@
             button_Saved.Size = new Size(619, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
+            button_Saved.Click += button_Saved_Click;
             // 
             // panel10
             // 
@@ -118,9 +119,9 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel5.Controls.Add(radioButton3);
-            panel5.Controls.Add(radioButton2);
-            panel5.Controls.Add(radioButton1);
+            panel5.Controls.Add(radioButton_Executable);
+            panel5.Controls.Add(radioButton_Writable);
+            panel5.Controls.Add(radioButton_Readable);
             panel5.Controls.Add(panel10);
             panel5.Controls.Add(panel9);
             panel5.Location = new Point(3, 82);
@@ -128,44 +129,44 @@
             panel5.Size = new Size(619, 394);
             panel5.TabIndex = 64;
             // 
-            // radioButton3
+            // radioButton_Executable
             // 
-            radioButton3.AutoSize = true;
-            radioButton3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton3.ForeColor = SystemColors.Control;
-            radioButton3.Location = new Point(3, 146);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(166, 29);
-            radioButton3.TabIndex = 61;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "Executable Files";
-            radioButton3.UseVisualStyleBackColor = true;
+            radioButton_Executable.AutoSize = true;
+            radioButton_Executable.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Executable.ForeColor = SystemColors.Control;
+            radioButton_Executable.Location = new Point(3, 146);
+            radioButton_Executable.Name = "radioButton_Executable";
+            radioButton_Executable.Size = new Size(166, 29);
+            radioButton_Executable.TabIndex = 61;
+            radioButton_Executable.TabStop = true;
+            radioButton_Executable.Text = "Executable Files";
+            radioButton_Executable.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // radioButton_Writable
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton2.ForeColor = SystemColors.Control;
-            radioButton2.Location = new Point(3, 97);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(146, 29);
-            radioButton2.TabIndex = 60;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Writable Files";
-            radioButton2.UseVisualStyleBackColor = true;
+            radioButton_Writable.AutoSize = true;
+            radioButton_Writable.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Writable.ForeColor = SystemColors.Control;
+            radioButton_Writable.Location = new Point(3, 97);
+            radioButton_Writable.Name = "radioButton_Writable";
+            radioButton_Writable.Size = new Size(146, 29);
+            radioButton_Writable.TabIndex = 60;
+            radioButton_Writable.TabStop = true;
+            radioButton_Writable.Text = "Writable Files";
+            radioButton_Writable.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // radioButton_Readable
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton1.ForeColor = SystemColors.Control;
-            radioButton1.Location = new Point(3, 48);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(151, 29);
-            radioButton1.TabIndex = 59;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Readable Files";
-            radioButton1.UseVisualStyleBackColor = true;
+            radioButton_Readable.AutoSize = true;
+            radioButton_Readable.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Readable.ForeColor = SystemColors.Control;
+            radioButton_Readable.Location = new Point(3, 48);
+            radioButton_Readable.Name = "radioButton_Readable";
+            radioButton_Readable.Size = new Size(151, 29);
+            radioButton_Readable.TabIndex = 59;
+            radioButton_Readable.TabStop = true;
+            radioButton_Readable.Text = "Readable Files";
+            radioButton_Readable.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -228,8 +229,8 @@
         private Panel panel3;
         private Panel panel2;
         private Panel panel1;
-        private RadioButton radioButton3;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private RadioButton radioButton_Executable;
+        private RadioButton radioButton_Writable;
+        private RadioButton radioButton_Readable;
     }
 }

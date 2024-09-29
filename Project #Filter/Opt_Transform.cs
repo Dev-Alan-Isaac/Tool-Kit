@@ -785,5 +785,10 @@ namespace Project__Filter
                 }
             }
         }
+
+        private void button_Filter_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

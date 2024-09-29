@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Aspose.Cells.Charts;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpCompress.Common;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
@@ -163,7 +164,17 @@ namespace Project__Filter
 
         private void button_Add_Click(object sender, EventArgs e)
         {
+            if (File.Exists("Extensions.json"))
+            {
+                // Read the existing JSON content
+                string jsonString = File.ReadAllText("Extensions.json");
+                var jsonContent = JObject.Parse(jsonString);
 
+                // Find the "Extensions" section in the JSON
+                var extensionsSection = (JObject)jsonContent["Extensions"];
+
+               string Title = Microsoft.VisualBasic.Interaction.InputBox("Enter the custom title:", "Title", "", -1, -1);
+            }
         }
 
         private void button_Remove_Click(object sender, EventArgs e)

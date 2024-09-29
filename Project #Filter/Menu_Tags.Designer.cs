@@ -32,7 +32,7 @@
             label1 = new Label();
             panel5 = new Panel();
             panel6 = new Panel();
-            textBox1 = new TextBox();
+            textBox_Tag = new TextBox();
             label4 = new Label();
             panel11 = new Panel();
             button_Remove = new Button();
@@ -41,7 +41,7 @@
             panel2 = new Panel();
             panel1 = new Panel();
             panel7 = new Panel();
-            treeView1 = new TreeView();
+            treeView_Tags = new TreeView();
             panel8 = new Panel();
             label2 = new Label();
             panel4.SuspendLayout();
@@ -84,7 +84,7 @@
             // 
             // panel6
             // 
-            panel6.Controls.Add(textBox1);
+            panel6.Controls.Add(textBox_Tag);
             panel6.Controls.Add(label4);
             panel6.Controls.Add(panel11);
             panel6.Dock = DockStyle.Fill;
@@ -93,14 +93,14 @@
             panel6.Size = new Size(387, 394);
             panel6.TabIndex = 59;
             // 
-            // textBox1
+            // textBox_Tag
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(3, 48);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(381, 35);
-            textBox1.TabIndex = 1;
+            textBox_Tag.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            textBox_Tag.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBox_Tag.Location = new Point(3, 42);
+            textBox_Tag.Name = "textBox_Tag";
+            textBox_Tag.Size = new Size(384, 33);
+            textBox_Tag.TabIndex = 57;
             // 
             // label4
             // 
@@ -140,6 +140,7 @@
             button_Remove.Size = new Size(88, 41);
             button_Remove.TabIndex = 51;
             button_Remove.UseVisualStyleBackColor = false;
+            button_Remove.Click += button_Remove_Click;
             // 
             // button_Add
             // 
@@ -157,6 +158,7 @@
             button_Add.Size = new Size(88, 41);
             button_Add.TabIndex = 52;
             button_Add.UseVisualStyleBackColor = false;
+            button_Add.Click += button_Add_Click;
             // 
             // panel3
             // 
@@ -188,20 +190,20 @@
             // panel7
             // 
             panel7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            panel7.Controls.Add(treeView1);
+            panel7.Controls.Add(treeView_Tags);
             panel7.Controls.Add(panel8);
             panel7.Location = new Point(399, 82);
             panel7.Name = "panel7";
             panel7.Size = new Size(234, 394);
             panel7.TabIndex = 65;
             // 
-            // treeView1
+            // treeView_Tags
             // 
-            treeView1.Dock = DockStyle.Fill;
-            treeView1.Location = new Point(0, 42);
-            treeView1.Name = "treeView1";
-            treeView1.Size = new Size(234, 352);
-            treeView1.TabIndex = 57;
+            treeView_Tags.Dock = DockStyle.Fill;
+            treeView_Tags.Location = new Point(0, 42);
+            treeView_Tags.Name = "treeView_Tags";
+            treeView_Tags.Size = new Size(234, 352);
+            treeView_Tags.TabIndex = 57;
             // 
             // panel8
             // 
@@ -259,13 +261,13 @@
         private Panel panel1;
         private Panel panel6;
         private Label label4;
-        private TextBox textBox1;
         private Panel panel7;
-        private TreeView treeView1;
+        private TreeView treeView_Tags;
         private Panel panel8;
         private Label label2;
         private Panel panel11;
         private Button button_Remove;
         private Button button_Add;
+        private TextBox textBox_Tag;
     }
 }

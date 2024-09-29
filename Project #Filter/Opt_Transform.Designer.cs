@@ -424,6 +424,7 @@
             button_Filter.Size = new Size(233, 26);
             button_Filter.TabIndex = 28;
             button_Filter.UseVisualStyleBackColor = false;
+            button_Filter.Click += button_Filter_Click;
             // 
             // progressBar_Time
             // 

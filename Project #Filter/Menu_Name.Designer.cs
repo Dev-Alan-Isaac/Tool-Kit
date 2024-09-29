@@ -36,11 +36,11 @@
             panel10 = new Panel();
             panel5 = new Panel();
             panel6 = new Panel();
-            checkBox2 = new CheckBox();
-            checkBox1 = new CheckBox();
+            checkBox_IgnoreSpecialChar = new CheckBox();
+            checkBox_CapsSens = new CheckBox();
             label4 = new Label();
-            radioButton3 = new RadioButton();
-            radioButton1 = new RadioButton();
+            radioButton_FileExtension = new RadioButton();
+            radioButton_FileName = new RadioButton();
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
@@ -109,6 +109,7 @@
             button_Saved.Size = new Size(624, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
+            button_Saved.Click += button_Saved_Click;
             // 
             // panel10
             // 
@@ -123,8 +124,8 @@
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel5.Controls.Add(panel6);
-            panel5.Controls.Add(radioButton3);
-            panel5.Controls.Add(radioButton1);
+            panel5.Controls.Add(radioButton_FileExtension);
+            panel5.Controls.Add(radioButton_FileName);
             panel5.Controls.Add(panel10);
             panel5.Controls.Add(panel9);
             panel5.Location = new Point(3, 82);
@@ -135,39 +136,39 @@
             // panel6
             // 
             panel6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panel6.Controls.Add(checkBox2);
-            panel6.Controls.Add(checkBox1);
+            panel6.Controls.Add(checkBox_IgnoreSpecialChar);
+            panel6.Controls.Add(checkBox_CapsSens);
             panel6.Controls.Add(label4);
             panel6.Location = new Point(3, 233);
             panel6.Name = "panel6";
             panel6.Size = new Size(618, 112);
             panel6.TabIndex = 62;
             // 
-            // checkBox2
+            // checkBox_IgnoreSpecialChar
             // 
-            checkBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            checkBox2.ForeColor = SystemColors.Control;
-            checkBox2.Location = new Point(13, 69);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(215, 25);
-            checkBox2.TabIndex = 2;
-            checkBox2.Text = "Ignore Special Characters";
-            checkBox2.UseVisualStyleBackColor = true;
+            checkBox_IgnoreSpecialChar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            checkBox_IgnoreSpecialChar.AutoSize = true;
+            checkBox_IgnoreSpecialChar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox_IgnoreSpecialChar.ForeColor = SystemColors.Control;
+            checkBox_IgnoreSpecialChar.Location = new Point(13, 69);
+            checkBox_IgnoreSpecialChar.Name = "checkBox_IgnoreSpecialChar";
+            checkBox_IgnoreSpecialChar.Size = new Size(215, 25);
+            checkBox_IgnoreSpecialChar.TabIndex = 2;
+            checkBox_IgnoreSpecialChar.Text = "Ignore Special Characters";
+            checkBox_IgnoreSpecialChar.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // checkBox_CapsSens
             // 
-            checkBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            checkBox1.ForeColor = SystemColors.Control;
-            checkBox1.Location = new Point(13, 28);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(192, 25);
-            checkBox1.TabIndex = 1;
-            checkBox1.Text = "Case-Sensitive Sorting";
-            checkBox1.UseVisualStyleBackColor = true;
+            checkBox_CapsSens.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            checkBox_CapsSens.AutoSize = true;
+            checkBox_CapsSens.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox_CapsSens.ForeColor = SystemColors.Control;
+            checkBox_CapsSens.Location = new Point(13, 28);
+            checkBox_CapsSens.Name = "checkBox_CapsSens";
+            checkBox_CapsSens.Size = new Size(192, 25);
+            checkBox_CapsSens.TabIndex = 1;
+            checkBox_CapsSens.Text = "Case-Sensitive Sorting";
+            checkBox_CapsSens.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -181,31 +182,31 @@
             label4.TabIndex = 0;
             label4.Text = "Additional Options:";
             // 
-            // radioButton3
+            // radioButton_FileExtension
             // 
-            radioButton3.AutoSize = true;
-            radioButton3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton3.ForeColor = SystemColors.Control;
-            radioButton3.Location = new Point(3, 99);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(202, 29);
-            radioButton3.TabIndex = 60;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "File Extension (A-Z) ";
-            radioButton3.UseVisualStyleBackColor = true;
+            radioButton_FileExtension.AutoSize = true;
+            radioButton_FileExtension.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_FileExtension.ForeColor = SystemColors.Control;
+            radioButton_FileExtension.Location = new Point(3, 99);
+            radioButton_FileExtension.Name = "radioButton_FileExtension";
+            radioButton_FileExtension.Size = new Size(202, 29);
+            radioButton_FileExtension.TabIndex = 60;
+            radioButton_FileExtension.TabStop = true;
+            radioButton_FileExtension.Text = "File Extension (A-Z) ";
+            radioButton_FileExtension.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // radioButton_FileName
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton1.ForeColor = SystemColors.Control;
-            radioButton1.Location = new Point(3, 48);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(171, 29);
-            radioButton1.TabIndex = 58;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "File Name (A-Z) ";
-            radioButton1.UseVisualStyleBackColor = true;
+            radioButton_FileName.AutoSize = true;
+            radioButton_FileName.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_FileName.ForeColor = SystemColors.Control;
+            radioButton_FileName.Location = new Point(3, 48);
+            radioButton_FileName.Name = "radioButton_FileName";
+            radioButton_FileName.Size = new Size(171, 29);
+            radioButton_FileName.TabIndex = 58;
+            radioButton_FileName.TabStop = true;
+            radioButton_FileName.Text = "File Name (A-Z) ";
+            radioButton_FileName.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -270,11 +271,11 @@
         private Panel panel3;
         private Panel panel2;
         private Panel panel1;
-        private RadioButton radioButton3;
-        private RadioButton radioButton1;
+        private RadioButton radioButton_FileExtension;
+        private RadioButton radioButton_FileName;
         private Panel panel6;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
+        private CheckBox checkBox_IgnoreSpecialChar;
+        private CheckBox checkBox_CapsSens;
         private Label label4;
     }
 }
