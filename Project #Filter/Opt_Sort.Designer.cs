@@ -45,7 +45,7 @@
             panel3 = new Panel();
             treeView1 = new TreeView();
             panel4 = new Panel();
-            label5 = new Label();
+            File_Count = new Label();
             label4 = new Label();
             panel_Options = new Panel();
             panel1 = new Panel();
@@ -258,7 +258,7 @@
             // 
             // panel4
             // 
-            panel4.Controls.Add(label5);
+            panel4.Controls.Add(File_Count);
             panel4.Controls.Add(label4);
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 0);
@@ -266,18 +266,18 @@
             panel4.Size = new Size(330, 61);
             panel4.TabIndex = 0;
             // 
-            // label5
+            // File_Count
             // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(76, 30);
-            label5.Name = "label5";
-            label5.Size = new Size(23, 25);
-            label5.TabIndex = 1;
-            label5.Text = "0";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
+            File_Count.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            File_Count.AutoSize = true;
+            File_Count.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            File_Count.ForeColor = SystemColors.Control;
+            File_Count.Location = new Point(76, 30);
+            File_Count.Name = "File_Count";
+            File_Count.Size = new Size(23, 25);
+            File_Count.TabIndex = 1;
+            File_Count.Text = "0";
+            File_Count.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
@@ -490,7 +490,7 @@
         private Panel panel3;
         private TreeView treeView1;
         private Panel panel4;
-        private Label label5;
+        private Label File_Count;
         private Label label4;
         private Panel panel_Options;
         private Panel panel1;

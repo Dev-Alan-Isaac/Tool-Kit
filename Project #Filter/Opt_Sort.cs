@@ -1,6 +1,9 @@
-﻿using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using NReco.VideoInfo;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Newtonsoft.Json.Linq;
 
 namespace Project__Filter
 {
@@ -30,14 +33,15 @@ namespace Project__Filter
 
         private async void button_Filter_Click_1(object sender, EventArgs e)
         {
+            string config_Path;
             // Iterate through each item in the checkedItems list
             foreach (string item in checkedItems)
             {
-                MessageBox.Show($"Item: {item}");
                 switch (item)
                 {
                     case "File Type":
-                        await Task.Run(() => SortTypes(Path, "Config_Type.json"));
+                        config_Path = System.IO.Path.GetFullPath("Config_Type.json");
+                        await Task.Run(() => SortTypes(Path, config_Path));
                         break;
                     case "File Size":
                         await Task.Run(() => SortSize(Path, "Config_Size.json"));
@@ -93,23 +97,75 @@ namespace Project__Filter
             button_Filter.Enabled = checkedItems.Count > 0;
         }
 
-        private async void SortTypes(string Path, string file)
+        public async void SortTypes(string folderPath, string jsonPath)
         {
-            if (File.Exists(file))
+            if (!File.Exists(jsonPath))
             {
-                // Mostrar un mensaje con los parámetros
-                string message = $"Función llamada con los siguientes parámetros:\nPath: {Path}\nFile: {file}";
-                MessageBox.Show(message);
-
-                // Iniciar un bucle para contar los segundos
-                for (int seconds = 0; seconds <= 60; seconds++)
-                {
-                    // Actualizar la ProgressBar en el hilo principal
-                    Invoke((MethodInvoker)(() => progressBar_Time.Value = seconds));
-
-                    await Task.Delay(1000); // Esperar 1 segundo
-                }
+                MessageBox.Show("Config file not found.");
+                return;
             }
+
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
+
+            // Get the "Extensions" and "Allow" sections from the JSON
+            var extensions = jsonContent["Extensions"].ToObject<JObject>();
+            var allow = jsonContent["Allow"].ToObject<JObject>();
+
+            // Get all files in the target folder
+            var files = Directory.GetFiles(folderPath);
+            int totalFiles = files.Length;
+            int processedFiles = 0;
+
+            Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
+
+            foreach (var file in files)
+            {
+                // Get the file extension (without the dot, in lowercase)
+                string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
+
+                // Check each category in "Allow"
+                foreach (var allowCategory in allow)
+                {
+                    bool isAllowed = (bool)allowCategory.Value;
+                    string category = allowCategory.Key;
+
+                    // If the category is allowed
+                    if (isAllowed)
+                    {
+                        // Get the list of extensions for this category
+                        JArray categoryExtensions = (JArray)extensions[category];
+
+                        // If the file's extension is in the allowed extensions
+                        if (categoryExtensions.Contains(fileExtension))
+                        {
+                            // Create the target directory if it doesn't exist
+                            string targetDirectory = System.IO.Path.Combine(folderPath, category); // Path.Combine correctly used here
+                            if (!Directory.Exists(targetDirectory))
+                            {
+                                Directory.CreateDirectory(targetDirectory);
+                            }
+
+                            // Move the file to the target directory
+                            string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file)); // Correct use of Path.Combine
+                            File.Move(file, targetPath);
+
+                            MessageBox.Show($"Moved {file} to {targetDirectory}");
+                        }
+                    }
+                }
+
+                // Update progress
+                processedFiles++;
+                int progress = (int)((double)processedFiles / totalFiles * 100);
+
+                // Update the ProgressBar using Invoke to update the UI from a non-UI thread
+                progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = progress));
+            }
+
+            // Ensure the progress bar reaches 100% at the end
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 100));
         }
 
         private async void SortSize(string Path, string File)
