@@ -35,8 +35,8 @@
             button_Saved = new Button();
             panel10 = new Panel();
             panel5 = new Panel();
-            radioButton3 = new RadioButton();
-            radioButton1 = new RadioButton();
+            radioButton_Depth = new RadioButton();
+            radioButton_Alphabetical = new RadioButton();
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
@@ -118,8 +118,8 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel5.Controls.Add(radioButton3);
-            panel5.Controls.Add(radioButton1);
+            panel5.Controls.Add(radioButton_Depth);
+            panel5.Controls.Add(radioButton_Alphabetical);
             panel5.Controls.Add(panel10);
             panel5.Controls.Add(panel9);
             panel5.Location = new Point(3, 82);
@@ -127,31 +127,31 @@
             panel5.Size = new Size(570, 394);
             panel5.TabIndex = 64;
             // 
-            // radioButton3
+            // radioButton_Depth
             // 
-            radioButton3.AutoSize = true;
-            radioButton3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton3.ForeColor = SystemColors.Control;
-            radioButton3.Location = new Point(3, 98);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(173, 29);
-            radioButton3.TabIndex = 60;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "By Folder Depth ";
-            radioButton3.UseVisualStyleBackColor = true;
+            radioButton_Depth.AutoSize = true;
+            radioButton_Depth.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Depth.ForeColor = SystemColors.Control;
+            radioButton_Depth.Location = new Point(3, 98);
+            radioButton_Depth.Name = "radioButton_Depth";
+            radioButton_Depth.Size = new Size(173, 29);
+            radioButton_Depth.TabIndex = 60;
+            radioButton_Depth.TabStop = true;
+            radioButton_Depth.Text = "By Folder Depth ";
+            radioButton_Depth.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // radioButton_Alphabetical
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton1.ForeColor = SystemColors.Control;
-            radioButton1.Location = new Point(3, 48);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(137, 29);
-            radioButton1.TabIndex = 58;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Alphabetical";
-            radioButton1.UseVisualStyleBackColor = true;
+            radioButton_Alphabetical.AutoSize = true;
+            radioButton_Alphabetical.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Alphabetical.ForeColor = SystemColors.Control;
+            radioButton_Alphabetical.Location = new Point(3, 48);
+            radioButton_Alphabetical.Name = "radioButton_Alphabetical";
+            radioButton_Alphabetical.Size = new Size(137, 29);
+            radioButton_Alphabetical.TabIndex = 58;
+            radioButton_Alphabetical.TabStop = true;
+            radioButton_Alphabetical.Text = "Alphabetical";
+            radioButton_Alphabetical.UseVisualStyleBackColor = true;
             // 
             // panel3
             // 
@@ -214,7 +214,7 @@
         private Panel panel3;
         private Panel panel2;
         private Panel panel1;
-        private RadioButton radioButton3;
-        private RadioButton radioButton1;
+        private RadioButton radioButton_Depth;
+        private RadioButton radioButton_Alphabetical;
     }
 }

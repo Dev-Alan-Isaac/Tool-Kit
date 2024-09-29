@@ -3,20 +3,12 @@
   "WorkspaceRootPath": "E:\\ReposVisualStudio\\Project #Filter\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_folder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_folder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_auth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_auth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_auth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_auth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_folder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_folder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\menu_media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_media.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,52 +38,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Menu_Auth.cs",
-              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Auth.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Menu_Auth.cs",
-              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Auth.cs",
-              "RelativeToolTip": "Project #Filter\\Menu_Auth.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAwwCkAAAAqAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Menu_Media.cs",
+              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Media.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Menu_Media.cs",
+              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Media.cs",
+              "RelativeToolTip": "Project #Filter\\Menu_Media.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAAwHEAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-29T07:03:39.195Z",
+              "WhenOpened": "2024-09-29T07:07:09.544Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Menu_Auth.cs [Design]",
-              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Auth.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Menu_Auth.cs",
-              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Auth.cs [Design]",
-              "RelativeToolTip": "Project #Filter\\Menu_Auth.cs [Design]",
+              "Title": "Menu_Media.cs [Design]",
+              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Media.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Menu_Media.cs",
+              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Media.cs [Design]",
+              "RelativeToolTip": "Project #Filter\\Menu_Media.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-29T07:03:37.768Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Menu_Folder.cs",
-              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Folder.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Menu_Folder.cs",
-              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Folder.cs",
-              "RelativeToolTip": "Project #Filter\\Menu_Folder.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAIwD4AAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-29T07:02:36.126Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Menu_Folder.cs [Design]",
-              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Folder.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Menu_Folder.cs",
-              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Menu_Folder.cs [Design]",
-              "RelativeToolTip": "Project #Filter\\Menu_Folder.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-29T07:02:34.641Z",
+              "WhenOpened": "2024-09-29T07:07:08.086Z",
               "EditorCaption": " [Design]"
             }
           ]

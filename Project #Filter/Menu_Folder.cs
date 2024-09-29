@@ -49,16 +49,16 @@ namespace Project__Filter
                 if (jsonObject["Option"] != null)
                 {
                     // Check the state of "Alphabetically" and "AlphabeticallyExtension" and set radio buttons accordingly
-                    bool isReadable = jsonObject["Option"]["Readable"]?.ToObject<bool>() ?? false;
-                    bool isWritable = jsonObject["Option"]["Writable"]?.ToObject<bool>() ?? false;
+                    bool isAlphabetical = jsonObject["Option"]["Alphabetical"]?.ToObject<bool>() ?? false;
+                    bool isDeep = jsonObject["Option"]["Depth"]?.ToObject<bool>() ?? false;
 
-                    if (isReadable)
+                    if (isAlphabetical)
                     {
-                        radioButton_Readable.Checked = true; // Assuming this is the radio button for "Alphabetically"
+                        radioButton_Alphabetical.Checked = true; // Assuming this is the radio button for "Alphabetically"
                     }
-                    else if (isWritable)
+                    else if (isDeep)
                     {
-                        radioButton_Writable.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
+                        radioButton_Depth.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
                     }
                 }
             }
@@ -70,14 +70,13 @@ namespace Project__Filter
             {
                 ["Option"] = new JObject
                 {
-                    ["Readable"] = radioButton_Readable.Checked,
-                    ["Writable"] = radioButton_Writable.Checked,
-                    ["Executable"] = radioButton_Executable.Checked
+                    ["Alphabetical"] = radioButton_Alphabetical.Checked,
+                    ["Depth"] = radioButton_Depth.Checked,
                 }
             };
 
             // Define the path to the JSON file
-            string filePath = "Config_Permissions.json";
+            string filePath = "Config_Folder.json";
 
             // Write the JSON object to the file
             File.WriteAllText(filePath, jsonObject.ToString());
