@@ -48,13 +48,12 @@ namespace Project__Filter
 
                 // File already exists; get the filepath
                 string filePath = Path.GetFullPath("Config_Type.json");
-                PopulateTree(filePath);
-                CheckBoxes(filePath);
+                PopulateInputs(filePath);
                 break;
             }
         }
 
-        private void PopulateTree(string FilePath)
+        private void PopulateInputs(string FilePath)
         {
             if (File.Exists(FilePath))
             {
@@ -78,10 +77,7 @@ namespace Project__Filter
                     checkBox_Executables.Checked = extensionsObject["Executables"]?.Value<bool>() ?? false;
                 }
             }
-        }
 
-        private void CheckBoxes(string FilePath)
-        {
             if (File.Exists(FilePath))
             {
                 treeView1.Nodes.Clear();
@@ -164,16 +160,58 @@ namespace Project__Filter
 
         private void button_Add_Click(object sender, EventArgs e)
         {
-            if (File.Exists("Extensions.json"))
+            string config_Path = "Config_Type.json";
+            if (File.Exists(config_Path))
             {
                 // Read the existing JSON content
-                string jsonString = File.ReadAllText("Extensions.json");
+                string jsonString = File.ReadAllText(config_Path);
                 var jsonContent = JObject.Parse(jsonString);
 
                 // Find the "Extensions" section in the JSON
                 var extensionsSection = (JObject)jsonContent["Extensions"];
 
-               string Title = Microsoft.VisualBasic.Interaction.InputBox("Enter the custom title:", "Title", "", -1, -1);
+                // Get the selected node in the treeView1
+                TreeNode selectedNode = treeView1.SelectedNode;
+
+                if (selectedNode != null && selectedNode.Parent == null) // Check if it's a category node
+                {
+                    // Prompt the user for the new extension to add
+                    string newExtension = Microsoft.VisualBasic.Interaction.InputBox("Enter the new extension:", "New Extension", "", -1, -1);
+
+                    if (!string.IsNullOrWhiteSpace(newExtension))
+                    {
+                        // Get the category from the selected node
+                        string category = selectedNode.Text;
+
+                        // Check if the category exists in the Extensions section
+                        var categoryExtensions = (JArray)extensionsSection[category];
+
+                        if (categoryExtensions != null)
+                        {
+                            // Add the new extension to the category
+                            if (!categoryExtensions.Contains(newExtension))
+                            {
+                                categoryExtensions.Add(newExtension);
+
+                                // Save the updated JSON back to the file
+                                File.WriteAllText(config_Path, jsonContent.ToString());
+
+                                // Update the TreeView by adding the new extension under the selected node
+                                selectedNode.Nodes.Add(new TreeNode(newExtension));
+
+                                MessageBox.Show($"New extension '{newExtension}' added to category '{category}'.");
+                            }
+                            else
+                            {
+                                MessageBox.Show("This extension already exists in the category.");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please select a valid category node to add the extension.");
+                }
             }
         }
 
@@ -218,7 +256,7 @@ namespace Project__Filter
 
                     // After successful removal, repopulate the TreeView
                     string filePath = Path.GetFullPath("Extensions.json");
-                    PopulateTree(filePath);
+                    PopulateInputs(filePath);
                 }
                 else
                 {

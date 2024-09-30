@@ -148,8 +148,11 @@ namespace Project__Filter
                         // If the file's extension matches any of the allowed extensions
                         if (extensionExists)
                         {
-                            // Create the target directory if it doesn't exist
-                            string targetDirectory = System.IO.Path.Combine(folderPath, category);
+                            // Get the original directory of the file
+                            string originalDirectory = System.IO.Path.GetDirectoryName(file);
+
+                            // Create the target directory at the file's original location
+                            string targetDirectory = System.IO.Path.Combine(originalDirectory, category);
                             if (!Directory.Exists(targetDirectory))
                             {
                                 Directory.CreateDirectory(targetDirectory);
@@ -172,7 +175,7 @@ namespace Project__Filter
 
             // Ensure the progress bar reaches 0% at the end
             progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
-
+            MessageBox.Show("Sorting completed!");
         }
 
         private async void SortSize(string folderPath, string jsonPath)
@@ -225,7 +228,13 @@ namespace Project__Filter
 
             // Get all files in the folder
             var files = Directory.GetFiles(folderPath);
+            int totalFiles = files.Length;
+            int processedFiles = 0;
 
+            // Update the file count label
+            Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
+
+            // Process each file in the folder
             foreach (var file in files)
             {
                 FileInfo fileInfo = new FileInfo(file);
@@ -254,26 +263,108 @@ namespace Project__Filter
                 // If a category was determined, move the file
                 if (targetCategory != null)
                 {
-                    string targetDirectory = System.IO.Path.Combine(folderPath, targetCategory);
+                    // Get the original directory of the file
+                    string originalDirectory = System.IO.Path.GetDirectoryName(file);
+
+                    // Create the target directory at the file's original location
+                    string targetDirectory = System.IO.Path.Combine(originalDirectory, targetCategory);
 
                     if (!Directory.Exists(targetDirectory))
                     {
                         Directory.CreateDirectory(targetDirectory);
                     }
 
+                    // Move the file to the target directory
                     string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
                     File.Move(file, targetPath);
                 }
+
+                // Update the progress bar
+                processedFiles++;
+                int progress = (int)((double)processedFiles / totalFiles * 100);
+
+                // Update the ProgressBar using Invoke to ensure thread safety
+                progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = progress));
             }
 
-            MessageBox.Show("Sorting completed! You're making great progress!");
-        }
+            // Ensure the progress bar reaches 0% at the end
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
 
+            MessageBox.Show("Sorting completed!");
+        }
 
         private async void SortDates(string folderPath, string jsonPath)
         {
+            if (!File.Exists(jsonPath))
+            {
+                MessageBox.Show("Config file not found.");
+                return;
+            }
 
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
+
+            var option = jsonContent["Option"] as JObject;
+
+            // Determine which option is set to true (Accessed, Creation, or Modified)
+            string sortingOption = null;
+            foreach (var allowOption in option)
+            {
+                bool isAllowed = (bool)allowOption.Value;
+                if (isAllowed)
+                {
+                    sortingOption = allowOption.Key;
+                    break; // Stop after finding the first true option
+                }
+            }
+
+            if (sortingOption == null)
+            {
+                MessageBox.Show("No sorting option selected.");
+                return;
+            }
+
+            // Get all files in the folder
+            var files = Directory.GetFiles(folderPath);
+
+            // Sort files based on the selected option
+            IEnumerable<FileInfo> sortedFiles;
+            switch (sortingOption)
+            {
+                case "Accessed":
+                    sortedFiles = files.Select(f => new FileInfo(f)).OrderBy(f => f.LastAccessTime);
+                    break;
+                case "Creation":
+                    sortedFiles = files.Select(f => new FileInfo(f)).OrderBy(f => f.CreationTime);
+                    break;
+                case "Modified":
+                    sortedFiles = files.Select(f => new FileInfo(f)).OrderBy(f => f.LastWriteTime);
+                    break;
+                default:
+                    MessageBox.Show("Invalid sorting option.");
+                    return;
+            }
+
+            // Process each file in the sorted list (for example, move to a folder or rename)
+            foreach (var file in sortedFiles)
+            {
+                // Example: Move file to a folder based on sorting option
+                string targetDirectory = Path.Combine(folderPath, sortingOption);
+                if (!Directory.Exists(targetDirectory))
+                {
+                    Directory.CreateDirectory(targetDirectory);
+                }
+
+                string targetPath = Path.Combine(targetDirectory, Path.GetFileName(file.FullName));
+
+                // Move the file
+                File.Move(file.FullName, targetPath);
+            }
+
+            MessageBox.Show($"Files sorted by {sortingOption} date!");
         }
+
 
         private async void SortNames(string folderPath, string jsonPath)
         {
