@@ -307,69 +307,164 @@ namespace Project__Filter
 
             var option = jsonContent["Option"] as JObject;
 
-            // Determine which option is set to true (Accessed, Creation, or Modified)
-            string sortingOption = null;
+            // Get all files in the folder
+            var files = Directory.GetFiles(folderPath);
+            var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
+
+            // Process each sorting option (Accessed, Creation, Modified) if it's set to true
             foreach (var allowOption in option)
             {
                 bool isAllowed = (bool)allowOption.Value;
+                string sortingOption = allowOption.Key;
+
                 if (isAllowed)
                 {
-                    sortingOption = allowOption.Key;
-                    break; // Stop after finding the first true option
+                    IEnumerable<FileInfo> sortedFiles;
+
+                    // Sort the files based on the current option (Accessed, Creation, or Modified)
+                    switch (sortingOption)
+                    {
+                        case "Accessed":
+                            sortedFiles = fileInfoList.OrderBy(f => f.LastAccessTime);
+                            break;
+                        case "Creation":
+                            sortedFiles = fileInfoList.OrderBy(f => f.CreationTime);
+                            break;
+                        case "Modified":
+                            sortedFiles = fileInfoList.OrderBy(f => f.LastWriteTime);
+                            break;
+                        default:
+                            continue; // Skip invalid options
+                    }
+
+                    // Move each file to a folder based on its date
+                    foreach (var file in sortedFiles)
+                    {
+                        // Get the appropriate date depending on the sorting option
+                        DateTime folderDate;
+                        switch (sortingOption)
+                        {
+                            case "Accessed":
+                                folderDate = file.LastAccessTime.Date;
+                                break;
+                            case "Creation":
+                                folderDate = file.CreationTime.Date;
+                                break;
+                            case "Modified":
+                                folderDate = file.LastWriteTime.Date;
+                                break;
+                            default:
+                                continue; // Skip invalid options
+                        }
+
+                        // Create a folder named after the file's date
+                        string targetDirectory = System.IO.Path.Combine(folderPath, folderDate.ToString("yyyy-MM-dd"));
+                        if (!Directory.Exists(targetDirectory))
+                        {
+                            Directory.CreateDirectory(targetDirectory);
+                        }
+
+                        // Move the file to the respective date-named folder
+                        string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file.FullName));
+
+                        // Ensure the file is not moved if it already exists in the target location
+                        if (!File.Exists(targetPath))
+                        {
+                            File.Move(file.FullName, targetPath);
+                        }
+                    }
                 }
             }
 
-            if (sortingOption == null)
+            MessageBox.Show("Files sorted by the selected date attributes!");
+        }
+
+        private async void SortNames(string folderPath, string jsonPath)
+        {
+            if (!File.Exists(jsonPath))
+            {
+                MessageBox.Show("Config file not found.");
+                return;
+            }
+
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
+
+            var option = jsonContent["Option"] as JObject;
+            var additional = jsonContent["Additional"] as JObject;
+
+            // Determine sorting options
+            bool sortAlphabetically = (bool)option["Alphabetically"];
+            bool sortByExtension = (bool)option["AlphabeticallyExtension"];
+            bool caseSensitive = (bool)additional["Case"];
+            bool ignoreSpecialCharacters = (bool)additional["Special"];
+
+            // Get all files in the folder
+            var files = Directory.GetFiles(folderPath);
+            var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
+
+            // Define a function to remove special characters if needed
+            string RemoveSpecialCharacters(string input)
+            {
+                return new string(input.Where(c => char.IsLetterOrDigit(c)).ToArray());
+            }
+
+            // Sort files based on the options
+            IEnumerable<FileInfo> sortedFiles;
+            if (sortByExtension)
+            {
+                // Sort by extension first, then by name
+                sortedFiles = fileInfoList.OrderBy(f => f.Extension)
+                                          .ThenBy(f => ignoreSpecialCharacters ? RemoveSpecialCharacters(f.Name) : f.Name);
+            }
+            else if (sortAlphabetically)
+            {
+                // Sort by name
+                sortedFiles = fileInfoList.OrderBy(f => ignoreSpecialCharacters ? RemoveSpecialCharacters(f.Name) : f.Name);
+            }
+            else
             {
                 MessageBox.Show("No sorting option selected.");
                 return;
             }
 
-            // Get all files in the folder
-            var files = Directory.GetFiles(folderPath);
-
-            // Sort files based on the selected option
-            IEnumerable<FileInfo> sortedFiles;
-            switch (sortingOption)
-            {
-                case "Accessed":
-                    sortedFiles = files.Select(f => new FileInfo(f)).OrderBy(f => f.LastAccessTime);
-                    break;
-                case "Creation":
-                    sortedFiles = files.Select(f => new FileInfo(f)).OrderBy(f => f.CreationTime);
-                    break;
-                case "Modified":
-                    sortedFiles = files.Select(f => new FileInfo(f)).OrderBy(f => f.LastWriteTime);
-                    break;
-                default:
-                    MessageBox.Show("Invalid sorting option.");
-                    return;
-            }
-
-            // Process each file in the sorted list (for example, move to a folder or rename)
+            // Create folders and move files
             foreach (var file in sortedFiles)
             {
-                // Example: Move file to a folder based on sorting option
-                string targetDirectory = Path.Combine(folderPath, sortingOption);
+                string fileName = file.Name;
+                string folderName;
+
+                // Handle case sensitivity
+                if (caseSensitive)
+                {
+                    folderName = fileName.Substring(0, 1); // First character of the file name
+                }
+                else
+                {
+                    folderName = fileName.Substring(0, 1).ToUpper(); // First character, case-insensitive
+                }
+
+                // Create folder based on first letter (with case-sensitivity if enabled)
+                string targetDirectory = System.IO.Path.Combine(folderPath, folderName);
                 if (!Directory.Exists(targetDirectory))
                 {
                     Directory.CreateDirectory(targetDirectory);
                 }
 
-                string targetPath = Path.Combine(targetDirectory, Path.GetFileName(file.FullName));
+                // Move the file to the respective folder
+                string targetPath = System.IO.Path.Combine(targetDirectory, file.Name);
 
-                // Move the file
-                File.Move(file.FullName, targetPath);
+                // Ensure the file is not moved if it already exists in the target location
+                if (!File.Exists(targetPath))
+                {
+                    File.Move(file.FullName, targetPath);
+                }
             }
 
-            MessageBox.Show($"Files sorted by {sortingOption} date!");
+            MessageBox.Show("Files sorted by the selected name attributes!");
         }
 
-
-        private async void SortNames(string folderPath, string jsonPath)
-        {
-
-        }
 
         private async void SortPermissions(string folderPath, string jsonPath)
         {
