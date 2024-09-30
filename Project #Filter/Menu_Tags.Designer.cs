@@ -32,6 +32,7 @@
             label1 = new Label();
             panel5 = new Panel();
             panel6 = new Panel();
+            label3 = new Label();
             textBox_Tag = new TextBox();
             label4 = new Label();
             panel11 = new Panel();
@@ -44,7 +45,6 @@
             treeView_Tags = new TreeView();
             panel8 = new Panel();
             label2 = new Label();
-            label3 = new Label();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
@@ -94,6 +94,18 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(387, 394);
             panel6.TabIndex = 59;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Dock = DockStyle.Bottom;
+            label3.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.Control;
+            label3.Location = new Point(0, 261);
+            label3.Name = "label3";
+            label3.Size = new Size(1023, 30);
+            label3.TabIndex = 58;
+            label3.Text = "To ensure the tags function correctly, please enclose them within square brackets like this: [TagGoesHere].";
             // 
             // textBox_Tag
             // 
@@ -227,18 +239,6 @@
             label2.Size = new Size(88, 25);
             label2.TabIndex = 0;
             label2.Text = "Tags List:";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Dock = DockStyle.Bottom;
-            label3.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(0, 261);
-            label3.Name = "label3";
-            label3.Size = new Size(1023, 30);
-            label3.TabIndex = 58;
-            label3.Text = "To ensure the tags function correctly, please enclose them within square brackets like this: [TagGoesHere].";
             // 
             // Menu_Tags
             // 
