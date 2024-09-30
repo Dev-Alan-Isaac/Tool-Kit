@@ -44,6 +44,7 @@
             treeView_Tags = new TreeView();
             panel8 = new Panel();
             label2 = new Label();
+            label3 = new Label();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
@@ -84,6 +85,7 @@
             // 
             // panel6
             // 
+            panel6.Controls.Add(label3);
             panel6.Controls.Add(textBox_Tag);
             panel6.Controls.Add(label4);
             panel6.Controls.Add(panel11);
@@ -226,6 +228,18 @@
             label2.TabIndex = 0;
             label2.Text = "Tags List:";
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Dock = DockStyle.Bottom;
+            label3.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.Control;
+            label3.Location = new Point(0, 261);
+            label3.Name = "label3";
+            label3.Size = new Size(1023, 30);
+            label3.TabIndex = 58;
+            label3.Text = "To ensure the tags function correctly, please enclose them within square brackets like this: [TagGoesHere].";
+            // 
             // Menu_Tags
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -269,5 +283,6 @@
         private Button button_Remove;
         private Button button_Add;
         private TextBox textBox_Tag;
+        private Label label3;
     }
 }

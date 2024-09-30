@@ -33,7 +33,7 @@ namespace Project__Filter
 
         private async void button_Filter_Click_1(object sender, EventArgs e)
         {
-            string config_Path;
+            string config_Path, config_Path2;
             // Iterate through each item in the checkedItems list
             foreach (string item in checkedItems)
             {
@@ -52,10 +52,13 @@ namespace Project__Filter
                         await Task.Run(() => SortDates(Path, config_Path));
                         break;
                     case "File Name":
-                        await Task.Run(() => SortNames(Path, "Config_Names.json"));
+                        config_Path = System.IO.Path.GetFullPath("Config_Names.json");
+                        await Task.Run(() => SortNames(Path, config_Path));
                         break;
                     case "File Permissions":
-                        await Task.Run(() => SortPermissions(Path, "Config_Permissions.json"));
+                        config_Path = System.IO.Path.GetFullPath("Config_Names.json");
+                        config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
+                        await Task.Run(() => SortPermissions(Path, config_Path, config_Path2));
                         break;
                     case "Custom Tags":
                         await Task.Run(() => SortCustomTags(Path, "Config_Tags.json"));
@@ -465,10 +468,85 @@ namespace Project__Filter
             MessageBox.Show("Files sorted by the selected name attributes!");
         }
 
-
-        private async void SortPermissions(string folderPath, string jsonPath)
+        private async void SortPermissions(string folderPath, string jsonPath, string configTypePath)
         {
+            if (!File.Exists(jsonPath) || !File.Exists(configTypePath))
+            {
+                MessageBox.Show("Config file not found.");
+                return;
+            }
 
+            // Read and parse the JSON files
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
+
+            string configTypeString = await File.ReadAllTextAsync(configTypePath);
+            var configTypeContent = JObject.Parse(configTypeString);
+
+            var option = jsonContent["Option"] as JObject;
+
+            // Get the executable extensions from Config_Type.json
+            var executableExtensions = configTypeContent["Extensions"]["Executables"].ToObject<List<string>>();
+
+            // Get all files in the folder
+            var files = Directory.GetFiles(folderPath);
+
+            // Process each sorting option (Readable, Writable, Executable)
+            foreach (var allowOption in option)
+            {
+                bool isAllowed = (bool)allowOption.Value;
+                string sortingOption = allowOption.Key;
+
+                if (isAllowed)
+                {
+                    foreach (var file in files)
+                    {
+                        FileInfo fileInfo = new FileInfo(file);
+
+                        // Check the file properties based on sorting option
+                        switch (sortingOption)
+                        {
+                            case "Readable":
+                                if (fileInfo.IsReadOnly == false) // Check if file is readable
+                                {
+                                    MoveFileToFolder(fileInfo, sortingOption, folderPath);
+                                }
+                                break;
+                            case "Writable":
+                                if (fileInfo.IsReadOnly == false) // Check if file is writable
+                                {
+                                    MoveFileToFolder(fileInfo, sortingOption, folderPath);
+                                }
+                                break;
+                            case "Executable":
+                                string fileExtension = fileInfo.Extension.TrimStart('.').ToLower();
+                                if (executableExtensions.Contains(fileExtension)) // Check if file is executable
+                                {
+                                    MoveFileToFolder(fileInfo, sortingOption, folderPath);
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+
+            MessageBox.Show("Files sorted by permissions!");
+        }
+
+        private void MoveFileToFolder(FileInfo file, string folderName, string baseFolderPath)
+        {
+            string targetDirectory = System.IO.Path.Combine(baseFolderPath, folderName);
+
+            if (!Directory.Exists(targetDirectory))
+            {
+                Directory.CreateDirectory(targetDirectory);
+            }
+
+            string targetPath = System.IO.Path.Combine(targetDirectory, file.Name);
+            if (!File.Exists(targetPath))
+            {
+                File.Move(file.FullName, targetPath);
+            }
         }
 
         private async void SortCustomTags(string folderPath, string jsonPath)
