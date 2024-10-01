@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu_Tags));
             panel4 = new Panel();
             label1 = new Label();
             panel5 = new Panel();
@@ -97,15 +98,14 @@
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Dock = DockStyle.Bottom;
-            label3.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            label3.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(0, 261);
+            label3.Location = new Point(-3, 106);
             label3.Name = "label3";
-            label3.Size = new Size(1023, 30);
+            label3.Size = new Size(384, 151);
             label3.TabIndex = 58;
-            label3.Text = "To ensure the tags function correctly, please enclose them within square brackets like this: [TagGoesHere].";
+            label3.Text = resources.GetString("label3.Text");
             // 
             // textBox_Tag
             // 

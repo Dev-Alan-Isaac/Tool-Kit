@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
+using NReco.VideoInfo;
 
 namespace Project__Filter
 {
@@ -61,13 +63,17 @@ namespace Project__Filter
                         await Task.Run(() => SortPermissions(Path, config_Path, config_Path2));
                         break;
                     case "Custom Tags":
-                        await Task.Run(() => SortCustomTags(Path, "Config_Tags.json"));
+                        config_Path = System.IO.Path.GetFullPath("Config_Tags.json");
+                        await Task.Run(() => SortCustomTags(Path, config_Path));
                         break;
                     case "Folder Location":
-                        await Task.Run(() => SortFolderLocation(Path, "Config_Folder.json"));
+                        config_Path = System.IO.Path.GetFullPath("Config_Folder.json");
+                        await Task.Run(() => SortFolderLocation(Path, config_Path));
                         break;
                     case "Media Metadata (Videos/Audio)":
-                        await Task.Run(() => SortMedia(Path, "Config_Media.json"));
+                        config_Path = System.IO.Path.GetFullPath("Config_Media.json");
+                        config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
+                        await Task.Run(() => SortMedia(Path, config_Path, config_Path2));
                         break;
                     default:
                         break;
@@ -551,22 +557,332 @@ namespace Project__Filter
 
         private async void SortCustomTags(string folderPath, string jsonPath)
         {
+            if (!File.Exists(jsonPath))
+            {
+                MessageBox.Show("Config file not found.");
+                return;
+            }
 
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
+
+            // Get the "Tags" array from the JSON
+            var tagsArray = jsonContent["Option"]["Tags"] as JArray;
+
+            if (tagsArray == null || !tagsArray.Any())
+            {
+                MessageBox.Show("No tags found in the JSON file.");
+                return;
+            }
+
+            // Get all files in the target folder
+            var files = Directory.GetFiles(folderPath);
+
+            foreach (var file in files)
+            {
+                // Get the file name (without the path)
+                string fileName = System.IO.Path.GetFileName(file);
+
+                // Check if the file name starts with any tag
+                foreach (var tag in tagsArray)
+                {
+                    string tagString = tag.ToString();
+                    string tagPrefix = $"[{tagString}]";
+
+                    if (fileName.StartsWith(tagPrefix))
+                    {
+                        // Create the target directory based on the tag if it doesn't exist
+                        string targetDirectory = System.IO.Path.Combine(folderPath, tagString);
+                        if (!Directory.Exists(targetDirectory))
+                        {
+                            Directory.CreateDirectory(targetDirectory);
+                        }
+
+                        // Move the file to the target directory
+                        string targetPath = System.IO.Path.Combine(targetDirectory, fileName);
+                        File.Move(file, targetPath);
+
+                        // Optionally, show a message indicating the file has been moved
+                        MessageBox.Show($"Moved {fileName} to {targetDirectory}");
+                        break; // Once the file is moved, stop checking other tags for this file
+                    }
+                }
+            }
         }
 
         private async void SortFolderLocation(string folderPath, string jsonPath)
         {
+            if (!File.Exists(jsonPath))
+            {
+                MessageBox.Show("Config file not found.");
+                return;
+            }
+
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
+
+            // Get the "Option" section from the JSON
+            bool sortByAlphabetical = (bool)jsonContent["Option"]["Alphabetical"];
+            bool sortByDepth = (bool)jsonContent["Option"]["Depth"];
+
+            // Ensure only one of them is true
+            if (sortByAlphabetical && sortByDepth)
+            {
+                MessageBox.Show("Error: Both Alphabetical and Depth sorting cannot be enabled at the same time.");
+                return;
+            }
+
+            // Get all directories in the target folder
+            var directories = Directory.GetDirectories(folderPath);
+
+            // Prepare a list to store directories and their depth
+            var directoryDepths = new List<(string Directory, int Depth)>();
+
+            foreach (var dir in directories)
+            {
+                // Get the number of subfolders (depth) inside this directory
+                int depth = GetFolderDepth(dir);
+                directoryDepths.Add((dir, depth));
+            }
+
+            // Sort directories based on the specified criteria
+            if (sortByAlphabetical)
+            {
+                // Sort only by name (alphabetical order)
+                directoryDepths = directoryDepths.OrderBy(d => System.IO.Path.GetFileName(d.Directory)).ToList();
+            }
+            else if (sortByDepth)
+            {
+                // Sort only by depth (number of subfolders)
+                directoryDepths = directoryDepths.OrderBy(d => d.Depth).ToList();
+            }
+
+            // Move the folders based on the sorted list
+            foreach (var (dir, depth) in directoryDepths)
+            {
+                // Create a folder for each depth level if it doesn't exist
+                string targetDirectory;
+                if (sortByAlphabetical)
+                {
+                    // If sorting alphabetically, create folders for each alphabet group
+                    string firstLetter = System.IO.Path.GetFileName(dir).Substring(0, 1).ToUpper();
+                    targetDirectory = System.IO.Path.Combine(folderPath, firstLetter);
+                }
+                else
+                {
+                    // If sorting by depth, create folders for each depth level
+                    targetDirectory = System.IO.Path.Combine(folderPath, depth.ToString());
+                }
+
+                if (!Directory.Exists(targetDirectory))
+                {
+                    Directory.CreateDirectory(targetDirectory);
+                }
+
+                // Move the folder to the target location
+                string newFolderPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(dir));
+                Directory.Move(dir, newFolderPath);
+
+                // Optionally, show a message indicating the folder has been moved
+                MessageBox.Show($"Moved {System.IO.Path.GetFileName(dir)} to {(sortByAlphabetical ? $"alphabetical folder {targetDirectory}" : $"depth folder {depth}")}");
+            }
+        }
+
+        private int GetFolderDepth(string folder)
+        {
+            // Count how many subfolders are present
+            return Directory.GetDirectories(folder, "*", SearchOption.AllDirectories).Length;
+        }
+
+        private async void SortMedia(string folderPath, string jsonPath, string configTypePath)
+        {
+            // Check if both config files exist
+            if (!File.Exists(jsonPath) || !File.Exists(configTypePath))
+            {
+                MessageBox.Show("One or both config files not found.");
+                return;
+            }
+
+            // Read and parse the JSON files
+            string jsonStringOptions = await File.ReadAllTextAsync(jsonPath);
+            string jsonStringConfig = await File.ReadAllTextAsync(configTypePath);
+
+            var jsonOptions = JObject.Parse(jsonStringOptions);
+            var jsonConfig = JObject.Parse(jsonStringConfig);
+
+            // Extract sorting options from jsonPath
+            var option = jsonOptions["Option"].ToObject<JObject>();
+            bool isDuration = (bool)option["Duration"];
+            bool isResolution = (bool)option["Resolution"];
+            bool isFrameRate = (bool)option["Frame_Rate"];
+            bool isCodec = (bool)option["Codec"];
+            bool isAudio = (bool)option["Audio"];
+            bool isAspect = (bool)option["Aspect"];
+            bool isBitDepth = (bool)option["BitDepth"];
+
+            // Extract file extensions and allowed types from configTypePath
+            var extensions = jsonConfig["Extensions"].ToObject<JObject>();
+            var allow = jsonConfig["Allow"].ToObject<JObject>();
+
+            // Define media types (Images, Videos, Audio)
+            var mediaTypes = new[] { "Images", "Videos", "Audio" };
+
+            // Filter allowed media types based on the "Allow" section
+            var allowedMediaTypes = mediaTypes.Where(type => (bool)allow[type]).ToList();
+
+            if (!allowedMediaTypes.Any())
+            {
+                MessageBox.Show("No media types are allowed for sorting.");
+                return;
+            }
+
+            // Get all files in the target folder
+            var files = Directory.GetFiles(folderPath);
+
+            // Filter files by allowed extensions
+            var filteredFiles = files.Where(file => allowedMediaTypes.Any(type =>
+            {
+                var allowedExtensions = extensions[type].ToObject<string[]>();
+                return allowedExtensions.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
+            })).ToArray();
+
+            if (!filteredFiles.Any())
+            {
+                MessageBox.Show("No files with allowed extensions found.");
+                return;
+            }
+
+            // Sort the media files based on the selected criteria
+            if (isDuration)
+            {
+                sortByDuration(filteredFiles);
+            }
+            else if (isResolution)
+            {
+                sortByResolution(filteredFiles);
+            }
+            else if (isFrameRate)
+            {
+                sortByFrameRate(filteredFiles);
+            }
+            else if (isCodec)
+            {
+                sortByCodec(filteredFiles);
+            }
+            else if (isAudio)
+            {
+                sortByAudio(filteredFiles);
+            }
+            else if (isAspect)
+            {
+                sortByAspect(filteredFiles);
+            }
+            else if (isBitDepth)
+            {
+                sortByBitDepth(filteredFiles);
+            }
+        }
+
+        // Sorting methods based on different criteria (you will need to implement these)
+        private void sortByDuration(string[] files)
+        {
+            // Check if the files array is empty
+            if (files.Length == 0)
+            {
+                Debug.WriteLine("No files to display.");
+                return;
+            }
+
+            // Dictionary to hold the durations and corresponding files
+            var durationFiles = new Dictionary<TimeSpan, List<string>>();
+
+            // Initialize the VideoInfo tool
+            var videoInfo = new NReco.VideoInfo.FFProbe();
+
+            foreach (var file in files)
+            {
+                try
+                {
+                    // Get the duration of the video file
+                    var info = videoInfo.GetMediaInfo(file);
+                    TimeSpan duration = info.Duration;
+
+                    // Add the file to the corresponding duration entry
+                    if (!durationFiles.ContainsKey(duration))
+                    {
+                        durationFiles[duration] = new List<string>();
+                    }
+                    durationFiles[duration].Add(file);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                }
+            }
+
+            // Create folders based on duration and move the files
+            foreach (var kvp in durationFiles)
+            {
+                TimeSpan duration = kvp.Key;
+                var filesToMove = kvp.Value;
+
+                // Create a folder name based on duration (e.g., "00:05:30" for 5 minutes and 30 seconds)
+                string folderName = duration.ToString(@"hh\:mm\:ss");
+                string baseFolder = "SortedVideos"; // Change this to your desired base folder
+                string folderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), baseFolder, folderName);
+
+                // Create the folder if it doesn't exist
+                Directory.CreateDirectory(folderPath);
+
+                // Move each file to the corresponding duration folder
+                foreach (var file in filesToMove)
+                {
+                    string destinationFile = System.IO.Path.GetFullPath(folderPath, System.IO.Path.GetFullPath(file));
+                    if (!File.Exists(destinationFile))
+                    {
+                        File.Move(file, destinationFile);
+                        Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
+                    }
+                }
+            }
 
         }
 
-        private async void SortFileContent(string folderPath, string jsonPath)
-        {
 
+        private void sortByResolution(string[] files)
+        {
+            // Implement sorting by resolution here
         }
 
-        private async void SortMedia(string folderPath, string jsonPath)
+        private void sortByFrameRate(string[] files)
         {
+            // Implement sorting by frame rate here
+        }
 
+        private void sortByCodec(string[] files)
+        {
+            // Implement sorting by codec here
+        }
+
+        private void sortByAudio(string[] files)
+        {
+            // Implement sorting by audio properties here
+        }
+
+        private void sortByAspect(string[] files)
+        {
+            // Implement sorting by aspect ratio here
+        }
+
+        private void sortByBitDepth(string[] files)
+        {
+            // Implement sorting by bit depth here
         }
     }
 }
