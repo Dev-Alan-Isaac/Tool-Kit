@@ -828,8 +828,8 @@ namespace Project__Filter
                 TimeSpan duration = kvp.Key;
                 var filesToMove = kvp.Value;
 
-                // Create a folder name based on duration (e.g., "00:05:30" for 5 minutes and 30 seconds)
-                string folderName = duration.ToString(@"hh\:mm\:ss");
+                // Create a folder name based on duration (e.g., "00-05-30" for 5 minutes and 30 seconds)
+                string folderName = duration.ToString(@"hh\-mm\-ss"); // Use dashes instead of colons for folder names
                 string baseFolder = "SortedVideos"; // Change this to your desired base folder
                 string folderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), baseFolder, folderName);
 
@@ -839,6 +839,7 @@ namespace Project__Filter
                 // Move each file to the corresponding duration folder
                 foreach (var file in filesToMove)
                 {
+                    // Construct the destination file path
                     string destinationFile = System.IO.Path.GetFullPath(folderPath, System.IO.Path.GetFullPath(file));
                     if (!File.Exists(destinationFile))
                     {
@@ -851,8 +852,8 @@ namespace Project__Filter
                     }
                 }
             }
-
         }
+
 
 
         private void sortByResolution(string[] files)
