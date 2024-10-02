@@ -13,6 +13,7 @@ namespace Project__Filter
     public partial class Opt_Sort : UserControl
     {
         private string Path;
+        private string[] files;
         private List<string> checkedItems = new List<string>();
 
         public Opt_Sort()
@@ -34,9 +35,35 @@ namespace Project__Filter
             }
         }
 
+        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        {
+            // Cast the sender to a CheckBox
+            if (sender is CheckBox checkBox)
+            {
+                // Get the text of the checkbox
+                string checkboxText = checkBox.Text;
+
+                if (checkBox.Checked)
+                {
+                    // Add to the list if checked
+                    if (!checkedItems.Contains(checkboxText))
+                        checkedItems.Add(checkboxText);
+                }
+                else
+                {
+                    // Remove from the list if unchecked
+                    checkedItems.Remove(checkboxText);
+                }
+            }
+
+            // Enable the button if one or more items are checked, disable it if none are checked
+            button_Filter.Enabled = checkedItems.Count > 0;
+        }
+
         private async void button_Filter_Click_1(object sender, EventArgs e)
         {
-            string config_Path, config_Path2;
+            string config_Path, config_Path2, Config_Sort = "Config_Sort.json";
+
             // Iterate through each item in the checkedItems list
             foreach (string item in checkedItems)
             {
@@ -80,34 +107,31 @@ namespace Project__Filter
                         break;
                 }
             }
-            // Optionally, you can split the list into sub-lists or do other kinds of processing here.
         }
 
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        public async Task<string[]> ProcessFiles(string parentPath)
         {
-            // Cast the sender to a CheckBox
-            if (sender is CheckBox checkBox)
-            {
-                // Get the text of the checkbox
-                string checkboxText = checkBox.Text;
+            string config_file = "Config_Sort.json";
 
-                if (checkBox.Checked)
-                {
-                    // Add to the list if checked
-                    if (!checkedItems.Contains(checkboxText))
-                        checkedItems.Add(checkboxText);
-                }
-                else
-                {
-                    // Remove from the list if unchecked
-                    checkedItems.Remove(checkboxText);
-                }
+            if (!File.Exists(config_file))
+            {
+                MessageBox.Show("Config file not found.");
+                return Array.Empty<string>(); // Return an empty array if the config file doesn't exist
             }
 
-            // Enable the button if one or more items are checked, disable it if none are checked
-            button_Filter.Enabled = checkedItems.Count > 0;
-        }
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(config_file);
+            var jsonContent = JObject.Parse(jsonString);
 
+            bool processSubfolders = (bool)jsonContent["Option"]["Subfolder"];
+
+            // Get files based on whether subfolder processing is allowed
+            var files = processSubfolders
+                ? Directory.GetFiles(parentPath, "*.*", SearchOption.AllDirectories)
+                : Directory.GetFiles(parentPath);
+
+            return files; // Return the list of file paths
+        }
 
 
         public async void SortTypes(string folderPath, string jsonPath)

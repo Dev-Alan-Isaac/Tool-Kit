@@ -140,7 +140,7 @@
             // 
             // button_Filter
             // 
-            button_Filter.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            button_Filter.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             button_Filter.BackColor = Color.Teal;
             button_Filter.BackgroundImage = Properties.Resources.Button_Icon_Start;
             button_Filter.BackgroundImageLayout = ImageLayout.Zoom;
