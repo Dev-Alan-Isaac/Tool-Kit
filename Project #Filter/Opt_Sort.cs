@@ -13,7 +13,6 @@ namespace Project__Filter
     public partial class Opt_Sort : UserControl
     {
         private string Path;
-        private string[] files;
         private List<string> checkedItems = new List<string>();
 
         public Opt_Sort()
@@ -225,6 +224,7 @@ namespace Project__Filter
             // Ensure the progress bar reaches 0% at the end
             progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
             MessageBox.Show("Sorting completed!");
+            DeleteEmptyFolders(folderPath);
         }
 
         private async void SortSize(string folderPath, string jsonPath)
