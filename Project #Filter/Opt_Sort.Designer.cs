@@ -340,9 +340,9 @@
             checkBox9.ForeColor = SystemColors.Control;
             checkBox9.Location = new Point(3, 331);
             checkBox9.Name = "checkBox9";
-            checkBox9.Size = new Size(316, 29);
+            checkBox9.Size = new Size(175, 29);
             checkBox9.TabIndex = 7;
-            checkBox9.Text = "Media Metadata (Videos/Audio)";
+            checkBox9.Text = "Media Metadata";
             checkBox9.UseVisualStyleBackColor = true;
             checkBox9.CheckedChanged += checkBox_CheckedChanged;
             // 

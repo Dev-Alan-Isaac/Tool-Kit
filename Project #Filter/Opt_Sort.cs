@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using NReco.VideoInfo;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Project__Filter
 {
@@ -70,7 +71,7 @@ namespace Project__Filter
                         config_Path = System.IO.Path.GetFullPath("Config_Folder.json");
                         await Task.Run(() => SortFolderLocation(Path, config_Path));
                         break;
-                    case "Media Metadata (Videos/Audio)":
+                    case "Media Metadata":
                         config_Path = System.IO.Path.GetFullPath("Config_Media.json");
                         config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortMedia(Path, config_Path, config_Path2));
@@ -754,38 +755,43 @@ namespace Project__Filter
                 return;
             }
 
-            // Sort the media files based on the selected criteria
+            // Split files into different media type categories
+            var videoFiles = filteredFiles.Where(file => extensions["Videos"].ToObject<string[]>().Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))).ToArray();
+            var imageFiles = filteredFiles.Where(file => extensions["Images"].ToObject<string[]>().Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))).ToArray();
+            var audioFiles = filteredFiles.Where(file => extensions["Audio"].ToObject<string[]>().Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))).ToArray();
+
             if (isDuration)
             {
-                sortByDuration(filteredFiles);
-            }
-            else if (isResolution)
-            {
-                sortByResolution(filteredFiles);
+                sortByDuration(videoFiles);
             }
             else if (isFrameRate)
             {
-                sortByFrameRate(filteredFiles);
+                sortByFrameRate(videoFiles);
             }
             else if (isCodec)
             {
-                sortByCodec(filteredFiles);
+                sortByCodec(videoFiles);
             }
             else if (isAudio)
             {
-                sortByAudio(filteredFiles);
+                sortByAudio(audioFiles);
+            }
+            else if (isResolution)
+            {
+                sortByResolution_Videos(videoFiles);
+                sortByResolution_Images(imageFiles);
             }
             else if (isAspect)
             {
-                sortByAspect(filteredFiles);
+                sortByAspect_Videos(videoFiles);
+                sortByAspect_Images(imageFiles);
             }
             else if (isBitDepth)
             {
-                sortByBitDepth(filteredFiles);
+                sortByBitDepth_Videos(videoFiles);
+                sortByBitDepth_Images(imageFiles);
             }
         }
-
-        // Sorting methods based on different criteria (you will need to implement these)
         private void sortByDuration(string[] files)
         {
             // Check if the files array is empty
@@ -796,7 +802,17 @@ namespace Project__Filter
             }
 
             // Initialize FFProbe
-            var ffProbe = new NReco.VideoInfo.FFProbe();
+            var ffProbe = new FFProbe();
+
+            // Set up the progress bar
+            progressBar_Time.Invoke((Action)(() =>
+            {
+                progressBar_Time.Minimum = 0;
+                progressBar_Time.Maximum = files.Length; // Ensure Maximum is set to the number of files
+                progressBar_Time.Value = 0; // Start at 0
+            }));
+
+            int processedFiles = 0;
 
             foreach (var file in files)
             {
@@ -835,6 +851,77 @@ namespace Project__Filter
                     {
                         Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
                     }
+
+                    // Increment the progress bar after processing each file
+                    processedFiles++;
+
+                    // Ensure the progress value does not exceed the maximum
+                    if (processedFiles <= progressBar_Time.Maximum)
+                    {
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions (e.g., if FFProbe fails or access is denied)
+                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                }
+            }
+
+            // Optionally, reset or hide the progress bar once sorting is complete
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+            MessageBox.Show("Sorting completed!");
+        }
+
+
+        private void sortByResolution_Videos(string[] files)
+        {
+            //Check if the files array is empty
+            if (files.Length == 0)
+            {
+                Debug.WriteLine("No files to display.");
+                return;
+            }
+
+            // Initialize FFProbe
+            var ffProbe = new FFProbe();
+
+            foreach (var file in files)
+            {
+                try
+                {
+                    // Get media info of the file
+                    var videoInfo = ffProbe.GetMediaInfo(file);
+
+                    // Get the resolution of the video (Width x Height)
+                    string resolution = $"{videoInfo.Streams[0].Width}x{videoInfo.Streams[0].Height}";
+
+                    // Define the base folder where sorted videos will be stored
+                    string baseFolder = "SortedByResolution_Videos"; // Adjust this to the desired base folder
+
+                    // Construct the full path to the folder based on resolution
+                    string targetFolderPath = System.IO.Path.Combine(Path, baseFolder, resolution);
+
+                    // Create the folder if it doesn't exist
+                    if (!Directory.Exists(targetFolderPath))
+                    {
+                        Directory.CreateDirectory(targetFolderPath);
+                    }
+
+                    // Construct the target file path (same file name in the new folder)
+                    string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
+
+                    // Check if the file already exists in the target folder
+                    if (!File.Exists(destinationFile))
+                    {
+                        // Move the file to the target folder
+                        File.Move(file, destinationFile);
+                        Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -844,10 +931,36 @@ namespace Project__Filter
             }
         }
 
-
-        private void sortByResolution(string[] files)
+        private void sortByResolution_Images(string[] files)
         {
-            // Implement sorting by resolution here
+            foreach (var file in files)
+            {
+                try
+                {
+                    using (var img = System.Drawing.Image.FromFile(file))
+                    {
+                        string resolution = $"{img.Width}x{img.Height}";
+                        string targetFolderPath = System.IO.Path.Combine(Path, resolution);
+
+                        // Check if the file already exists in the target folder
+                        if (!File.Exists(targetFolderPath))
+                        {
+                            // Move the file to the target folder
+                            File.Move(file, targetFolderPath);
+                            Debug.WriteLine($"Moved file {file} to {targetFolderPath}");
+                        }
+                        else
+                        {
+                            Debug.WriteLine($"File already exists: {targetFolderPath}. Skipping move.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions (e.g., if FFProbe fails or access is denied)
+                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                }
+            }
         }
 
         private void sortByFrameRate(string[] files)
@@ -865,12 +978,22 @@ namespace Project__Filter
             // Implement sorting by audio properties here
         }
 
-        private void sortByAspect(string[] files)
+        private void sortByAspect_Videos(string[] files)
         {
             // Implement sorting by aspect ratio here
         }
 
-        private void sortByBitDepth(string[] files)
+        private void sortByAspect_Images(string[] files)
+        {
+            // Implement sorting by aspect ratio here
+        }
+
+        private void sortByBitDepth_Videos(string[] files)
+        {
+            // Implement sorting by bit depth here
+        }
+
+        private void sortByBitDepth_Images(string[] files)
         {
             // Implement sorting by bit depth here
         }
