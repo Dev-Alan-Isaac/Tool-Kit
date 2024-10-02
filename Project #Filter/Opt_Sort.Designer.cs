@@ -34,10 +34,8 @@
             panel_Right = new Panel();
             label1 = new Label();
             textBox_Path = new TextBox();
-            checkBox_Delete = new CheckBox();
             button_Filter = new Button();
             progressBar_Time = new ProgressBar();
-            label2 = new Label();
             label_Warning = new Label();
             panel_Header = new Panel();
             panel2 = new Panel();
@@ -140,18 +138,6 @@
             textBox_Path.Size = new Size(572, 33);
             textBox_Path.TabIndex = 25;
             // 
-            // checkBox_Delete
-            // 
-            checkBox_Delete.AutoSize = true;
-            checkBox_Delete.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold);
-            checkBox_Delete.ForeColor = Color.White;
-            checkBox_Delete.Location = new Point(408, 13);
-            checkBox_Delete.Margin = new Padding(3, 2, 3, 2);
-            checkBox_Delete.Name = "checkBox_Delete";
-            checkBox_Delete.Size = new Size(15, 14);
-            checkBox_Delete.TabIndex = 27;
-            checkBox_Delete.UseVisualStyleBackColor = true;
-            // 
             // button_Filter
             // 
             button_Filter.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -163,10 +149,10 @@
             button_Filter.FlatStyle = FlatStyle.Flat;
             button_Filter.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
             button_Filter.ForeColor = Color.White;
-            button_Filter.Location = new Point(429, 6);
+            button_Filter.Location = new Point(3, 6);
             button_Filter.Margin = new Padding(3, 2, 3, 2);
             button_Filter.Name = "button_Filter";
-            button_Filter.Size = new Size(233, 26);
+            button_Filter.Size = new Size(659, 26);
             button_Filter.TabIndex = 28;
             button_Filter.UseVisualStyleBackColor = false;
             button_Filter.Click += button_Filter_Click_1;
@@ -180,18 +166,6 @@
             progressBar_Time.Size = new Size(659, 22);
             progressBar_Time.Step = 1;
             progressBar_Time.TabIndex = 24;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(64, 64, 64);
-            label2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(3, 7);
-            label2.Name = "label2";
-            label2.Size = new Size(391, 25);
-            label2.TabIndex = 26;
-            label2.Text = "Would you like to delete unused directories?";
             // 
             // label_Warning
             // 
@@ -226,8 +200,6 @@
             // 
             // panel_Footer
             // 
-            panel_Footer.Controls.Add(label2);
-            panel_Footer.Controls.Add(checkBox_Delete);
             panel_Footer.Controls.Add(button_Filter);
             panel_Footer.Controls.Add(progressBar_Time);
             panel_Footer.Dock = DockStyle.Bottom;
@@ -462,7 +434,6 @@
             panel_Header.ResumeLayout(false);
             panel_Header.PerformLayout();
             panel_Footer.ResumeLayout(false);
-            panel_Footer.PerformLayout();
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
@@ -480,10 +451,8 @@
         private Button button_Path;
         private Label label1;
         private TextBox textBox_Path;
-        private CheckBox checkBox_Delete;
         private Button button_Filter;
         private ProgressBar progressBar_Time;
-        private Label label2;
         private Label label_Warning;
         private Panel panel_Footer;
         private Panel panel2;

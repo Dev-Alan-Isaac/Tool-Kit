@@ -15,6 +15,14 @@ namespace Project__Filter
             pictureBox1.Image = Properties.Resources.Home_BreadCrumb;
         }
 
+        private void FollowButton(Button button)
+        {
+            // Adjust the position of Panel_Index_Config to follow the clicked button
+            Panel_Index.Height = button.Height;
+            Panel_Index.Top = button.Top;
+        }
+
+
         private void button_Exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -31,57 +39,50 @@ namespace Project__Filter
 
         private void button_Home_Click(object sender, EventArgs e)
         {
-            Panel_Index.Height = button_Home.Height;
-            Panel_Index.Top = button_Home.Top;
+            FollowButton(sender as Button);
             home1.BringToFront();
             pictureBox1.Image = Properties.Resources.Home_BreadCrumb;
         }
 
         private void button_Filter_Click_1(object sender, EventArgs e)
         {
-            Panel_Index.Height = button_Filter.Height;
-            Panel_Index.Top = button_Filter.Top;
+            FollowButton(sender as Button);
             filter1.BringToFront();
             pictureBox1.Image = Properties.Resources.Sort_BreadCrumb;
         }
 
         private void button_Convert_Click(object sender, EventArgs e)
         {
-            Panel_Index.Height = button_Convert.Height;
-            Panel_Index.Top = button_Convert.Top;
+            FollowButton(sender as Button);
             convert1.BringToFront();
             pictureBox1.Image = Properties.Resources.Transform_BreadCrumb;
         }
 
         private void button_Extract_Click(object sender, EventArgs e)
         {
-            Panel_Index.Height = button_Extract.Height;
-            Panel_Index.Top = button_Extract.Top;
+            FollowButton(sender as Button);
             extract1.BringToFront();
             pictureBox1.Image = Properties.Resources.Extract_BreadCrumb;
         }
 
         private void button_Merge_Click(object sender, EventArgs e)
         {
-            Panel_Index.Height = button_Merge.Height;
-            Panel_Index.Top = button_Merge.Top;
+            FollowButton(sender as Button);
             merge1.BringToFront();
             pictureBox1.Image = Properties.Resources.Merge_BreadCrumb;
         }
 
         private void button_Privacy_Click(object sender, EventArgs e)
         {
-            Panel_Index.Height = button_Privacy.Height;
-            Panel_Index.Top = button_Privacy.Top;
+            FollowButton(sender as Button);
             privacy1.BringToFront();
             pictureBox1.Image = Properties.Resources.Security_BreadCrumb;
         }
 
         private void button_Config_Click(object sender, EventArgs e)
         {
+            FollowButton(sender as Button);
             config_Menu1.BringToFront();
-            Panel_Index.Height = button_Home.Height;
-            Panel_Index.Top = button_Home.Top;
             pictureBox1.Image = Properties.Resources.Config_BreadCrumb;
         }
     }

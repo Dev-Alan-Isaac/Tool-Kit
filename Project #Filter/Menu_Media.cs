@@ -23,10 +23,8 @@ namespace Project__Filter
                              new JProperty("Resolution ", false),
                              new JProperty("Frame_Rate", false),
                              new JProperty("Codec", false),
-                             new JProperty("Audio", false),
-                             new JProperty("Aspect", false),
-                             new JProperty("BitDepth", false)
-                         ))
+                             new JProperty("Aspect", false)
+                        ))
                     );
 
 
@@ -77,19 +75,10 @@ namespace Project__Filter
                     {
                         radioButton_Codec.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
                     }
-                    else if (isAudio)
-                    {
-                        radioButton_Audio.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
                     else if (isAspect)
                     {
                         radioButton_AspectRatio.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
                     }
-                    else if (isBitDepth)
-                    {
-                        radioButton_BitDepth.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
-
                 }
             }
         }
@@ -104,9 +93,7 @@ namespace Project__Filter
                     ["Resolution"] = radioButton_Resolution.Checked,
                     ["Frame_Rate"] = radioButton_Frames.Checked,
                     ["Codec"] = radioButton_Codec.Checked,
-                    ["Audio"] = radioButton_Audio.Checked,
                     ["Aspect"] = radioButton_AspectRatio.Checked,
-                    ["BitDepth"] = radioButton_BitDepth.Checked,
                 }
             };
 

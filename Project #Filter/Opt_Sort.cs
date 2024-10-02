@@ -321,7 +321,11 @@ namespace Project__Filter
 
             // Get all files in the folder
             var files = Directory.GetFiles(folderPath);
+            int totalFiles = files.Length;
             var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
+
+            // Update the file count label
+            Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
             // Process each sorting option (Accessed, Creation, Modified) if it's set to true
             foreach (var allowOption in option)
@@ -414,7 +418,11 @@ namespace Project__Filter
 
             // Get all files in the folder
             var files = Directory.GetFiles(folderPath);
+            int totalFiles = files.Length;
             var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
+
+            // Update the file count label
+            Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
             // Define a function to remove special characters if needed
             string RemoveSpecialCharacters(string input)
@@ -499,6 +507,10 @@ namespace Project__Filter
 
             // Get all files in the folder
             var files = Directory.GetFiles(folderPath);
+            int totalFiles = files.Length;
+
+            // Update the file count label
+            Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
             // Process each sorting option (Readable, Writable, Executable)
             foreach (var allowOption in option)
@@ -581,6 +593,11 @@ namespace Project__Filter
 
             // Get all files in the target folder
             var files = Directory.GetFiles(folderPath);
+            int totalFiles = files.Length;
+
+            // Update the file count label
+            Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
+
 
             foreach (var file in files)
             {
@@ -721,9 +738,7 @@ namespace Project__Filter
             bool isResolution = (bool)option["Resolution"];
             bool isFrameRate = (bool)option["Frame_Rate"];
             bool isCodec = (bool)option["Codec"];
-            bool isAudio = (bool)option["Audio"];
             bool isAspect = (bool)option["Aspect"];
-            bool isBitDepth = (bool)option["BitDepth"];
 
             // Extract file extensions and allowed types from configTypePath
             var extensions = jsonConfig["Extensions"].ToObject<JObject>();
@@ -743,6 +758,10 @@ namespace Project__Filter
 
             // Get all files in the target folder
             var files = Directory.GetFiles(folderPath);
+            int totalFiles = files.Length;
+
+            // Update the file count label
+            Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
             // Filter files by allowed extensions
             var filteredFiles = files.Where(file => allowedMediaTypes.Any(type =>
@@ -760,7 +779,6 @@ namespace Project__Filter
             // Split files into different media type categories
             var videoFiles = filteredFiles.Where(file => extensions["Videos"].ToObject<string[]>().Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))).ToArray();
             var imageFiles = filteredFiles.Where(file => extensions["Images"].ToObject<string[]>().Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))).ToArray();
-            var audioFiles = filteredFiles.Where(file => extensions["Audio"].ToObject<string[]>().Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))).ToArray();
 
             if (isDuration)
             {
@@ -774,10 +792,6 @@ namespace Project__Filter
             {
                 sortByCodec(videoFiles);
             }
-            else if (isAudio)
-            {
-                sortByAudio(audioFiles);
-            }
             else if (isResolution)
             {
                 sortByResolution_Videos(videoFiles);
@@ -788,11 +802,7 @@ namespace Project__Filter
                 sortByAspect_Videos(videoFiles);
                 sortByAspect_Images(imageFiles);
             }
-            else if (isBitDepth)
-            {
-                sortByBitDepth_Videos(videoFiles);
-                sortByBitDepth_Images(imageFiles);
-            }
+
         }
 
         private void sortByDuration(string[] files)
@@ -880,6 +890,8 @@ namespace Project__Filter
             // Initialize FFProbe
             var ffProbe = new FFProbe();
 
+            int processedFiles = 0;
+
             foreach (var file in files)
             {
                 try
@@ -916,6 +928,15 @@ namespace Project__Filter
                     {
                         Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
                     }
+
+                    // Increment the progress bar after processing each file
+                    processedFiles++;
+
+                    // Ensure the progress value does not exceed the maximum
+                    if (processedFiles <= progressBar_Time.Maximum)
+                    {
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -932,6 +953,8 @@ namespace Project__Filter
                 Debug.WriteLine("No files to display.");
                 return;
             }
+
+            int processedFiles = 0;
 
             foreach (var file in files)
             {
@@ -952,6 +975,15 @@ namespace Project__Filter
                         else
                         {
                             Debug.WriteLine($"File already exists: {targetFolderPath}. Skipping move.");
+                        }
+
+                        // Increment the progress bar after processing each file
+                        processedFiles++;
+
+                        // Ensure the progress value does not exceed the maximum
+                        if (processedFiles <= progressBar_Time.Maximum)
+                        {
+                            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                         }
                     }
                 }
@@ -1022,9 +1054,10 @@ namespace Project__Filter
                 {
                     // Get media info
                     var videoInfo = ffProbe.GetMediaInfo(file);
+                    var codec = videoInfo.Streams.First().CodecName;
 
-                    // Create folder name based on framerate
-                    var folderName = $"Codec {frameRate}";
+                    // Create folder name based on codec
+                    var folderName = $"Codec_{codec}";
 
                     // Create directory if it doesn't exist
                     if (!Directory.Exists(folderName))
@@ -1040,35 +1073,106 @@ namespace Project__Filter
                 }
                 catch (Exception ex)
                 {
-
+                    // Handle any exceptions (e.g., if FFProbe fails or access is denied)
+                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                 }
-
             }
-        }
-
-        private void sortByAudio(string[] files)
-        {
-            // Implement sorting by audio properties here
         }
 
         private void sortByAspect_Videos(string[] files)
         {
-            // Implement sorting by aspect ratio here
+            if (files.Length == 0)
+            {
+                Debug.WriteLine("No files to display.");
+                return;
+            }
+
+            // Initialize FFProbe
+            var ffProbe = new FFProbe();
+
+            foreach (var file in files)
+            {
+                try
+                {
+                    // Get media info
+                    var videoInfo = ffProbe.GetMediaInfo(file);
+                    var videoStream = videoInfo.Streams.FirstOrDefault(s => s.CodecType == "video");
+
+                    if (videoStream != null)
+                    {
+                        var width = videoStream.Width;
+                        var height = videoStream.Height;
+                        var aspectRatio = (double)width / height;
+
+                        // Create folder name based on aspect ratio
+                        var folderName = $"AspectRatio_{aspectRatio:F2}";
+
+                        // Create directory if it doesn't exist
+                        if (!Directory.Exists(folderName))
+                        {
+                            Directory.CreateDirectory(folderName);
+                        }
+
+                        // Move file to the corresponding folder
+                        var destinationPath = System.IO.Path.Combine(Path, folderName);
+                        File.Move(file, destinationPath);
+
+                        Debug.WriteLine($"Moved file {file} to {destinationPath}");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("No video stream found.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions (e.g., if FFProbe fails or access is denied)
+                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                }
+            }
         }
 
         private void sortByAspect_Images(string[] files)
         {
-            // Implement sorting by aspect ratio here
-        }
+            if (files.Length == 0)
+            {
+                Debug.WriteLine("No files to display.");
+                return;
+            }
 
-        private void sortByBitDepth_Videos(string[] files)
-        {
-            // Implement sorting by bit depth here
-        }
+            foreach (var file in files)
+            {
+                try
+                {
+                    // Load the image
+                    using (var image = Image.FromFile(file))
+                    {
+                        var width = image.Width;
+                        var height = image.Height;
+                        var aspectRatio = (double)width / height;
 
-        private void sortByBitDepth_Images(string[] files)
-        {
-            // Implement sorting by bit depth here
+                        // Create folder name based on aspect ratio
+                        var folderName = $"AspectRatio_{aspectRatio:F2}";
+
+                        // Create directory if it doesn't exist
+                        if (!Directory.Exists(folderName))
+                        {
+                            Directory.CreateDirectory(folderName);
+                        }
+
+                        // Move file to the corresponding folder
+                        var destinationPath = System.IO.Path.Combine(folderName, System.IO.Path.GetFileName(file));
+                        File.Move(file, destinationPath);
+
+                        Debug.WriteLine($"Moved file {file} to {destinationPath}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions (e.g., if the image fails to load or access is denied)
+                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                }
+            }
         }
     }
 }

@@ -5,7 +5,7 @@
         public Main_Menu()
         {
             InitializeComponent();
-            menu_Type1.BringToFront();
+            menu_Sort1.BringToFront();
         }
 
         private void FollowButton(Button button)
@@ -58,9 +58,15 @@
             FollowButton(sender as Button);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_Date_Click(object sender, EventArgs e)
         {
             menu_Date1.BringToFront();
+            FollowButton(sender as Button);
+        }
+
+        private void button_GeneralSort_Click(object sender, EventArgs e)
+        {
+            menu_Sort1.BringToFront();
             FollowButton(sender as Button);
         }
     }

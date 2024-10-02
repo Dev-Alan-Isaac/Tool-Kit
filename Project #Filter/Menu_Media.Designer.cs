@@ -35,9 +35,7 @@
             button_Saved = new Button();
             panel10 = new Panel();
             panel5 = new Panel();
-            radioButton_BitDepth = new RadioButton();
             radioButton_AspectRatio = new RadioButton();
-            radioButton_Audio = new RadioButton();
             radioButton_Codec = new RadioButton();
             radioButton_Frames = new RadioButton();
             radioButton_Resolution = new RadioButton();
@@ -123,9 +121,7 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel5.Controls.Add(radioButton_BitDepth);
             panel5.Controls.Add(radioButton_AspectRatio);
-            panel5.Controls.Add(radioButton_Audio);
             panel5.Controls.Add(radioButton_Codec);
             panel5.Controls.Add(radioButton_Frames);
             panel5.Controls.Add(radioButton_Resolution);
@@ -137,25 +133,12 @@
             panel5.Size = new Size(570, 394);
             panel5.TabIndex = 64;
             // 
-            // radioButton_BitDepth
-            // 
-            radioButton_BitDepth.AutoSize = true;
-            radioButton_BitDepth.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            radioButton_BitDepth.ForeColor = SystemColors.Control;
-            radioButton_BitDepth.Location = new Point(4, 300);
-            radioButton_BitDepth.Name = "radioButton_BitDepth";
-            radioButton_BitDepth.Size = new Size(97, 25);
-            radioButton_BitDepth.TabIndex = 66;
-            radioButton_BitDepth.TabStop = true;
-            radioButton_BitDepth.Text = "Bit Depth";
-            radioButton_BitDepth.UseVisualStyleBackColor = true;
-            // 
             // radioButton_AspectRatio
             // 
             radioButton_AspectRatio.AutoSize = true;
             radioButton_AspectRatio.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             radioButton_AspectRatio.ForeColor = SystemColors.Control;
-            radioButton_AspectRatio.Location = new Point(4, 258);
+            radioButton_AspectRatio.Location = new Point(4, 248);
             radioButton_AspectRatio.Name = "radioButton_AspectRatio";
             radioButton_AspectRatio.Size = new Size(121, 25);
             radioButton_AspectRatio.TabIndex = 65;
@@ -163,25 +146,12 @@
             radioButton_AspectRatio.Text = "Aspect Ratio";
             radioButton_AspectRatio.UseVisualStyleBackColor = true;
             // 
-            // radioButton_Audio
-            // 
-            radioButton_Audio.AutoSize = true;
-            radioButton_Audio.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            radioButton_Audio.ForeColor = SystemColors.Control;
-            radioButton_Audio.Location = new Point(4, 216);
-            radioButton_Audio.Name = "radioButton_Audio";
-            radioButton_Audio.Size = new Size(141, 25);
-            radioButton_Audio.TabIndex = 64;
-            radioButton_Audio.TabStop = true;
-            radioButton_Audio.Text = "Audio Channels";
-            radioButton_Audio.UseVisualStyleBackColor = true;
-            // 
             // radioButton_Codec
             // 
             radioButton_Codec.AutoSize = true;
             radioButton_Codec.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             radioButton_Codec.ForeColor = SystemColors.Control;
-            radioButton_Codec.Location = new Point(4, 174);
+            radioButton_Codec.Location = new Point(4, 198);
             radioButton_Codec.Name = "radioButton_Codec";
             radioButton_Codec.Size = new Size(75, 25);
             radioButton_Codec.TabIndex = 63;
@@ -194,7 +164,7 @@
             radioButton_Frames.AutoSize = true;
             radioButton_Frames.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             radioButton_Frames.ForeColor = SystemColors.Control;
-            radioButton_Frames.Location = new Point(4, 132);
+            radioButton_Frames.Location = new Point(4, 148);
             radioButton_Frames.Name = "radioButton_Frames";
             radioButton_Frames.Size = new Size(110, 25);
             radioButton_Frames.TabIndex = 62;
@@ -207,7 +177,7 @@
             radioButton_Resolution.AutoSize = true;
             radioButton_Resolution.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             radioButton_Resolution.ForeColor = SystemColors.Control;
-            radioButton_Resolution.Location = new Point(3, 90);
+            radioButton_Resolution.Location = new Point(3, 98);
             radioButton_Resolution.Name = "radioButton_Resolution";
             radioButton_Resolution.Size = new Size(110, 25);
             radioButton_Resolution.TabIndex = 61;
@@ -291,9 +261,7 @@
         private Panel panel1;
         private RadioButton radioButton_Resolution;
         private RadioButton radioButton_Duration;
-        private RadioButton radioButton_BitDepth;
         private RadioButton radioButton_AspectRatio;
-        private RadioButton radioButton_Audio;
         private RadioButton radioButton_Codec;
         private RadioButton radioButton_Frames;
     }
