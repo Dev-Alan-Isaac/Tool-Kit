@@ -108,6 +108,8 @@ namespace Project__Filter
             button_Filter.Enabled = checkedItems.Count > 0;
         }
 
+
+
         public async void SortTypes(string folderPath, string jsonPath)
         {
             if (!File.Exists(jsonPath))
@@ -792,6 +794,7 @@ namespace Project__Filter
                 sortByBitDepth_Images(imageFiles);
             }
         }
+
         private void sortByDuration(string[] files)
         {
             // Check if the files array is empty
@@ -803,14 +806,6 @@ namespace Project__Filter
 
             // Initialize FFProbe
             var ffProbe = new FFProbe();
-
-            // Set up the progress bar
-            progressBar_Time.Invoke((Action)(() =>
-            {
-                progressBar_Time.Minimum = 0;
-                progressBar_Time.Maximum = files.Length; // Ensure Maximum is set to the number of files
-                progressBar_Time.Value = 0; // Start at 0
-            }));
 
             int processedFiles = 0;
 
@@ -873,7 +868,6 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!");
         }
 
-
         private void sortByResolution_Videos(string[] files)
         {
             //Check if the files array is empty
@@ -933,11 +927,17 @@ namespace Project__Filter
 
         private void sortByResolution_Images(string[] files)
         {
+            if (files.Length == 0)
+            {
+                Debug.WriteLine("No files to display.");
+                return;
+            }
+
             foreach (var file in files)
             {
                 try
                 {
-                    using (var img = System.Drawing.Image.FromFile(file))
+                    using (var img = Image.FromFile(file))
                     {
                         string resolution = $"{img.Width}x{img.Height}";
                         string targetFolderPath = System.IO.Path.Combine(Path, resolution);
@@ -965,12 +965,85 @@ namespace Project__Filter
 
         private void sortByFrameRate(string[] files)
         {
-            // Implement sorting by frame rate here
+            if (files.Length == 0)
+            {
+                Debug.WriteLine("No files to display.");
+                return;
+            }
+
+            // Initialize FFProbe
+            var ffProbe = new FFProbe();
+
+            foreach (var file in files)
+            {
+                try
+                {
+                    // Get media info
+                    var videoInfo = ffProbe.GetMediaInfo(file);
+                    var codec = videoInfo.Streams.First().CodecName;
+
+                    // Create folder name based on framerate
+                    var folderName = $"Codec {codec}";
+
+                    // Create directory if it doesn't exist
+                    if (!Directory.Exists(folderName))
+                    {
+                        Directory.CreateDirectory(folderName);
+                    }
+
+                    // Move file to the corresponding folder
+                    var destinationPath = System.IO.Path.Combine(Path, folderName);
+                    File.Move(file, destinationPath);
+
+                    Debug.WriteLine($"Moved file {file} to {destinationPath}");
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions (e.g., if FFProbe fails or access is denied)
+                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                }
+            }
         }
 
         private void sortByCodec(string[] files)
         {
-            // Implement sorting by codec here
+            if (files.Length == 0)
+            {
+                Debug.WriteLine("No files to display.");
+                return;
+            }
+
+            // Initialize FFProbe
+            var ffProbe = new FFProbe();
+
+            foreach (var file in files)
+            {
+                try
+                {
+                    // Get media info
+                    var videoInfo = ffProbe.GetMediaInfo(file);
+
+                    // Create folder name based on framerate
+                    var folderName = $"Codec {frameRate}";
+
+                    // Create directory if it doesn't exist
+                    if (!Directory.Exists(folderName))
+                    {
+                        Directory.CreateDirectory(folderName);
+                    }
+
+                    // Move file to the corresponding folder
+                    var destinationPath = System.IO.Path.Combine(Path, folderName);
+                    File.Move(file, destinationPath);
+
+                    Debug.WriteLine($"Moved file {file} to {destinationPath}");
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+            }
         }
 
         private void sortByAudio(string[] files)
