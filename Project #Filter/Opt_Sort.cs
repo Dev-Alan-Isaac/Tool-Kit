@@ -133,7 +133,7 @@ namespace Project__Filter
             return files; // Return the list of file paths
         }
 
-        private void DeleteEmptyFolders(string folderPath)
+        public void DeleteEmptyFolders(string folderPath)
         {
             foreach (var directory in Directory.GetDirectories(folderPath))
             {
@@ -164,7 +164,7 @@ namespace Project__Filter
             var allow = jsonContent["Allow"].ToObject<JObject>();
 
             // Get all files in the target folder
-            var files = Directory.GetFiles(folderPath);
+            var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
             int processedFiles = 0;
 
