@@ -133,6 +133,19 @@ namespace Project__Filter
             return files; // Return the list of file paths
         }
 
+        private void DeleteEmptyFolders(string folderPath)
+        {
+            foreach (var directory in Directory.GetDirectories(folderPath))
+            {
+                DeleteEmptyFolders(directory); // Recursively delete empty subfolders
+
+                // If the directory is empty after processing subfolders, delete it
+                if (Directory.GetFiles(directory).Length == 0 && Directory.GetDirectories(directory).Length == 0)
+                {
+                    Directory.Delete(directory);
+                }
+            }
+        }
 
         public async void SortTypes(string folderPath, string jsonPath)
         {
