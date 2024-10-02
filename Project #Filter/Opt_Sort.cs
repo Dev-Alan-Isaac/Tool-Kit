@@ -795,54 +795,39 @@ namespace Project__Filter
                 return;
             }
 
-            // Dictionary to hold the durations and corresponding files
-            var durationFiles = new Dictionary<TimeSpan, List<string>>();
-
-            // Initialize the VideoInfo tool
-            var videoInfo = new NReco.VideoInfo.FFProbe();
+            // Initialize FFProbe
+            var ffProbe = new NReco.VideoInfo.FFProbe();
 
             foreach (var file in files)
             {
                 try
                 {
-                    // Get the duration of the video file
-                    var info = videoInfo.GetMediaInfo(file);
-                    TimeSpan duration = info.Duration;
+                    // Get media info of the file
+                    var videoInfo = ffProbe.GetMediaInfo(file);
 
-                    // Add the file to the corresponding duration entry
-                    if (!durationFiles.ContainsKey(duration))
+                    // Get the duration in total seconds and convert to hh:mm:ss
+                    TimeSpan duration = TimeSpan.FromSeconds((int)videoInfo.Duration.TotalSeconds);
+                    string durationFolder = duration.ToString(@"hh\-mm\-ss"); // Folder name in hh-mm-ss format (use '-' instead of ':')
+
+                    // Define the base folder where sorted videos will be stored
+                    string baseFolder = "SortedVideos"; // Adjust this to the desired base folder
+
+                    // Construct the full path to the folder based on duration
+                    string targetFolderPath = System.IO.Path.Combine(Path, baseFolder, durationFolder);
+
+                    // Create the folder if it doesn't exist
+                    if (!Directory.Exists(targetFolderPath))
                     {
-                        durationFiles[duration] = new List<string>();
+                        Directory.CreateDirectory(targetFolderPath);
                     }
-                    durationFiles[duration].Add(file);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
-                }
-            }
 
-            // Create folders based on duration and move the files
-            foreach (var kvp in durationFiles)
-            {
-                TimeSpan duration = kvp.Key;
-                var filesToMove = kvp.Value;
+                    // Construct the target file path (same file name in the new folder)
+                    string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
 
-                // Create a folder name based on duration (e.g., "00-05-30" for 5 minutes and 30 seconds)
-                string folderName = duration.ToString(@"hh\-mm\-ss"); // Use dashes instead of colons for folder names
-                string baseFolder = "SortedVideos"; // Change this to your desired base folder
-                string folderPath = System.IO.Path.Combine(Directory.GetCurrentDirectory(), baseFolder, folderName);
-
-                // Create the folder if it doesn't exist
-                Directory.CreateDirectory(folderPath);
-
-                // Move each file to the corresponding duration folder
-                foreach (var file in filesToMove)
-                {
-                    // Construct the destination file path
-                    string destinationFile = System.IO.Path.GetFullPath(folderPath, System.IO.Path.GetFullPath(file));
+                    // Check if the file already exists in the target folder
                     if (!File.Exists(destinationFile))
                     {
+                        // Move the file to the target folder
                         File.Move(file, destinationFile);
                         Debug.WriteLine($"Moved file {file} to {destinationFile}");
                     }
@@ -851,9 +836,13 @@ namespace Project__Filter
                         Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
                     }
                 }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions (e.g., if FFProbe fails or access is denied)
+                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                }
             }
         }
-
 
 
         private void sortByResolution(string[] files)
