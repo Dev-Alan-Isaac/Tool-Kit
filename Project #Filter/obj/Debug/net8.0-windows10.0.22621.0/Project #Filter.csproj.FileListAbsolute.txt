@@ -347,7 +347,7 @@ C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\ne
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Saver.resources
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Saver.resources
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Transform.resources
-C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Transform.resources
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Date.resources
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Date.resources
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Sort.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows10.0.22621.0\Project__Filter.Menu_Convert.resources

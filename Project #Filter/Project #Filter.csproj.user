@@ -34,7 +34,7 @@
     <Compile Update="Menu_Tags.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Menu_Transform.cs">
+    <Compile Update="Menu_Convert.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Menu_Type.cs">
@@ -58,7 +58,7 @@
     <Compile Update="Opt_Sort.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Opt_Transform.cs">
+    <Compile Update="Opt_Convert.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

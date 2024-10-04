@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel_Menu_Config = new Panel();
+            button_Convert = new Button();
             button_GeneralSort = new Button();
             button_Date = new Button();
             button_Media = new Button();
@@ -48,6 +49,7 @@
             menu_Media1 = new Menu_Media();
             menu_Date1 = new Menu_Date();
             menu_Sort1 = new Menu_Sort();
+            menu_Convert1 = new Menu_Convert();
             panel_Menu_Config.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,6 +57,7 @@
             // 
             panel_Menu_Config.AutoScroll = true;
             panel_Menu_Config.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Menu_Config.Controls.Add(button_Convert);
             panel_Menu_Config.Controls.Add(button_GeneralSort);
             panel_Menu_Config.Controls.Add(button_Date);
             panel_Menu_Config.Controls.Add(button_Media);
@@ -72,6 +75,25 @@
             panel_Menu_Config.Size = new Size(171, 541);
             panel_Menu_Config.TabIndex = 1;
             // 
+            // button_Convert
+            // 
+            button_Convert.BackColor = Color.Transparent;
+            button_Convert.Cursor = Cursors.Hand;
+            button_Convert.FlatAppearance.BorderSize = 0;
+            button_Convert.FlatStyle = FlatStyle.Flat;
+            button_Convert.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button_Convert.ForeColor = Color.White;
+            button_Convert.Image = Properties.Resources.Button_Icon_Transform;
+            button_Convert.Location = new Point(22, 593);
+            button_Convert.Margin = new Padding(3, 2, 3, 2);
+            button_Convert.Name = "button_Convert";
+            button_Convert.Size = new Size(120, 40);
+            button_Convert.TabIndex = 14;
+            button_Convert.Text = "   Convert";
+            button_Convert.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button_Convert.UseVisualStyleBackColor = false;
+            button_Convert.Click += button_Convert_Click;
+            // 
             // button_GeneralSort
             // 
             button_GeneralSort.BackColor = Color.Transparent;
@@ -81,12 +103,12 @@
             button_GeneralSort.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_GeneralSort.ForeColor = Color.White;
             button_GeneralSort.Image = Properties.Resources.Button_Icon_Filter;
-            button_GeneralSort.Location = new Point(31, 26);
+            button_GeneralSort.Location = new Point(22, 26);
             button_GeneralSort.Margin = new Padding(3, 2, 3, 2);
             button_GeneralSort.Name = "button_GeneralSort";
             button_GeneralSort.Size = new Size(120, 40);
             button_GeneralSort.TabIndex = 13;
-            button_GeneralSort.Text = "   General";
+            button_GeneralSort.Text = "   Sort";
             button_GeneralSort.TextImageRelation = TextImageRelation.ImageBeforeText;
             button_GeneralSort.UseVisualStyleBackColor = false;
             button_GeneralSort.Click += button_GeneralSort_Click;
@@ -100,7 +122,7 @@
             button_Date.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Date.ForeColor = Color.White;
             button_Date.Image = Properties.Resources.Button_Icon_Calendar;
-            button_Date.Location = new Point(31, 140);
+            button_Date.Location = new Point(22, 152);
             button_Date.Margin = new Padding(3, 2, 3, 2);
             button_Date.Name = "button_Date";
             button_Date.Size = new Size(120, 40);
@@ -119,7 +141,7 @@
             button_Media.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Media.ForeColor = Color.White;
             button_Media.Image = Properties.Resources.Button_Icon_Media;
-            button_Media.Location = new Point(31, 482);
+            button_Media.Location = new Point(22, 530);
             button_Media.Margin = new Padding(3, 2, 3, 2);
             button_Media.Name = "button_Media";
             button_Media.Size = new Size(120, 40);
@@ -138,7 +160,7 @@
             button_Folders.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Folders.ForeColor = Color.White;
             button_Folders.Image = Properties.Resources.Button_Icon_Tree;
-            button_Folders.Location = new Point(31, 425);
+            button_Folders.Location = new Point(22, 467);
             button_Folders.Margin = new Padding(3, 2, 3, 2);
             button_Folders.Name = "button_Folders";
             button_Folders.Size = new Size(120, 40);
@@ -157,7 +179,7 @@
             button_Tags.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Tags.ForeColor = Color.White;
             button_Tags.Image = Properties.Resources.Button_Icon_Tags;
-            button_Tags.Location = new Point(31, 368);
+            button_Tags.Location = new Point(22, 404);
             button_Tags.Margin = new Padding(3, 2, 3, 2);
             button_Tags.Name = "button_Tags";
             button_Tags.Size = new Size(120, 40);
@@ -176,7 +198,7 @@
             button_Auth.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Auth.ForeColor = Color.White;
             button_Auth.Image = Properties.Resources.Button_Icon_Auth;
-            button_Auth.Location = new Point(31, 311);
+            button_Auth.Location = new Point(22, 341);
             button_Auth.Margin = new Padding(3, 2, 3, 2);
             button_Auth.Name = "button_Auth";
             button_Auth.Size = new Size(120, 40);
@@ -195,7 +217,7 @@
             button_Name.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Name.ForeColor = Color.White;
             button_Name.Image = Properties.Resources.Button_Icon_Name;
-            button_Name.Location = new Point(31, 254);
+            button_Name.Location = new Point(22, 278);
             button_Name.Margin = new Padding(3, 2, 3, 2);
             button_Name.Name = "button_Name";
             button_Name.Size = new Size(120, 40);
@@ -223,7 +245,7 @@
             button_Size.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Size.ForeColor = Color.White;
             button_Size.Image = Properties.Resources.Button_Icon_Size;
-            button_Size.Location = new Point(31, 197);
+            button_Size.Location = new Point(22, 215);
             button_Size.Margin = new Padding(3, 2, 3, 2);
             button_Size.Name = "button_Size";
             button_Size.Size = new Size(120, 40);
@@ -242,7 +264,7 @@
             button_Type.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Type.ForeColor = Color.White;
             button_Type.Image = Properties.Resources.Button_Icon_Folder;
-            button_Type.Location = new Point(31, 83);
+            button_Type.Location = new Point(22, 89);
             button_Type.Margin = new Padding(3, 2, 3, 2);
             button_Type.Name = "button_Type";
             button_Type.Size = new Size(120, 40);
@@ -337,11 +359,21 @@
             menu_Sort1.Size = new Size(594, 541);
             menu_Sort1.TabIndex = 14;
             // 
+            // menu_Convert1
+            // 
+            menu_Convert1.BackColor = Color.FromArgb(64, 64, 64);
+            menu_Convert1.Dock = DockStyle.Fill;
+            menu_Convert1.Location = new Point(171, 0);
+            menu_Convert1.Name = "menu_Convert1";
+            menu_Convert1.Size = new Size(594, 541);
+            menu_Convert1.TabIndex = 15;
+            // 
             // Main_Menu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
+            Controls.Add(menu_Convert1);
             Controls.Add(menu_Sort1);
             Controls.Add(menu_Date1);
             Controls.Add(menu_Media1);
@@ -380,5 +412,7 @@
         private Menu_Date menu_Date1;
         private Button button_GeneralSort;
         private Menu_Sort menu_Sort1;
+        private Button button_Convert;
+        private Menu_Convert menu_Convert1;
     }
 }

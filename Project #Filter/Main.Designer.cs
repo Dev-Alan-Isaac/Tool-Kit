@@ -179,7 +179,7 @@
             button_Convert.Name = "button_Convert";
             button_Convert.Size = new Size(186, 40);
             button_Convert.TabIndex = 3;
-            button_Convert.Text = "    TRANSFROM";
+            button_Convert.Text = "    CONVERT";
             button_Convert.TextImageRelation = TextImageRelation.ImageBeforeText;
             button_Convert.UseVisualStyleBackColor = false;
             button_Convert.Click += button_Convert_Click;

@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Project__Filter
 {
-    public partial class Menu_Transform : UserControl
+    public partial class Menu_Convert : UserControl
     {
-        public Menu_Transform()
+        public Menu_Convert()
         {
             InitializeComponent();
         }
