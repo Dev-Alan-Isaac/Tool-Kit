@@ -146,6 +146,7 @@ namespace Project__Filter
             }
         }
 
+
         public async void SortTypes(string folderPath, string jsonPath)
         {
             if (!File.Exists(jsonPath))
@@ -276,7 +277,7 @@ namespace Project__Filter
             long veryLargeMin = ConvertToBytes(sizeSection["Very Large"][0].ToString(), sizeSection["Very Large"][1].ToString());
 
             // Get all files in the folder
-            var files = Directory.GetFiles(folderPath);
+            var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
             int processedFiles = 0;
 
@@ -357,7 +358,7 @@ namespace Project__Filter
             var option = jsonContent["Option"] as JObject;
 
             // Get all files in the folder
-            var files = Directory.GetFiles(folderPath);
+            var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
             var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
 
@@ -454,7 +455,7 @@ namespace Project__Filter
             bool ignoreSpecialCharacters = (bool)additional["Special"];
 
             // Get all files in the folder
-            var files = Directory.GetFiles(folderPath);
+            var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
             var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
 
@@ -543,7 +544,7 @@ namespace Project__Filter
             var executableExtensions = configTypeContent["Extensions"]["Executables"].ToObject<List<string>>();
 
             // Get all files in the folder
-            var files = Directory.GetFiles(folderPath);
+            var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
 
             // Update the file count label
@@ -629,7 +630,7 @@ namespace Project__Filter
             }
 
             // Get all files in the target folder
-            var files = Directory.GetFiles(folderPath);
+            var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
 
             // Update the file count label
@@ -794,7 +795,7 @@ namespace Project__Filter
             }
 
             // Get all files in the target folder
-            var files = Directory.GetFiles(folderPath);
+            var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
 
             // Update the file count label

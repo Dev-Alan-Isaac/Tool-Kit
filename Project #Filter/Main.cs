@@ -22,21 +22,6 @@ namespace Project__Filter
             Panel_Index.Top = button.Top;
         }
 
-
-        private void button_Exit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void button_Git_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-            {
-                FileName = "https://github.com/Dev-Alan-Isaac",
-                UseShellExecute = true
-            });
-        }
-
         private void button_Home_Click(object sender, EventArgs e)
         {
             FollowButton(sender as Button);
@@ -81,9 +66,22 @@ namespace Project__Filter
 
         private void button_Config_Click(object sender, EventArgs e)
         {
-            FollowButton(sender as Button);
             config_Menu1.BringToFront();
             pictureBox1.Image = Properties.Resources.Config_BreadCrumb;
+        }
+
+        private void button_Exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button_Git_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = "https://github.com/Dev-Alan-Isaac",
+                UseShellExecute = true
+            });
         }
     }
 }
