@@ -31,8 +31,13 @@
             components = new System.ComponentModel.Container();
             panel5 = new Panel();
             panel6 = new Panel();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
+            panel7 = new Panel();
+            radioButton_Size = new RadioButton();
+            radioButton_Name = new RadioButton();
+            radioButton_Date = new RadioButton();
+            label3 = new Label();
+            radioButton_Customname = new RadioButton();
+            radioButton_Filename = new RadioButton();
             label2 = new Label();
             checkBox_Subfolders = new CheckBox();
             checkBox_Delete = new CheckBox();
@@ -46,16 +51,11 @@
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
-            label3 = new Label();
-            panel7 = new Panel();
-            radioButton3 = new RadioButton();
-            radioButton4 = new RadioButton();
-            radioButton5 = new RadioButton();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
+            panel7.SuspendLayout();
             panel10.SuspendLayout();
             panel4.SuspendLayout();
-            panel7.SuspendLayout();
             SuspendLayout();
             // 
             // panel5
@@ -75,39 +75,100 @@
             panel6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel6.Controls.Add(panel7);
             panel6.Controls.Add(label3);
-            panel6.Controls.Add(radioButton2);
-            panel6.Controls.Add(radioButton1);
+            panel6.Controls.Add(radioButton_Customname);
+            panel6.Controls.Add(radioButton_Filename);
             panel6.Controls.Add(label2);
             panel6.Location = new Point(3, 97);
             panel6.Name = "panel6";
             panel6.Size = new Size(618, 179);
             panel6.TabIndex = 60;
             // 
-            // radioButton2
+            // panel7
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            radioButton2.ForeColor = SystemColors.Control;
-            radioButton2.Location = new Point(171, 40);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(160, 25);
-            radioButton2.TabIndex = 2;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Custom File Name";
-            radioButton2.UseVisualStyleBackColor = true;
+            panel7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel7.Controls.Add(radioButton_Size);
+            panel7.Controls.Add(radioButton_Name);
+            panel7.Controls.Add(radioButton_Date);
+            panel7.Location = new Point(3, 108);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(612, 68);
+            panel7.TabIndex = 4;
             // 
-            // radioButton1
+            // radioButton_Size
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            radioButton1.ForeColor = SystemColors.Control;
-            radioButton1.Location = new Point(3, 40);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(162, 25);
-            radioButton1.TabIndex = 1;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Original FIle Name";
-            radioButton1.UseVisualStyleBackColor = true;
+            radioButton_Size.AutoSize = true;
+            radioButton_Size.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Size.ForeColor = SystemColors.Control;
+            radioButton_Size.Location = new Point(289, 3);
+            radioButton_Size.Name = "radioButton_Size";
+            radioButton_Size.Size = new Size(114, 25);
+            radioButton_Size.TabIndex = 5;
+            radioButton_Size.TabStop = true;
+            radioButton_Size.Text = "Sort by Size";
+            radioButton_Size.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_Name
+            // 
+            radioButton_Name.AutoSize = true;
+            radioButton_Name.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Name.ForeColor = SystemColors.Control;
+            radioButton_Name.Location = new Point(147, 3);
+            radioButton_Name.Name = "radioButton_Name";
+            radioButton_Name.Size = new Size(128, 25);
+            radioButton_Name.TabIndex = 4;
+            radioButton_Name.TabStop = true;
+            radioButton_Name.Text = "Sort by Name";
+            radioButton_Name.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_Date
+            // 
+            radioButton_Date.AutoSize = true;
+            radioButton_Date.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Date.ForeColor = SystemColors.Control;
+            radioButton_Date.Location = new Point(3, 3);
+            radioButton_Date.Name = "radioButton_Date";
+            radioButton_Date.Size = new Size(119, 25);
+            radioButton_Date.TabIndex = 3;
+            radioButton_Date.TabStop = true;
+            radioButton_Date.Text = "Sort by Date";
+            radioButton_Date.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.Control;
+            label3.Location = new Point(3, 80);
+            label3.Name = "label3";
+            label3.Size = new Size(213, 25);
+            label3.TabIndex = 3;
+            label3.Text = "Sort images to convert:";
+            // 
+            // radioButton_Customname
+            // 
+            radioButton_Customname.AutoSize = true;
+            radioButton_Customname.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Customname.ForeColor = SystemColors.Control;
+            radioButton_Customname.Location = new Point(171, 40);
+            radioButton_Customname.Name = "radioButton_Customname";
+            radioButton_Customname.Size = new Size(160, 25);
+            radioButton_Customname.TabIndex = 2;
+            radioButton_Customname.TabStop = true;
+            radioButton_Customname.Text = "Custom File Name";
+            radioButton_Customname.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_Filename
+            // 
+            radioButton_Filename.AutoSize = true;
+            radioButton_Filename.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Filename.ForeColor = SystemColors.Control;
+            radioButton_Filename.Location = new Point(3, 40);
+            radioButton_Filename.Name = "radioButton_Filename";
+            radioButton_Filename.Size = new Size(162, 25);
+            radioButton_Filename.TabIndex = 1;
+            radioButton_Filename.TabStop = true;
+            radioButton_Filename.Text = "Original FIle Name";
+            radioButton_Filename.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -170,6 +231,7 @@
             button_Saved.Size = new Size(624, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
+            button_Saved.Click += button_Saved_Click;
             // 
             // bunifuElipse3
             // 
@@ -234,67 +296,6 @@
             panel1.Size = new Size(665, 32);
             panel1.TabIndex = 62;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(3, 80);
-            label3.Name = "label3";
-            label3.Size = new Size(213, 25);
-            label3.TabIndex = 3;
-            label3.Text = "Sort images to convert:";
-            // 
-            // panel7
-            // 
-            panel7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel7.Controls.Add(radioButton5);
-            panel7.Controls.Add(radioButton3);
-            panel7.Controls.Add(radioButton4);
-            panel7.Location = new Point(3, 108);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(612, 68);
-            panel7.TabIndex = 4;
-            // 
-            // radioButton3
-            // 
-            radioButton3.AutoSize = true;
-            radioButton3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            radioButton3.ForeColor = SystemColors.Control;
-            radioButton3.Location = new Point(219, 3);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(128, 25);
-            radioButton3.TabIndex = 4;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "Sort by Name";
-            radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // radioButton4
-            // 
-            radioButton4.AutoSize = true;
-            radioButton4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            radioButton4.ForeColor = SystemColors.Control;
-            radioButton4.Location = new Point(3, 3);
-            radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(119, 25);
-            radioButton4.TabIndex = 3;
-            radioButton4.TabStop = true;
-            radioButton4.Text = "Sort by Date";
-            radioButton4.UseVisualStyleBackColor = true;
-            // 
-            // radioButton5
-            // 
-            radioButton5.AutoSize = true;
-            radioButton5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            radioButton5.ForeColor = SystemColors.Control;
-            radioButton5.Location = new Point(433, 3);
-            radioButton5.Name = "radioButton5";
-            radioButton5.Size = new Size(160, 25);
-            radioButton5.TabIndex = 5;
-            radioButton5.TabStop = true;
-            radioButton5.Text = "Custom File Name";
-            radioButton5.UseVisualStyleBackColor = true;
-            // 
             // Menu_Convert
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -312,11 +313,11 @@
             panel5.PerformLayout();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
             panel10.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
-            panel7.ResumeLayout(false);
-            panel7.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -337,12 +338,12 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
         private Panel panel6;
         private Label label2;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private RadioButton radioButton_Customname;
+        private RadioButton radioButton_Filename;
         private Label label3;
         private Panel panel7;
-        private RadioButton radioButton3;
-        private RadioButton radioButton4;
-        private RadioButton radioButton5;
+        private RadioButton radioButton_Name;
+        private RadioButton radioButton_Date;
+        private RadioButton radioButton_Size;
     }
 }
