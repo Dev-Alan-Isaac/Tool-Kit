@@ -7,16 +7,16 @@
       "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_convert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\opt_convert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_convert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\main_menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\main_menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\main.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\opt_convert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_convert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\main_menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -75,7 +75,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Main.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Main.cs",
               "RelativeDocumentMoniker": "Project #Filter\\Main.cs",
@@ -87,7 +87,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Main_Menu.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Main_Menu.cs",
               "RelativeDocumentMoniker": "Project #Filter\\Main_Menu.cs",
@@ -99,7 +99,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Opt_Convert.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Convert.cs",
               "RelativeDocumentMoniker": "Project #Filter\\Opt_Convert.cs",

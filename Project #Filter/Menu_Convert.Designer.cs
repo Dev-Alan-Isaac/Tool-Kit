@@ -50,6 +50,7 @@
             panel7 = new Panel();
             radioButton3 = new RadioButton();
             radioButton4 = new RadioButton();
+            radioButton5 = new RadioButton();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
             panel10.SuspendLayout();
@@ -247,6 +248,7 @@
             // panel7
             // 
             panel7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel7.Controls.Add(radioButton5);
             panel7.Controls.Add(radioButton3);
             panel7.Controls.Add(radioButton4);
             panel7.Location = new Point(3, 108);
@@ -259,12 +261,12 @@
             radioButton3.AutoSize = true;
             radioButton3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             radioButton3.ForeColor = SystemColors.Control;
-            radioButton3.Location = new Point(171, 3);
+            radioButton3.Location = new Point(219, 3);
             radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(160, 25);
+            radioButton3.Size = new Size(128, 25);
             radioButton3.TabIndex = 4;
             radioButton3.TabStop = true;
-            radioButton3.Text = "Custom File Name";
+            radioButton3.Text = "Sort by Name";
             radioButton3.UseVisualStyleBackColor = true;
             // 
             // radioButton4
@@ -274,11 +276,24 @@
             radioButton4.ForeColor = SystemColors.Control;
             radioButton4.Location = new Point(3, 3);
             radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(162, 25);
+            radioButton4.Size = new Size(119, 25);
             radioButton4.TabIndex = 3;
             radioButton4.TabStop = true;
-            radioButton4.Text = "Original FIle Name";
+            radioButton4.Text = "Sort by Date";
             radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton5
+            // 
+            radioButton5.AutoSize = true;
+            radioButton5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton5.ForeColor = SystemColors.Control;
+            radioButton5.Location = new Point(433, 3);
+            radioButton5.Name = "radioButton5";
+            radioButton5.Size = new Size(160, 25);
+            radioButton5.TabIndex = 5;
+            radioButton5.TabStop = true;
+            radioButton5.Text = "Custom File Name";
+            radioButton5.UseVisualStyleBackColor = true;
             // 
             // Menu_Convert
             // 
@@ -328,5 +343,6 @@
         private Panel panel7;
         private RadioButton radioButton3;
         private RadioButton radioButton4;
+        private RadioButton radioButton5;
     }
 }
