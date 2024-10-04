@@ -119,6 +119,7 @@
             button_Path.Size = new Size(25, 25);
             button_Path.TabIndex = 0;
             button_Path.UseVisualStyleBackColor = false;
+            button_Path.Click += button_Path_Click_1;
             // 
             // panel_T
             // 
