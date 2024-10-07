@@ -29,16 +29,7 @@
         private void InitializeComponent()
         {
             label3 = new Label();
-            checkBox9 = new CheckBox();
-            checkBox7 = new CheckBox();
-            checkBox8 = new CheckBox();
-            checkBox6 = new CheckBox();
-            checkBox5 = new CheckBox();
-            checkBox4 = new CheckBox();
-            checkBox3 = new CheckBox();
-            checkBox1 = new CheckBox();
             panel1 = new Panel();
-            checkBox2 = new CheckBox();
             File_Count = new Label();
             label4 = new Label();
             treeView1 = new TreeView();
@@ -57,6 +48,10 @@
             panel_Top = new Panel();
             panel3 = new Panel();
             panel_Options = new Panel();
+            radioButton1 = new RadioButton();
+            radioButton2 = new RadioButton();
+            radioButton3 = new RadioButton();
+            radioButton4 = new RadioButton();
             panel1.SuspendLayout();
             panel_Footer.SuspendLayout();
             panel4.SuspendLayout();
@@ -74,144 +69,22 @@
             label3.ForeColor = SystemColors.Control;
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
-            label3.Size = new Size(267, 32);
+            label3.Size = new Size(309, 32);
             label3.TabIndex = 10;
-            label3.Text = "Select the sort option:";
-            // 
-            // checkBox9
-            // 
-            checkBox9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox9.AutoSize = true;
-            checkBox9.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            checkBox9.ForeColor = SystemColors.Control;
-            checkBox9.Location = new Point(94, 348);
-            checkBox9.Name = "checkBox9";
-            checkBox9.Size = new Size(173, 29);
-            checkBox9.TabIndex = 7;
-            checkBox9.Text = "Media Metadata";
-            checkBox9.UseVisualStyleBackColor = true;
-            // 
-            // checkBox7
-            // 
-            checkBox7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox7.AutoSize = true;
-            checkBox7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            checkBox7.ForeColor = SystemColors.Control;
-            checkBox7.Location = new Point(181, 313);
-            checkBox7.Name = "checkBox7";
-            checkBox7.Size = new Size(139, 29);
-            checkBox7.TabIndex = 6;
-            checkBox7.Text = "Custom Tags";
-            checkBox7.UseVisualStyleBackColor = true;
-            // 
-            // checkBox8
-            // 
-            checkBox8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            checkBox8.AutoSize = true;
-            checkBox8.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            checkBox8.ForeColor = SystemColors.Control;
-            checkBox8.Location = new Point(5, 313);
-            checkBox8.Name = "checkBox8";
-            checkBox8.Size = new Size(163, 29);
-            checkBox8.TabIndex = 9;
-            checkBox8.Text = "Folder Location";
-            checkBox8.UseVisualStyleBackColor = true;
-            // 
-            // checkBox6
-            // 
-            checkBox6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            checkBox6.AutoSize = true;
-            checkBox6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            checkBox6.ForeColor = SystemColors.Control;
-            checkBox6.Location = new Point(5, 268);
-            checkBox6.Name = "checkBox6";
-            checkBox6.Size = new Size(166, 29);
-            checkBox6.TabIndex = 5;
-            checkBox6.Text = "File Permissions";
-            checkBox6.UseVisualStyleBackColor = true;
-            // 
-            // checkBox5
-            // 
-            checkBox5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            checkBox5.AutoSize = true;
-            checkBox5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            checkBox5.ForeColor = SystemColors.Control;
-            checkBox5.Location = new Point(5, 223);
-            checkBox5.Name = "checkBox5";
-            checkBox5.Size = new Size(109, 29);
-            checkBox5.TabIndex = 11;
-            checkBox5.Text = "File Hash";
-            checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // checkBox4
-            // 
-            checkBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            checkBox4.AutoSize = true;
-            checkBox4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            checkBox4.ForeColor = SystemColors.Control;
-            checkBox4.Location = new Point(5, 178);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(118, 29);
-            checkBox4.TabIndex = 3;
-            checkBox4.Text = "File Name";
-            checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            checkBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            checkBox3.AutoSize = true;
-            checkBox3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            checkBox3.ForeColor = SystemColors.Control;
-            checkBox3.Location = new Point(5, 133);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(107, 29);
-            checkBox3.TabIndex = 2;
-            checkBox3.Text = "File Date";
-            checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            checkBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            checkBox1.ForeColor = SystemColors.Control;
-            checkBox1.Location = new Point(5, 43);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(106, 29);
-            checkBox1.TabIndex = 0;
-            checkBox1.Text = "File Type";
-            checkBox1.UseVisualStyleBackColor = true;
+            label3.Text = "Select the convert option:";
             // 
             // panel1
             // 
             panel1.AutoScroll = true;
+            panel1.Controls.Add(radioButton4);
+            panel1.Controls.Add(radioButton3);
+            panel1.Controls.Add(radioButton2);
+            panel1.Controls.Add(radioButton1);
             panel1.Controls.Add(label3);
-            panel1.Controls.Add(checkBox9);
-            panel1.Controls.Add(checkBox7);
-            panel1.Controls.Add(checkBox8);
-            panel1.Controls.Add(checkBox6);
-            panel1.Controls.Add(checkBox5);
-            panel1.Controls.Add(checkBox4);
-            panel1.Controls.Add(checkBox3);
-            panel1.Controls.Add(checkBox2);
-            panel1.Controls.Add(checkBox1);
             panel1.Location = new Point(3, 5);
             panel1.Name = "panel1";
             panel1.Size = new Size(323, 380);
             panel1.TabIndex = 60;
-            // 
-            // checkBox2
-            // 
-            checkBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            checkBox2.AutoSize = true;
-            checkBox2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            checkBox2.ForeColor = SystemColors.Control;
-            checkBox2.Location = new Point(5, 88);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(100, 29);
-            checkBox2.TabIndex = 1;
-            checkBox2.Text = "File Size";
-            checkBox2.UseVisualStyleBackColor = true;
             // 
             // File_Count
             // 
@@ -281,7 +154,7 @@
             progressBar_Time.Location = new Point(3, 38);
             progressBar_Time.Margin = new Padding(3, 2, 3, 2);
             progressBar_Time.Name = "progressBar_Time";
-            progressBar_Time.Size = new Size(1126, 22);
+            progressBar_Time.Size = new Size(659, 22);
             progressBar_Time.Step = 1;
             progressBar_Time.TabIndex = 24;
             // 
@@ -292,7 +165,7 @@
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(797, 61);
+            panel4.Size = new Size(330, 61);
             panel4.TabIndex = 0;
             // 
             // panel2
@@ -380,7 +253,7 @@
             button_Path.BackgroundImageLayout = ImageLayout.Zoom;
             button_Path.FlatAppearance.BorderSize = 0;
             button_Path.FlatStyle = FlatStyle.Flat;
-            button_Path.Location = new Point(1134, 4);
+            button_Path.Location = new Point(635, 4);
             button_Path.Margin = new Padding(3, 2, 3, 2);
             button_Path.Name = "button_Path";
             button_Path.Size = new Size(25, 25);
@@ -406,7 +279,7 @@
             panel3.Controls.Add(panel4);
             panel3.Location = new Point(332, 5);
             panel3.Name = "panel3";
-            panel3.Size = new Size(797, 660);
+            panel3.Size = new Size(330, 375);
             panel3.TabIndex = 59;
             // 
             // panel_Options
@@ -419,6 +292,58 @@
             panel_Options.Name = "panel_Options";
             panel_Options.Size = new Size(667, 385);
             panel_Options.TabIndex = 39;
+            // 
+            // radioButton1
+            // 
+            radioButton1.AutoSize = true;
+            radioButton1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton1.ForeColor = SystemColors.Control;
+            radioButton1.Location = new Point(3, 42);
+            radioButton1.Name = "radioButton1";
+            radioButton1.Size = new Size(140, 29);
+            radioButton1.TabIndex = 11;
+            radioButton1.TabStop = true;
+            radioButton1.Text = "radioButton1";
+            radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton2.ForeColor = SystemColors.Control;
+            radioButton2.Location = new Point(3, 77);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(143, 29);
+            radioButton2.TabIndex = 12;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "radioButton2";
+            radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            radioButton3.AutoSize = true;
+            radioButton3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton3.ForeColor = SystemColors.Control;
+            radioButton3.Location = new Point(3, 112);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(143, 29);
+            radioButton3.TabIndex = 13;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "radioButton3";
+            radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            radioButton4.AutoSize = true;
+            radioButton4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton4.ForeColor = SystemColors.Control;
+            radioButton4.Location = new Point(3, 147);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(143, 29);
+            radioButton4.TabIndex = 14;
+            radioButton4.TabStop = true;
+            radioButton4.Text = "radioButton4";
+            radioButton4.UseVisualStyleBackColor = true;
             // 
             // Opt_Transform
             // 
@@ -450,16 +375,7 @@
         #endregion
 
         private Label label3;
-        private CheckBox checkBox9;
-        private CheckBox checkBox7;
-        private CheckBox checkBox8;
-        private CheckBox checkBox6;
-        private CheckBox checkBox5;
-        private CheckBox checkBox4;
-        private CheckBox checkBox3;
-        private CheckBox checkBox1;
         private Panel panel1;
-        private CheckBox checkBox2;
         private Label File_Count;
         private Label label4;
         private TreeView treeView1;
@@ -478,5 +394,9 @@
         private Panel panel_Top;
         private Panel panel3;
         private Panel panel_Options;
+        private RadioButton radioButton1;
+        private RadioButton radioButton4;
+        private RadioButton radioButton3;
+        private RadioButton radioButton2;
     }
 }
