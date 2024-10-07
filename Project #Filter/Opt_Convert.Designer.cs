@@ -30,6 +30,15 @@
         {
             label3 = new Label();
             panel1 = new Panel();
+            panel5 = new Panel();
+            label7 = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            label2 = new Label();
+            radioButton5 = new RadioButton();
+            radioButton4 = new RadioButton();
+            radioButton3 = new RadioButton();
+            radioButton2 = new RadioButton();
             File_Count = new Label();
             label4 = new Label();
             treeView1 = new TreeView();
@@ -48,11 +57,8 @@
             panel_Top = new Panel();
             panel3 = new Panel();
             panel_Options = new Panel();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
-            radioButton3 = new RadioButton();
-            radioButton4 = new RadioButton();
             panel1.SuspendLayout();
+            panel5.SuspendLayout();
             panel_Footer.SuspendLayout();
             panel4.SuspendLayout();
             panel_Header.SuspendLayout();
@@ -69,22 +75,132 @@
             label3.ForeColor = SystemColors.Control;
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
-            label3.Size = new Size(309, 32);
+            label3.Size = new Size(300, 32);
             label3.TabIndex = 10;
-            label3.Text = "Select the convert option:";
+            label3.Text = "Select the file to convert:";
             // 
             // panel1
             // 
             panel1.AutoScroll = true;
+            panel1.Controls.Add(panel5);
+            panel1.Controls.Add(radioButton5);
             panel1.Controls.Add(radioButton4);
             panel1.Controls.Add(radioButton3);
             panel1.Controls.Add(radioButton2);
-            panel1.Controls.Add(radioButton1);
             panel1.Controls.Add(label3);
             panel1.Location = new Point(3, 5);
             panel1.Name = "panel1";
             panel1.Size = new Size(323, 380);
             panel1.TabIndex = 60;
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(label7);
+            panel5.Controls.Add(label6);
+            panel5.Controls.Add(label5);
+            panel5.Controls.Add(label2);
+            panel5.Dock = DockStyle.Bottom;
+            panel5.Location = new Point(0, 257);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(323, 123);
+            panel5.TabIndex = 16;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            label7.ForeColor = SystemColors.Control;
+            label7.Location = new Point(7, 75);
+            label7.Name = "label7";
+            label7.Size = new Size(23, 25);
+            label7.TabIndex = 3;
+            label7.Text = "#";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            label6.ForeColor = SystemColors.Control;
+            label6.Location = new Point(0, 50);
+            label6.Name = "label6";
+            label6.Size = new Size(113, 25);
+            label6.TabIndex = 2;
+            label6.Text = "File Output:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            label5.ForeColor = SystemColors.Control;
+            label5.Location = new Point(7, 25);
+            label5.Name = "label5";
+            label5.Size = new Size(23, 25);
+            label5.TabIndex = 1;
+            label5.Text = "#";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Dock = DockStyle.Top;
+            label2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            label2.ForeColor = SystemColors.Control;
+            label2.Location = new Point(0, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(98, 25);
+            label2.TabIndex = 0;
+            label2.Text = "File Input:";
+            // 
+            // radioButton5
+            // 
+            radioButton5.AutoSize = true;
+            radioButton5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton5.ForeColor = SystemColors.Control;
+            radioButton5.Location = new Point(3, 188);
+            radioButton5.Name = "radioButton5";
+            radioButton5.Size = new Size(155, 29);
+            radioButton5.TabIndex = 15;
+            radioButton5.TabStop = true;
+            radioButton5.Text = "Document File";
+            radioButton5.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            radioButton4.AutoSize = true;
+            radioButton4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton4.ForeColor = SystemColors.Control;
+            radioButton4.Location = new Point(3, 137);
+            radioButton4.Name = "radioButton4";
+            radioButton4.Size = new Size(135, 29);
+            radioButton4.TabIndex = 14;
+            radioButton4.TabStop = true;
+            radioButton4.Text = "Video Audio";
+            radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            radioButton3.AutoSize = true;
+            radioButton3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton3.ForeColor = SystemColors.Control;
+            radioButton3.Location = new Point(3, 86);
+            radioButton3.Name = "radioButton3";
+            radioButton3.Size = new Size(116, 29);
+            radioButton3.TabIndex = 13;
+            radioButton3.TabStop = true;
+            radioButton3.Text = "Audio File";
+            radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            radioButton2.AutoSize = true;
+            radioButton2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton2.ForeColor = SystemColors.Control;
+            radioButton2.Location = new Point(3, 35);
+            radioButton2.Name = "radioButton2";
+            radioButton2.Size = new Size(119, 29);
+            radioButton2.TabIndex = 12;
+            radioButton2.TabStop = true;
+            radioButton2.Text = "Image File";
+            radioButton2.UseVisualStyleBackColor = true;
             // 
             // File_Count
             // 
@@ -211,7 +327,7 @@
             textBox_Path.Margin = new Padding(3, 2, 3, 2);
             textBox_Path.Name = "textBox_Path";
             textBox_Path.ReadOnly = true;
-            textBox_Path.Size = new Size(1039, 33);
+            textBox_Path.Size = new Size(572, 33);
             textBox_Path.TabIndex = 25;
             // 
             // label_Warning
@@ -293,58 +409,6 @@
             panel_Options.Size = new Size(667, 385);
             panel_Options.TabIndex = 39;
             // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton1.ForeColor = SystemColors.Control;
-            radioButton1.Location = new Point(3, 42);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(140, 29);
-            radioButton1.TabIndex = 11;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "radioButton1";
-            radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton2.ForeColor = SystemColors.Control;
-            radioButton2.Location = new Point(3, 77);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(143, 29);
-            radioButton2.TabIndex = 12;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "radioButton2";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            radioButton3.AutoSize = true;
-            radioButton3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton3.ForeColor = SystemColors.Control;
-            radioButton3.Location = new Point(3, 112);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(143, 29);
-            radioButton3.TabIndex = 13;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "radioButton3";
-            radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // radioButton4
-            // 
-            radioButton4.AutoSize = true;
-            radioButton4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton4.ForeColor = SystemColors.Control;
-            radioButton4.Location = new Point(3, 147);
-            radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(143, 29);
-            radioButton4.TabIndex = 14;
-            radioButton4.TabStop = true;
-            radioButton4.Text = "radioButton4";
-            radioButton4.UseVisualStyleBackColor = true;
-            // 
             // Opt_Transform
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -361,6 +425,8 @@
             Size = new Size(699, 562);
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             panel_Footer.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
@@ -394,9 +460,14 @@
         private Panel panel_Top;
         private Panel panel3;
         private Panel panel_Options;
-        private RadioButton radioButton1;
         private RadioButton radioButton4;
         private RadioButton radioButton3;
         private RadioButton radioButton2;
+        private Panel panel5;
+        private RadioButton radioButton5;
+        private Label label7;
+        private Label label6;
+        private Label label5;
+        private Label label2;
     }
 }

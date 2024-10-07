@@ -1,15 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using SharpCompress.Common;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Newtonsoft.Json.Linq;
 
 namespace Project__Filter
 {
@@ -24,27 +13,59 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Config_Transform.json"))
+                if (!File.Exists("Config_Convert.json"))
                 {
                     // Create the JSON object
                     var jsonContent = new JObject(
                         new JProperty("Option", new JObject(
                             new JProperty("Delete", true),
                             new JProperty("Subfolder", true),
+                            new JProperty("Keep", true),
                             new JProperty("Original", true),
                             new JProperty("Custom", false),
                             new JProperty("ByDate", true),
                             new JProperty("ByName", false),
                             new JProperty("BySize", false)
-                        ))
+                        )),
+                         new JProperty("Video", new JObject(
+                            new JProperty("GIF", true),
+                            new JProperty("WEBP", false),
+                            new JProperty("AVI", false),
+                            new JProperty("MP4", false),
+                            new JProperty("FLV", false),
+                            new JProperty("MKV", false),
+                            new JProperty("MOV", false),
+                            new JProperty("AUDIO", false)
+                         )),
+                         new JProperty("Audio", new JObject(
+                            new JProperty("WAV", true),
+                            new JProperty("MP3", false),
+                            new JProperty("WMA", false)
+                         )),
+                         new JProperty("Image", new JObject(
+                            new JProperty("JPEG", true),
+                            new JProperty("PNG", false),
+                            new JProperty("TIFF", false),
+                            new JProperty("ICO", false),
+                            new JProperty("SVG", false),
+                            new JProperty("WEBP", false)
+                         )),
+                          new JProperty("Document", new JObject(
+                            new JProperty("WORD", true),
+                            new JProperty("PDF", false),
+                            new JProperty("WEB", false),
+                            new JProperty("PLAIN", false),
+                            new JProperty("EXCEL", false),
+                            new JProperty("IMAGE", false)
+                         ))
                     );
 
                     // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Config_Transform.json", jsonContent.ToString());
+                    File.WriteAllText("Config_Convert.json", jsonContent.ToString());
                 }
 
                 // File already exists; get the filepath
-                string filePath = Path.GetFullPath("Config_Transform.json");
+                string filePath = Path.GetFullPath("Config_Convert.json");
                 PopulateInputs(filePath);
                 break;
             }
@@ -65,6 +86,7 @@ namespace Project__Filter
                 {
                     bool isDelete = jsonObject["Option"]["Delete"]?.ToObject<bool>() ?? false;
                     bool isSubfolder = jsonObject["Option"]["Subfolder"]?.ToObject<bool>() ?? false;
+                    bool isKeep = jsonObject["Option"]["Keep"]?.ToObject<bool>() ?? false;
                     bool isOriginal = jsonObject["Option"]["Original"]?.ToObject<bool>() ?? false;
                     bool isCustom = jsonObject["Option"]["Custom"]?.ToObject<bool>() ?? false;
                     bool isDate = jsonObject["Option"]["ByDate"]?.ToObject<bool>() ?? false;
@@ -74,6 +96,16 @@ namespace Project__Filter
 
                     checkBox_Delete.Checked = isDelete;
                     checkBox_Subfolders.Checked = isSubfolder;
+                    checkBox_Keep.Checked = isKeep;
+
+                    if (isOriginal)
+                    {
+                        radioButton_Original.Checked = isOriginal;
+                    }
+                    else if (isCustom)
+                    {
+                        radioButton_Custom.Checked = isCustom;
+                    }
 
                     if (isDate)
                     {
@@ -93,7 +125,29 @@ namespace Project__Filter
 
         private void button_Saved_Click(object sender, EventArgs e)
         {
+            var jsonObject = new JObject
+            {
+                ["Option"] = new JObject
+                {
+                    ["Delete"] = checkBox_Delete.Checked,
+                    ["Subfolder"] = checkBox_Subfolders.Checked,
+                    ["Keep"] = checkBox_Keep.Checked,
+                    ["Original"] = radioButton_Original.Checked,
+                    ["Custom"] = radioButton_Custom.Checked,
+                    ["ByDate"] = radioButton_Date.Checked,
+                    ["ByName"] = radioButton_Name.Checked,
+                    ["BySize"] = radioButton_Size.Checked,
+                }
+            };
 
+            // Define the path to the JSON file
+            string filePath = "Config_Convert.json";
+
+            // Write the JSON object to the file
+            File.WriteAllText(filePath, jsonObject.ToString());
+
+            // Optionally, show a message to indicate that the file was saved
+            MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

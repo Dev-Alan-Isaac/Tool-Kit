@@ -29,10 +29,8 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             button_Saved = new Button();
-            bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel10 = new Panel();
             panel5 = new Panel();
             checkBox_Subfolders = new CheckBox();
@@ -47,15 +45,10 @@
             panel4.SuspendLayout();
             SuspendLayout();
             // 
-            // bunifuElipse3
-            // 
-            bunifuElipse3.ElipseRadius = 5;
-            bunifuElipse3.TargetControl = this;
-            // 
             // bunifuElipse1
             // 
             bunifuElipse1.ElipseRadius = 5;
-            bunifuElipse1.TargetControl = button_Saved;
+            bunifuElipse1.TargetControl = this;
             // 
             // button_Saved
             // 
@@ -74,11 +67,6 @@
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
             button_Saved.Click += button_Saved_Click;
-            // 
-            // bunifuElipse2
-            // 
-            bunifuElipse2.ElipseRadius = 5;
-            bunifuElipse2.TargetControl = this;
             // 
             // panel10
             // 
@@ -194,11 +182,8 @@
         }
 
         #endregion
-
-        private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Button button_Saved;
-        private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
         private Panel panel10;
         private Panel panel5;
         private Label label1;

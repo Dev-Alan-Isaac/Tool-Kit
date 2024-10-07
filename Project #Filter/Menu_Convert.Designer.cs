@@ -30,17 +30,18 @@
         {
             components = new System.ComponentModel.Container();
             panel5 = new Panel();
+            checkBox_Delete = new CheckBox();
+            checkBox_Subfolders = new CheckBox();
+            checkBox_Keep = new CheckBox();
             panel6 = new Panel();
+            radioButton_Custom = new RadioButton();
+            radioButton_Original = new RadioButton();
             panel7 = new Panel();
             radioButton_Size = new RadioButton();
+            label3 = new Label();
             radioButton_Name = new RadioButton();
             radioButton_Date = new RadioButton();
-            label3 = new Label();
-            radioButton_Customname = new RadioButton();
-            radioButton_Filename = new RadioButton();
             label2 = new Label();
-            checkBox_Subfolders = new CheckBox();
-            checkBox_Delete = new CheckBox();
             panel10 = new Panel();
             button_Saved = new Button();
             bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
@@ -61,37 +62,100 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel5.Controls.Add(panel6);
-            panel5.Controls.Add(checkBox_Subfolders);
             panel5.Controls.Add(checkBox_Delete);
+            panel5.Controls.Add(checkBox_Subfolders);
+            panel5.Controls.Add(checkBox_Keep);
+            panel5.Controls.Add(panel6);
             panel5.Controls.Add(panel10);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
             panel5.Size = new Size(624, 394);
             panel5.TabIndex = 66;
             // 
+            // checkBox_Delete
+            // 
+            checkBox_Delete.AutoSize = true;
+            checkBox_Delete.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox_Delete.ForeColor = SystemColors.Control;
+            checkBox_Delete.Location = new Point(3, 3);
+            checkBox_Delete.Name = "checkBox_Delete";
+            checkBox_Delete.Size = new Size(214, 29);
+            checkBox_Delete.TabIndex = 58;
+            checkBox_Delete.Text = "Delete Empty Folders";
+            checkBox_Delete.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_Subfolders
+            // 
+            checkBox_Subfolders.AutoSize = true;
+            checkBox_Subfolders.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox_Subfolders.ForeColor = SystemColors.Control;
+            checkBox_Subfolders.Location = new Point(3, 57);
+            checkBox_Subfolders.Name = "checkBox_Subfolders";
+            checkBox_Subfolders.Size = new Size(255, 29);
+            checkBox_Subfolders.TabIndex = 59;
+            checkBox_Subfolders.Text = "Process Files in Subfolders";
+            checkBox_Subfolders.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_Keep
+            // 
+            checkBox_Keep.AutoSize = true;
+            checkBox_Keep.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox_Keep.ForeColor = SystemColors.Control;
+            checkBox_Keep.Location = new Point(3, 111);
+            checkBox_Keep.Name = "checkBox_Keep";
+            checkBox_Keep.Size = new Size(215, 29);
+            checkBox_Keep.TabIndex = 61;
+            checkBox_Keep.Text = "Keep the Original File";
+            checkBox_Keep.UseVisualStyleBackColor = true;
+            // 
             // panel6
             // 
             panel6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel6.Controls.Add(radioButton_Custom);
+            panel6.Controls.Add(radioButton_Original);
             panel6.Controls.Add(panel7);
-            panel6.Controls.Add(label3);
-            panel6.Controls.Add(radioButton_Customname);
-            panel6.Controls.Add(radioButton_Filename);
             panel6.Controls.Add(label2);
-            panel6.Location = new Point(3, 97);
+            panel6.Location = new Point(3, 147);
             panel6.Name = "panel6";
-            panel6.Size = new Size(618, 179);
+            panel6.Size = new Size(618, 199);
             panel6.TabIndex = 60;
+            // 
+            // radioButton_Custom
+            // 
+            radioButton_Custom.AutoSize = true;
+            radioButton_Custom.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Custom.ForeColor = SystemColors.Control;
+            radioButton_Custom.Location = new Point(170, 45);
+            radioButton_Custom.Name = "radioButton_Custom";
+            radioButton_Custom.Size = new Size(160, 25);
+            radioButton_Custom.TabIndex = 7;
+            radioButton_Custom.TabStop = true;
+            radioButton_Custom.Text = "Custom File Name";
+            radioButton_Custom.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_Original
+            // 
+            radioButton_Original.AutoSize = true;
+            radioButton_Original.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Original.ForeColor = SystemColors.Control;
+            radioButton_Original.Location = new Point(3, 45);
+            radioButton_Original.Name = "radioButton_Original";
+            radioButton_Original.Size = new Size(161, 25);
+            radioButton_Original.TabIndex = 6;
+            radioButton_Original.TabStop = true;
+            radioButton_Original.Text = "Original File Name";
+            radioButton_Original.UseVisualStyleBackColor = true;
             // 
             // panel7
             // 
             panel7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel7.Controls.Add(radioButton_Size);
+            panel7.Controls.Add(label3);
             panel7.Controls.Add(radioButton_Name);
             panel7.Controls.Add(radioButton_Date);
             panel7.Location = new Point(3, 108);
             panel7.Name = "panel7";
-            panel7.Size = new Size(612, 68);
+            panel7.Size = new Size(612, 88);
             panel7.TabIndex = 4;
             // 
             // radioButton_Size
@@ -99,7 +163,7 @@
             radioButton_Size.AutoSize = true;
             radioButton_Size.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             radioButton_Size.ForeColor = SystemColors.Control;
-            radioButton_Size.Location = new Point(289, 3);
+            radioButton_Size.Location = new Point(289, 45);
             radioButton_Size.Name = "radioButton_Size";
             radioButton_Size.Size = new Size(114, 25);
             radioButton_Size.TabIndex = 5;
@@ -107,12 +171,24 @@
             radioButton_Size.Text = "Sort by Size";
             radioButton_Size.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Dock = DockStyle.Top;
+            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.Control;
+            label3.Location = new Point(0, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(213, 25);
+            label3.TabIndex = 3;
+            label3.Text = "Sort images to convert:";
+            // 
             // radioButton_Name
             // 
             radioButton_Name.AutoSize = true;
             radioButton_Name.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             radioButton_Name.ForeColor = SystemColors.Control;
-            radioButton_Name.Location = new Point(147, 3);
+            radioButton_Name.Location = new Point(147, 45);
             radioButton_Name.Name = "radioButton_Name";
             radioButton_Name.Size = new Size(128, 25);
             radioButton_Name.TabIndex = 4;
@@ -125,50 +201,13 @@
             radioButton_Date.AutoSize = true;
             radioButton_Date.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             radioButton_Date.ForeColor = SystemColors.Control;
-            radioButton_Date.Location = new Point(3, 3);
+            radioButton_Date.Location = new Point(3, 45);
             radioButton_Date.Name = "radioButton_Date";
             radioButton_Date.Size = new Size(119, 25);
             radioButton_Date.TabIndex = 3;
             radioButton_Date.TabStop = true;
             radioButton_Date.Text = "Sort by Date";
             radioButton_Date.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(3, 80);
-            label3.Name = "label3";
-            label3.Size = new Size(213, 25);
-            label3.TabIndex = 3;
-            label3.Text = "Sort images to convert:";
-            // 
-            // radioButton_Customname
-            // 
-            radioButton_Customname.AutoSize = true;
-            radioButton_Customname.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            radioButton_Customname.ForeColor = SystemColors.Control;
-            radioButton_Customname.Location = new Point(171, 40);
-            radioButton_Customname.Name = "radioButton_Customname";
-            radioButton_Customname.Size = new Size(160, 25);
-            radioButton_Customname.TabIndex = 2;
-            radioButton_Customname.TabStop = true;
-            radioButton_Customname.Text = "Custom File Name";
-            radioButton_Customname.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_Filename
-            // 
-            radioButton_Filename.AutoSize = true;
-            radioButton_Filename.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            radioButton_Filename.ForeColor = SystemColors.Control;
-            radioButton_Filename.Location = new Point(3, 40);
-            radioButton_Filename.Name = "radioButton_Filename";
-            radioButton_Filename.Size = new Size(162, 25);
-            radioButton_Filename.TabIndex = 1;
-            radioButton_Filename.TabStop = true;
-            radioButton_Filename.Text = "Original FIle Name";
-            radioButton_Filename.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -181,30 +220,6 @@
             label2.Size = new Size(110, 25);
             label2.TabIndex = 0;
             label2.Text = "Documents";
-            // 
-            // checkBox_Subfolders
-            // 
-            checkBox_Subfolders.AutoSize = true;
-            checkBox_Subfolders.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
-            checkBox_Subfolders.ForeColor = SystemColors.Control;
-            checkBox_Subfolders.Location = new Point(3, 55);
-            checkBox_Subfolders.Name = "checkBox_Subfolders";
-            checkBox_Subfolders.Size = new Size(317, 36);
-            checkBox_Subfolders.TabIndex = 59;
-            checkBox_Subfolders.Text = "Process Files in Subfolders";
-            checkBox_Subfolders.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_Delete
-            // 
-            checkBox_Delete.AutoSize = true;
-            checkBox_Delete.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
-            checkBox_Delete.ForeColor = SystemColors.Control;
-            checkBox_Delete.Location = new Point(3, 3);
-            checkBox_Delete.Name = "checkBox_Delete";
-            checkBox_Delete.Size = new Size(264, 36);
-            checkBox_Delete.TabIndex = 58;
-            checkBox_Delete.Text = "Delete Empty Folders";
-            checkBox_Delete.UseVisualStyleBackColor = true;
             // 
             // panel10
             // 
@@ -338,12 +353,13 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
         private Panel panel6;
         private Label label2;
-        private RadioButton radioButton_Customname;
-        private RadioButton radioButton_Filename;
         private Label label3;
         private Panel panel7;
         private RadioButton radioButton_Name;
         private RadioButton radioButton_Date;
         private RadioButton radioButton_Size;
+        private RadioButton radioButton_Custom;
+        private RadioButton radioButton_Original;
+        private CheckBox checkBox_Keep;
     }
 }
