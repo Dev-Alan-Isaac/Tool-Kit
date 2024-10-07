@@ -224,10 +224,10 @@
             radioButton2.ForeColor = SystemColors.Control;
             radioButton2.Location = new Point(3, 47);
             radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(80, 29);
+            radioButton2.Size = new Size(87, 29);
             radioButton2.TabIndex = 59;
             radioButton2.TabStop = true;
-            radioButton2.Text = "WEBP";
+            radioButton2.Text = "WEBM";
             radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton1

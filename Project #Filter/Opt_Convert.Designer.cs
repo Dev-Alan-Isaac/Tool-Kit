@@ -162,6 +162,7 @@
             radioButton5.TabStop = true;
             radioButton5.Text = "Document File";
             radioButton5.UseVisualStyleBackColor = true;
+            radioButton5.CheckedChanged += checkBox_CheckedChanged;
             // 
             // radioButton4
             // 
@@ -175,6 +176,7 @@
             radioButton4.TabStop = true;
             radioButton4.Text = "Video Audio";
             radioButton4.UseVisualStyleBackColor = true;
+            radioButton4.CheckedChanged += checkBox_CheckedChanged;
             // 
             // radioButton3
             // 
@@ -188,6 +190,7 @@
             radioButton3.TabStop = true;
             radioButton3.Text = "Audio File";
             radioButton3.UseVisualStyleBackColor = true;
+            radioButton3.CheckedChanged += checkBox_CheckedChanged;
             // 
             // radioButton2
             // 
@@ -201,6 +204,7 @@
             radioButton2.TabStop = true;
             radioButton2.Text = "Image File";
             radioButton2.UseVisualStyleBackColor = true;
+            radioButton2.CheckedChanged += checkBox_CheckedChanged;
             // 
             // File_Count
             // 
@@ -263,6 +267,7 @@
             button_Filter.Size = new Size(659, 26);
             button_Filter.TabIndex = 28;
             button_Filter.UseVisualStyleBackColor = false;
+            button_Filter.Click += button_Filter_Click_1;
             // 
             // progressBar_Time
             // 
@@ -375,6 +380,7 @@
             button_Path.Size = new Size(25, 25);
             button_Path.TabIndex = 0;
             button_Path.UseVisualStyleBackColor = false;
+            button_Path.Click += button_Path_Click;
             // 
             // panel_Top
             // 
@@ -423,6 +429,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "Opt_Transform";
             Size = new Size(699, 562);
+            Load += Opt_Transform_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel5.ResumeLayout(false);

@@ -66,9 +66,9 @@
             label1.ForeColor = SystemColors.Control;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(360, 37);
+            label1.Size = new Size(366, 37);
             label1.TabIndex = 0;
-            label1.Text = "CONVERT VIDEO OPTIONS:";
+            label1.Text = "CONVERT IMAGE OPTIONS:";
             // 
             // panel2
             // 
@@ -95,6 +95,7 @@
             button_Saved.Size = new Size(624, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
+            button_Saved.Click += button_Saved_Click;
             // 
             // bunifuElipse1
             // 
