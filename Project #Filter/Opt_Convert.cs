@@ -82,7 +82,7 @@ namespace Project__Filter
                              new JProperty("Image", new JArray("jpeg", "png", "tiff", "ico", "svg","webp")),
                              new JProperty("Audio", new JArray("wav", "mp3", "wma")),
                              new JProperty("Video", new JArray("gif", "webm", "avi", "mp4","flv","mov","mkv")),
-                             new JProperty("Document", new JArray())
+                             new JProperty("Document", new JArray("pdf","doc","docx"))
                          ))
                          //,
                          //new JProperty("Convert", new JObject(
