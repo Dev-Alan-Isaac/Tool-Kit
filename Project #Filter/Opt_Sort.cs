@@ -1,12 +1,8 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Diagnostics;
+using System.Security.Cryptography;
 using Newtonsoft.Json.Linq;
 using NReco.VideoInfo;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Org.BouncyCastle.Crypto;
 
 namespace Project__Filter
 {
@@ -101,6 +97,10 @@ namespace Project__Filter
                         config_Path = System.IO.Path.GetFullPath("Config_Media.json");
                         config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortMedia(Path, config_Path, config_Path2));
+                        break;
+                    case "File Hash":
+                        config_Path = System.IO.Path.GetFullPath("Config_Type.json");
+                        await Task.Run(() => SortHash(Path, config_Path));
                         break;
                     default:
                         break;
@@ -521,6 +521,133 @@ namespace Project__Filter
             }
 
             MessageBox.Show("Files sorted by the selected name attributes!");
+        }
+
+        private async void SortHash(string folderPath, string jsonPath)
+        {
+            if (!File.Exists(jsonPath))
+            {
+                MessageBox.Show("Config file not found.");
+                return;
+            }
+
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
+
+            // Get the "Extensions" and "Allow" sections from the JSON
+            var extensions = jsonContent["Extensions"].ToObject<JObject>();
+            var allow = jsonContent["Allow"].ToObject<JObject>();
+
+            // List to hold the filtered files
+            List<string> allowedFiles = new List<string>();
+
+            // Get all files in the target folder
+            var files = await ProcessFiles(folderPath);
+
+            // Filter the files based on the "Allow" section of the JSON
+            foreach (var file in files)
+            {
+                string extension = System.IO.Path.GetExtension(file).ToLower();
+
+                // Check which media types are allowed (e.g., Images, Videos, etc.)
+                foreach (var mediaType in allow)
+                {
+                    bool isAllowed = (bool)mediaType.Value;
+
+                    if (isAllowed && extensions[mediaType.Key] != null)
+                    {
+                        var allowedExtensions = extensions[mediaType.Key].ToObject<string[]>();
+
+                        if (allowedExtensions.Any(ext => ext.Equals(extension, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            allowedFiles.Add(file);
+                        }
+                    }
+                }
+            }
+
+            int totalFiles = allowedFiles.Count;
+            int processedFiles = 0;
+
+            // Update the file count label
+            Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
+
+            // Dictionary to group files by hash
+            Dictionary<string, List<string>> hashGroups = new Dictionary<string, List<string>>();
+
+            // Process each allowed file
+            foreach (var file in allowedFiles)
+            {
+                try
+                {
+                    // Compute the file's hash
+                    string fileHash = ComputeFileHash(file);
+
+                    // Add the file to the correct hash group
+                    if (!hashGroups.ContainsKey(fileHash))
+                    {
+                        hashGroups[fileHash] = new List<string>();
+                    }
+                    hashGroups[fileHash].Add(file);
+
+                    processedFiles++;
+
+                    // Update progress bar or status (optional)
+                    Invoke((MethodInvoker)(() => progressBar_Time.Value = processedFiles));
+
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                }
+            }
+
+            // Sort the files into folders based on their hash
+            int hashFolderCount = 1;
+            foreach (var group in hashGroups)
+            {
+                // Create a folder for the group of files that share the same hash
+                string hashFolder = System.IO.Path.Combine(folderPath, $"Hash{hashFolderCount}");
+
+                if (!Directory.Exists(hashFolder))
+                {
+                    Directory.CreateDirectory(hashFolder);
+                }
+
+                // Move the files into the folder
+                foreach (var file in group.Value)
+                {
+                    string destinationFile =  System.IO.Path.Combine(hashFolder, System.IO.Path.GetFileName(file));
+
+                    if (!File.Exists(destinationFile))
+                    {
+                        File.Move(file, destinationFile);
+                        Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                    }
+                    else
+                    {
+                        Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
+                    }
+                }
+
+                hashFolderCount++;
+            }
+
+            // Done
+            MessageBox.Show("File sorting by hash completed!");
+        }
+
+        private string ComputeFileHash(string filePath)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                using (var stream = File.OpenRead(filePath))
+                {
+                    byte[] hashBytes = sha256.ComputeHash(stream);
+                    return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+                }
+            }
         }
 
         private async void SortPermissions(string folderPath, string jsonPath, string configTypePath)

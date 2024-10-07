@@ -60,6 +60,7 @@
             bunifuDragControl5 = new Bunifu.Framework.UI.BunifuDragControl(components);
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuDragControl6 = new Bunifu.Framework.UI.BunifuDragControl(components);
             panel_Menu.SuspendLayout();
             panel_Accent.SuspendLayout();
             Panel_Banner.SuspendLayout();
@@ -424,6 +425,13 @@
             bunifuElipse2.ElipseRadius = 5;
             bunifuElipse2.TargetControl = Panel_Index;
             // 
+            // bunifuDragControl6
+            // 
+            bunifuDragControl6.Fixed = true;
+            bunifuDragControl6.Horizontal = true;
+            bunifuDragControl6.TargetControl = label_Title;
+            bunifuDragControl6.Vertical = true;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -487,5 +495,6 @@
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl5;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
+        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl6;
     }
 }
