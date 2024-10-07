@@ -67,3 +67,7 @@ Project \#Filter/obj/Debug/net8.0-windows10.0.22621.0/Project \#Filter.AssemblyI
 *.editorconfig
 *.cache
 Project \#Filter/obj/Debug/net8.0-windows10.0.22621.0/Project \#Filter.AssemblyInfo.cs
+Project \#Filter/obj/Project \#Filter.csproj.nuget.dgspec.json
+Project \#Filter/obj/Project \#Filter.csproj.nuget.g.props
+Project \#Filter/obj/project.assets.json
+Project \#Filter/obj/project.nuget.cache
