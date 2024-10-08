@@ -33,60 +33,79 @@ namespace Project__Filter
         {
             string Config_covnvert = "Config_Convert.json";
 
-            // Iterate through each item in the checkedItems list
-            foreach (string item in checkedItems)
+            if (radioButton_Image.Checked)
             {
-                switch (item)
-                {
-                    case "Image File":
-                        await Task.Run(() => ImageConvert(Path, Config_covnvert));
-                        break;
-                    case "Audio File":
-                        await Task.Run(() => AudioConvert(Path, Config_covnvert));
-                        break;
-                    case "Video File":
-                        await Task.Run(() => VideoConvert(Path, Config_covnvert));
-                        break;
-                    case "Document File":
-                        await Task.Run(() => DocumentConvert(Path, Config_covnvert));
-                        break;
-                    default:
-                        break;
-                }
+                await Task.Run(() => ImageConvert(Path, Config_covnvert));
+            }
+            else if (radioButton_Audio.Checked)
+            {
+                await Task.Run(() => AudioConvert(Path, Config_covnvert));
+            }
+            else if (radioButton_Video.Checked)
+            {
+                await Task.Run(() => VideoConvert(Path, Config_covnvert));
+            }
+            else if (radioButton_Document.Checked)
+            {
+                await Task.Run(() => DocumentConvert(Path, Config_covnvert));
             }
         }
 
-        private void radio_CheckedChanged(object sender, EventArgs e)
+        private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
-            // Cast the sender to a CheckBox
-            if (sender is CheckBox checkBox)
-            {
-                // Get the text of the checkbox
-                string checkboxText = checkBox.Text;
-
-                if (checkBox.Checked)
-                {
-                    // Add to the list if checked
-                    if (!checkedItems.Contains(checkboxText))
-                        checkedItems.Add(checkboxText);
-                }
-                else
-                {
-                    // Remove from the list if unchecked
-                    checkedItems.Remove(checkboxText);
-                }
-            }
-
-            // Enable the button if one or more items are checked, disable it if none are checked
-            button_Filter.Enabled = checkedItems.Count > 0;
             Populated_Treeview();
         }
 
-        private void Populated_Treeview()
+        private async void Populated_Treeview()
         {
+            // Check if the config file exists
             if (!File.Exists("Config_Convert.json"))
             {
                 MessageBox.Show("Config file not found.");
+                return;
+            }
+
+            // Load the JSON configuration
+            var json = File.ReadAllText("Config_Convert.json");
+            var config = JObject.Parse(json);
+
+            // Clear the TreeView first
+            treeView1.Nodes.Clear();
+
+            // Define which set of extensions to use depending on the selected radio button
+            JArray allowedExtensions = null;
+
+            if (radioButton_Image.Checked)
+            {
+                allowedExtensions = (JArray)config["Extensions"]["Image"];
+            }
+            else if (radioButton_Audio.Checked)
+            {
+                allowedExtensions = (JArray)config["Extensions"]["Audio"];
+            }
+            else if (radioButton_Video.Checked)
+            {
+                allowedExtensions = (JArray)config["Extensions"]["Video"];
+            }
+            else if (radioButton_Document.Checked)
+            {
+                allowedExtensions = (JArray)config["Extensions"]["Document"];
+            }
+
+            if (allowedExtensions != null)
+            {
+                string[] files = await ProcessFiles(Path);
+
+                var filteredFiles = files
+                .Where(file => allowedExtensions
+                    .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
+                .ToList();
+
+                // Populate TreeView with filtered files
+                foreach (var file in filteredFiles)
+                {
+                    treeView1.Nodes.Add(System.IO.Path.GetFileName(file));
+                }
             }
         }
 
@@ -788,4 +807,6 @@ namespace Project__Filter
         //}
 
     }
+
+
 }
