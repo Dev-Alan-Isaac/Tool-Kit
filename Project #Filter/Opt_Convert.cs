@@ -8,7 +8,6 @@ namespace Project__Filter
     public partial class Opt_Transform : UserControl
     {
         private string Path;
-        private List<string> checkedItems = new List<string>();
 
         public Opt_Transform()
         {
@@ -67,7 +66,6 @@ namespace Project__Filter
             // Populate the TreeView based on the selected radio button
             Populated_Treeview();
         }
-
 
         private async void Populated_Treeview()
         {
@@ -161,7 +159,6 @@ namespace Project__Filter
 
             return files; // Return the list of file paths
         }
-
 
         private async void ImageConvert(string folderPath, string jsonPath)
         {
