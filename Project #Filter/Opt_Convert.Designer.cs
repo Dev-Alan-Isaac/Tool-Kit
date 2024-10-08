@@ -35,10 +35,10 @@
             label6 = new Label();
             label5 = new Label();
             label2 = new Label();
-            radioButton5 = new RadioButton();
-            radioButton4 = new RadioButton();
-            radioButton3 = new RadioButton();
-            radioButton2 = new RadioButton();
+            radioButton_Document = new RadioButton();
+            radioButton_Video = new RadioButton();
+            radioButton_Audio = new RadioButton();
+            radioButton_Image = new RadioButton();
             File_Count = new Label();
             label4 = new Label();
             treeView1 = new TreeView();
@@ -83,10 +83,10 @@
             // 
             panel1.AutoScroll = true;
             panel1.Controls.Add(panel5);
-            panel1.Controls.Add(radioButton5);
-            panel1.Controls.Add(radioButton4);
-            panel1.Controls.Add(radioButton3);
-            panel1.Controls.Add(radioButton2);
+            panel1.Controls.Add(radioButton_Document);
+            panel1.Controls.Add(radioButton_Video);
+            panel1.Controls.Add(radioButton_Audio);
+            panel1.Controls.Add(radioButton_Image);
             panel1.Controls.Add(label3);
             panel1.Location = new Point(3, 5);
             panel1.Name = "panel1";
@@ -150,57 +150,61 @@
             label2.TabIndex = 0;
             label2.Text = "File Input:";
             // 
-            // radioButton5
+            // radioButton_Document
             // 
-            radioButton5.AutoSize = true;
-            radioButton5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton5.ForeColor = SystemColors.Control;
-            radioButton5.Location = new Point(3, 188);
-            radioButton5.Name = "radioButton5";
-            radioButton5.Size = new Size(155, 29);
-            radioButton5.TabIndex = 15;
-            radioButton5.TabStop = true;
-            radioButton5.Text = "Document File";
-            radioButton5.UseVisualStyleBackColor = true;
+            radioButton_Document.AutoSize = true;
+            radioButton_Document.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Document.ForeColor = SystemColors.Control;
+            radioButton_Document.Location = new Point(3, 188);
+            radioButton_Document.Name = "radioButton_Document";
+            radioButton_Document.Size = new Size(155, 29);
+            radioButton_Document.TabIndex = 15;
+            radioButton_Document.TabStop = true;
+            radioButton_Document.Text = "Document File";
+            radioButton_Document.UseVisualStyleBackColor = true;
+            radioButton_Document.CheckedChanged += radioButton_CheckedChanged;
             // 
-            // radioButton4
+            // radioButton_Video
             // 
-            radioButton4.AutoSize = true;
-            radioButton4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton4.ForeColor = SystemColors.Control;
-            radioButton4.Location = new Point(3, 137);
-            radioButton4.Name = "radioButton4";
-            radioButton4.Size = new Size(114, 29);
-            radioButton4.TabIndex = 14;
-            radioButton4.TabStop = true;
-            radioButton4.Text = "Video File";
-            radioButton4.UseVisualStyleBackColor = true;
+            radioButton_Video.AutoSize = true;
+            radioButton_Video.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Video.ForeColor = SystemColors.Control;
+            radioButton_Video.Location = new Point(3, 137);
+            radioButton_Video.Name = "radioButton_Video";
+            radioButton_Video.Size = new Size(114, 29);
+            radioButton_Video.TabIndex = 14;
+            radioButton_Video.TabStop = true;
+            radioButton_Video.Text = "Video File";
+            radioButton_Video.UseVisualStyleBackColor = true;
+            radioButton_Video.CheckedChanged += radioButton_CheckedChanged;
             // 
-            // radioButton3
+            // radioButton_Audio
             // 
-            radioButton3.AutoSize = true;
-            radioButton3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton3.ForeColor = SystemColors.Control;
-            radioButton3.Location = new Point(3, 86);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(116, 29);
-            radioButton3.TabIndex = 13;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "Audio File";
-            radioButton3.UseVisualStyleBackColor = true;
+            radioButton_Audio.AutoSize = true;
+            radioButton_Audio.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Audio.ForeColor = SystemColors.Control;
+            radioButton_Audio.Location = new Point(3, 86);
+            radioButton_Audio.Name = "radioButton_Audio";
+            radioButton_Audio.Size = new Size(116, 29);
+            radioButton_Audio.TabIndex = 13;
+            radioButton_Audio.TabStop = true;
+            radioButton_Audio.Text = "Audio File";
+            radioButton_Audio.UseVisualStyleBackColor = true;
+            radioButton_Audio.CheckedChanged += radioButton_CheckedChanged;
             // 
-            // radioButton2
+            // radioButton_Image
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton2.ForeColor = SystemColors.Control;
-            radioButton2.Location = new Point(3, 35);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(119, 29);
-            radioButton2.TabIndex = 12;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Image File";
-            radioButton2.UseVisualStyleBackColor = true;
+            radioButton_Image.AutoSize = true;
+            radioButton_Image.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Image.ForeColor = SystemColors.Control;
+            radioButton_Image.Location = new Point(3, 35);
+            radioButton_Image.Name = "radioButton_Image";
+            radioButton_Image.Size = new Size(119, 29);
+            radioButton_Image.TabIndex = 12;
+            radioButton_Image.TabStop = true;
+            radioButton_Image.Text = "Image File";
+            radioButton_Image.UseVisualStyleBackColor = true;
+            radioButton_Image.CheckedChanged += radioButton_CheckedChanged;
             // 
             // File_Count
             // 
@@ -462,11 +466,11 @@
         private Panel panel_Top;
         private Panel panel3;
         private Panel panel_Options;
-        private RadioButton radioButton4;
-        private RadioButton radioButton3;
-        private RadioButton radioButton2;
+        private RadioButton radioButton_Video;
+        private RadioButton radioButton_Audio;
+        private RadioButton radioButton_Image;
         private Panel panel5;
-        private RadioButton radioButton5;
+        private RadioButton radioButton_Document;
         private Label label7;
         private Label label6;
         private Label label5;
