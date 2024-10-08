@@ -94,7 +94,7 @@ namespace Project__Filter
                     );
 
                     // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Config_Type.json", jsonContent.ToString());
+                    File.WriteAllText("Config_Convert.json", jsonContent.ToString());
                 }
                 break;
             }

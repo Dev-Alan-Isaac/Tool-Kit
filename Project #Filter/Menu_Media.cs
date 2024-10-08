@@ -20,7 +20,7 @@ namespace Project__Filter
                     var jsonContent = new JObject(
                          new JProperty("Option", new JObject(
                              new JProperty("Duration", true),
-                             new JProperty("Resolution ", false),
+                             new JProperty("Resolution", false),
                              new JProperty("Frame_Rate", false),
                              new JProperty("Codec", false),
                              new JProperty("Aspect", false)

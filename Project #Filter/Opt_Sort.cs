@@ -967,7 +967,6 @@ namespace Project__Filter
                 sortByAspect_Videos(videoFiles);
                 sortByAspect_Images(imageFiles);
             }
-
         }
 
         private void sortByDuration(string[] files)
@@ -981,6 +980,9 @@ namespace Project__Filter
 
             // Initialize FFProbe
             var ffProbe = new FFProbe();
+
+            // Set the progress bar maximum to the total number of files
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
 
             int processedFiles = 0;
 
@@ -1025,11 +1027,8 @@ namespace Project__Filter
                     // Increment the progress bar after processing each file
                     processedFiles++;
 
-                    // Ensure the progress value does not exceed the maximum
-                    if (processedFiles <= progressBar_Time.Maximum)
-                    {
-                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                    }
+                    // Update the progress bar
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                 }
                 catch (Exception ex)
                 {
@@ -1038,10 +1037,14 @@ namespace Project__Filter
                 }
             }
 
-            // Optionally, reset or hide the progress bar once sorting is complete
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-            MessageBox.Show("Sorting completed!");
+            // Reset or hide the progress bar once sorting is complete
+            progressBar_Time.Invoke((Action)(() =>
+            {
+                progressBar_Time.Value = progressBar_Time.Maximum; // Ensure it reaches 100%
+                MessageBox.Show("Sorting completed!");
+            }));
         }
+
 
         private void sortByResolution_Videos(string[] files)
         {
