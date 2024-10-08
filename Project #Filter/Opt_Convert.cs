@@ -53,8 +53,21 @@ namespace Project__Filter
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
+            // Enable the filter button when any radio button is checked
+            if (radioButton_Image.Checked || radioButton_Audio.Checked ||
+                radioButton_Video.Checked || radioButton_Document.Checked)
+            {
+                button_Filter.Enabled = true;
+            }
+            else
+            {
+                button_Filter.Enabled = false;
+            }
+
+            // Populate the TreeView based on the selected radio button
             Populated_Treeview();
         }
+
 
         private async void Populated_Treeview()
         {
@@ -94,17 +107,33 @@ namespace Project__Filter
 
             if (allowedExtensions != null)
             {
-                string[] files = await ProcessFiles(Path);
-
-                var filteredFiles = files
-                .Where(file => allowedExtensions
-                    .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
-                .ToList();
-
-                // Populate TreeView with filtered files
-                foreach (var file in filteredFiles)
+                if (!string.IsNullOrEmpty(Path))
                 {
-                    treeView1.Nodes.Add(System.IO.Path.GetFileName(file));
+                    // Fetch the files
+                    string[] files = await ProcessFiles(Path);
+
+                    // Ensure unique files
+                    var filteredFiles = files
+                        .Where(file => allowedExtensions
+                            .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
+                        .Distinct() // Ensures files are unique
+                        .ToList();
+
+                    // Populate TreeView with filtered files
+                    foreach (var file in filteredFiles)
+                    {
+                        string fileName = System.IO.Path.GetFileName(file);
+
+                        // Check if the file is already in the TreeView
+                        if (!treeView1.Nodes.Cast<TreeNode>().Any(node => node.Text == fileName))
+                        {
+                            treeView1.Nodes.Add(fileName);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Not Path Selected");
                 }
             }
         }

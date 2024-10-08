@@ -153,6 +153,7 @@
             // radioButton_Document
             // 
             radioButton_Document.AutoSize = true;
+            radioButton_Document.Cursor = Cursors.Hand;
             radioButton_Document.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Document.ForeColor = SystemColors.Control;
             radioButton_Document.Location = new Point(3, 188);
@@ -167,6 +168,7 @@
             // radioButton_Video
             // 
             radioButton_Video.AutoSize = true;
+            radioButton_Video.Cursor = Cursors.Hand;
             radioButton_Video.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Video.ForeColor = SystemColors.Control;
             radioButton_Video.Location = new Point(3, 137);
@@ -181,6 +183,7 @@
             // radioButton_Audio
             // 
             radioButton_Audio.AutoSize = true;
+            radioButton_Audio.Cursor = Cursors.Hand;
             radioButton_Audio.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Audio.ForeColor = SystemColors.Control;
             radioButton_Audio.Location = new Point(3, 86);
@@ -195,6 +198,7 @@
             // radioButton_Image
             // 
             radioButton_Image.AutoSize = true;
+            radioButton_Image.Cursor = Cursors.Hand;
             radioButton_Image.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Image.ForeColor = SystemColors.Control;
             radioButton_Image.Location = new Point(3, 35);
@@ -256,6 +260,7 @@
             button_Filter.BackColor = Color.Teal;
             button_Filter.BackgroundImage = Properties.Resources.Button_Icon_Start;
             button_Filter.BackgroundImageLayout = ImageLayout.Zoom;
+            button_Filter.Cursor = Cursors.Hand;
             button_Filter.Enabled = false;
             button_Filter.FlatAppearance.BorderSize = 0;
             button_Filter.FlatStyle = FlatStyle.Flat;
@@ -372,6 +377,7 @@
             button_Path.BackColor = Color.FromArgb(0, 64, 64);
             button_Path.BackgroundImage = Properties.Resources.Button_Icon_AddFile;
             button_Path.BackgroundImageLayout = ImageLayout.Zoom;
+            button_Path.Cursor = Cursors.Hand;
             button_Path.FlatAppearance.BorderSize = 0;
             button_Path.FlatStyle = FlatStyle.Flat;
             button_Path.Location = new Point(635, 4);
