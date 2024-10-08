@@ -83,6 +83,7 @@
             button_Path.BackColor = Color.FromArgb(0, 64, 64);
             button_Path.BackgroundImage = Properties.Resources.Button_Icon_AddFile;
             button_Path.BackgroundImageLayout = ImageLayout.Zoom;
+            button_Path.Cursor = Cursors.Hand;
             button_Path.FlatAppearance.BorderSize = 0;
             button_Path.FlatStyle = FlatStyle.Flat;
             button_Path.Location = new Point(635, 4);
@@ -145,6 +146,7 @@
             button_Filter.BackColor = Color.Teal;
             button_Filter.BackgroundImage = Properties.Resources.Button_Icon_Start;
             button_Filter.BackgroundImageLayout = ImageLayout.Zoom;
+            button_Filter.Cursor = Cursors.Hand;
             button_Filter.Enabled = false;
             button_Filter.FlatAppearance.BorderSize = 0;
             button_Filter.FlatStyle = FlatStyle.Flat;
@@ -309,6 +311,7 @@
             // 
             checkBox9.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             checkBox9.AutoSize = true;
+            checkBox9.Cursor = Cursors.Hand;
             checkBox9.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox9.ForeColor = SystemColors.Control;
             checkBox9.Location = new Point(94, 348);
@@ -323,6 +326,7 @@
             // 
             checkBox7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             checkBox7.AutoSize = true;
+            checkBox7.Cursor = Cursors.Hand;
             checkBox7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox7.ForeColor = SystemColors.Control;
             checkBox7.Location = new Point(181, 313);
@@ -337,6 +341,7 @@
             // 
             checkBox8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             checkBox8.AutoSize = true;
+            checkBox8.Cursor = Cursors.Hand;
             checkBox8.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox8.ForeColor = SystemColors.Control;
             checkBox8.Location = new Point(5, 313);
@@ -351,6 +356,7 @@
             // 
             checkBox6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox6.AutoSize = true;
+            checkBox6.Cursor = Cursors.Hand;
             checkBox6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox6.ForeColor = SystemColors.Control;
             checkBox6.Location = new Point(5, 268);
@@ -365,6 +371,7 @@
             // 
             checkBox5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox5.AutoSize = true;
+            checkBox5.Cursor = Cursors.Hand;
             checkBox5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox5.ForeColor = SystemColors.Control;
             checkBox5.Location = new Point(5, 223);
@@ -379,6 +386,7 @@
             // 
             checkBox4.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox4.AutoSize = true;
+            checkBox4.Cursor = Cursors.Hand;
             checkBox4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox4.ForeColor = SystemColors.Control;
             checkBox4.Location = new Point(5, 178);
@@ -393,6 +401,7 @@
             // 
             checkBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox3.AutoSize = true;
+            checkBox3.Cursor = Cursors.Hand;
             checkBox3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox3.ForeColor = SystemColors.Control;
             checkBox3.Location = new Point(5, 133);
@@ -407,6 +416,7 @@
             // 
             checkBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox2.AutoSize = true;
+            checkBox2.Cursor = Cursors.Hand;
             checkBox2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox2.ForeColor = SystemColors.Control;
             checkBox2.Location = new Point(5, 88);
@@ -421,6 +431,7 @@
             // 
             checkBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             checkBox1.AutoSize = true;
+            checkBox1.Cursor = Cursors.Hand;
             checkBox1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox1.ForeColor = SystemColors.Control;
             checkBox1.Location = new Point(5, 43);
