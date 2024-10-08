@@ -131,25 +131,31 @@ namespace Project__Filter
 
         private void button_Saved_Click(object sender, EventArgs e)
         {
-            var jsonObject = new JObject
-            {
-                ["Option"] = new JObject
-                {
-                    ["Delete"] = checkBox_Delete.Checked,
-                    ["Subfolder"] = checkBox_Subfolders.Checked,
-                    ["Keep"] = checkBox_Keep.Checked,
-                    ["Original"] = radioButton_Original.Checked,
-                    ["Custom"] = radioButton_Custom.Checked,
-                    ["ByDate"] = radioButton_Date.Checked,
-                    ["ByName"] = radioButton_Name.Checked,
-                    ["BySize"] = radioButton_Size.Checked,
-                }
-            };
-
-            // Define the path to the JSON file
             string filePath = "Config_Convert.json";
 
-            // Write the JSON object to the file
+            // Check if the JSON file exists
+            if (!File.Exists(filePath))
+            {
+                MessageBox.Show("Config file not found.");
+                return;
+            }
+
+            // Load the existing JSON content
+            var jsonString = File.ReadAllText(filePath);
+            var jsonObject = JObject.Parse(jsonString);
+
+            // Update the "Option" section without overwriting the rest of the file
+            var optionSection = (JObject)jsonObject["Option"];
+            optionSection["Delete"] = checkBox_Delete.Checked;
+            optionSection["Subfolder"] = checkBox_Subfolders.Checked;
+            optionSection["Keep"] = checkBox_Keep.Checked;
+            optionSection["Original"] = radioButton_Original.Checked;
+            optionSection["Custom"] = radioButton_Custom.Checked;
+            optionSection["ByDate"] = radioButton_Date.Checked;
+            optionSection["ByName"] = radioButton_Name.Checked;
+            optionSection["BySize"] = radioButton_Size.Checked;
+
+            // Save the updated JSON back to the file
             File.WriteAllText(filePath, jsonObject.ToString());
 
             // Optionally, show a message to indicate that the file was saved
