@@ -27,7 +27,7 @@ namespace Project__Filter
                             new JProperty("ByName", false),
                             new JProperty("BySize", false)
                         )),
-                         new JProperty("Video", new JObject(
+                        new JProperty("Video", new JObject(
                             new JProperty("GIF", true),
                             new JProperty("WEBP", false),
                             new JProperty("AVI", false),
@@ -36,28 +36,34 @@ namespace Project__Filter
                             new JProperty("MKV", false),
                             new JProperty("MOV", false),
                             new JProperty("AUDIO", false)
-                         )),
-                         new JProperty("Audio", new JObject(
+                        )),
+                        new JProperty("Audio", new JObject(
                             new JProperty("WAV", true),
                             new JProperty("MP3", false),
                             new JProperty("WMA", false)
-                         )),
-                         new JProperty("Image", new JObject(
+                        )),
+                        new JProperty("Image", new JObject(
                             new JProperty("JPEG", true),
                             new JProperty("PNG", false),
                             new JProperty("TIFF", false),
                             new JProperty("ICO", false),
                             new JProperty("SVG", false),
                             new JProperty("WEBP", false)
-                         )),
-                          new JProperty("Document", new JObject(
+                        )),
+                        new JProperty("Document", new JObject(
                             new JProperty("WORD", true),
                             new JProperty("PDF", false),
                             new JProperty("WEB", false),
                             new JProperty("PLAIN", false),
                             new JProperty("EXCEL", false),
                             new JProperty("IMAGE", false)
-                         ))
+                        )), 
+                        new JProperty("Extensions", new JObject(
+                            new JProperty("Image", new JArray("jpeg", "png", "tiff", "ico", "svg", "webp")),
+                            new JProperty("Audio", new JArray("wav", "mp3", "wma")),
+                            new JProperty("Video", new JArray("gif", "webm", "avi", "mp4", "flv", "mov", "mkv")),
+                            new JProperty("Document", new JArray("doc", "docx", "pdf", "html", "htm", "txt", "xls", "xlsx"))
+                        ))
                     );
 
                     // Save to a file (e.g., "Extensions.json")
