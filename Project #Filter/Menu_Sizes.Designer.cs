@@ -68,14 +68,14 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 482);
             panel3.Name = "panel3";
-            panel3.Size = new Size(579, 32);
+            panel3.Size = new Size(633, 32);
             panel3.TabIndex = 56;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 64, 64);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(579, 32);
+            panel2.Location = new Point(633, 32);
             panel2.Name = "panel2";
             panel2.Size = new Size(32, 482);
             panel2.TabIndex = 55;
@@ -86,7 +86,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(611, 32);
+            panel1.Size = new Size(665, 32);
             panel1.TabIndex = 54;
             // 
             // panel10
@@ -95,7 +95,7 @@
             panel10.Dock = DockStyle.Bottom;
             panel10.Location = new Point(0, 351);
             panel10.Name = "panel10";
-            panel10.Size = new Size(570, 43);
+            panel10.Size = new Size(624, 43);
             panel10.TabIndex = 57;
             // 
             // button_Saved
@@ -111,7 +111,7 @@
             button_Saved.Location = new Point(0, 0);
             button_Saved.Margin = new Padding(3, 2, 3, 2);
             button_Saved.Name = "button_Saved";
-            button_Saved.Size = new Size(570, 43);
+            button_Saved.Size = new Size(624, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
             button_Saved.Click += button_Saved_Click;
@@ -146,7 +146,7 @@
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 32);
             panel4.Name = "panel4";
-            panel4.Size = new Size(579, 44);
+            panel4.Size = new Size(633, 44);
             panel4.TabIndex = 57;
             // 
             // panel9
@@ -155,12 +155,12 @@
             panel9.Dock = DockStyle.Top;
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(570, 42);
+            panel9.Size = new Size(624, 42);
             panel9.TabIndex = 1;
             // 
             // panel5
             // 
-            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel5.Controls.Add(comboBox_LargeUnit1);
             panel5.Controls.Add(textBox_Large1);
             panel5.Controls.Add(label2);
@@ -183,28 +183,30 @@
             panel5.Controls.Add(panel9);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
-            panel5.Size = new Size(570, 394);
+            panel5.Size = new Size(624, 394);
             panel5.TabIndex = 58;
             // 
             // comboBox_LargeUnit1
             // 
-            comboBox_LargeUnit1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox_LargeUnit1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             comboBox_LargeUnit1.FormattingEnabled = true;
             comboBox_LargeUnit1.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox_LargeUnit1.Location = new Point(495, 192);
+            comboBox_LargeUnit1.Location = new Point(500, 192);
             comboBox_LargeUnit1.Name = "comboBox_LargeUnit1";
             comboBox_LargeUnit1.Size = new Size(65, 23);
             comboBox_LargeUnit1.TabIndex = 75;
             // 
             // textBox_Large1
             // 
-            textBox_Large1.Location = new Point(369, 192);
+            textBox_Large1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBox_Large1.Location = new Point(374, 192);
             textBox_Large1.Name = "textBox_Large1";
             textBox_Large1.Size = new Size(120, 23);
             textBox_Large1.TabIndex = 74;
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
@@ -217,23 +219,25 @@
             // 
             // comboBox_MediumUnit1
             // 
-            comboBox_MediumUnit1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBox_MediumUnit1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             comboBox_MediumUnit1.FormattingEnabled = true;
             comboBox_MediumUnit1.Items.AddRange(new object[] { "KB", "MB", "GB" });
-            comboBox_MediumUnit1.Location = new Point(495, 118);
+            comboBox_MediumUnit1.Location = new Point(500, 118);
             comboBox_MediumUnit1.Name = "comboBox_MediumUnit1";
             comboBox_MediumUnit1.Size = new Size(65, 23);
             comboBox_MediumUnit1.TabIndex = 72;
             // 
             // textBox_Medium1
             // 
-            textBox_Medium1.Location = new Point(369, 118);
+            textBox_Medium1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            textBox_Medium1.Location = new Point(374, 118);
             textBox_Medium1.Name = "textBox_Medium1";
             textBox_Medium1.Size = new Size(120, 23);
             textBox_Medium1.TabIndex = 71;
             // 
             // label8
             // 
+            label8.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label8.AutoSize = true;
             label8.BackColor = Color.Transparent;
             label8.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
@@ -246,7 +250,6 @@
             // 
             // comboBox_VeryLargeUnit
             // 
-            comboBox_VeryLargeUnit.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBox_VeryLargeUnit.FormattingEnabled = true;
             comboBox_VeryLargeUnit.Items.AddRange(new object[] { "KB", "MB", "GB" });
             comboBox_VeryLargeUnit.Location = new Point(280, 266);
@@ -263,7 +266,6 @@
             // 
             // comboBox_LargeUnit
             // 
-            comboBox_LargeUnit.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBox_LargeUnit.FormattingEnabled = true;
             comboBox_LargeUnit.Items.AddRange(new object[] { "KB", "MB", "GB" });
             comboBox_LargeUnit.Location = new Point(280, 192);
@@ -280,7 +282,6 @@
             // 
             // comboBox_MediumUnit
             // 
-            comboBox_MediumUnit.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBox_MediumUnit.FormattingEnabled = true;
             comboBox_MediumUnit.Items.AddRange(new object[] { "KB", "MB", "GB" });
             comboBox_MediumUnit.Location = new Point(280, 118);
@@ -297,7 +298,6 @@
             // 
             // comboBox_SmallUnit
             // 
-            comboBox_SmallUnit.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBox_SmallUnit.FormattingEnabled = true;
             comboBox_SmallUnit.Items.AddRange(new object[] { "KB", "MB", "GB" });
             comboBox_SmallUnit.Location = new Point(280, 45);
@@ -367,7 +367,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Menu_Sizes";
-            Size = new Size(611, 514);
+            Size = new Size(665, 514);
             Load += Menu_Sizes_Load;
             panel10.ResumeLayout(false);
             panel4.ResumeLayout(false);
