@@ -146,7 +146,6 @@ namespace Project__Filter
             }
         }
 
-
         public async void SortTypes(string folderPath, string jsonPath)
         {
             if (!File.Exists(jsonPath))
@@ -618,7 +617,7 @@ namespace Project__Filter
                 // Move the files into the folder
                 foreach (var file in group.Value)
                 {
-                    string destinationFile =  System.IO.Path.Combine(hashFolder, System.IO.Path.GetFileName(file));
+                    string destinationFile = System.IO.Path.Combine(hashFolder, System.IO.Path.GetFileName(file));
 
                     if (!File.Exists(destinationFile))
                     {
