@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             panel5 = new Panel();
+            panel10 = new Panel();
+            button_Saved = new Button();
             radioButton_Accessed = new RadioButton();
             radioButton_Modified = new RadioButton();
             radioButton_Creation = new RadioButton();
-            panel10 = new Panel();
-            button_Saved = new Button();
             panel9 = new Panel();
             label3 = new Label();
             panel4 = new Panel();
@@ -50,15 +50,41 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel5.Controls.Add(panel10);
             panel5.Controls.Add(radioButton_Accessed);
             panel5.Controls.Add(radioButton_Modified);
             panel5.Controls.Add(radioButton_Creation);
-            panel5.Controls.Add(panel10);
             panel5.Controls.Add(panel9);
-            panel5.Location = new Point(3, 76);
+            panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
-            panel5.Size = new Size(664, 454);
+            panel5.Size = new Size(624, 394);
             panel5.TabIndex = 69;
+            // 
+            // panel10
+            // 
+            panel10.Controls.Add(button_Saved);
+            panel10.Dock = DockStyle.Bottom;
+            panel10.Location = new Point(0, 351);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(624, 43);
+            panel10.TabIndex = 62;
+            // 
+            // button_Saved
+            // 
+            button_Saved.BackColor = Color.Teal;
+            button_Saved.BackgroundImage = Properties.Resources.Button_Icon_Save;
+            button_Saved.BackgroundImageLayout = ImageLayout.Zoom;
+            button_Saved.Dock = DockStyle.Fill;
+            button_Saved.FlatAppearance.BorderSize = 0;
+            button_Saved.FlatStyle = FlatStyle.Flat;
+            button_Saved.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
+            button_Saved.ForeColor = Color.White;
+            button_Saved.Location = new Point(0, 0);
+            button_Saved.Margin = new Padding(3, 2, 3, 2);
+            button_Saved.Name = "button_Saved";
+            button_Saved.Size = new Size(624, 43);
+            button_Saved.TabIndex = 52;
+            button_Saved.UseVisualStyleBackColor = false;
             // 
             // radioButton_Accessed
             // 
@@ -99,40 +125,13 @@
             radioButton_Creation.Text = "Creation Date";
             radioButton_Creation.UseVisualStyleBackColor = true;
             // 
-            // panel10
-            // 
-            panel10.Controls.Add(button_Saved);
-            panel10.Dock = DockStyle.Bottom;
-            panel10.Location = new Point(0, 411);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(664, 43);
-            panel10.TabIndex = 57;
-            // 
-            // button_Saved
-            // 
-            button_Saved.BackColor = Color.Teal;
-            button_Saved.BackgroundImage = Properties.Resources.Button_Icon_Save;
-            button_Saved.BackgroundImageLayout = ImageLayout.Zoom;
-            button_Saved.Dock = DockStyle.Fill;
-            button_Saved.FlatAppearance.BorderSize = 0;
-            button_Saved.FlatStyle = FlatStyle.Flat;
-            button_Saved.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
-            button_Saved.ForeColor = Color.White;
-            button_Saved.Location = new Point(0, 0);
-            button_Saved.Margin = new Padding(3, 2, 3, 2);
-            button_Saved.Name = "button_Saved";
-            button_Saved.Size = new Size(664, 43);
-            button_Saved.TabIndex = 52;
-            button_Saved.UseVisualStyleBackColor = false;
-            button_Saved.Click += button_Saved_Click;
-            // 
             // panel9
             // 
             panel9.Controls.Add(label3);
             panel9.Dock = DockStyle.Top;
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(664, 42);
+            panel9.Size = new Size(624, 42);
             panel9.TabIndex = 1;
             // 
             // label3
@@ -153,7 +152,7 @@
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 32);
             panel4.Name = "panel4";
-            panel4.Size = new Size(667, 44);
+            panel4.Size = new Size(633, 44);
             panel4.TabIndex = 68;
             // 
             // label1
@@ -172,18 +171,18 @@
             // 
             panel3.BackColor = Color.FromArgb(0, 64, 64);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 530);
+            panel3.Location = new Point(0, 482);
             panel3.Name = "panel3";
-            panel3.Size = new Size(667, 32);
+            panel3.Size = new Size(633, 32);
             panel3.TabIndex = 67;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 64, 64);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(667, 32);
+            panel2.Location = new Point(633, 32);
             panel2.Name = "panel2";
-            panel2.Size = new Size(32, 530);
+            panel2.Size = new Size(32, 482);
             panel2.TabIndex = 66;
             // 
             // panel1
@@ -192,7 +191,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(699, 32);
+            panel1.Size = new Size(665, 32);
             panel1.TabIndex = 65;
             // 
             // Menu_Date
@@ -206,7 +205,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Menu_Date";
-            Size = new Size(699, 562);
+            Size = new Size(665, 514);
             Load += Menu_Date_Load;
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
@@ -223,8 +222,6 @@
         private Panel panel5;
         private RadioButton radioButton_Modified;
         private RadioButton radioButton_Creation;
-        private Panel panel10;
-        private Button button_Saved;
         private Panel panel9;
         private Label label3;
         private Panel panel4;
@@ -233,5 +230,7 @@
         private Panel panel2;
         private Panel panel1;
         private RadioButton radioButton_Accessed;
+        private Panel panel10;
+        private Button button_Saved;
     }
 }
