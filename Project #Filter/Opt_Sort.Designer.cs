@@ -317,6 +317,7 @@
             checkBox9.TabIndex = 7;
             checkBox9.Text = "Media Metadata";
             checkBox9.UseVisualStyleBackColor = true;
+            checkBox9.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox7
             // 
@@ -330,6 +331,7 @@
             checkBox7.TabIndex = 6;
             checkBox7.Text = "Custom Tags";
             checkBox7.UseVisualStyleBackColor = true;
+            checkBox7.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox8
             // 
@@ -343,6 +345,7 @@
             checkBox8.TabIndex = 9;
             checkBox8.Text = "Folder Location";
             checkBox8.UseVisualStyleBackColor = true;
+            checkBox8.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox6
             // 
@@ -356,6 +359,7 @@
             checkBox6.TabIndex = 5;
             checkBox6.Text = "File Permissions";
             checkBox6.UseVisualStyleBackColor = true;
+            checkBox6.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox5
             // 
@@ -369,6 +373,7 @@
             checkBox5.TabIndex = 11;
             checkBox5.Text = "File Hash";
             checkBox5.UseVisualStyleBackColor = true;
+            checkBox5.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox4
             // 
@@ -382,6 +387,7 @@
             checkBox4.TabIndex = 3;
             checkBox4.Text = "File Name";
             checkBox4.UseVisualStyleBackColor = true;
+            checkBox4.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox3
             // 
@@ -395,6 +401,7 @@
             checkBox3.TabIndex = 2;
             checkBox3.Text = "File Date";
             checkBox3.UseVisualStyleBackColor = true;
+            checkBox3.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox2
             // 
@@ -408,6 +415,7 @@
             checkBox2.TabIndex = 1;
             checkBox2.Text = "File Size";
             checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.CheckedChanged += checkBox_CheckedChanged;
             // 
             // checkBox1
             // 
@@ -421,6 +429,7 @@
             checkBox1.TabIndex = 0;
             checkBox1.Text = "File Type";
             checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox_CheckedChanged;
             // 
             // Opt_Sort
             // 

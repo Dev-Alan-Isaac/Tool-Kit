@@ -48,7 +48,7 @@ namespace Project__Filter
 
                 // File already exists; get the filepath
                 string filePath = Path.GetFullPath("Config_Type.json");
-                PopulateInputs(filePath);
+                //PopulateInputs(filePath);
                 break;
             }
         }

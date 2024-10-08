@@ -37,32 +37,32 @@ namespace Project__Filter
                 switch (item)
                 {
                     case "File Type":
-                        await Task.Run(() => SortTypes(Path, config_Path));
+                        //await Task.Run(() => SortTypes(Path, config_Path));
                         break;
                     case "File Size":
-                        await Task.Run(() => SortSize(Path, config_Path));
+                        //await Task.Run(() => SortSize(Path, config_Path));
                         break;
                     case "File Date":
-                        await Task.Run(() => SortDates(Path, config_Path));
+                        //await Task.Run(() => SortDates(Path, config_Path));
                         break;
                     case "File Name":
-                        await Task.Run(() => SortNames(Path, config_Path));
+                        //await Task.Run(() => SortNames(Path, config_Path));
                         break;
                     case "File Permissions":
-                        await Task.Run(() => SortPermissions(Path, config_Path, config_Path2));
+                        //await Task.Run(() => SortPermissions(Path, config_Path, config_Path2));
                         break;
                     case "Custom Tags":
-                        await Task.Run(() => SortCustomTags(Path, config_Path));
+                        //await Task.Run(() => SortCustomTags(Path, config_Path));
                         break;
                     case "Folder Location":
-                        await Task.Run(() => SortFolderLocation(Path, config_Path));
+                        //await Task.Run(() => SortFolderLocation(Path, config_Path));
                         break;
                     case "Media Metadata":
 
-                        await Task.Run(() => SortMedia(Path, config_Path, config_Path2));
+                        //await Task.Run(() => SortMedia(Path, config_Path, config_Path2));
                         break;
                     case "File Hash":
-                        await Task.Run(() => SortHash(Path, config_Path));
+                        //await Task.Run(() => SortHash(Path, config_Path));
                         break;
                     default:
                         break;
