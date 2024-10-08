@@ -968,6 +968,7 @@ namespace Project__Filter
             }
         }
 
+
         private void sortByDuration(string[] files)
         {
             // Check if the files array is empty
@@ -1043,7 +1044,6 @@ namespace Project__Filter
                 MessageBox.Show("Sorting completed!");
             }));
         }
-
 
         private void sortByResolution_Videos(string[] files)
         {
