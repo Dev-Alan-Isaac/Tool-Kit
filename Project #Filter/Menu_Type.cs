@@ -1,8 +1,5 @@
-﻿using Aspose.Cells.Charts;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using SharpCompress.Common;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Project__Filter
 {
@@ -48,7 +45,7 @@ namespace Project__Filter
 
                 // File already exists; get the filepath
                 string filePath = Path.GetFullPath("Config_Type.json");
-                //PopulateInputs(filePath);
+                PopulateInputs(filePath);
                 break;
             }
         }
