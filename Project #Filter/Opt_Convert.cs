@@ -29,40 +29,26 @@ namespace Project__Filter
             }
         }
 
-        private void button_Filter_Click_1(object sender, EventArgs e)
+        private async void button_Filter_Click_1(object sender, EventArgs e)
         {
+            string Config_covnvert = "Config_Convert.json";
+
             // Iterate through each item in the checkedItems list
             foreach (string item in checkedItems)
             {
                 switch (item)
                 {
-                    case "File Type":
-                        //await Task.Run(() => SortTypes(Path, config_Path));
+                    case "Image File":
+                        await Task.Run(() => ImageConvert(Path, Config_covnvert));
                         break;
-                    case "File Size":
-                        //await Task.Run(() => SortSize(Path, config_Path));
+                    case "Audio File":
+                        await Task.Run(() => AudioConvert(Path, Config_covnvert));
                         break;
-                    case "File Date":
-                        //await Task.Run(() => SortDates(Path, config_Path));
+                    case "Video File":
+                        await Task.Run(() => VideoConvert(Path, Config_covnvert));
                         break;
-                    case "File Name":
-                        //await Task.Run(() => SortNames(Path, config_Path));
-                        break;
-                    case "File Permissions":
-                        //await Task.Run(() => SortPermissions(Path, config_Path, config_Path2));
-                        break;
-                    case "Custom Tags":
-                        //await Task.Run(() => SortCustomTags(Path, config_Path));
-                        break;
-                    case "Folder Location":
-                        //await Task.Run(() => SortFolderLocation(Path, config_Path));
-                        break;
-                    case "Media Metadata":
-
-                        //await Task.Run(() => SortMedia(Path, config_Path, config_Path2));
-                        break;
-                    case "File Hash":
-                        //await Task.Run(() => SortHash(Path, config_Path));
+                    case "Document File":
+                        await Task.Run(() => DocumentConvert(Path, Config_covnvert));
                         break;
                     default:
                         break;
@@ -70,37 +56,7 @@ namespace Project__Filter
             }
         }
 
-        private void Opt_Transform_Load(object sender, EventArgs e)
-        {
-            while (true)
-            {
-                if (!File.Exists("Config_Convert.json"))
-                {
-                    // Create the JSON object
-                    var jsonContent = new JObject(
-                         new JProperty("Allow", new JObject(
-                             new JProperty("Image", new JArray("jpeg", "png", "tiff", "ico", "svg","webp")),
-                             new JProperty("Audio", new JArray("wav", "mp3", "wma")),
-                             new JProperty("Video", new JArray("gif", "webm", "avi", "mp4","flv","mov","mkv")),
-                             new JProperty("Document", new JArray("pdf","doc","docx"))
-                         ))
-                         //,
-                         //new JProperty("Convert", new JObject(
-                         //    new JProperty("Image", new JArray("jpeg", "png", "tiff", "ico", "svg", "webp"), new JArray("jpeg", "png", "tiff", "ico", "svg", "webp")),
-                         //    new JProperty("Audio", new JArray("wav", "mp3", "wma"), new JArray("jpeg", "png", "tiff", "ico", "svg", "webp")),
-                         //    new JProperty("Video", new JArray("gif", "docx", "pdf", "pptx"), new JArray("jpeg", "png", "tiff", "ico", "svg", "webp")),
-                         //    new JProperty("Document", new JArray("mp3", "wav", "aac", "flac", "ogg", "m4a", "wma", "alac", "aiff"), new JArray("jpeg", "png", "tiff", "ico", "svg", "webp"))
-                         //))
-                    );
-
-                    // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Config_Convert.json", jsonContent.ToString());
-                }
-                break;
-            }
-        }
-
-        private void checkBox_CheckedChanged(object sender, EventArgs e)
+        private void radio_CheckedChanged(object sender, EventArgs e)
         {
             // Cast the sender to a CheckBox
             if (sender is CheckBox checkBox)
@@ -123,15 +79,61 @@ namespace Project__Filter
 
             // Enable the button if one or more items are checked, disable it if none are checked
             button_Filter.Enabled = checkedItems.Count > 0;
+            Populated_Treeview();
+        }
+
+        private void Populated_Treeview()
+        {
+            if (!File.Exists("Config_Convert.json"))
+            {
+                MessageBox.Show("Config file not found.");
+            }
+        }
+
+        public async Task<string[]> ProcessFiles(string parentPath)
+        {
+            string config_file = "Config_Convert.json";
+
+            if (!File.Exists(config_file))
+            {
+                MessageBox.Show("Config file not found.");
+                return Array.Empty<string>(); // Return an empty array if the config file doesn't exist
+            }
+
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(config_file);
+            var jsonContent = JObject.Parse(jsonString);
+
+            bool processSubfolders = (bool)jsonContent["Option"]["Subfolder"];
+
+            // Get files based on whether subfolder processing is allowed
+            var files = processSubfolders
+                ? Directory.GetFiles(parentPath, "*.*", SearchOption.AllDirectories)
+                : Directory.GetFiles(parentPath);
+
+            return files; // Return the list of file paths
         }
 
 
-        private void Populated_Treeview()
+        private async void ImageConvert(string folderPath, string jsonPath)
         {
 
         }
 
+        private async void AudioConvert(string folderPath, string jsonPath)
+        {
 
+        }
+
+        private async void VideoConvert(string folderPath, string jsonPath)
+        {
+
+        }
+
+        private async void DocumentConvert(string folderPath, string jsonPath)
+        {
+
+        }
 
         //private string askTitle(string selectedPath)
         //{
