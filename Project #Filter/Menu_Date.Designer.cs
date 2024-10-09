@@ -91,7 +91,7 @@
             radioButton_Accessed.AutoSize = true;
             radioButton_Accessed.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Accessed.ForeColor = SystemColors.Control;
-            radioButton_Accessed.Location = new Point(3, 208);
+            radioButton_Accessed.Location = new Point(0, 147);
             radioButton_Accessed.Name = "radioButton_Accessed";
             radioButton_Accessed.Size = new Size(193, 29);
             radioButton_Accessed.TabIndex = 61;
@@ -104,7 +104,7 @@
             radioButton_Modified.AutoSize = true;
             radioButton_Modified.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Modified.ForeColor = SystemColors.Control;
-            radioButton_Modified.Location = new Point(3, 157);
+            radioButton_Modified.Location = new Point(0, 96);
             radioButton_Modified.Name = "radioButton_Modified";
             radioButton_Modified.Size = new Size(193, 29);
             radioButton_Modified.TabIndex = 60;
@@ -117,7 +117,7 @@
             radioButton_Creation.AutoSize = true;
             radioButton_Creation.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Creation.ForeColor = SystemColors.Control;
-            radioButton_Creation.Location = new Point(3, 106);
+            radioButton_Creation.Location = new Point(0, 45);
             radioButton_Creation.Name = "radioButton_Creation";
             radioButton_Creation.Size = new Size(149, 29);
             radioButton_Creation.TabIndex = 59;
@@ -131,7 +131,7 @@
             panel9.Dock = DockStyle.Top;
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(624, 76);
+            panel9.Size = new Size(624, 39);
             panel9.TabIndex = 1;
             // 
             // label3
@@ -141,9 +141,9 @@
             label3.ForeColor = SystemColors.Control;
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
-            label3.Size = new Size(624, 76);
+            label3.Size = new Size(624, 39);
             label3.TabIndex = 0;
-            label3.Text = "Select an option to sort the files based on the available date attributes.";
+            label3.Text = "Select an option to sort based on the available date attributes.";
             // 
             // panel4
             // 
