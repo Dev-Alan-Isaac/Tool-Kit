@@ -1,0 +1,187 @@
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Project #Filter.exe
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Project #Filter.deps.json
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Project #Filter.runtimeconfig.json
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Project #Filter.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Project #Filter.pdb
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Aspose.Cells.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Aspose.PDF.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Aspose.Slides.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Aspose.Words.Pdf2Word.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Aspose.Words.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\BouncyCastle.Cryptography.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Bunifu.Licensing.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\RestSharp.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Bunifu.UI.WinForms.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Bunifu.UI.WinForms.1.5.3.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\HtmlAgilityPack.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\itextsharp.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Magick.NET-Q16-AnyCPU.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Magick.NET.Core.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\MediaToolkit.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Microsoft.Extensions.Logging.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Microsoft.Extensions.Options.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\NAudio.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\NAudio.Asio.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\NAudio.Core.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\NAudio.Midi.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\NAudio.Wasapi.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\NAudio.WinForms.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\NAudio.WinMM.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\Newtonsoft.Json.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\NReco.VideoConverter.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\NReco.VideoInfo.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\PdfSharp.Charting.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\PdfSharp.Quality.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\PdfSharp.Snippets.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\PdfSharp.System.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\PdfSharp.WPFonts.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\PdfSharp.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\SharpCompress.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\SkiaSharp.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ComponentModel.Composition.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ComponentModel.Composition.Registration.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Configuration.ConfigurationManager.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Data.Odbc.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Data.OleDb.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Data.SqlClient.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Diagnostics.EventLog.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Diagnostics.PerformanceCounter.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.DirectoryServices.AccountManagement.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.DirectoryServices.Protocols.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Drawing.Common.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.IO.Packaging.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.IO.Ports.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Management.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Private.ServiceModel.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Reflection.Context.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Runtime.Caching.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Security.Cryptography.Xml.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ServiceModel.Duplex.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ServiceModel.Http.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ServiceModel.NetTcp.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ServiceModel.Primitives.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ServiceModel.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ServiceModel.Security.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ServiceModel.Syndication.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ServiceProcess.ServiceController.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Speech.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Web.Services.Description.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\taglib-sharp.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\ZstdSharp.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\de\PdfSharp.Charting.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\de\PdfSharp.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\cs\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\de\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\es\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\fr\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\it\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\ja\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\ko\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\pl\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\pt-BR\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\ru\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\tr\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\zh-Hans\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\zh-Hant\System.Private.ServiceModel.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\cs\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\de\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\es\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\fr\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\it\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\ja\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\ko\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\pl\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\pt-BR\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\ru\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\tr\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\zh-Hans\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\zh-Hant\System.Web.Services.Description.resources.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\linux-arm64\native\Magick.Native-Q16-arm64.dll.so
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\linux-musl-x64\native\Magick.Native-Q16-x64.dll.so
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\linux-x64\native\Magick.Native-Q16-x64.dll.so
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\osx-arm64\native\Magick.Native-Q16-arm64.dll.dylib
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\osx-x64\native\Magick.Native-Q16-x64.dll.dylib
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win-arm64\native\Magick.Native-Q16-arm64.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win-x64\native\Magick.Native-Q16-x64.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win-x86\native\Magick.Native-Q16-x86.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\linux-arm\native\libSystem.IO.Ports.Native.so
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\linux-arm64\native\libSystem.IO.Ports.Native.so
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\linux-x64\native\libSystem.IO.Ports.Native.so
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\osx-arm64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\osx-x64\native\libSystem.IO.Ports.Native.dylib
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win-arm64\native\sni.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win-x64\native\sni.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win-x86\native\sni.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\osx\native\libSkiaSharp.dylib
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win-arm64\native\libSkiaSharp.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win-x64\native\libSkiaSharp.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win-x86\native\libSkiaSharp.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\freebsd\lib\net8.0\System.Data.Odbc.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\illumos\lib\net8.0\System.Data.Odbc.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\ios\lib\net8.0\System.Data.Odbc.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\linux\lib\net8.0\System.Data.Odbc.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\osx\lib\net8.0\System.Data.Odbc.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\solaris\lib\net8.0\System.Data.Odbc.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\tvos\lib\net8.0\System.Data.Odbc.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.Data.Odbc.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.Data.OleDb.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.Diagnostics.PerformanceCounter.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.DirectoryServices.AccountManagement.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\linux\lib\net8.0\System.DirectoryServices.Protocols.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\osx\lib\net8.0\System.DirectoryServices.Protocols.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.DirectoryServices.Protocols.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\unix\lib\net8.0\System.IO.Ports.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.IO.Ports.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.Management.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.Runtime.Caching.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.ServiceProcess.ServiceController.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\bin\Debug\net8.0-windows8.0\runtimes\win\lib\net8.0\System.Speech.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.csproj.AssemblyReference.cache
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Main.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Main_Menu.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Audio.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Auth.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Convert.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Date.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Document.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Folder.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Images.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Media.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Name.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Saver.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Sizes.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Sort.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Tags.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Type.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Video.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Opt_Transform.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Opt_Encrypt.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Opt_Extract.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Opt_Home.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Opt_Merge.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Opt_Sort.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Properties.Resources.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.csproj.GenerateResource.cache
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.AssemblyInfoInputs.cache
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.AssemblyInfo.cs
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.csproj.CoreCompileInputs.cache
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.sourcelink.json
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project .74F23F9C.Up2Date
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\refint\Project #Filter.dll
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.pdb
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.genruntimeconfig.cache
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net8.0-windows8.0\ref\Project #Filter.dll
