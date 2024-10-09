@@ -67,6 +67,15 @@ namespace Project__Filter
             Populated_Treeview();
         }
 
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            // Get the selected node
+            TreeNode selectedNode = e.Node;
+
+            // Alternatively, update a label control with the selected node's name
+            label_SelectedNode.Text = $"{selectedNode.Text}";
+        }
+
         private async void Populated_Treeview()
         {
             // Check if the config file exists
@@ -179,6 +188,7 @@ namespace Project__Filter
         {
 
         }
+
 
         //private string askTitle(string selectedPath)
         //{

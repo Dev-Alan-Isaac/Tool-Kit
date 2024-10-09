@@ -33,7 +33,7 @@
             panel5 = new Panel();
             label7 = new Label();
             label6 = new Label();
-            label5 = new Label();
+            label_SelectedNode = new Label();
             label2 = new Label();
             radioButton_Document = new RadioButton();
             radioButton_Video = new RadioButton();
@@ -97,7 +97,7 @@
             // 
             panel5.Controls.Add(label7);
             panel5.Controls.Add(label6);
-            panel5.Controls.Add(label5);
+            panel5.Controls.Add(label_SelectedNode);
             panel5.Controls.Add(label2);
             panel5.Dock = DockStyle.Bottom;
             panel5.Location = new Point(0, 257);
@@ -127,16 +127,16 @@
             label6.TabIndex = 2;
             label6.Text = "File Output:";
             // 
-            // label5
+            // label_SelectedNode
             // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(7, 25);
-            label5.Name = "label5";
-            label5.Size = new Size(23, 25);
-            label5.TabIndex = 1;
-            label5.Text = "#";
+            label_SelectedNode.AutoSize = true;
+            label_SelectedNode.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            label_SelectedNode.ForeColor = SystemColors.Control;
+            label_SelectedNode.Location = new Point(7, 25);
+            label_SelectedNode.Name = "label_SelectedNode";
+            label_SelectedNode.Size = new Size(23, 25);
+            label_SelectedNode.TabIndex = 1;
+            label_SelectedNode.Text = "#";
             // 
             // label2
             // 
@@ -242,6 +242,7 @@
             treeView1.Name = "treeView1";
             treeView1.Size = new Size(250, 305);
             treeView1.TabIndex = 1;
+            treeView1.AfterSelect += treeView1_AfterSelect;
             // 
             // panel_Footer
             // 
@@ -479,7 +480,7 @@
         private RadioButton radioButton_Document;
         private Label label7;
         private Label label6;
-        private Label label5;
+        private Label label_SelectedNode;
         private Label label2;
     }
 }
