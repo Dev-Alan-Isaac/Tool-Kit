@@ -44,7 +44,7 @@
           }
         }
       },
-      "Aspose.Slides.NET/24.9.0": {
+      "Aspose.Slides.NET/24.10.0": {
         "type": "package",
         "dependencies": {
           "System.Drawing.Common": "7.0.0",
@@ -61,7 +61,7 @@
           }
         }
       },
-      "Aspose.Words/24.9.0": {
+      "Aspose.Words/24.10.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.Registry": "4.7.0",
@@ -171,7 +171,7 @@
           "build/_._": {}
         }
       },
-      "HtmlAgilityPack/1.11.66": {
+      "HtmlAgilityPack/1.11.67": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/HtmlAgilityPack.dll": {
@@ -514,7 +514,7 @@
           }
         }
       },
-      "Microsoft.Windows.Compatibility/8.0.8": {
+      "Microsoft.Windows.Compatibility/8.0.10": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.Registry.AccessControl": "8.0.0",
@@ -522,24 +522,24 @@
           "System.CodeDom": "8.0.0",
           "System.ComponentModel.Composition": "8.0.0",
           "System.ComponentModel.Composition.Registration": "8.0.0",
-          "System.Configuration.ConfigurationManager": "8.0.0",
-          "System.Data.Odbc": "8.0.0",
-          "System.Data.OleDb": "8.0.0",
+          "System.Configuration.ConfigurationManager": "8.0.1",
+          "System.Data.Odbc": "8.0.1",
+          "System.Data.OleDb": "8.0.1",
           "System.Data.SqlClient": "4.8.6",
-          "System.Diagnostics.EventLog": "8.0.0",
-          "System.Diagnostics.PerformanceCounter": "8.0.0",
+          "System.Diagnostics.EventLog": "8.0.1",
+          "System.Diagnostics.PerformanceCounter": "8.0.1",
           "System.DirectoryServices": "8.0.0",
-          "System.DirectoryServices.AccountManagement": "8.0.0",
+          "System.DirectoryServices.AccountManagement": "8.0.1",
           "System.DirectoryServices.Protocols": "8.0.0",
-          "System.Drawing.Common": "8.0.8",
-          "System.IO.Packaging": "8.0.0",
+          "System.Drawing.Common": "8.0.10",
+          "System.IO.Packaging": "8.0.1",
           "System.IO.Ports": "8.0.0",
           "System.Management": "8.0.0",
           "System.Reflection.Context": "8.0.0",
-          "System.Runtime.Caching": "8.0.0",
-          "System.Security.Cryptography.Pkcs": "8.0.0",
+          "System.Runtime.Caching": "8.0.1",
+          "System.Security.Cryptography.Pkcs": "8.0.1",
           "System.Security.Cryptography.ProtectedData": "8.0.0",
-          "System.Security.Cryptography.Xml": "8.0.1",
+          "System.Security.Cryptography.Xml": "8.0.2",
           "System.Security.Permissions": "8.0.0",
           "System.ServiceModel.Duplex": "4.10.0",
           "System.ServiceModel.Http": "4.10.0",
@@ -547,7 +547,7 @@
           "System.ServiceModel.Primitives": "4.10.0",
           "System.ServiceModel.Security": "4.10.0",
           "System.ServiceModel.Syndication": "8.0.0",
-          "System.ServiceProcess.ServiceController": "8.0.0",
+          "System.ServiceProcess.ServiceController": "8.0.1",
           "System.Speech": "8.0.0",
           "System.Text.Encoding.CodePages": "8.0.0",
           "System.Threading.AccessControl": "8.0.0",
@@ -1014,9 +1014,13 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Configuration.ConfigurationManager/8.0.0": {
+      "System.Configuration.ConfigurationManager/8.0.1": {
         "type": "package",
         "dependencies": {
+<<<<<<< Updated upstream
+=======
+          "System.Diagnostics.EventLog": "8.0.1",
+>>>>>>> Stashed changes
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         },
         "compile": {
@@ -1033,11 +1037,8 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Data.Odbc/8.0.0": {
+      "System.Data.Odbc/8.0.1": {
         "type": "package",
-        "dependencies": {
-          "System.Text.Encoding.CodePages": "8.0.0"
-        },
         "compile": {
           "lib/net6.0/System.Data.Odbc.dll": {
             "related": ".xml"
@@ -1070,11 +1071,11 @@
           }
         }
       },
-      "System.Data.OleDb/8.0.0": {
+      "System.Data.OleDb/8.0.1": {
         "type": "package",
         "dependencies": {
-          "System.Configuration.ConfigurationManager": "8.0.0",
-          "System.Diagnostics.PerformanceCounter": "8.0.0"
+          "System.Configuration.ConfigurationManager": "8.0.1",
+          "System.Diagnostics.PerformanceCounter": "8.0.1"
         },
         "compile": {
           "lib/net6.0/System.Data.OleDb.dll": {
@@ -1143,7 +1144,7 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Diagnostics.EventLog/8.0.0": {
+      "System.Diagnostics.EventLog/8.0.1": {
         "type": "package",
         "compile": {
           "lib/net6.0/System.Diagnostics.EventLog.dll": {
@@ -1169,10 +1170,10 @@
           }
         }
       },
-      "System.Diagnostics.PerformanceCounter/8.0.0": {
+      "System.Diagnostics.PerformanceCounter/8.0.1": {
         "type": "package",
         "dependencies": {
-          "System.Configuration.ConfigurationManager": "8.0.0"
+          "System.Configuration.ConfigurationManager": "8.0.1"
         },
         "compile": {
           "lib/net6.0/System.Diagnostics.PerformanceCounter.dll": {
@@ -1216,10 +1217,10 @@
           }
         }
       },
-      "System.DirectoryServices.AccountManagement/8.0.0": {
+      "System.DirectoryServices.AccountManagement/8.0.1": {
         "type": "package",
         "dependencies": {
-          "System.Configuration.ConfigurationManager": "8.0.0",
+          "System.Configuration.ConfigurationManager": "8.0.1",
           "System.DirectoryServices": "8.0.0",
           "System.DirectoryServices.Protocols": "8.0.0"
         },
@@ -1273,7 +1274,7 @@
           }
         }
       },
-      "System.Drawing.Common/8.0.8": {
+      "System.Drawing.Common/8.0.10": {
         "type": "package",
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "8.0.0"
@@ -1323,7 +1324,7 @@
           }
         }
       },
-      "System.IO.Packaging/8.0.0": {
+      "System.IO.Packaging/8.0.1": {
         "type": "package",
         "compile": {
           "lib/net6.0/System.IO.Packaging.dll": {
@@ -1574,10 +1575,10 @@
           }
         }
       },
-      "System.Runtime.Caching/8.0.0": {
+      "System.Runtime.Caching/8.0.1": {
         "type": "package",
         "dependencies": {
-          "System.Configuration.ConfigurationManager": "8.0.0"
+          "System.Configuration.ConfigurationManager": "8.0.1"
         },
         "compile": {
           "lib/net6.0/System.Runtime.Caching.dll": {
@@ -1638,11 +1639,8 @@
           }
         }
       },
-      "System.Security.Cryptography.Pkcs/8.0.0": {
+      "System.Security.Cryptography.Pkcs/8.0.1": {
         "type": "package",
-        "dependencies": {
-          "System.Formats.Asn1": "8.0.0"
-        },
         "compile": {
           "lib/net6.0/System.Security.Cryptography.Pkcs.dll": {
             "related": ".xml"
@@ -1679,10 +1677,10 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.Security.Cryptography.Xml/8.0.1": {
+      "System.Security.Cryptography.Xml/8.0.2": {
         "type": "package",
         "dependencies": {
-          "System.Security.Cryptography.Pkcs": "8.0.0"
+          "System.Security.Cryptography.Pkcs": "8.0.1"
         },
         "compile": {
           "lib/net6.0/System.Security.Cryptography.Xml.dll": {
@@ -1834,10 +1832,10 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "System.ServiceProcess.ServiceController/8.0.0": {
+      "System.ServiceProcess.ServiceController/8.0.1": {
         "type": "package",
         "dependencies": {
-          "System.Diagnostics.EventLog": "8.0.0"
+          "System.Diagnostics.EventLog": "8.0.1"
         },
         "compile": {
           "lib/net6.0/System.ServiceProcess.ServiceController.dll": {
@@ -1940,12 +1938,15 @@
           }
         }
       },
-      "System.Text.Json/8.0.4": {
+      "System.Text.Json/8.0.5": {
         "type": "package",
+<<<<<<< Updated upstream
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "6.0.0",
           "System.Text.Encodings.Web": "8.0.0"
         },
+=======
+>>>>>>> Stashed changes
         "compile": {
           "lib/net6.0/System.Text.Json.dll": {
             "related": ".xml"
@@ -2147,16 +2148,16 @@
         "license/thirdpartylicenses-Aspose.PDF for .NET.txt"
       ]
     },
-    "Aspose.Slides.NET/24.9.0": {
-      "sha512": "Bv8EBnJ1D8m5Dyfq631Guil8Pv0ssh3HkmHnpQ4oTAUD18a5fPr5QORsO+xbDuRBxeM3iWvMiUEgwiZ/M/Mdlg==",
+    "Aspose.Slides.NET/24.10.0": {
+      "sha512": "TV6dpNL0RBBP8gwq426rA0hXtTYbYAqWE4/oEVNJSk6ypWxdbhkAigerX58MKgC0V3fJeWBcRo9/w5uoPqWgSA==",
       "type": "package",
-      "path": "aspose.slides.net/24.9.0",
+      "path": "aspose.slides.net/24.10.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Aspose_End-User-License-Agreement.md",
         "Help/Aspose.Slides.chm",
-        "aspose.slides.net.24.9.0.nupkg.sha512",
+        "aspose.slides.net.24.10.0.nupkg.sha512",
         "aspose.slides.net.nuspec",
         "aspose_slides-for-net-min.png",
         "lib/net2.0/Aspose.Slides.dll",
@@ -2170,10 +2171,10 @@
         "thirdpartylicenses.Aspose.Slides.for.NET.pdf"
       ]
     },
-    "Aspose.Words/24.9.0": {
-      "sha512": "6ooa+GldT1W4UuWF1rnQZgEEnMX5VopsVq+wCL3MNeKzOGrEM77IL/lmZ41/iCDtou0cZNlxFqcNMAGVXVh3UQ==",
+    "Aspose.Words/24.10.0": {
+      "sha512": "OxjJ86vDob7n1RDEeNfwq2xa5+e8oOHvWuRb2Vjdnuzb5m1kaAevJHaUa9Sa4TeHgwMSIKtWbBH0gd0BZITlhg==",
       "type": "package",
-      "path": "aspose.words/24.9.0",
+      "path": "aspose.words/24.10.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2181,7 +2182,7 @@
         "Images/aspose_words-for-net.png",
         "License/Aspose_End-User-License-Agreement.txt",
         "License/thirdpartylicenses-Aspose.Words for .NET.pdf",
-        "aspose.words.24.9.0.nupkg.sha512",
+        "aspose.words.24.10.0.nupkg.sha512",
         "aspose.words.nuspec",
         "lib/net40-client/Aspose.Words.dll",
         "lib/net40-client/Aspose.Words.xml",
@@ -2333,14 +2334,14 @@
         "netstandardtask/Mono.Cecil.pdb"
       ]
     },
-    "HtmlAgilityPack/1.11.66": {
-      "sha512": "kRlJ/rnvDzSPZv294uR+k3IR04eQO1IxdYJuUPPFETZ0W2NDDRiuZlfgYaDX17OVvODJFWj6+lsMOko/Xj5XVQ==",
+    "HtmlAgilityPack/1.11.67": {
+      "sha512": "xnt6f8E56oK9nLqgkF42bsVSAkUuIuJnSfvzimK7GwvbhdXWRmGsx4A8AKmLOlCUq1rVSUADKalxnSMizHt4Mg==",
       "type": "package",
-      "path": "htmlagilitypack/1.11.66",
+      "path": "htmlagilitypack/1.11.67",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "htmlagilitypack.1.11.66.nupkg.sha512",
+        "htmlagilitypack.1.11.67.nupkg.sha512",
         "htmlagilitypack.nuspec",
         "lib/Net35/HtmlAgilityPack.dll",
         "lib/Net35/HtmlAgilityPack.pdb",
@@ -2378,7 +2379,8 @@
         "lib/uap10.0/HtmlAgilityPack.XML",
         "lib/uap10.0/HtmlAgilityPack.dll",
         "lib/uap10.0/HtmlAgilityPack.pdb",
-        "lib/uap10.0/HtmlAgilityPack.pri"
+        "lib/uap10.0/HtmlAgilityPack.pri",
+        "readme.md"
       ]
     },
     "iTextSharp/5.5.13.4": {
@@ -2838,16 +2840,16 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Windows.Compatibility/8.0.8": {
-      "sha512": "9FWk4D5mNFz99rT7NvsqrDdT/6bjkNtxo7CPwajyudBTMXi7kro8ixr5pUnFYrhUBfimR+OUGDYk/se4NxJ6sA==",
+    "Microsoft.Windows.Compatibility/8.0.10": {
+      "sha512": "V92Ri/nR0VqFT6vAVGj20sl0GI6tEFlZiB1IENyPdSdjs+1k5O1lr4vVwtIwoutlib8UyO8tnBwngT6SoOqvyA==",
       "type": "package",
-      "path": "microsoft.windows.compatibility/8.0.8",
+      "path": "microsoft.windows.compatibility/8.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "PACKAGE.md",
-        "microsoft.windows.compatibility.8.0.8.nupkg.sha512",
+        "microsoft.windows.compatibility.8.0.10.nupkg.sha512",
         "microsoft.windows.compatibility.nuspec"
       ]
     },
@@ -3530,10 +3532,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Configuration.ConfigurationManager/8.0.0": {
-      "sha512": "JlYi9XVvIREURRUlGMr1F6vOFLk7YSY4p1vHo4kX3tQ0AGrjqlRWHDi66ImHhy6qwXBG3BJ6Y1QlYQ+Qz6Xgww==",
+    "System.Configuration.ConfigurationManager/8.0.1": {
+      "sha512": "gPYFPDyohW2gXNhdQRSjtmeS6FymL2crg4Sral1wtvEJ7DUqFCDWDVbbLobASbzxfic8U1hQEdC7hmg9LHncMw==",
       "type": "package",
-      "path": "system.configuration.configurationmanager/8.0.0",
+      "path": "system.configuration.configurationmanager/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3555,15 +3557,15 @@
         "lib/net8.0/System.Configuration.ConfigurationManager.xml",
         "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll",
         "lib/netstandard2.0/System.Configuration.ConfigurationManager.xml",
-        "system.configuration.configurationmanager.8.0.0.nupkg.sha512",
+        "system.configuration.configurationmanager.8.0.1.nupkg.sha512",
         "system.configuration.configurationmanager.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Data.Odbc/8.0.0": {
-      "sha512": "c+GfnZt2/HyU+voKw2fctLZClcNjPZPWS+mnIhGvDknRMqL/fwWlREWPgA4csbp9ZkQIgB4qkufgdh/oh5Ubow==",
+    "System.Data.Odbc/8.0.1": {
+      "sha512": "JQd0QHOaZuH+ki+4Geas88dnLe/lZSaEYYmRdovZaqNVuExVlVFs/of2I1VaasMxzbO5+yrGDAP2rkazx/b8Sg==",
       "type": "package",
-      "path": "system.data.odbc/8.0.0",
+      "path": "system.data.odbc/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3625,15 +3627,15 @@
         "runtimes/win/lib/net7.0/System.Data.Odbc.xml",
         "runtimes/win/lib/net8.0/System.Data.Odbc.dll",
         "runtimes/win/lib/net8.0/System.Data.Odbc.xml",
-        "system.data.odbc.8.0.0.nupkg.sha512",
+        "system.data.odbc.8.0.1.nupkg.sha512",
         "system.data.odbc.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Data.OleDb/8.0.0": {
-      "sha512": "FpUTcQ0E8mFvcYp8UZA3NX8wgmhmsCue56g1zfkr1xdOnT5FrYYmC5DWQ9xCw8o8zuxVBKLZvliqEGgmeoalaQ==",
+    "System.Data.OleDb/8.0.1": {
+      "sha512": "RO+/y2ggU5956uQDRXdjA1e2l5yJ4rTWNX76eZ+3sgtYGqGapCe2kQCyiUci+/y6Fyb21Irp4RQEdfrIiuYrxQ==",
       "type": "package",
-      "path": "system.data.oledb/8.0.0",
+      "path": "system.data.oledb/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3661,7 +3663,7 @@
         "runtimes/win/lib/net7.0/System.Data.OleDb.xml",
         "runtimes/win/lib/net8.0/System.Data.OleDb.dll",
         "runtimes/win/lib/net8.0/System.Data.OleDb.xml",
-        "system.data.oledb.8.0.0.nupkg.sha512",
+        "system.data.oledb.8.0.1.nupkg.sha512",
         "system.data.oledb.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3779,10 +3781,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Diagnostics.EventLog/8.0.0": {
-      "sha512": "fdYxcRjQqTTacKId/2IECojlDSFvp7LP5N78+0z/xH7v/Tuw5ZAxu23Y6PTCRinqyu2ePx+Gn1098NC6jM6d+A==",
+    "System.Diagnostics.EventLog/8.0.1": {
+      "sha512": "n1ZP7NM2Gkn/MgD8+eOT5MulMj6wfeQMNS2Pizvq5GHCZfjlFMXV2irQlQmJhwA2VABC57M0auudO89Iu2uRLg==",
       "type": "package",
-      "path": "system.diagnostics.eventlog/8.0.0",
+      "path": "system.diagnostics.eventlog/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3813,15 +3815,15 @@
         "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll",
         "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll",
         "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.xml",
-        "system.diagnostics.eventlog.8.0.0.nupkg.sha512",
+        "system.diagnostics.eventlog.8.0.1.nupkg.sha512",
         "system.diagnostics.eventlog.nuspec",
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Diagnostics.PerformanceCounter/8.0.0": {
-      "sha512": "lX6DXxtJqVGWw7N/QmVoiCyVQ+Q/Xp+jVXPr3gLK1jJExSn1qmAjJQeb8gnOYeeBTG3E3PmG1nu92eYj/TEjpg==",
+    "System.Diagnostics.PerformanceCounter/8.0.1": {
+      "sha512": "9RfEDiEjlUADeThs8IPdDVTXSnPRSqjfgTQJALpmGFPKC0k2mbdufOXnb/9JZ4I0TkmxOfy3VTJxrHOJSs8cXg==",
       "type": "package",
-      "path": "system.diagnostics.performancecounter/8.0.0",
+      "path": "system.diagnostics.performancecounter/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3849,7 +3851,7 @@
         "runtimes/win/lib/net7.0/System.Diagnostics.PerformanceCounter.xml",
         "runtimes/win/lib/net8.0/System.Diagnostics.PerformanceCounter.dll",
         "runtimes/win/lib/net8.0/System.Diagnostics.PerformanceCounter.xml",
-        "system.diagnostics.performancecounter.8.0.0.nupkg.sha512",
+        "system.diagnostics.performancecounter.8.0.1.nupkg.sha512",
         "system.diagnostics.performancecounter.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3887,10 +3889,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.DirectoryServices.AccountManagement/8.0.0": {
-      "sha512": "dCT8BYeeisx0IzAf6x+FSVWK3gz2fKI9pgLV16c7dY/lckw4aodNrgXqsFqyqJN5Kfxc3oklG+SCMYkRfg1V7A==",
+    "System.DirectoryServices.AccountManagement/8.0.1": {
+      "sha512": "qVDWKClyDY+rHVEnf11eU4evW25d5OeidrtMPSJv+fwG213wa2zJ+AuIFCxsuvNSCFyHo+DvQIVfBcoK3CL1pA==",
       "type": "package",
-      "path": "system.directoryservices.accountmanagement/8.0.0",
+      "path": "system.directoryservices.accountmanagement/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3915,7 +3917,7 @@
         "runtimes/win/lib/net7.0/System.DirectoryServices.AccountManagement.xml",
         "runtimes/win/lib/net8.0/System.DirectoryServices.AccountManagement.dll",
         "runtimes/win/lib/net8.0/System.DirectoryServices.AccountManagement.xml",
-        "system.directoryservices.accountmanagement.8.0.0.nupkg.sha512",
+        "system.directoryservices.accountmanagement.8.0.1.nupkg.sha512",
         "system.directoryservices.accountmanagement.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3965,10 +3967,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Drawing.Common/8.0.8": {
-      "sha512": "4ZM1wvLjz9nVVExsfPAaSl/qOvU+QNedJL5rQ+2Wbow+iGeyO0e7XN07707rMBgaffEeeLrCZBwC0oHUuvRdPw==",
+    "System.Drawing.Common/8.0.10": {
+      "sha512": "MdajRp3P+FOlThgY6FBjAqnmLiVl5t2yWEC/2AsDMqx1zYbJG3G5TnscFBQ4obqcaGqvN5UnhQHSFaJFG2HftQ==",
       "type": "package",
-      "path": "system.drawing.common/8.0.8",
+      "path": "system.drawing.common/8.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4000,7 +4002,7 @@
         "lib/xamarinmac20/_._",
         "lib/xamarintvos10/_._",
         "lib/xamarinwatchos10/_._",
-        "system.drawing.common.8.0.8.nupkg.sha512",
+        "system.drawing.common.8.0.10.nupkg.sha512",
         "system.drawing.common.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -4115,10 +4117,10 @@
         "system.io.nuspec"
       ]
     },
-    "System.IO.Packaging/8.0.0": {
-      "sha512": "8g1V4YRpdGAxFcK8v9OjuMdIOJSpF30Zb1JGicwVZhly3I994WFyBdV6mQEo8d3T+URQe55/M0U0eIH0Hts1bg==",
+    "System.IO.Packaging/8.0.1": {
+      "sha512": "KYkIOAvPexQOLDxPO2g0BVoWInnQhPpkFzRqvNrNrMhVT6kqhVr0zEb6KCHlptLFukxnZrjuMVAnxK7pOGUYrw==",
       "type": "package",
-      "path": "system.io.packaging/8.0.0",
+      "path": "system.io.packaging/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4139,7 +4141,7 @@
         "lib/net8.0/System.IO.Packaging.xml",
         "lib/netstandard2.0/System.IO.Packaging.dll",
         "lib/netstandard2.0/System.IO.Packaging.xml",
-        "system.io.packaging.8.0.0.nupkg.sha512",
+        "system.io.packaging.8.0.1.nupkg.sha512",
         "system.io.packaging.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -4713,10 +4715,10 @@
         "system.runtime.nuspec"
       ]
     },
-    "System.Runtime.Caching/8.0.0": {
-      "sha512": "4TmlmvGp4kzZomm7J2HJn6IIx0UUrQyhBDyb5O1XiunZlQImXW+B8b7W/sTPcXhSf9rp5NR5aDtQllwbB5elOQ==",
+    "System.Runtime.Caching/8.0.1": {
+      "sha512": "tdl7Q47P09UpRu0C/OQsGJU6GacBzzk4vfp5My9rodD+BchrxmajORnTthH8RxPUTPrIoVDJmLyvJcGxB267nQ==",
       "type": "package",
-      "path": "system.runtime.caching/8.0.0",
+      "path": "system.runtime.caching/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4747,7 +4749,7 @@
         "runtimes/win/lib/net7.0/System.Runtime.Caching.xml",
         "runtimes/win/lib/net8.0/System.Runtime.Caching.dll",
         "runtimes/win/lib/net8.0/System.Runtime.Caching.xml",
-        "system.runtime.caching.8.0.0.nupkg.sha512",
+        "system.runtime.caching.8.0.1.nupkg.sha512",
         "system.runtime.caching.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -4823,10 +4825,10 @@
         "version.txt"
       ]
     },
-    "System.Security.Cryptography.Pkcs/8.0.0": {
-      "sha512": "ULmp3xoOwNYjOYp4JZ2NK/6NdTgiN1GQXzVVN1njQ7LOZ0d0B9vyMnhyqbIi9Qw4JXj1JgCsitkTShboHRx7Eg==",
+    "System.Security.Cryptography.Pkcs/8.0.1": {
+      "sha512": "CoCRHFym33aUSf/NtWSVSZa99dkd0Hm7OCZUxORBjRB16LNhIEOf8THPqzIYlvKM0nNDAPTRBa1FxEECrgaxxA==",
       "type": "package",
-      "path": "system.security.cryptography.pkcs/8.0.0",
+      "path": "system.security.cryptography.pkcs/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4855,7 +4857,7 @@
         "runtimes/win/lib/net7.0/System.Security.Cryptography.Pkcs.xml",
         "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll",
         "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.xml",
-        "system.security.cryptography.pkcs.8.0.0.nupkg.sha512",
+        "system.security.cryptography.pkcs.8.0.1.nupkg.sha512",
         "system.security.cryptography.pkcs.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -4896,10 +4898,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Security.Cryptography.Xml/8.0.1": {
-      "sha512": "hqu2ztecOf3BYg5q1R7QcyliX9L7r3mfsWtaRitAxcezH8hyZMB7zCmhi186hsUZXk1KxsAHXwyPEW+xvUED6g==",
+    "System.Security.Cryptography.Xml/8.0.2": {
+      "sha512": "aDM/wm0ZGEZ6ZYJLzgqjp2FZdHbDHh6/OmpGfb7AdZ105zYmPn/83JRU2xLIbwgoNz9U1SLUTJN0v5th3qmvjA==",
       "type": "package",
-      "path": "system.security.cryptography.xml/8.0.1",
+      "path": "system.security.cryptography.xml/8.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4920,7 +4922,7 @@
         "lib/net8.0/System.Security.Cryptography.Xml.xml",
         "lib/netstandard2.0/System.Security.Cryptography.Xml.dll",
         "lib/netstandard2.0/System.Security.Cryptography.Xml.xml",
-        "system.security.cryptography.xml.8.0.1.nupkg.sha512",
+        "system.security.cryptography.xml.8.0.2.nupkg.sha512",
         "system.security.cryptography.xml.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -5290,10 +5292,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.ServiceProcess.ServiceController/8.0.0": {
-      "sha512": "jtYVG3bpw2n/NvNnP2g/JLri0D4UtfusTvLeH6cZPNAEjJXJVGspS3wLgVvjNbm+wjaYkFgsXejMTocV1T5DIQ==",
+    "System.ServiceProcess.ServiceController/8.0.1": {
+      "sha512": "02I0BXo1kmMBgw03E8Hu4K6nTqur4wpQdcDZrndczPzY2fEoGvlinE35AWbyzLZ2h2IksEZ6an4tVt3hi9j1oA==",
       "type": "package",
-      "path": "system.serviceprocess.servicecontroller/8.0.0",
+      "path": "system.serviceprocess.servicecontroller/8.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5321,7 +5323,7 @@
         "runtimes/win/lib/net7.0/System.ServiceProcess.ServiceController.xml",
         "runtimes/win/lib/net8.0/System.ServiceProcess.ServiceController.dll",
         "runtimes/win/lib/net8.0/System.ServiceProcess.ServiceController.xml",
-        "system.serviceprocess.servicecontroller.8.0.0.nupkg.sha512",
+        "system.serviceprocess.servicecontroller.8.0.1.nupkg.sha512",
         "system.serviceprocess.servicecontroller.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -5497,10 +5499,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Text.Json/8.0.4": {
-      "sha512": "bAkhgDJ88XTsqczoxEMliSrpijKZHhbJQldhAmObj/RbrN3sU5dcokuXmWJWsdQAhiMJ9bTayWsL1C9fbbCRhw==",
+    "System.Text.Json/8.0.5": {
+      "sha512": "0f1B50Ss7rqxXiaBJyzUu9bWFOO2/zSlifZ/UNMdiIpDYe4cY4LQQicP4nirK1OS31I43rn062UIJ1Q9bpmHpg==",
       "type": "package",
-      "path": "system.text.json/8.0.4",
+      "path": "system.text.json/8.0.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -5565,7 +5567,7 @@
         "lib/net8.0/System.Text.Json.xml",
         "lib/netstandard2.0/System.Text.Json.dll",
         "lib/netstandard2.0/System.Text.Json.xml",
-        "system.text.json.8.0.4.nupkg.sha512",
+        "system.text.json.8.0.5.nupkg.sha512",
         "system.text.json.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -5767,13 +5769,13 @@
     "net6.0-windows10.0.26100": [
       "Aspose.Cells >= 24.9.0",
       "Aspose.PDF >= 24.9.0",
-      "Aspose.Slides.NET >= 24.9.0",
-      "Aspose.Words >= 24.9.0",
+      "Aspose.Slides.NET >= 24.10.0",
+      "Aspose.Words >= 24.10.0",
       "Bunifu.UI.WinForms >= 6.0.1",
-      "HtmlAgilityPack >= 1.11.66",
+      "HtmlAgilityPack >= 1.11.67",
       "Magick.NET-Q16-AnyCPU >= 14.0.0",
       "MediaToolkit >= 1.1.0.1",
-      "Microsoft.Windows.Compatibility >= 8.0.8",
+      "Microsoft.Windows.Compatibility >= 8.0.10",
       "NAudio >= 2.2.1",
       "NReco.VideoConverter >= 1.2.1",
       "NReco.VideoInfo >= 1.2.0",
@@ -5781,7 +5783,7 @@
       "PDFsharp >= 6.1.1",
       "SharpCompress >= 0.38.0",
       "System.Formats.Asn1 >= 8.0.1",
-      "System.Text.Json >= 8.0.4",
+      "System.Text.Json >= 8.0.5",
       "iTextSharp >= 5.5.13.4",
       "taglib-sharp-netstandard2.0 >= 2.1.0"
     ]
@@ -5841,11 +5843,11 @@
           },
           "Aspose.Slides.NET": {
             "target": "Package",
-            "version": "[24.9.0, )"
+            "version": "[24.10.0, )"
           },
           "Aspose.Words": {
             "target": "Package",
-            "version": "[24.9.0, )"
+            "version": "[24.10.0, )"
           },
           "Bunifu.UI.WinForms": {
             "target": "Package",
@@ -5853,7 +5855,7 @@
           },
           "HtmlAgilityPack": {
             "target": "Package",
-            "version": "[1.11.66, )"
+            "version": "[1.11.67, )"
           },
           "Magick.NET-Q16-AnyCPU": {
             "target": "Package",
@@ -5865,7 +5867,7 @@
           },
           "Microsoft.Windows.Compatibility": {
             "target": "Package",
-            "version": "[8.0.8, )"
+            "version": "[8.0.10, )"
           },
           "NAudio": {
             "target": "Package",
@@ -5897,7 +5899,7 @@
           },
           "System.Text.Json": {
             "target": "Package",
-            "version": "[8.0.4, )"
+            "version": "[8.0.5, )"
           },
           "iTextSharp": {
             "target": "Package",
@@ -5942,6 +5944,7 @@
   },
   "logs": [
     {
+<<<<<<< Updated upstream
       "code": "NU1903",
       "level": "Warning",
       "warningLevel": 1,
@@ -5952,6 +5955,8 @@
       ]
     },
     {
+=======
+>>>>>>> Stashed changes
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
