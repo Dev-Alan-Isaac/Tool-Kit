@@ -538,113 +538,94 @@ namespace Project__Filter
             var extensions = jsonContent["Extensions"].ToObject<JObject>();
             var allow = jsonContent["Allow"].ToObject<JObject>();
 
-            // List to hold the filtered files
-            List<string> allowedFiles = new List<string>();
-
             // Get all files in the target folder
             var files = await ProcessFiles(folderPath);
-
-            // Filter the files based on the "Allow" section of the JSON
-            foreach (var file in files)
-            {
-                string extension = System.IO.Path.GetExtension(file).ToLower();
-
-                // Check which media types are allowed (e.g., Images, Videos, etc.)
-                foreach (var mediaType in allow)
-                {
-                    bool isAllowed = (bool)mediaType.Value;
-
-                    if (isAllowed && extensions[mediaType.Key] != null)
-                    {
-                        var allowedExtensions = extensions[mediaType.Key].ToObject<string[]>();
-
-                        if (allowedExtensions.Any(ext => ext.Equals(extension, StringComparison.OrdinalIgnoreCase)))
-                        {
-                            allowedFiles.Add(file);
-                        }
-                    }
-                }
-            }
-
-            int totalFiles = allowedFiles.Count;
+            int totalFiles = files.Length;
             int processedFiles = 0;
 
             // Update the file count label
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
-            // Dictionary to group files by hash
-            Dictionary<string, List<string>> hashGroups = new Dictionary<string, List<string>>();
+            // Dictionary to store hash and corresponding files
+            Dictionary<string, List<string>> fileHashes = new Dictionary<string, List<string>>();
 
-            // Process each allowed file
-            foreach (var file in allowedFiles)
+            // Process each file in the folder
+            foreach (var file in files)
             {
-                try
-                {
-                    // Compute the file's hash
-                    string fileHash = ComputeFileHash(file);
+                // Get the file extension (without the dot, in lowercase)
+                string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
 
-                    // Add the file to the correct hash group
-                    if (!hashGroups.ContainsKey(fileHash))
+                // Check each category in "Allow"
+                foreach (var allowCategory in allow)
+                {
+                    bool isAllowed = (bool)allowCategory.Value;
+                    string category = allowCategory.Key;
+
+                    // If the category is allowed
+                    if (isAllowed)
                     {
-                        hashGroups[fileHash] = new List<string>();
+                        // Get the list of extensions for this category
+                        JArray categoryExtensions = (JArray)extensions[category];
+
+                        // Ensure the comparison is string-based and case-insensitive
+                        bool extensionExists = categoryExtensions
+                            .Select(ext => ext.ToString().Trim().ToLower())
+                            .Contains(fileExtension);
+
+                        // If the file's extension matches any of the allowed extensions
+                        if (extensionExists)
+                        {
+                            // Calculate the hash of the file
+                            string fileHash = GetFileHash(file);
+
+                            // Check if the hash already exists in the dictionary
+                            if (fileHashes.ContainsKey(fileHash))
+                            {
+                                // If it does, add the file to the list
+                                fileHashes[fileHash].Add(file);
+                            }
+                            else
+                            {
+                                // If it doesn't, create a new entry
+                                fileHashes[fileHash] = new List<string> { file };
+                            }
+                        }
                     }
-                    hashGroups[fileHash].Add(file);
-
-                    processedFiles++;
-
-                    // Update progress bar or status (optional)
-                    Invoke((MethodInvoker)(() => progressBar_Time.Value = processedFiles));
-
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                 }
             }
 
-            // Sort the files into folders based on their hash
-            int hashFolderCount = 1;
-            foreach (var group in hashGroups)
+            // Now, move files with the same hash into numbered folders
+            int folderCount = 1;
+            foreach (var hashEntry in fileHashes)
             {
-                // Create a folder for the group of files that share the same hash
-                string hashFolder = System.IO.Path.Combine(folderPath, $"Hash{hashFolderCount}");
+                var filesWithSameHash = hashEntry.Value;
 
-                if (!Directory.Exists(hashFolder))
+                // If more than one file shares the same hash
+                if (filesWithSameHash.Count > 1)
                 {
-                    Directory.CreateDirectory(hashFolder);
-                }
+                    string folderName = System.IO.Path.Combine(folderPath, $"Hash_{folderCount}");
+                    Directory.CreateDirectory(folderName);
 
-                // Move the files into the folder
-                foreach (var file in group.Value)
-                {
-                    string destinationFile = System.IO.Path.Combine(hashFolder, System.IO.Path.GetFileName(file));
-
-                    if (!File.Exists(destinationFile))
+                    // Move each file into the folder
+                    foreach (var file in filesWithSameHash)
                     {
-                        File.Move(file, destinationFile);
-                        Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                        string destinationPath = System.IO.Path.Combine(folderName, System.IO.Path.GetFileName(file));
+                        File.Move(file, destinationPath);
                     }
-                    else
-                    {
-                        Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
-                    }
-                }
 
-                hashFolderCount++;
+                    folderCount++;
+                }
             }
-
-            // Done
-            MessageBox.Show("File sorting by hash completed!");
         }
 
-        private string ComputeFileHash(string filePath)
+        private string GetFileHash(string filePath)
         {
             using (var sha256 = SHA256.Create())
             {
-                using (var stream = File.OpenRead(filePath))
+                using (var fileStream = File.OpenRead(filePath))
                 {
-                    byte[] hashBytes = sha256.ComputeHash(stream);
-                    return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+                    byte[] hashBytes = sha256.ComputeHash(fileStream);
+                    return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
                 }
             }
         }
@@ -967,7 +948,6 @@ namespace Project__Filter
                 sortByAspect_Images(imageFiles);
             }
         }
-
 
         private void sortByDuration(string[] files)
         {
