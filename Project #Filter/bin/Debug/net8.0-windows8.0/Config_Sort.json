@@ -1,6 +1,6 @@
 {
   "Option": {
     "Delete": true,
-    "Subfolder": false
+    "Subfolder": true
   }
 }

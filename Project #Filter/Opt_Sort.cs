@@ -26,6 +26,7 @@ namespace Project__Filter
                 {
                     Path = fbd.SelectedPath;
                     textBox_Path.Text = Path;
+                    Populated_Treeview(fbd.SelectedPath);
                 }
             }
         }
@@ -59,7 +60,9 @@ namespace Project__Filter
         {
             string config_Path, config_Path2, Config_Sort = "Config_Sort.json";
 
-            // Iterate through each item in the checkedItems list
+            // Clear TreeView before sorting
+            treeView1.Nodes.Clear();
+
             foreach (string item in checkedItems)
             {
                 switch (item)
@@ -67,46 +70,67 @@ namespace Project__Filter
                     case "File Type":
                         config_Path = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortTypes(Path, config_Path));
+                        // After sorting by file type, update the TreeView
+                        Populated_Treeview(Path);
                         break;
                     case "File Size":
                         config_Path = System.IO.Path.GetFullPath("Config_Size.json");
                         await Task.Run(() => SortSize(Path, config_Path));
+                        // After sorting by file size, update the TreeView
+                        Populated_Treeview(Path);
                         break;
                     case "File Date":
                         config_Path = System.IO.Path.GetFullPath("Config_Date.json");
                         await Task.Run(() => SortDates(Path, config_Path));
+                        // After sorting by file date, update the TreeView
+                        Populated_Treeview(Path);
                         break;
                     case "File Name":
                         config_Path = System.IO.Path.GetFullPath("Config_Names.json");
                         await Task.Run(() => SortNames(Path, config_Path));
+                        // After sorting by file name, update the TreeView
+                        Populated_Treeview(Path);
                         break;
                     case "File Permissions":
                         config_Path = System.IO.Path.GetFullPath("Config_Names.json");
                         config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortPermissions(Path, config_Path, config_Path2));
+                        // After sorting by file permissions, update the TreeView
+                        Populated_Treeview(Path);
                         break;
                     case "Custom Tags":
                         config_Path = System.IO.Path.GetFullPath("Config_Tags.json");
                         await Task.Run(() => SortCustomTags(Path, config_Path));
+                        // After sorting by custom tags, update the TreeView
+                        Populated_Treeview(Path);
                         break;
                     case "Folder Location":
                         config_Path = System.IO.Path.GetFullPath("Config_Folder.json");
                         await Task.Run(() => SortFolderLocation(Path, config_Path));
+                        // After sorting by folder location, update the TreeView
+                        Populated_Treeview(Path);
                         break;
                     case "Media Metadata":
                         config_Path = System.IO.Path.GetFullPath("Config_Media.json");
                         config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortMedia(Path, config_Path, config_Path2));
+                        // After sorting by media metadata, update the TreeView
+                        Populated_Treeview(Path);
                         break;
                     case "File Hash":
                         config_Path = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortHash(Path, config_Path));
+                        // After sorting by file hash, update the TreeView
+                        Populated_Treeview(Path);
                         break;
                     default:
                         break;
                 }
             }
+
+            DeleteEmptyFolders(Path);
         }
+
 
         public async Task<string[]> ProcessFiles(string parentPath)
         {
@@ -143,6 +167,37 @@ namespace Project__Filter
                 {
                     Directory.Delete(directory);
                 }
+            }
+        }
+
+        private async void Populated_Treeview(string folderPath)
+        {
+            // Clear the TreeView first
+            treeView1.Nodes.Clear();
+
+            // Get all files from the folder and its subfolders (after sorting)
+            var files = await ProcessFiles(folderPath);
+
+            // Group files by their parent folder
+            var groupedFiles = files
+                .GroupBy(file => System.IO.Path.GetDirectoryName(file))
+                .ToList();
+
+            // Iterate over each group (each folder)
+            foreach (var group in groupedFiles)
+            {
+                // Create a node for the folder
+                TreeNode folderNode = new TreeNode(System.IO.Path.GetFileName(group.Key));
+
+                // Add file names as child nodes under the folder node
+                foreach (var file in group)
+                {
+                    TreeNode fileNode = new TreeNode(System.IO.Path.GetFileName(file));
+                    folderNode.Nodes.Add(fileNode);
+                }
+
+                // Add the folder node to the TreeView
+                treeView1.Nodes.Add(folderNode);
             }
         }
 
@@ -224,7 +279,6 @@ namespace Project__Filter
             // Ensure the progress bar reaches 0% at the end
             progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
             MessageBox.Show("Sorting completed!");
-            DeleteEmptyFolders(folderPath);
         }
 
         private async void SortSize(string folderPath, string jsonPath)
