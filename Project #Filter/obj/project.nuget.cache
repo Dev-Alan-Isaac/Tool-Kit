@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "QW8BqJtFcoY=",
+  "dgSpecHash": "XrMyM4gLwOk=",
   "success": true,
   "projectFilePath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
   "expectedPackageFiles": [
@@ -115,9 +115,19 @@
     "C:\\Users\\Sistemas\\.nuget\\packages\\system.windows.extensions\\8.0.0\\system.windows.extensions.8.0.0.nupkg.sha512",
     "C:\\Users\\Sistemas\\.nuget\\packages\\taglib-sharp-netstandard2.0\\2.1.0\\taglib-sharp-netstandard2.0.2.1.0.nupkg.sha512",
     "C:\\Users\\Sistemas\\.nuget\\packages\\zstdsharp.port\\0.8.1\\zstdsharp.port.0.8.1.nupkg.sha512",
-    "C:\\Users\\Sistemas\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.34\\microsoft.windows.sdk.net.ref.10.0.22621.34.nupkg.sha512"
+    "C:\\Users\\Sistemas\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22621.44\\microsoft.windows.sdk.net.ref.10.0.22621.44.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Text.Json' 8.0.4 has a known high severity vulnerability, https://github.com/advisories/GHSA-8g4q-xg66-9fp4",
+      "libraryId": "System.Text.Json",
+      "targetGraphs": [
+        "net8.0-windows10.0.22621"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",
