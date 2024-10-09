@@ -22,11 +22,10 @@ C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\ne
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Project__Filter.Opt_Home.resources
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Project__Filter.Opt_Merge.resources
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Project__Filter.Opt_Sort.resources
-C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Tool Kit Vs 2.0.Properties.Resources.resources
+C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Project__Filter.Properties.Resources.resources
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Project #Filter.csproj.GenerateResource.cache
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Project #Filter.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Project #Filter.AssemblyInfoInputs.cache
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Project #Filter.AssemblyInfo.cs
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Project #Filter.csproj.CoreCompileInputs.cache
 C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Project #Filter.sourcelink.json
-C:\Users\Sistemas\source\repos\Clone\Project-Filter\Project #Filter\obj\Debug\net6.0-windows10.0.26100.0\Project__Filter.Properties.Resources.resources
