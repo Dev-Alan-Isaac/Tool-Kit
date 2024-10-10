@@ -50,6 +50,9 @@ namespace Project__Filter
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            // Disable event handler to prevent multiple triggers
+            treeView1.AfterSelect -= treeView1_AfterSelect;
+
             // Get the selected node
             TreeNode selectedNode = e.Node;
 
@@ -71,7 +74,16 @@ namespace Project__Filter
 
                 // Remove the selected node from the TreeView
                 treeView1.Nodes.Remove(selectedNode);
+
+                // Refresh selection
+                if (treeView1.Nodes.Count > 0)
+                {
+                    treeView1.SelectedNode = null; // Clear selection
+                }
             }
+
+            // Re-enable the event handler
+            treeView1.AfterSelect += treeView1_AfterSelect;
         }
 
 
