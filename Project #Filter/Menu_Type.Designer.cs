@@ -204,10 +204,10 @@
             // checkBox_Executables
             // 
             checkBox_Executables.AutoSize = true;
-            checkBox_Executables.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            checkBox_Executables.Location = new Point(3, 220);
+            checkBox_Executables.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox_Executables.Location = new Point(3, 258);
             checkBox_Executables.Name = "checkBox_Executables";
-            checkBox_Executables.Size = new Size(115, 25);
+            checkBox_Executables.Size = new Size(132, 29);
             checkBox_Executables.TabIndex = 7;
             checkBox_Executables.Text = "Executables";
             checkBox_Executables.UseVisualStyleBackColor = true;
@@ -216,10 +216,10 @@
             // checkBox_Archives
             // 
             checkBox_Archives.AutoSize = true;
-            checkBox_Archives.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            checkBox_Archives.Location = new Point(3, 186);
+            checkBox_Archives.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox_Archives.Location = new Point(3, 216);
             checkBox_Archives.Name = "checkBox_Archives";
-            checkBox_Archives.Size = new Size(91, 25);
+            checkBox_Archives.Size = new Size(104, 29);
             checkBox_Archives.TabIndex = 6;
             checkBox_Archives.Text = "Archives";
             checkBox_Archives.UseVisualStyleBackColor = true;
@@ -228,10 +228,10 @@
             // checkBox_Videos
             // 
             checkBox_Videos.AutoSize = true;
-            checkBox_Videos.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            checkBox_Videos.Location = new Point(3, 152);
+            checkBox_Videos.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox_Videos.Location = new Point(3, 174);
             checkBox_Videos.Name = "checkBox_Videos";
-            checkBox_Videos.Size = new Size(79, 25);
+            checkBox_Videos.Size = new Size(88, 29);
             checkBox_Videos.TabIndex = 5;
             checkBox_Videos.Text = "Videos";
             checkBox_Videos.UseVisualStyleBackColor = true;
@@ -240,10 +240,10 @@
             // checkBox_Audio
             // 
             checkBox_Audio.AutoSize = true;
-            checkBox_Audio.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            checkBox_Audio.Location = new Point(3, 118);
+            checkBox_Audio.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox_Audio.Location = new Point(3, 132);
             checkBox_Audio.Name = "checkBox_Audio";
-            checkBox_Audio.Size = new Size(73, 25);
+            checkBox_Audio.Size = new Size(82, 29);
             checkBox_Audio.TabIndex = 4;
             checkBox_Audio.Text = "Audio";
             checkBox_Audio.UseVisualStyleBackColor = true;
@@ -252,10 +252,10 @@
             // checkBox_Images
             // 
             checkBox_Images.AutoSize = true;
-            checkBox_Images.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            checkBox_Images.Location = new Point(3, 84);
+            checkBox_Images.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox_Images.Location = new Point(3, 90);
             checkBox_Images.Name = "checkBox_Images";
-            checkBox_Images.Size = new Size(82, 25);
+            checkBox_Images.Size = new Size(93, 29);
             checkBox_Images.TabIndex = 3;
             checkBox_Images.Text = "Images";
             checkBox_Images.UseVisualStyleBackColor = true;
@@ -264,10 +264,10 @@
             // checkBox_Documents
             // 
             checkBox_Documents.AutoSize = true;
-            checkBox_Documents.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            checkBox_Documents.Location = new Point(3, 50);
+            checkBox_Documents.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox_Documents.Location = new Point(3, 48);
             checkBox_Documents.Name = "checkBox_Documents";
-            checkBox_Documents.Size = new Size(112, 25);
+            checkBox_Documents.Size = new Size(129, 29);
             checkBox_Documents.TabIndex = 2;
             checkBox_Documents.Text = "Documents";
             checkBox_Documents.UseVisualStyleBackColor = true;

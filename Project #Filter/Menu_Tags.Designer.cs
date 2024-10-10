@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu_Tags));
             panel4 = new Panel();
             label1 = new Label();
@@ -46,6 +47,8 @@
             treeView_Tags = new TreeView();
             panel8 = new Panel();
             label2 = new Label();
+            bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
@@ -60,7 +63,7 @@
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 32);
             panel4.Name = "panel4";
-            panel4.Size = new Size(633, 44);
+            panel4.Size = new Size(579, 44);
             panel4.TabIndex = 63;
             // 
             // label1
@@ -81,7 +84,7 @@
             panel5.Controls.Add(panel6);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
-            panel5.Size = new Size(387, 394);
+            panel5.Size = new Size(333, 394);
             panel5.TabIndex = 64;
             // 
             // panel6
@@ -93,17 +96,17 @@
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(0, 0);
             panel6.Name = "panel6";
-            panel6.Size = new Size(387, 394);
+            panel6.Size = new Size(333, 394);
             panel6.TabIndex = 59;
             // 
             // label3
             // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            label3.Font = new Font("Segoe UI Semibold", 10F, FontStyle.Bold);
+            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(-3, 106);
+            label3.Location = new Point(3, 91);
             label3.Name = "label3";
-            label3.Size = new Size(384, 151);
+            label3.Size = new Size(324, 257);
             label3.TabIndex = 58;
             label3.Text = resources.GetString("label3.Text");
             // 
@@ -113,18 +116,18 @@
             textBox_Tag.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             textBox_Tag.Location = new Point(3, 42);
             textBox_Tag.Name = "textBox_Tag";
-            textBox_Tag.Size = new Size(384, 33);
+            textBox_Tag.Size = new Size(330, 33);
             textBox_Tag.TabIndex = 57;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Dock = DockStyle.Top;
-            label4.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = SystemColors.Control;
             label4.Location = new Point(0, 0);
             label4.Name = "label4";
-            label4.Size = new Size(187, 32);
+            label4.Size = new Size(179, 32);
             label4.TabIndex = 0;
             label4.Text = "Add Tags Here:";
             // 
@@ -135,7 +138,7 @@
             panel11.Dock = DockStyle.Bottom;
             panel11.Location = new Point(0, 351);
             panel11.Name = "panel11";
-            panel11.Size = new Size(387, 43);
+            panel11.Size = new Size(333, 43);
             panel11.TabIndex = 56;
             // 
             // button_Remove
@@ -148,7 +151,7 @@
             button_Remove.FlatStyle = FlatStyle.Flat;
             button_Remove.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold);
             button_Remove.ForeColor = Color.White;
-            button_Remove.Location = new Point(296, 0);
+            button_Remove.Location = new Point(242, 0);
             button_Remove.Margin = new Padding(3, 2, 3, 2);
             button_Remove.Name = "button_Remove";
             button_Remove.Size = new Size(88, 41);
@@ -180,14 +183,14 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 482);
             panel3.Name = "panel3";
-            panel3.Size = new Size(633, 32);
+            panel3.Size = new Size(579, 32);
             panel3.TabIndex = 62;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 64, 64);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(633, 32);
+            panel2.Location = new Point(579, 32);
             panel2.Name = "panel2";
             panel2.Size = new Size(32, 482);
             panel2.TabIndex = 61;
@@ -198,7 +201,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(665, 32);
+            panel1.Size = new Size(611, 32);
             panel1.TabIndex = 60;
             // 
             // panel7
@@ -206,9 +209,9 @@
             panel7.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             panel7.Controls.Add(treeView_Tags);
             panel7.Controls.Add(panel8);
-            panel7.Location = new Point(399, 82);
+            panel7.Location = new Point(345, 82);
             panel7.Name = "panel7";
-            panel7.Size = new Size(234, 394);
+            panel7.Size = new Size(228, 394);
             panel7.TabIndex = 65;
             // 
             // treeView_Tags
@@ -216,7 +219,7 @@
             treeView_Tags.Dock = DockStyle.Fill;
             treeView_Tags.Location = new Point(0, 42);
             treeView_Tags.Name = "treeView_Tags";
-            treeView_Tags.Size = new Size(234, 352);
+            treeView_Tags.Size = new Size(228, 352);
             treeView_Tags.TabIndex = 57;
             // 
             // panel8
@@ -225,7 +228,7 @@
             panel8.Dock = DockStyle.Top;
             panel8.Location = new Point(0, 0);
             panel8.Name = "panel8";
-            panel8.Size = new Size(234, 42);
+            panel8.Size = new Size(228, 42);
             panel8.TabIndex = 0;
             // 
             // label2
@@ -240,6 +243,16 @@
             label2.TabIndex = 0;
             label2.Text = "Tags List:";
             // 
+            // bunifuElipse1
+            // 
+            bunifuElipse1.ElipseRadius = 5;
+            bunifuElipse1.TargetControl = button_Add;
+            // 
+            // bunifuElipse2
+            // 
+            bunifuElipse2.ElipseRadius = 5;
+            bunifuElipse2.TargetControl = button_Remove;
+            // 
             // Menu_Tags
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -252,7 +265,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Menu_Tags";
-            Size = new Size(665, 514);
+            Size = new Size(611, 514);
             Load += Menu_Load;
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
@@ -284,5 +297,7 @@
         private Button button_Add;
         private TextBox textBox_Tag;
         private Label label3;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
     }
 }

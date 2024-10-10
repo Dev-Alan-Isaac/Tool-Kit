@@ -44,9 +44,7 @@
             label2 = new Label();
             panel10 = new Panel();
             button_Saved = new Button();
-            bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
-            bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
             label1 = new Label();
             panel4 = new Panel();
             panel3 = new Panel();
@@ -69,7 +67,7 @@
             panel5.Controls.Add(panel10);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
-            panel5.Size = new Size(624, 394);
+            panel5.Size = new Size(570, 394);
             panel5.TabIndex = 66;
             // 
             // checkBox_Delete
@@ -117,17 +115,17 @@
             panel6.Controls.Add(label2);
             panel6.Location = new Point(3, 147);
             panel6.Name = "panel6";
-            panel6.Size = new Size(618, 199);
+            panel6.Size = new Size(564, 199);
             panel6.TabIndex = 60;
             // 
             // radioButton_Custom
             // 
             radioButton_Custom.AutoSize = true;
-            radioButton_Custom.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Custom.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Custom.ForeColor = SystemColors.Control;
-            radioButton_Custom.Location = new Point(170, 45);
+            radioButton_Custom.Location = new Point(169, 54);
             radioButton_Custom.Name = "radioButton_Custom";
-            radioButton_Custom.Size = new Size(160, 25);
+            radioButton_Custom.Size = new Size(188, 29);
             radioButton_Custom.TabIndex = 7;
             radioButton_Custom.TabStop = true;
             radioButton_Custom.Text = "Custom File Name";
@@ -136,11 +134,11 @@
             // radioButton_Original
             // 
             radioButton_Original.AutoSize = true;
-            radioButton_Original.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Original.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Original.ForeColor = SystemColors.Control;
-            radioButton_Original.Location = new Point(3, 45);
+            radioButton_Original.Location = new Point(2, 54);
             radioButton_Original.Name = "radioButton_Original";
-            radioButton_Original.Size = new Size(161, 25);
+            radioButton_Original.Size = new Size(190, 29);
             radioButton_Original.TabIndex = 6;
             radioButton_Original.TabStop = true;
             radioButton_Original.Text = "Original File Name";
@@ -153,19 +151,19 @@
             panel7.Controls.Add(label3);
             panel7.Controls.Add(radioButton_Name);
             panel7.Controls.Add(radioButton_Date);
-            panel7.Location = new Point(3, 108);
+            panel7.Location = new Point(3, 103);
             panel7.Name = "panel7";
-            panel7.Size = new Size(612, 88);
+            panel7.Size = new Size(558, 93);
             panel7.TabIndex = 4;
             // 
             // radioButton_Size
             // 
             radioButton_Size.AutoSize = true;
-            radioButton_Size.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Size.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Size.ForeColor = SystemColors.Control;
-            radioButton_Size.Location = new Point(289, 45);
+            radioButton_Size.Location = new Point(322, 48);
             radioButton_Size.Name = "radioButton_Size";
-            radioButton_Size.Size = new Size(114, 25);
+            radioButton_Size.Size = new Size(131, 29);
             radioButton_Size.TabIndex = 5;
             radioButton_Size.TabStop = true;
             radioButton_Size.Text = "Sort by Size";
@@ -175,22 +173,22 @@
             // 
             label3.AutoSize = true;
             label3.Dock = DockStyle.Top;
-            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             label3.ForeColor = SystemColors.Control;
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
-            label3.Size = new Size(213, 25);
+            label3.Size = new Size(270, 32);
             label3.TabIndex = 3;
             label3.Text = "Sort images to convert:";
             // 
             // radioButton_Name
             // 
             radioButton_Name.AutoSize = true;
-            radioButton_Name.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Name.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Name.ForeColor = SystemColors.Control;
-            radioButton_Name.Location = new Point(147, 45);
+            radioButton_Name.Location = new Point(157, 48);
             radioButton_Name.Name = "radioButton_Name";
-            radioButton_Name.Size = new Size(128, 25);
+            radioButton_Name.Size = new Size(149, 29);
             radioButton_Name.TabIndex = 4;
             radioButton_Name.TabStop = true;
             radioButton_Name.Text = "Sort by Name";
@@ -199,11 +197,11 @@
             // radioButton_Date
             // 
             radioButton_Date.AutoSize = true;
-            radioButton_Date.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_Date.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Date.ForeColor = SystemColors.Control;
-            radioButton_Date.Location = new Point(3, 45);
+            radioButton_Date.Location = new Point(3, 48);
             radioButton_Date.Name = "radioButton_Date";
-            radioButton_Date.Size = new Size(119, 25);
+            radioButton_Date.Size = new Size(138, 29);
             radioButton_Date.TabIndex = 3;
             radioButton_Date.TabStop = true;
             radioButton_Date.Text = "Sort by Date";
@@ -213,11 +211,11 @@
             // 
             label2.AutoSize = true;
             label2.Dock = DockStyle.Top;
-            label2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             label2.ForeColor = SystemColors.Control;
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Size = new Size(110, 25);
+            label2.Size = new Size(137, 32);
             label2.TabIndex = 0;
             label2.Text = "Documents";
             // 
@@ -227,7 +225,7 @@
             panel10.Dock = DockStyle.Bottom;
             panel10.Location = new Point(0, 351);
             panel10.Name = "panel10";
-            panel10.Size = new Size(624, 43);
+            panel10.Size = new Size(570, 43);
             panel10.TabIndex = 57;
             // 
             // button_Saved
@@ -243,25 +241,15 @@
             button_Saved.Location = new Point(0, 0);
             button_Saved.Margin = new Padding(3, 2, 3, 2);
             button_Saved.Name = "button_Saved";
-            button_Saved.Size = new Size(624, 43);
+            button_Saved.Size = new Size(570, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
             button_Saved.Click += button_Saved_Click;
-            // 
-            // bunifuElipse3
-            // 
-            bunifuElipse3.ElipseRadius = 5;
-            bunifuElipse3.TargetControl = this;
             // 
             // bunifuElipse1
             // 
             bunifuElipse1.ElipseRadius = 5;
             bunifuElipse1.TargetControl = button_Saved;
-            // 
-            // bunifuElipse2
-            // 
-            bunifuElipse2.ElipseRadius = 5;
-            bunifuElipse2.TargetControl = this;
             // 
             // label1
             // 
@@ -281,7 +269,7 @@
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 32);
             panel4.Name = "panel4";
-            panel4.Size = new Size(633, 44);
+            panel4.Size = new Size(579, 44);
             panel4.TabIndex = 65;
             // 
             // panel3
@@ -290,14 +278,14 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 482);
             panel3.Name = "panel3";
-            panel3.Size = new Size(633, 32);
+            panel3.Size = new Size(579, 32);
             panel3.TabIndex = 64;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 64, 64);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(633, 32);
+            panel2.Location = new Point(579, 32);
             panel2.Name = "panel2";
             panel2.Size = new Size(32, 482);
             panel2.TabIndex = 63;
@@ -308,7 +296,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(665, 32);
+            panel1.Size = new Size(611, 32);
             panel1.TabIndex = 62;
             // 
             // Menu_Convert
@@ -322,7 +310,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Menu_Convert";
-            Size = new Size(665, 514);
+            Size = new Size(611, 514);
             Load += Menu_Transform_Load;
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
@@ -343,14 +331,12 @@
         private CheckBox checkBox_Delete;
         private Panel panel10;
         private Button button_Saved;
-        private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
         private Panel panel4;
         private Label label1;
         private Panel panel3;
         private Panel panel2;
         private Panel panel1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
-        private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
         private Panel panel6;
         private Label label2;
         private Label label3;

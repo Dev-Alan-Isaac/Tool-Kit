@@ -28,65 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel9 = new Panel();
-            label3 = new Label();
-            panel4 = new Panel();
-            label1 = new Label();
+            components = new System.ComponentModel.Container();
+            bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             button_Saved = new Button();
-            panel10 = new Panel();
-            panel5 = new Panel();
-            radioButton_Depth = new RadioButton();
-            radioButton_Alphabetical = new RadioButton();
             panel3 = new Panel();
             panel2 = new Panel();
+            radioButton_Depth = new RadioButton();
+            radioButton_Alphabetical = new RadioButton();
             panel1 = new Panel();
-            panel9.SuspendLayout();
+            label1 = new Label();
+            panel4 = new Panel();
+            label3 = new Label();
+            panel10 = new Panel();
+            panel9 = new Panel();
+            panel5 = new Panel();
             panel4.SuspendLayout();
             panel10.SuspendLayout();
+            panel9.SuspendLayout();
             panel5.SuspendLayout();
             SuspendLayout();
             // 
-            // panel9
+            // bunifuElipse1
             // 
-            panel9.Controls.Add(label3);
-            panel9.Dock = DockStyle.Top;
-            panel9.Location = new Point(0, 0);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(570, 42);
-            panel9.TabIndex = 1;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Dock = DockStyle.Fill;
-            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(0, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(328, 25);
-            label3.TabIndex = 0;
-            label3.Text = "Select file types to include in sorting:";
-            // 
-            // panel4
-            // 
-            panel4.Controls.Add(label1);
-            panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 32);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(579, 44);
-            panel4.TabIndex = 63;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.Control;
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(246, 37);
-            label1.TabIndex = 0;
-            label1.Text = "SORT BY FOLDERS";
+            bunifuElipse1.ElipseRadius = 5;
+            bunifuElipse1.TargetControl = button_Saved;
             // 
             // button_Saved
             // 
@@ -104,40 +69,36 @@
             button_Saved.Size = new Size(570, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
-            button_Saved.Click += button_Saved_Click;
             // 
-            // panel10
+            // panel3
             // 
-            panel10.Controls.Add(button_Saved);
-            panel10.Dock = DockStyle.Bottom;
-            panel10.Location = new Point(0, 351);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(570, 43);
-            panel10.TabIndex = 57;
+            panel3.BackColor = Color.FromArgb(0, 64, 64);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(0, 482);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(579, 32);
+            panel3.TabIndex = 67;
             // 
-            // panel5
+            // panel2
             // 
-            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            panel5.Controls.Add(radioButton_Depth);
-            panel5.Controls.Add(radioButton_Alphabetical);
-            panel5.Controls.Add(panel10);
-            panel5.Controls.Add(panel9);
-            panel5.Location = new Point(3, 82);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(570, 394);
-            panel5.TabIndex = 64;
+            panel2.BackColor = Color.FromArgb(0, 64, 64);
+            panel2.Dock = DockStyle.Right;
+            panel2.Location = new Point(579, 32);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(32, 482);
+            panel2.TabIndex = 66;
             // 
             // radioButton_Depth
             // 
             radioButton_Depth.AutoSize = true;
             radioButton_Depth.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Depth.ForeColor = SystemColors.Control;
-            radioButton_Depth.Location = new Point(3, 98);
+            radioButton_Depth.Location = new Point(3, 95);
             radioButton_Depth.Name = "radioButton_Depth";
-            radioButton_Depth.Size = new Size(173, 29);
+            radioButton_Depth.Size = new Size(142, 29);
             radioButton_Depth.TabIndex = 60;
             radioButton_Depth.TabStop = true;
-            radioButton_Depth.Text = "By Folder Depth ";
+            radioButton_Depth.Text = "Folder Depth";
             radioButton_Depth.UseVisualStyleBackColor = true;
             // 
             // radioButton_Alphabetical
@@ -153,24 +114,6 @@
             radioButton_Alphabetical.Text = "Alphabetical";
             radioButton_Alphabetical.UseVisualStyleBackColor = true;
             // 
-            // panel3
-            // 
-            panel3.BackColor = Color.FromArgb(0, 64, 64);
-            panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 482);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(579, 32);
-            panel3.TabIndex = 62;
-            // 
-            // panel2
-            // 
-            panel2.BackColor = Color.FromArgb(0, 64, 64);
-            panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(579, 32);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(32, 482);
-            panel2.TabIndex = 61;
-            // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(0, 64, 64);
@@ -178,7 +121,70 @@
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(611, 32);
-            panel1.TabIndex = 60;
+            panel1.TabIndex = 65;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Dock = DockStyle.Fill;
+            label1.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.Control;
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(231, 37);
+            label1.TabIndex = 0;
+            label1.Text = "SORT BY FOLDER";
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(label1);
+            panel4.Dock = DockStyle.Top;
+            panel4.Location = new Point(0, 32);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(579, 44);
+            panel4.TabIndex = 68;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Dock = DockStyle.Fill;
+            label3.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
+            label3.ForeColor = SystemColors.Control;
+            label3.Location = new Point(0, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(416, 32);
+            label3.TabIndex = 0;
+            label3.Text = "Select file types to include in sorting:";
+            // 
+            // panel10
+            // 
+            panel10.Controls.Add(button_Saved);
+            panel10.Dock = DockStyle.Bottom;
+            panel10.Location = new Point(0, 351);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(570, 43);
+            panel10.TabIndex = 57;
+            // 
+            // panel9
+            // 
+            panel9.Controls.Add(label3);
+            panel9.Dock = DockStyle.Top;
+            panel9.Location = new Point(0, 0);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(570, 42);
+            panel9.TabIndex = 1;
+            // 
+            // panel5
+            // 
+            panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel5.Controls.Add(radioButton_Depth);
+            panel5.Controls.Add(radioButton_Alphabetical);
+            panel5.Controls.Add(panel10);
+            panel5.Controls.Add(panel9);
+            panel5.Location = new Point(3, 82);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(570, 394);
+            panel5.TabIndex = 69;
             // 
             // Menu_Folder
             // 
@@ -193,28 +199,30 @@
             Name = "Menu_Folder";
             Size = new Size(611, 514);
             Load += Menu_Load;
-            panel9.ResumeLayout(false);
-            panel9.PerformLayout();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             panel10.ResumeLayout(false);
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ResumeLayout(false);
         }
 
         #endregion
-        private Panel panel9;
-        private Label label3;
-        private Panel panel4;
-        private Label label1;
+
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Button button_Saved;
-        private Panel panel10;
-        private Panel panel5;
         private Panel panel3;
         private Panel panel2;
-        private Panel panel1;
         private RadioButton radioButton_Depth;
         private RadioButton radioButton_Alphabetical;
+        private Panel panel1;
+        private Label label1;
+        private Panel panel4;
+        private Label label3;
+        private Panel panel10;
+        private Panel panel9;
+        private Panel panel5;
     }
 }

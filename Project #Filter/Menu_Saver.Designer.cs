@@ -39,14 +39,14 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 482);
             panel3.Name = "panel3";
-            panel3.Size = new Size(633, 32);
+            panel3.Size = new Size(579, 32);
             panel3.TabIndex = 65;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 64, 64);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(633, 32);
+            panel2.Location = new Point(579, 32);
             panel2.Name = "panel2";
             panel2.Size = new Size(32, 482);
             panel2.TabIndex = 64;
@@ -57,7 +57,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(665, 32);
+            panel1.Size = new Size(611, 32);
             panel1.TabIndex = 63;
             // 
             // Menu_Saver
@@ -69,7 +69,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Menu_Saver";
-            Size = new Size(665, 514);
+            Size = new Size(611, 514);
             ResumeLayout(false);
         }
 

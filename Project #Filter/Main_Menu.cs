@@ -70,7 +70,7 @@
             FollowButton(sender as Button);
         }
 
-        private void button_Convert_Click(object sender, EventArgs e)
+        private void button_GeneralConvert_Click(object sender, EventArgs e)
         {
             menu_Convert1.BringToFront();
             FollowButton(sender as Button);

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel9 = new Panel();
             label3 = new Label();
             panel4 = new Panel();
@@ -44,6 +45,7 @@
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
+            bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel9.SuspendLayout();
             panel4.SuspendLayout();
             panel10.SuspendLayout();
@@ -57,18 +59,18 @@
             panel9.Dock = DockStyle.Top;
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(624, 42);
+            panel9.Size = new Size(570, 42);
             panel9.TabIndex = 1;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Dock = DockStyle.Fill;
-            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             label3.ForeColor = SystemColors.Control;
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
-            label3.Size = new Size(328, 25);
+            label3.Size = new Size(416, 32);
             label3.TabIndex = 0;
             label3.Text = "Select file types to include in sorting:";
             // 
@@ -78,7 +80,7 @@
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 32);
             panel4.Name = "panel4";
-            panel4.Size = new Size(633, 44);
+            panel4.Size = new Size(579, 44);
             panel4.TabIndex = 63;
             // 
             // label1
@@ -106,7 +108,7 @@
             button_Saved.Location = new Point(0, 0);
             button_Saved.Margin = new Padding(3, 2, 3, 2);
             button_Saved.Name = "button_Saved";
-            button_Saved.Size = new Size(624, 43);
+            button_Saved.Size = new Size(570, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
             button_Saved.Click += button_Saved_Click;
@@ -117,7 +119,7 @@
             panel10.Dock = DockStyle.Bottom;
             panel10.Location = new Point(0, 351);
             panel10.Name = "panel10";
-            panel10.Size = new Size(624, 43);
+            panel10.Size = new Size(570, 43);
             panel10.TabIndex = 57;
             // 
             // panel5
@@ -130,7 +132,7 @@
             panel5.Controls.Add(panel9);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
-            panel5.Size = new Size(624, 394);
+            panel5.Size = new Size(570, 394);
             panel5.TabIndex = 64;
             // 
             // panel6
@@ -141,18 +143,18 @@
             panel6.Controls.Add(label4);
             panel6.Location = new Point(3, 134);
             panel6.Name = "panel6";
-            panel6.Size = new Size(618, 112);
+            panel6.Size = new Size(564, 129);
             panel6.TabIndex = 62;
             // 
             // checkBox_IgnoreSpecialChar
             // 
             checkBox_IgnoreSpecialChar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             checkBox_IgnoreSpecialChar.AutoSize = true;
-            checkBox_IgnoreSpecialChar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox_IgnoreSpecialChar.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox_IgnoreSpecialChar.ForeColor = SystemColors.Control;
-            checkBox_IgnoreSpecialChar.Location = new Point(13, 69);
+            checkBox_IgnoreSpecialChar.Location = new Point(3, 88);
             checkBox_IgnoreSpecialChar.Name = "checkBox_IgnoreSpecialChar";
-            checkBox_IgnoreSpecialChar.Size = new Size(215, 25);
+            checkBox_IgnoreSpecialChar.Size = new Size(248, 29);
             checkBox_IgnoreSpecialChar.TabIndex = 2;
             checkBox_IgnoreSpecialChar.Text = "Ignore Special Characters";
             checkBox_IgnoreSpecialChar.UseVisualStyleBackColor = true;
@@ -161,11 +163,11 @@
             // 
             checkBox_CapsSens.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             checkBox_CapsSens.AutoSize = true;
-            checkBox_CapsSens.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            checkBox_CapsSens.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox_CapsSens.ForeColor = SystemColors.Control;
-            checkBox_CapsSens.Location = new Point(13, 28);
+            checkBox_CapsSens.Location = new Point(3, 47);
             checkBox_CapsSens.Name = "checkBox_CapsSens";
-            checkBox_CapsSens.Size = new Size(192, 25);
+            checkBox_CapsSens.Size = new Size(223, 29);
             checkBox_CapsSens.TabIndex = 1;
             checkBox_CapsSens.Text = "Case-Sensitive Sorting";
             checkBox_CapsSens.UseVisualStyleBackColor = true;
@@ -174,22 +176,22 @@
             // 
             label4.AutoSize = true;
             label4.Dock = DockStyle.Top;
-            label4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             label4.ForeColor = SystemColors.Control;
             label4.Location = new Point(0, 0);
             label4.Name = "label4";
-            label4.Size = new Size(178, 25);
+            label4.Size = new Size(224, 32);
             label4.TabIndex = 0;
             label4.Text = "Additional Options:";
             // 
             // radioButton_FileExtension
             // 
             radioButton_FileExtension.AutoSize = true;
-            radioButton_FileExtension.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_FileExtension.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_FileExtension.ForeColor = SystemColors.Control;
-            radioButton_FileExtension.Location = new Point(3, 79);
+            radioButton_FileExtension.Location = new Point(3, 87);
             radioButton_FileExtension.Name = "radioButton_FileExtension";
-            radioButton_FileExtension.Size = new Size(171, 25);
+            radioButton_FileExtension.Size = new Size(202, 29);
             radioButton_FileExtension.TabIndex = 60;
             radioButton_FileExtension.TabStop = true;
             radioButton_FileExtension.Text = "File Extension (A-Z) ";
@@ -198,11 +200,11 @@
             // radioButton_FileName
             // 
             radioButton_FileName.AutoSize = true;
-            radioButton_FileName.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            radioButton_FileName.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_FileName.ForeColor = SystemColors.Control;
             radioButton_FileName.Location = new Point(3, 48);
             radioButton_FileName.Name = "radioButton_FileName";
-            radioButton_FileName.Size = new Size(144, 25);
+            radioButton_FileName.Size = new Size(171, 29);
             radioButton_FileName.TabIndex = 58;
             radioButton_FileName.TabStop = true;
             radioButton_FileName.Text = "File Name (A-Z) ";
@@ -214,14 +216,14 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 482);
             panel3.Name = "panel3";
-            panel3.Size = new Size(633, 32);
+            panel3.Size = new Size(579, 32);
             panel3.TabIndex = 62;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 64, 64);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(633, 32);
+            panel2.Location = new Point(579, 32);
             panel2.Name = "panel2";
             panel2.Size = new Size(32, 482);
             panel2.TabIndex = 61;
@@ -232,8 +234,13 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(665, 32);
+            panel1.Size = new Size(611, 32);
             panel1.TabIndex = 60;
+            // 
+            // bunifuElipse1
+            // 
+            bunifuElipse1.ElipseRadius = 5;
+            bunifuElipse1.TargetControl = button_Saved;
             // 
             // Menu_Name
             // 
@@ -246,7 +253,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Menu_Name";
-            Size = new Size(665, 514);
+            Size = new Size(611, 514);
             Load += Menu_Load;
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
@@ -277,5 +284,6 @@
         private CheckBox checkBox_IgnoreSpecialChar;
         private CheckBox checkBox_CapsSens;
         private Label label4;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
     }
 }

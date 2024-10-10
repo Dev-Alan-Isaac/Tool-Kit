@@ -55,7 +55,7 @@
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 32);
             panel4.Name = "panel4";
-            panel4.Size = new Size(633, 44);
+            panel4.Size = new Size(579, 44);
             panel4.TabIndex = 75;
             // 
             // label1
@@ -74,7 +74,7 @@
             // 
             panel2.BackColor = Color.FromArgb(0, 64, 64);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(633, 32);
+            panel2.Location = new Point(579, 32);
             panel2.Name = "panel2";
             panel2.Size = new Size(32, 450);
             panel2.TabIndex = 73;
@@ -92,7 +92,7 @@
             button_Saved.Location = new Point(0, 0);
             button_Saved.Margin = new Padding(3, 2, 3, 2);
             button_Saved.Name = "button_Saved";
-            button_Saved.Size = new Size(624, 43);
+            button_Saved.Size = new Size(570, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
             button_Saved.Click += button_Saved_Click;
@@ -108,7 +108,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(665, 32);
+            panel1.Size = new Size(611, 32);
             panel1.TabIndex = 72;
             // 
             // panel10
@@ -117,7 +117,7 @@
             panel10.Dock = DockStyle.Bottom;
             panel10.Location = new Point(0, 351);
             panel10.Name = "panel10";
-            panel10.Size = new Size(624, 43);
+            panel10.Size = new Size(570, 43);
             panel10.TabIndex = 57;
             // 
             // panel3
@@ -126,7 +126,7 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 482);
             panel3.Name = "panel3";
-            panel3.Size = new Size(665, 32);
+            panel3.Size = new Size(611, 32);
             panel3.TabIndex = 74;
             // 
             // radioButton7
@@ -219,7 +219,7 @@
             panel5.Controls.Add(panel10);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
-            panel5.Size = new Size(624, 394);
+            panel5.Size = new Size(570, 394);
             panel5.TabIndex = 76;
             // 
             // Menu_Images
@@ -233,7 +233,7 @@
             Controls.Add(panel3);
             Controls.Add(panel5);
             Name = "Menu_Images";
-            Size = new Size(665, 514);
+            Size = new Size(611, 514);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             panel10.ResumeLayout(false);

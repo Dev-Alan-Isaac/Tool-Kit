@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel9 = new Panel();
             label3 = new Label();
             panel4 = new Panel();
@@ -41,6 +42,7 @@
             panel3 = new Panel();
             panel2 = new Panel();
             panel1 = new Panel();
+            bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel9.SuspendLayout();
             panel4.SuspendLayout();
             panel10.SuspendLayout();
@@ -53,18 +55,18 @@
             panel9.Dock = DockStyle.Top;
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(619, 42);
+            panel9.Size = new Size(570, 42);
             panel9.TabIndex = 1;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Dock = DockStyle.Fill;
-            label3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
             label3.ForeColor = SystemColors.Control;
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
-            label3.Size = new Size(328, 25);
+            label3.Size = new Size(416, 32);
             label3.TabIndex = 0;
             label3.Text = "Select file types to include in sorting:";
             // 
@@ -74,7 +76,7 @@
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 32);
             panel4.Name = "panel4";
-            panel4.Size = new Size(628, 44);
+            panel4.Size = new Size(579, 44);
             panel4.TabIndex = 63;
             // 
             // label1
@@ -102,7 +104,7 @@
             button_Saved.Location = new Point(0, 0);
             button_Saved.Margin = new Padding(3, 2, 3, 2);
             button_Saved.Name = "button_Saved";
-            button_Saved.Size = new Size(619, 43);
+            button_Saved.Size = new Size(570, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
             button_Saved.Click += button_Saved_Click;
@@ -113,7 +115,7 @@
             panel10.Dock = DockStyle.Bottom;
             panel10.Location = new Point(0, 351);
             panel10.Name = "panel10";
-            panel10.Size = new Size(619, 43);
+            panel10.Size = new Size(570, 43);
             panel10.TabIndex = 57;
             // 
             // panel5
@@ -126,7 +128,7 @@
             panel5.Controls.Add(panel9);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
-            panel5.Size = new Size(619, 394);
+            panel5.Size = new Size(570, 394);
             panel5.TabIndex = 64;
             // 
             // radioButton_Executable
@@ -174,14 +176,14 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 482);
             panel3.Name = "panel3";
-            panel3.Size = new Size(628, 32);
+            panel3.Size = new Size(579, 32);
             panel3.TabIndex = 62;
             // 
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(0, 64, 64);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(628, 32);
+            panel2.Location = new Point(579, 32);
             panel2.Name = "panel2";
             panel2.Size = new Size(32, 482);
             panel2.TabIndex = 61;
@@ -192,8 +194,13 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(660, 32);
+            panel1.Size = new Size(611, 32);
             panel1.TabIndex = 60;
+            // 
+            // bunifuElipse1
+            // 
+            bunifuElipse1.ElipseRadius = 5;
+            bunifuElipse1.TargetControl = button_Saved;
             // 
             // Menu_Auth
             // 
@@ -206,7 +213,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "Menu_Auth";
-            Size = new Size(660, 514);
+            Size = new Size(611, 514);
             Load += Menu_Auth_Load;
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
@@ -232,5 +239,6 @@
         private RadioButton radioButton_Executable;
         private RadioButton radioButton_Writable;
         private RadioButton radioButton_Readable;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
     }
 }
