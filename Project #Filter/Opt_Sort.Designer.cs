@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel_Top = new Panel();
             button_Path = new Button();
             panel_Bottom = new Panel();
@@ -57,6 +58,7 @@
             checkBox3 = new CheckBox();
             checkBox2 = new CheckBox();
             checkBox1 = new CheckBox();
+            bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel_Top.SuspendLayout();
             panel_Header.SuspendLayout();
             panel_Footer.SuspendLayout();
@@ -442,6 +444,11 @@
             checkBox1.UseVisualStyleBackColor = true;
             checkBox1.CheckedChanged += checkBox_CheckedChanged;
             // 
+            // bunifuElipse1
+            // 
+            bunifuElipse1.ElipseRadius = 5;
+            bunifuElipse1.TargetControl = button_Filter;
+            // 
             // Opt_Sort
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -499,5 +506,6 @@
         private CheckBox checkBox3;
         private CheckBox checkBox2;
         private CheckBox checkBox1;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
     }
 }

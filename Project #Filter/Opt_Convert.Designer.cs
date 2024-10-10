@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             label3 = new Label();
             panel1 = new Panel();
             panel5 = new Panel();
@@ -57,6 +58,7 @@
             panel_Top = new Panel();
             panel3 = new Panel();
             panel_Options = new Panel();
+            bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel1.SuspendLayout();
             panel5.SuspendLayout();
             panel_Footer.SuspendLayout();
@@ -422,6 +424,11 @@
             panel_Options.Size = new Size(667, 385);
             panel_Options.TabIndex = 39;
             // 
+            // bunifuElipse1
+            // 
+            bunifuElipse1.ElipseRadius = 5;
+            bunifuElipse1.TargetControl = button_Filter;
+            // 
             // Opt_Transform
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -482,5 +489,6 @@
         private Label label6;
         private Label label_SelectedNode;
         private Label label2;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
     }
 }
