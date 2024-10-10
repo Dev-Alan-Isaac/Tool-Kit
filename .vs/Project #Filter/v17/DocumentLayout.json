@@ -3,8 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\opt_merge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_merge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\opt_merge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_merge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\opt_convert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_convert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\opt_extract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_extract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\opt_extract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_extract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\opt_convert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_convert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,15 +39,83 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Opt_Merge.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Merge.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Opt_Merge.cs",
+              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Merge.cs [Design]",
+              "RelativeToolTip": "Project #Filter\\Opt_Merge.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T21:35:14.849Z",
+              "IsPinned": true,
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Opt_Merge.cs",
+              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Merge.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Opt_Merge.cs",
+              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Merge.cs",
+              "RelativeToolTip": "Project #Filter\\Opt_Merge.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAA5wHAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T21:41:41.434Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Opt_Convert.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Convert.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Opt_Convert.cs",
+              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Convert.cs [Design]*",
+              "RelativeToolTip": "Project #Filter\\Opt_Convert.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T21:44:27.772Z",
+              "IsPinned": true,
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Opt_Convert.cs",
+              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Convert.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Opt_Convert.cs",
+              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Convert.cs*",
+              "RelativeToolTip": "Project #Filter\\Opt_Convert.cs*",
+              "ViewState": "AgIAAGgAAAAAAAAAAADgv3wAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T21:44:30.502Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Opt_Extract.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Extract.cs",
               "RelativeDocumentMoniker": "Project #Filter\\Opt_Extract.cs",
               "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Extract.cs [Design]*",
               "RelativeToolTip": "Project #Filter\\Opt_Extract.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-10T19:08:44.292Z",
+              "WhenOpened": "2024-10-10T21:48:30.181Z",
               "IsPinned": true,
               "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Opt_Extract.cs",
+              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Extract.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Opt_Extract.cs",
+              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Extract.cs*",
+              "RelativeToolTip": "Project #Filter\\Opt_Extract.cs*",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAWwB4AAABpAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T21:48:33.01Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",

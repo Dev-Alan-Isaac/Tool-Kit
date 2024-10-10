@@ -2,13 +2,14 @@
 using HtmlAgilityPack;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Newtonsoft.Json.Linq;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace Project__Filter
 {
     public partial class Opt_Merge : UserControl
     {
-        string selectedPath = string.Empty;
+        private string Path;
 
         public Opt_Merge()
         {
@@ -23,319 +24,326 @@ namespace Project__Filter
 
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    selectedPath = fbd.SelectedPath;
-                    textBox_Path.Text = selectedPath;
-                    comboBox_Select.Enabled = true;
-                    button_Merge.Enabled = true;
+                    Path = fbd.SelectedPath;
+                    textBox_Path.Text = Path;
                 }
             }
         }
 
-        private void comboBox_Select_SelectedIndexChanged(object sender, EventArgs e)
+        private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
-            string selectedItem = comboBox_Select.SelectedItem.ToString();
-            PopulateFiles(selectedItem);
-        }
-
-        private void button_Merge_Click(object sender, EventArgs e)
-        {
-            string selectedItem = comboBox_Select.SelectedItem.ToString();
-            List<string> selectedFiles = listBox_File.SelectedItems.Cast<string>().ToList();
-
-            if (selectedFiles.Count < 2)
+            // Enable the filter button when any radio button is checked
+            if (radioButton_Text.Checked || radioButton_Word.Checked ||
+                radioButton_PDF.Checked || radioButton_HTML.Checked)
             {
-                MessageBox.Show("Not enough files selected.");
+                button_Filter.Enabled = true;
             }
             else
             {
-                switch (selectedItem)
-                {
-                    case "FILES TEXT":
-                        Text_Files(selectedFiles);
-                        break;
-                    case "FILES WORD":
-                        Docs_Files(selectedFiles);
-                        break;
-                    case "FILES PDF":
-                        Pdf_Files(selectedFiles);
-                        break;
-                    case "FILES HTML":
-                        Html_Files(selectedFiles);
-                        break;
-                    default:
-                        MessageBox.Show("Incorrect option selected.");
-                        break;
-                }
+                button_Filter.Enabled = false;
             }
 
-            if (checkBox_Delete.Checked)
+            // Populate the TreeView based on the selected radio button
+            Populated_Treeview();
+        }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            // Get the selected node
+            TreeNode selectedNode = e.Node;
+
+            // Alternatively, update a label control with the selected node's name
+            label_SelectedNode.Text = $"{selectedNode.Text}";
+        }
+
+        private async void Populated_Treeview()
+        {
+            string[] allowedExtensions = Array.Empty<string>(); // Initialize with an empty array
+
+            // Determine allowed extensions based on the selected radio button
+            if (radioButton_Text.Checked)
             {
-                DeleteFolders(selectedPath);
+                allowedExtensions = new[] { "txt" };
             }
-        }
-
-        // Extra
-        private void PopulateFiles(string fileType)
-        {
-            Task.Run(() =>
+            else if (radioButton_Word.Checked)
             {
-                List<string> filePaths = new List<string>();
-
-                // Use the Directory class from System.IO to get all files of the specified type recursively
-                switch (fileType)
-                {
-                    case "FILES TEXT":
-                        filePaths.AddRange(Directory.GetFiles(selectedPath, "*.txt", SearchOption.AllDirectories));
-                        break;
-                    case "FILES WORD":
-                        filePaths.AddRange(Directory.GetFiles(selectedPath, "*.doc", SearchOption.AllDirectories));
-                        filePaths.AddRange(Directory.GetFiles(selectedPath, "*.docx", SearchOption.AllDirectories));
-                        break;
-                    case "FILES PDF":
-                        filePaths.AddRange(Directory.GetFiles(selectedPath, "*.pdf", SearchOption.AllDirectories));
-                        break;
-                    case "FILES HTML":
-                        filePaths.AddRange(Directory.GetFiles(selectedPath, "*.html", SearchOption.AllDirectories));
-                        break;
-                    default:
-                        MessageBox.Show("Invalid selection");
-                        return;
-                }
-
-                // Run on the UI thread
-                Invoke((MethodInvoker)delegate
-                {
-                    // Clear the ListBox items
-                    listBox_File.Items.Clear();
-
-                    // Add the file paths to the ListBox
-                    foreach (string filePath in filePaths)
-                    {
-                        listBox_File.Items.Add(filePath);
-                    }
-
-                    // Display the count of files in textBox_Path
-                    label_Count.Text = filePaths.Count.ToString();
-                });
-            });
-        }
-
-        public static void DeleteFolders(string rootPath)
-        {
-            foreach (var directory in Directory.GetDirectories(rootPath))
+                allowedExtensions = new[] { "doc", "docx" };
+            }
+            else if (radioButton_PDF.Checked)
             {
-                DeleteFolders(directory);  // Recursively call the function for all subdirectories
+                allowedExtensions = new[] { "pdf" };
+            }
+            else if (radioButton_HTML.Checked)
+            {
+                allowedExtensions = new[] { "htm", "html" };
+            }
 
-                if (Directory.GetFiles(directory).Length == 0 &&
-                    Directory.GetDirectories(directory).Length == 0)  // If directory is empty
+            // Ensure that the Path is not empty
+            if (!string.IsNullOrEmpty(Path))
+            {
+                // Fetch all files in the folder and subfolders
+                string[] files = Directory.GetFiles(Path, "*.*", SearchOption.AllDirectories);
+
+                // Filter files based on the selected extensions
+                var filteredFiles = files
+                    .Where(file => allowedExtensions
+                        .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase))) // Match extensions
+                    .Distinct() // Ensure unique files
+                    .ToList();
+
+                // Clear the TreeView before repopulating
+                treeView1.Nodes.Clear();
+
+                // Populate TreeView with filtered files
+                foreach (var file in filteredFiles)
                 {
-                    try
-                    {
-                        Directory.Delete(directory);  // Delete the directory
-                        Console.WriteLine($"Deleted: {directory}");
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"An error occurred while deleting the directory. Details: {ex.Message}");
-                    }
+                    string fileName = System.IO.Path.GetFileName(file);
+
+                    // Add the file to the TreeView
+                    TreeNode fileNode = new TreeNode(fileName);
+                    treeView1.Nodes.Add(fileNode);
                 }
+            }
+            else
+            {
+                MessageBox.Show("No path selected.");
             }
         }
 
-        // Functions
-        private void Text_Files(List<string> filePaths)
+        private async void button_Filter_Click(object sender, EventArgs e)
         {
-            Task.Run(() =>
+
+            if (radioButton_Text.Checked)
             {
-                // Change the output file name to "Merge"
-                using (StreamWriter fileDest = new StreamWriter(Path.Combine(selectedPath, "Merge.txt"), true))
-                {
-                    int totalFiles = filePaths.Count;
-                    int processedFiles = 0;
-
-                    foreach (string filePath in filePaths)
-                    {
-                        using (StreamReader fileSrc = new StreamReader(filePath))
-                        {
-                            string line;
-                            while ((line = fileSrc.ReadLine()) != null)
-                            {
-                                fileDest.WriteLine(line);
-                            }
-                        }
-
-                        // Calculate the progress percentage
-                        processedFiles++;
-                        int progressPercentage = (int)((double)processedFiles / totalFiles * 100);
-
-                        // Report the progress
-                        Invoke((MethodInvoker)delegate
-                        {
-                            // Running on the UI thread
-                            progressBar_Time.Value = progressPercentage;
-                        });
-                    }
-                }
-
-                // Reset the progress bar to 0 when done
-                Invoke((MethodInvoker)delegate
-                {
-                    // Running on the UI thread
-                    progressBar_Time.Value = 0;
-                });
-            });
+                await Task.Run(() => Text_Merge());
+            }
+            else if (radioButton_Word.Checked)
+            {
+                await Task.Run(() => Word_Merge());
+            }
+            else if (radioButton_PDF.Checked)
+            {
+                await Task.Run(() => PDF_Merge());
+            }
+            else if (radioButton_HTML.Checked)
+            {
+                await Task.Run(() => Html_Merge());
+            }
         }
 
-        private void Pdf_Files(List<string> filePaths)
+        private async void Text_Merge()
         {
-            Task.Run(() =>
-            {
-                // Create the output file path
-                string outputFilePath = Path.Combine(selectedPath, "Merge.pdf");
 
-                // Create a new PDF document
-                Document document = new Document();
-                PdfCopy copy = new PdfCopy(document, new FileStream(outputFilePath, FileMode.Create));
-
-                // Open the document for writing
-                document.Open();
-
-                int totalFiles = filePaths.Count;
-                int processedFiles = 0;
-
-                foreach (string filePath in filePaths)
-                {
-                    // Create a new PdfReader for the current document
-                    PdfReader reader = new PdfReader(filePath);
-
-                    // Add each page from the reader to the PdfCopy
-                    for (int i = 1; i <= reader.NumberOfPages; i++)
-                    {
-                        copy.AddPage(copy.GetImportedPage(reader, i));
-                    }
-
-                    // Close the reader
-                    reader.Close();
-
-                    // Calculate the progress percentage
-                    processedFiles++;
-                    int progressPercentage = (int)((double)processedFiles / totalFiles * 100);
-
-                    // Report the progress
-                    Invoke((MethodInvoker)delegate
-                    {
-                        // Running on the UI thread
-                        progressBar_Time.Value = progressPercentage;
-                    });
-                }
-
-                // Close the document
-                document.Close();
-
-                // Reset the progress bar to 0 when done
-                Invoke((MethodInvoker)delegate
-                {
-                    // Running on the UI thread
-                    progressBar_Time.Value = 0;
-                });
-            });
         }
 
-        public void Html_Files(List<string> filePaths)
+        private async void Word_Merge()
         {
-            Task.Run(() =>
-            {
-                HtmlDocument doc = new HtmlDocument();
-                HtmlNode bodyNode = doc.CreateElement("body");
 
-                int totalFiles = filePaths.Count;
-                int processedFiles = 0;
-
-                foreach (string filePath in filePaths)
-                {
-                    HtmlDocument fileDoc = new HtmlDocument();
-                    fileDoc.Load(filePath);
-                    HtmlNode fileBody = fileDoc.DocumentNode.SelectSingleNode("//body");
-                    if (fileBody != null)
-                    {
-                        foreach (HtmlNode child in fileBody.ChildNodes)
-                        {
-                            bodyNode.AppendChild(child.CloneNode(true));
-                        }
-                    }
-
-                    // Dispose of the HtmlDocument manually
-                    fileDoc = null;
-
-                    // Calculate the progress percentage
-                    processedFiles++;
-                    int progressPercentage = (int)((double)processedFiles / totalFiles * 100);
-
-                    // Report the progress
-                    Invoke((MethodInvoker)delegate
-                    {
-                        // Running on the UI thread
-                        progressBar_Time.Value = progressPercentage;
-                    });
-
-                    // Force a garbage collection to free up memory
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                }
-
-                doc.DocumentNode.AppendChild(bodyNode);
-                string outputFilePath = Path.Combine(Path.GetDirectoryName(filePaths[0]), "Merged.html");
-                File.WriteAllText(outputFilePath, doc.DocumentNode.OuterHtml, Encoding.UTF8);
-
-                // Reset the progress bar to 0 when done
-                Invoke((MethodInvoker)delegate
-                {
-                    // Running on the UI thread
-                    progressBar_Time.Value = 0;
-                });
-            });
         }
 
-        public void Docs_Files(List<string> filePaths)
+        private async void PDF_Merge()
         {
-            Task.Run(() =>
-            {
-                // Create a blank document
-                Aspose.Words.Document mainDoc = new Aspose.Words.Document();
 
-                int totalFiles = filePaths.Count;
-                int processedFiles = 0;
-
-                foreach (string filePath in filePaths)
-                {
-                    // Load the document from file
-                    Aspose.Words.Document subDoc = new Aspose.Words.Document(filePath);
-
-                    // Append the document to the main document
-                    mainDoc.AppendDocument(subDoc, Aspose.Words.ImportFormatMode.KeepSourceFormatting);
-
-                    // Calculate the progress percentage
-                    processedFiles++;
-                    int progressPercentage = (int)((double)processedFiles / totalFiles * 100);
-
-                    // Report the progress
-                    Invoke((MethodInvoker)delegate
-                    {
-                        // Running on the UI thread
-                        progressBar_Time.Value = progressPercentage;
-                    });
-                }
-
-                // Save the merged document
-                mainDoc.Save(Path.Combine(selectedPath, "Merge.docx"));
-
-                // Reset the progress bar to 0 when done
-                Invoke((MethodInvoker)delegate
-                {
-                    // Running on the UI thread
-                    progressBar_Time.Value = 0;
-                });
-            });
         }
+
+        private async void Html_Merge()
+        {
+
+        }
+
+        //private void Text_Files(List<string> filePaths)
+        //{
+        //    Task.Run(() =>
+        //    {
+        //        // Change the output file name to "Merge"
+        //        using (StreamWriter fileDest = new StreamWriter(Path.Combine(selectedPath, "Merge.txt"), true))
+        //        {
+        //            int totalFiles = filePaths.Count;
+        //            int processedFiles = 0;
+
+        //            foreach (string filePath in filePaths)
+        //            {
+        //                using (StreamReader fileSrc = new StreamReader(filePath))
+        //                {
+        //                    string line;
+        //                    while ((line = fileSrc.ReadLine()) != null)
+        //                    {
+        //                        fileDest.WriteLine(line);
+        //                    }
+        //                }
+
+        //                // Calculate the progress percentage
+        //                processedFiles++;
+        //                int progressPercentage = (int)((double)processedFiles / totalFiles * 100);
+
+        //                // Report the progress
+        //                Invoke((MethodInvoker)delegate
+        //                {
+        //                    // Running on the UI thread
+        //                    progressBar_Time.Value = progressPercentage;
+        //                });
+        //            }
+        //        }
+
+        //        // Reset the progress bar to 0 when done
+        //        Invoke((MethodInvoker)delegate
+        //        {
+        //            // Running on the UI thread
+        //            progressBar_Time.Value = 0;
+        //        });
+        //    });
+        //}
+
+        //private void Pdf_Files(List<string> filePaths)
+        //{
+        //    Task.Run(() =>
+        //    {
+        //        // Create the output file path
+        //        string outputFilePath = Path.Combine(selectedPath, "Merge.pdf");
+
+        //        // Create a new PDF document
+        //        Document document = new Document();
+        //        PdfCopy copy = new PdfCopy(document, new FileStream(outputFilePath, FileMode.Create));
+
+        //        // Open the document for writing
+        //        document.Open();
+
+        //        int totalFiles = filePaths.Count;
+        //        int processedFiles = 0;
+
+        //        foreach (string filePath in filePaths)
+        //        {
+        //            // Create a new PdfReader for the current document
+        //            PdfReader reader = new PdfReader(filePath);
+
+        //            // Add each page from the reader to the PdfCopy
+        //            for (int i = 1; i <= reader.NumberOfPages; i++)
+        //            {
+        //                copy.AddPage(copy.GetImportedPage(reader, i));
+        //            }
+
+        //            // Close the reader
+        //            reader.Close();
+
+        //            // Calculate the progress percentage
+        //            processedFiles++;
+        //            int progressPercentage = (int)((double)processedFiles / totalFiles * 100);
+
+        //            // Report the progress
+        //            Invoke((MethodInvoker)delegate
+        //            {
+        //                // Running on the UI thread
+        //                progressBar_Time.Value = progressPercentage;
+        //            });
+        //        }
+
+        //        // Close the document
+        //        document.Close();
+
+        //        // Reset the progress bar to 0 when done
+        //        Invoke((MethodInvoker)delegate
+        //        {
+        //            // Running on the UI thread
+        //            progressBar_Time.Value = 0;
+        //        });
+        //    });
+        //}
+
+        //public void Html_Files(List<string> filePaths)
+        //{
+        //    Task.Run(() =>
+        //    {
+        //        HtmlDocument doc = new HtmlDocument();
+        //        HtmlNode bodyNode = doc.CreateElement("body");
+
+        //        int totalFiles = filePaths.Count;
+        //        int processedFiles = 0;
+
+        //        foreach (string filePath in filePaths)
+        //        {
+        //            HtmlDocument fileDoc = new HtmlDocument();
+        //            fileDoc.Load(filePath);
+        //            HtmlNode fileBody = fileDoc.DocumentNode.SelectSingleNode("//body");
+        //            if (fileBody != null)
+        //            {
+        //                foreach (HtmlNode child in fileBody.ChildNodes)
+        //                {
+        //                    bodyNode.AppendChild(child.CloneNode(true));
+        //                }
+        //            }
+
+        //            // Dispose of the HtmlDocument manually
+        //            fileDoc = null;
+
+        //            // Calculate the progress percentage
+        //            processedFiles++;
+        //            int progressPercentage = (int)((double)processedFiles / totalFiles * 100);
+
+        //            // Report the progress
+        //            Invoke((MethodInvoker)delegate
+        //            {
+        //                // Running on the UI thread
+        //                progressBar_Time.Value = progressPercentage;
+        //            });
+
+        //            // Force a garbage collection to free up memory
+        //            GC.Collect();
+        //            GC.WaitForPendingFinalizers();
+        //        }
+
+        //        doc.DocumentNode.AppendChild(bodyNode);
+        //        string outputFilePath = Path.Combine(Path.GetDirectoryName(filePaths[0]), "Merged.html");
+        //        File.WriteAllText(outputFilePath, doc.DocumentNode.OuterHtml, Encoding.UTF8);
+
+        //        // Reset the progress bar to 0 when done
+        //        Invoke((MethodInvoker)delegate
+        //        {
+        //            // Running on the UI thread
+        //            progressBar_Time.Value = 0;
+        //        });
+        //    });
+        //}
+
+        //public void Docs_Files(List<string> filePaths)
+        //{
+        //    Task.Run(() =>
+        //    {
+        //        // Create a blank document
+        //        Aspose.Words.Document mainDoc = new Aspose.Words.Document();
+
+        //        int totalFiles = filePaths.Count;
+        //        int processedFiles = 0;
+
+        //        foreach (string filePath in filePaths)
+        //        {
+        //            // Load the document from file
+        //            Aspose.Words.Document subDoc = new Aspose.Words.Document(filePath);
+
+        //            // Append the document to the main document
+        //            mainDoc.AppendDocument(subDoc, Aspose.Words.ImportFormatMode.KeepSourceFormatting);
+
+        //            // Calculate the progress percentage
+        //            processedFiles++;
+        //            int progressPercentage = (int)((double)processedFiles / totalFiles * 100);
+
+        //            // Report the progress
+        //            Invoke((MethodInvoker)delegate
+        //            {
+        //                // Running on the UI thread
+        //                progressBar_Time.Value = progressPercentage;
+        //            });
+        //        }
+
+        //        // Save the merged document
+        //        mainDoc.Save(Path.Combine(selectedPath, "Merge.docx"));
+
+        //        // Reset the progress bar to 0 when done
+        //        Invoke((MethodInvoker)delegate
+        //        {
+        //            // Running on the UI thread
+        //            progressBar_Time.Value = 0;
+        //        });
+        //    });
+        //}
     }
 }

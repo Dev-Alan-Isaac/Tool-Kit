@@ -59,6 +59,8 @@
             checkBox2 = new CheckBox();
             checkBox1 = new CheckBox();
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel_Top.SuspendLayout();
             panel_Header.SuspendLayout();
             panel_Footer.SuspendLayout();
@@ -449,6 +451,16 @@
             bunifuElipse1.ElipseRadius = 5;
             bunifuElipse1.TargetControl = button_Filter;
             // 
+            // bunifuElipse3
+            // 
+            bunifuElipse3.ElipseRadius = 5;
+            bunifuElipse3.TargetControl = treeView1;
+            // 
+            // bunifuElipse2
+            // 
+            bunifuElipse2.ElipseRadius = 5;
+            bunifuElipse2.TargetControl = progressBar_Time;
+            // 
             // Opt_Sort
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -507,5 +519,7 @@
         private CheckBox checkBox2;
         private CheckBox checkBox1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
     }
 }
