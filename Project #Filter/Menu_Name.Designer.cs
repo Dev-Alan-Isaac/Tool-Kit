@@ -139,7 +139,7 @@
             panel6.Controls.Add(checkBox_IgnoreSpecialChar);
             panel6.Controls.Add(checkBox_CapsSens);
             panel6.Controls.Add(label4);
-            panel6.Location = new Point(3, 233);
+            panel6.Location = new Point(3, 134);
             panel6.Name = "panel6";
             panel6.Size = new Size(618, 112);
             panel6.TabIndex = 62;
@@ -185,11 +185,11 @@
             // radioButton_FileExtension
             // 
             radioButton_FileExtension.AutoSize = true;
-            radioButton_FileExtension.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_FileExtension.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             radioButton_FileExtension.ForeColor = SystemColors.Control;
-            radioButton_FileExtension.Location = new Point(3, 99);
+            radioButton_FileExtension.Location = new Point(3, 79);
             radioButton_FileExtension.Name = "radioButton_FileExtension";
-            radioButton_FileExtension.Size = new Size(202, 29);
+            radioButton_FileExtension.Size = new Size(171, 25);
             radioButton_FileExtension.TabIndex = 60;
             radioButton_FileExtension.TabStop = true;
             radioButton_FileExtension.Text = "File Extension (A-Z) ";
@@ -198,11 +198,11 @@
             // radioButton_FileName
             // 
             radioButton_FileName.AutoSize = true;
-            radioButton_FileName.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_FileName.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             radioButton_FileName.ForeColor = SystemColors.Control;
             radioButton_FileName.Location = new Point(3, 48);
             radioButton_FileName.Name = "radioButton_FileName";
-            radioButton_FileName.Size = new Size(171, 29);
+            radioButton_FileName.Size = new Size(144, 25);
             radioButton_FileName.TabIndex = 58;
             radioButton_FileName.TabStop = true;
             radioButton_FileName.Text = "File Name (A-Z) ";

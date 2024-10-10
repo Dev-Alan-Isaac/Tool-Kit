@@ -1,0 +1,31 @@
+{
+  "Allow": {
+    "Image": [
+      "jpeg",
+      "png",
+      "tiff",
+      "ico",
+      "svg",
+      "webp"
+    ],
+    "Audio": [
+      "wav",
+      "mp3",
+      "wma"
+    ],
+    "Video": [
+      "gif",
+      "webm",
+      "avi",
+      "mp4",
+      "flv",
+      "mov",
+      "mkv"
+    ],
+    "Document": [
+      "pdf",
+      "doc",
+      "docx"
+    ]
+  }
+}
