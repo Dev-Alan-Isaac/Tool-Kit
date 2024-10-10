@@ -10,6 +10,7 @@ namespace Project__Filter
     public partial class Opt_Merge : UserControl
     {
         private string Path;
+        private List<string> selectedFiles = new List<string>();
 
         public Opt_Merge()
         {
@@ -52,9 +53,29 @@ namespace Project__Filter
             // Get the selected node
             TreeNode selectedNode = e.Node;
 
-            // Alternatively, update a label control with the selected node's name
-            label_SelectedNode.Text = $"{selectedNode.Text}";
+            // Check if the selected node is not null
+            if (selectedNode != null)
+            {
+                // Assuming the node text is the file name, store it in the list
+                string fileName = selectedNode.Text;
+
+                // Check if the fileName is not already in the selectedFiles list
+                if (!selectedFiles.Contains(fileName))
+                {
+                    // Add the selected file to the list
+                    selectedFiles.Add(fileName);
+                }
+
+                // Optionally, update a label control with the selected node's name
+                label_SelectedNode.Text = $"Selected: {fileName}";
+
+                // Remove the selected node from the TreeView
+                treeView1.Nodes.Remove(selectedNode);
+            }
         }
+
+
+
 
         private async void Populated_Treeview()
         {
