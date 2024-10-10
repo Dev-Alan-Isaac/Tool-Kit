@@ -91,11 +91,11 @@
             // checkBox_Subfolders
             // 
             checkBox_Subfolders.AutoSize = true;
-            checkBox_Subfolders.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
+            checkBox_Subfolders.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox_Subfolders.ForeColor = SystemColors.Control;
-            checkBox_Subfolders.Location = new Point(3, 76);
+            checkBox_Subfolders.Location = new Point(3, 35);
             checkBox_Subfolders.Name = "checkBox_Subfolders";
-            checkBox_Subfolders.Size = new Size(317, 36);
+            checkBox_Subfolders.Size = new Size(255, 29);
             checkBox_Subfolders.TabIndex = 59;
             checkBox_Subfolders.Text = "Process Files in Subfolders";
             checkBox_Subfolders.UseVisualStyleBackColor = true;
@@ -103,11 +103,11 @@
             // checkBox_Delete
             // 
             checkBox_Delete.AutoSize = true;
-            checkBox_Delete.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
+            checkBox_Delete.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             checkBox_Delete.ForeColor = SystemColors.Control;
             checkBox_Delete.Location = new Point(3, 0);
             checkBox_Delete.Name = "checkBox_Delete";
-            checkBox_Delete.Size = new Size(264, 36);
+            checkBox_Delete.Size = new Size(214, 29);
             checkBox_Delete.TabIndex = 58;
             checkBox_Delete.Text = "Delete Empty Folders";
             checkBox_Delete.UseVisualStyleBackColor = true;
