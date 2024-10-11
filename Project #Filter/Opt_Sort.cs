@@ -70,8 +70,7 @@ namespace Project__Filter
                     case "File Type":
                         config_Path = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortTypes(Path, config_Path));
-                        // Repopulate the TreeView after sorting, again on the UI thread
-                        Populated_Treeview(Path);
+
                         break;
                     case "File Size":
                         config_Path = System.IO.Path.GetFullPath("Config_Size.json");
@@ -172,33 +171,46 @@ namespace Project__Filter
 
         private async void Populated_Treeview(string folderPath)
         {
-            // Clear the TreeView first (on the UI thread)
+            // Clear the TreeView on the UI thread
             treeView1.Invoke((Action)(() => treeView1.Nodes.Clear()));
+
+            // Create the root node for the parent folder
+            TreeNode rootNode = new TreeNode(System.IO.Path.GetFileName(folderPath));
+            treeView1.Invoke((Action)(() => treeView1.Nodes.Add(rootNode)));
 
             // Get all files from the folder and its subfolders (after sorting)
             var files = await ProcessFiles(folderPath);
 
-            // Group files by their parent folder
-            var groupedFiles = files
-                .GroupBy(file => System.IO.Path.GetDirectoryName(file))
-                .ToList();
-
-            // Iterate over each group (each folder)
-            foreach (var group in groupedFiles)
+            // Iterate over each file
+            foreach (var file in files)
             {
-                // Create a node for the folder
-                TreeNode folderNode = new TreeNode(System.IO.Path.GetFileName(group.Key));
+                var fileParts = file.Replace(folderPath, "").TrimStart(System.IO.Path.DirectorySeparatorChar).Split(System.IO.Path.DirectorySeparatorChar);
 
-                // Add file names as child nodes under the folder node
-                foreach (var file in group)
+                TreeNode currentNode = rootNode;
+                foreach (var part in fileParts)
                 {
-                    TreeNode fileNode = new TreeNode(System.IO.Path.GetFileName(file));
-                    folderNode.Nodes.Add(fileNode);
+                    // Make sure node creation is invoked on the UI thread
+                    currentNode = await Task.Run(() => FindOrCreateNode(currentNode.Nodes, part));
                 }
-
-                // Add the folder node to the TreeView (on the UI thread)
-                treeView1.Invoke((Action)(() => treeView1.Nodes.Add(folderNode)));
             }
+        }
+
+        private TreeNode FindOrCreateNode(TreeNodeCollection nodes, string nodeName)
+        {
+            if (InvokeRequired)
+            {
+                // Use Invoke to run the method on the UI thread
+                return (TreeNode)Invoke(new Func<TreeNode>(() => FindOrCreateNode(nodes, nodeName)));
+            }
+
+            // If already on the UI thread, proceed as normal
+            TreeNode node = nodes.Cast<TreeNode>().FirstOrDefault(n => n.Text == nodeName);
+            if (node == null)
+            {
+                node = new TreeNode(nodeName);
+                nodes.Add(node);
+            }
+            return node;
         }
 
 
@@ -214,11 +226,9 @@ namespace Project__Filter
             string jsonString = await File.ReadAllTextAsync(jsonPath);
             var jsonContent = JObject.Parse(jsonString);
 
-            // Get the "Extensions" and "Allow" sections from the JSON
             var extensions = jsonContent["Extensions"].ToObject<JObject>();
             var allow = jsonContent["Allow"].ToObject<JObject>();
 
-            // Get all files in the target folder
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
 
@@ -229,12 +239,10 @@ namespace Project__Filter
             // Update the file count label on the UI thread
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
-            // Process each file in the folder
             foreach (var file in files)
             {
                 string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
 
-                // Check each category in "Allow"
                 foreach (var allowCategory in allow)
                 {
                     bool isAllowed = (bool)allowCategory.Value;
@@ -270,6 +278,9 @@ namespace Project__Filter
 
             // Reset progress bar on the UI thread
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke((Action)(() => Populated_Treeview(folderPath)));
 
             MessageBox.Show("Sorting completed!");
         }
