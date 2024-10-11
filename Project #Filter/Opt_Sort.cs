@@ -70,7 +70,7 @@ namespace Project__Filter
                     case "File Type":
                         config_Path = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortTypes(Path, config_Path));
-                        // After sorting by file type, update the TreeView
+                        // Repopulate the TreeView after sorting, again on the UI thread
                         Populated_Treeview(Path);
                         break;
                     case "File Size":
@@ -172,8 +172,8 @@ namespace Project__Filter
 
         private async void Populated_Treeview(string folderPath)
         {
-            // Clear the TreeView first
-            treeView1.Nodes.Clear();
+            // Clear the TreeView first (on the UI thread)
+            treeView1.Invoke((Action)(() => treeView1.Nodes.Clear()));
 
             // Get all files from the folder and its subfolders (after sorting)
             var files = await ProcessFiles(folderPath);
@@ -196,10 +196,11 @@ namespace Project__Filter
                     folderNode.Nodes.Add(fileNode);
                 }
 
-                // Add the folder node to the TreeView
-                treeView1.Nodes.Add(folderNode);
+                // Add the folder node to the TreeView (on the UI thread)
+                treeView1.Invoke((Action)(() => treeView1.Nodes.Add(folderNode)));
             }
         }
+
 
         public async void SortTypes(string folderPath, string jsonPath)
         {
@@ -220,15 +221,17 @@ namespace Project__Filter
             // Get all files in the target folder
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
+
+            // Set progress bar maximum value on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
             int processedFiles = 0;
 
-            // Update the file count label
+            // Update the file count label on the UI thread
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
             // Process each file in the folder
             foreach (var file in files)
             {
-                // Get the file extension (without the dot, in lowercase)
                 string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
 
                 // Check each category in "Allow"
@@ -237,47 +240,37 @@ namespace Project__Filter
                     bool isAllowed = (bool)allowCategory.Value;
                     string category = allowCategory.Key;
 
-                    // If the category is allowed
                     if (isAllowed)
                     {
-                        // Get the list of extensions for this category
                         JArray categoryExtensions = (JArray)extensions[category];
-
-                        // Ensure the comparison is string-based and case-insensitive
                         bool extensionExists = categoryExtensions
-                            .Select(ext => ext.ToString().Trim().ToLower()) // Convert each extension to lowercase string
+                            .Select(ext => ext.ToString().Trim().ToLower())
                             .Contains(fileExtension);
 
-                        // If the file's extension matches any of the allowed extensions
                         if (extensionExists)
                         {
-                            // Get the original directory of the file
                             string originalDirectory = System.IO.Path.GetDirectoryName(file);
-
-                            // Create the target directory at the file's original location
                             string targetDirectory = System.IO.Path.Combine(originalDirectory, category);
                             if (!Directory.Exists(targetDirectory))
                             {
                                 Directory.CreateDirectory(targetDirectory);
                             }
 
-                            // Move the file to the target directory
                             string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
                             File.Move(file, targetPath);
                         }
                     }
                 }
 
-                // Update the progress bar
                 processedFiles++;
-                int progress = (int)((double)processedFiles / totalFiles * 100);
 
-                // Update the ProgressBar using Invoke to ensure thread safety
-                progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = progress));
+                // Update the progress bar on the UI thread
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
 
-            // Ensure the progress bar reaches 0% at the end
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
             MessageBox.Show("Sorting completed!");
         }
 
@@ -332,6 +325,8 @@ namespace Project__Filter
             // Get all files in the folder
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
+
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
             int processedFiles = 0;
 
             // Update the file count label
@@ -382,18 +377,15 @@ namespace Project__Filter
                     File.Move(file, targetPath);
                 }
 
-                // Update the progress bar
+                // Increment the progress bar after processing each file
                 processedFiles++;
-                int progress = (int)((double)processedFiles / totalFiles * 100);
 
-                // Update the ProgressBar using Invoke to ensure thread safety
-                progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = progress));
+                // Update the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
 
-            // Ensure the progress bar reaches 0% at the end
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
-
             MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private async void SortDates(string folderPath, string jsonPath)
@@ -414,6 +406,9 @@ namespace Project__Filter
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
             var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
+
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
 
             // Update the file count label
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
@@ -479,11 +474,18 @@ namespace Project__Filter
                         {
                             File.Move(file.FullName, targetPath);
                         }
+                        // Increment the progress bar after processing each file
+                        processedFiles++;
+
+                        // Update the progress bar
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
                 }
+
             }
 
-            MessageBox.Show("Files sorted by the selected date attributes!");
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private async void SortNames(string folderPath, string jsonPath)
@@ -511,6 +513,9 @@ namespace Project__Filter
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
             var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
+
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
 
             // Update the file count label
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
@@ -571,9 +576,16 @@ namespace Project__Filter
                 {
                     File.Move(file.FullName, targetPath);
                 }
+
+                // Increment the progress bar after processing each file
+                processedFiles++;
+
+                // Update the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
 
-            MessageBox.Show("Files sorted by the selected name attributes!");
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private async void SortHash(string folderPath, string jsonPath)
@@ -595,6 +607,8 @@ namespace Project__Filter
             // Get all files in the target folder
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
+
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
             int processedFiles = 0;
 
             // Update the file count label
@@ -669,7 +683,15 @@ namespace Project__Filter
 
                     folderCount++;
                 }
+                // Increment the progress bar after processing each file
+                processedFiles++;
+
+                // Update the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
+
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private string GetFileHash(string filePath)
@@ -707,6 +729,9 @@ namespace Project__Filter
             // Get all files in the folder
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
+
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
 
             // Update the file count label
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
@@ -746,11 +771,17 @@ namespace Project__Filter
                                 }
                                 break;
                         }
+                        // Increment the progress bar after processing each file
+                        processedFiles++;
+
+                        // Update the progress bar
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
                 }
             }
 
-            MessageBox.Show("Files sorted by permissions!");
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void MoveFileToFolder(FileInfo file, string folderName, string baseFolderPath)
@@ -794,9 +825,11 @@ namespace Project__Filter
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
 
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
+
             // Update the file count label
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
-
 
             foreach (var file in files)
             {
@@ -826,87 +859,21 @@ namespace Project__Filter
                         MessageBox.Show($"Moved {fileName} to {targetDirectory}");
                         break; // Once the file is moved, stop checking other tags for this file
                     }
+                    // Increment the progress bar after processing each file
+                    processedFiles++;
+
+                    // Update the progress bar
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                 }
             }
+
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private async void SortFolderLocation(string folderPath, string jsonPath)
         {
-            if (!File.Exists(jsonPath))
-            {
-                MessageBox.Show("Config file not found.");
-                return;
-            }
 
-            // Read and parse the JSON file
-            string jsonString = await File.ReadAllTextAsync(jsonPath);
-            var jsonContent = JObject.Parse(jsonString);
-
-            // Get the "Option" section from the JSON
-            bool sortByAlphabetical = (bool)jsonContent["Option"]["Alphabetical"];
-            bool sortByDepth = (bool)jsonContent["Option"]["Depth"];
-
-            // Ensure only one of them is true
-            if (sortByAlphabetical && sortByDepth)
-            {
-                MessageBox.Show("Error: Both Alphabetical and Depth sorting cannot be enabled at the same time.");
-                return;
-            }
-
-            // Get all directories in the target folder
-            var directories = Directory.GetDirectories(folderPath);
-
-            // Prepare a list to store directories and their depth
-            var directoryDepths = new List<(string Directory, int Depth)>();
-
-            foreach (var dir in directories)
-            {
-                // Get the number of subfolders (depth) inside this directory
-                int depth = GetFolderDepth(dir);
-                directoryDepths.Add((dir, depth));
-            }
-
-            // Sort directories based on the specified criteria
-            if (sortByAlphabetical)
-            {
-                // Sort only by name (alphabetical order)
-                directoryDepths = directoryDepths.OrderBy(d => System.IO.Path.GetFileName(d.Directory)).ToList();
-            }
-            else if (sortByDepth)
-            {
-                // Sort only by depth (number of subfolders)
-                directoryDepths = directoryDepths.OrderBy(d => d.Depth).ToList();
-            }
-
-            // Move the folders based on the sorted list
-            foreach (var (dir, depth) in directoryDepths)
-            {
-                // Create a folder for each depth level if it doesn't exist
-                string targetDirectory;
-                if (sortByAlphabetical)
-                {
-                    // If sorting alphabetically, create folders for each alphabet group
-                    string firstLetter = System.IO.Path.GetFileName(dir).Substring(0, 1).ToUpper();
-                    targetDirectory = System.IO.Path.Combine(folderPath, firstLetter);
-                }
-                else
-                {
-                    // If sorting by depth, create folders for each depth level
-                    targetDirectory = System.IO.Path.Combine(folderPath, depth.ToString());
-                }
-
-                if (!Directory.Exists(targetDirectory))
-                {
-                    Directory.CreateDirectory(targetDirectory);
-                }
-
-                // Move the folder to the target location
-                string newFolderPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(dir));
-                Directory.Move(dir, newFolderPath);
-
-                // Optionally, show a message indicating the folder has been moved
-                MessageBox.Show($"Moved {System.IO.Path.GetFileName(dir)} to {(sortByAlphabetical ? $"alphabetical folder {targetDirectory}" : $"depth folder {depth}")}");
-            }
         }
 
         private int GetFolderDepth(string folder)
@@ -1071,12 +1038,8 @@ namespace Project__Filter
                 }
             }
 
-            // Reset or hide the progress bar once sorting is complete
-            progressBar_Time.Invoke((Action)(() =>
-            {
-                progressBar_Time.Value = progressBar_Time.Maximum; // Ensure it reaches 100%
-                MessageBox.Show("Sorting completed!");
-            }));
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByResolution_Videos(string[] files)
@@ -1091,6 +1054,7 @@ namespace Project__Filter
             // Initialize FFProbe
             var ffProbe = new FFProbe();
 
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
             int processedFiles = 0;
 
             foreach (var file in files)
@@ -1133,11 +1097,8 @@ namespace Project__Filter
                     // Increment the progress bar after processing each file
                     processedFiles++;
 
-                    // Ensure the progress value does not exceed the maximum
-                    if (processedFiles <= progressBar_Time.Maximum)
-                    {
-                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                    }
+                    // Update the progress bar
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                 }
                 catch (Exception ex)
                 {
@@ -1145,6 +1106,9 @@ namespace Project__Filter
                     Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                 }
             }
+
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByResolution_Images(string[] files)
@@ -1155,6 +1119,7 @@ namespace Project__Filter
                 return;
             }
 
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
             int processedFiles = 0;
 
             foreach (var file in files)
@@ -1181,11 +1146,8 @@ namespace Project__Filter
                         // Increment the progress bar after processing each file
                         processedFiles++;
 
-                        // Ensure the progress value does not exceed the maximum
-                        if (processedFiles <= progressBar_Time.Maximum)
-                        {
-                            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                        }
+                        // Update the progress bar
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
                 }
                 catch (Exception ex)
@@ -1194,6 +1156,8 @@ namespace Project__Filter
                     Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                 }
             }
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByFrameRate(string[] files)
@@ -1206,6 +1170,9 @@ namespace Project__Filter
 
             // Initialize FFProbe
             var ffProbe = new FFProbe();
+
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
 
             foreach (var file in files)
             {
@@ -1235,7 +1202,15 @@ namespace Project__Filter
                     // Handle any exceptions (e.g., if FFProbe fails or access is denied)
                     Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                 }
+
+                // Increment the progress bar after processing each file
+                processedFiles++;
+
+                // Update the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByCodec(string[] files)
@@ -1248,6 +1223,9 @@ namespace Project__Filter
 
             // Initialize FFProbe
             var ffProbe = new FFProbe();
+
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
 
             foreach (var file in files)
             {
@@ -1277,7 +1255,15 @@ namespace Project__Filter
                     // Handle any exceptions (e.g., if FFProbe fails or access is denied)
                     Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                 }
+
+                // Increment the progress bar after processing each file
+                processedFiles++;
+
+                // Update the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByAspect_Videos(string[] files)
@@ -1290,6 +1276,9 @@ namespace Project__Filter
 
             // Initialize FFProbe
             var ffProbe = new FFProbe();
+
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
 
             foreach (var file in files)
             {
@@ -1330,7 +1319,14 @@ namespace Project__Filter
                     // Handle any exceptions (e.g., if FFProbe fails or access is denied)
                     Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                 }
+                // Increment the progress bar after processing each file
+                processedFiles++;
+
+                // Update the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByAspect_Images(string[] files)
@@ -1340,6 +1336,9 @@ namespace Project__Filter
                 Debug.WriteLine("No files to display.");
                 return;
             }
+
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
 
             foreach (var file in files)
             {
@@ -1373,7 +1372,15 @@ namespace Project__Filter
                     // Handle any exceptions (e.g., if the image fails to load or access is denied)
                     Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                 }
+                // Increment the progress bar after processing each file
+                processedFiles++;
+
+                // Update the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
+
+            MessageBox.Show("Sorting completed!");
+            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
     }
 }
