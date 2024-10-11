@@ -70,57 +70,40 @@ namespace Project__Filter
                     case "File Type":
                         config_Path = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortTypes(Path, config_Path));
-
                         break;
                     case "File Size":
                         config_Path = System.IO.Path.GetFullPath("Config_Size.json");
                         await Task.Run(() => SortSize(Path, config_Path));
-                        // After sorting by file size, update the TreeView
-                        Populated_Treeview(Path);
                         break;
                     case "File Date":
                         config_Path = System.IO.Path.GetFullPath("Config_Date.json");
                         await Task.Run(() => SortDates(Path, config_Path));
-                        // After sorting by file date, update the TreeView
-                        Populated_Treeview(Path);
                         break;
                     case "File Name":
                         config_Path = System.IO.Path.GetFullPath("Config_Names.json");
                         await Task.Run(() => SortNames(Path, config_Path));
-                        // After sorting by file name, update the TreeView
-                        Populated_Treeview(Path);
                         break;
                     case "File Permissions":
                         config_Path = System.IO.Path.GetFullPath("Config_Names.json");
                         config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortPermissions(Path, config_Path, config_Path2));
-                        // After sorting by file permissions, update the TreeView
-                        Populated_Treeview(Path);
                         break;
                     case "Custom Tags":
                         config_Path = System.IO.Path.GetFullPath("Config_Tags.json");
                         await Task.Run(() => SortCustomTags(Path, config_Path));
-                        // After sorting by custom tags, update the TreeView
-                        Populated_Treeview(Path);
                         break;
                     case "Folder Location":
                         config_Path = System.IO.Path.GetFullPath("Config_Folder.json");
                         await Task.Run(() => SortFolderLocation(Path, config_Path));
-                        // After sorting by folder location, update the TreeView
-                        Populated_Treeview(Path);
                         break;
                     case "Media Metadata":
                         config_Path = System.IO.Path.GetFullPath("Config_Media.json");
                         config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortMedia(Path, config_Path, config_Path2));
-                        // After sorting by media metadata, update the TreeView
-                        Populated_Treeview(Path);
                         break;
                     case "File Hash":
                         config_Path = System.IO.Path.GetFullPath("Config_Type.json");
                         await Task.Run(() => SortHash(Path, config_Path));
-                        // After sorting by file hash, update the TreeView
-                        Populated_Treeview(Path);
                         break;
                     default:
                         break;
@@ -213,7 +196,6 @@ namespace Project__Filter
             return node;
         }
 
-
         public async void SortTypes(string folderPath, string jsonPath)
         {
             if (!File.Exists(jsonPath))
@@ -280,7 +262,7 @@ namespace Project__Filter
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
 
             // Call Populated_Treeview on the UI thread
-            Invoke((Action)(() => Populated_Treeview(folderPath)));
+            Invoke(() => Populated_Treeview(folderPath));
 
             MessageBox.Show("Sorting completed!");
         }
@@ -395,8 +377,13 @@ namespace Project__Filter
                 progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
 
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(folderPath));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private async void SortDates(string folderPath, string jsonPath)
@@ -495,8 +482,13 @@ namespace Project__Filter
 
             }
 
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(folderPath));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private async void SortNames(string folderPath, string jsonPath)
@@ -595,8 +587,13 @@ namespace Project__Filter
                 progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
 
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(folderPath));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private async void SortHash(string folderPath, string jsonPath)
@@ -701,8 +698,13 @@ namespace Project__Filter
                 progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
 
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(folderPath));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private string GetFileHash(string filePath)
@@ -791,8 +793,13 @@ namespace Project__Filter
                 }
             }
 
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(folderPath));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void MoveFileToFolder(FileInfo file, string folderName, string baseFolderPath)
@@ -878,8 +885,13 @@ namespace Project__Filter
                 }
             }
 
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(folderPath));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private async void SortFolderLocation(string folderPath, string jsonPath)
@@ -1048,9 +1060,13 @@ namespace Project__Filter
                     Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                 }
             }
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(Path));
 
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByResolution_Videos(string[] files)
@@ -1118,8 +1134,13 @@ namespace Project__Filter
                 }
             }
 
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(Path));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByResolution_Images(string[] files)
@@ -1167,8 +1188,13 @@ namespace Project__Filter
                     Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                 }
             }
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(Path));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByFrameRate(string[] files)
@@ -1220,8 +1246,13 @@ namespace Project__Filter
                 // Update the progress bar
                 progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(Path));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByCodec(string[] files)
@@ -1273,8 +1304,13 @@ namespace Project__Filter
                 // Update the progress bar
                 progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(Path));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByAspect_Videos(string[] files)
@@ -1336,8 +1372,13 @@ namespace Project__Filter
                 // Update the progress bar
                 progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(Path));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
 
         private void sortByAspect_Images(string[] files)
@@ -1390,8 +1431,13 @@ namespace Project__Filter
                 progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
 
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(Path));
+
             MessageBox.Show("Sorting completed!");
-            progressBar_Time.Invoke((MethodInvoker)(() => progressBar_Time.Value = 0));
         }
     }
 }

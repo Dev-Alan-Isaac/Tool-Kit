@@ -123,7 +123,7 @@
             radioButton_Custom.AutoSize = true;
             radioButton_Custom.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Custom.ForeColor = SystemColors.Control;
-            radioButton_Custom.Location = new Point(169, 54);
+            radioButton_Custom.Location = new Point(207, 47);
             radioButton_Custom.Name = "radioButton_Custom";
             radioButton_Custom.Size = new Size(188, 29);
             radioButton_Custom.TabIndex = 7;
@@ -136,7 +136,7 @@
             radioButton_Original.AutoSize = true;
             radioButton_Original.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Original.ForeColor = SystemColors.Control;
-            radioButton_Original.Location = new Point(2, 54);
+            radioButton_Original.Location = new Point(3, 47);
             radioButton_Original.Name = "radioButton_Original";
             radioButton_Original.Size = new Size(190, 29);
             radioButton_Original.TabIndex = 6;
