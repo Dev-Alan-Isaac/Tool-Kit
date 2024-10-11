@@ -1,11 +1,4 @@
-﻿using System.Text;
-using HtmlAgilityPack;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using Newtonsoft.Json.Linq;
-using HtmlDocument = HtmlAgilityPack.HtmlDocument;
-
-namespace Project__Filter
+﻿namespace Project__Filter
 {
     public partial class Opt_Merge : UserControl
     {
@@ -78,16 +71,13 @@ namespace Project__Filter
                 // Refresh selection
                 if (treeView1.Nodes.Count > 0)
                 {
-                    treeView1.SelectedNode = null; // Clear selection
+                    treeView1.SelectedNode = null; // Clear selectionb 
                 }
             }
 
             // Re-enable the event handler
             treeView1.AfterSelect += treeView1_AfterSelect;
         }
-
-
-
 
         private async void Populated_Treeview()
         {

@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\opt_merge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_merge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\opt_encrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_encrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\opt_merge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -18,35 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Opt_Merge.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Merge.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Opt_Merge.cs",
-              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Merge.cs [Design]*",
-              "RelativeToolTip": "Project #Filter\\Opt_Merge.cs [Design]*",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-10T21:35:14.849Z",
-              "IsPinned": true,
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Opt_Merge.cs",
-              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Merge.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Opt_Merge.cs",
-              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Merge.cs*",
-              "RelativeToolTip": "Project #Filter\\Opt_Merge.cs*",
-              "ViewState": "AgIAADYAAAAAAAAAAADwv1AAAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-10T21:41:41.434Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
@@ -62,6 +35,30 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Opt_Merge.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Merge.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Opt_Merge.cs",
+              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Merge.cs [Design]",
+              "RelativeToolTip": "Project #Filter\\Opt_Merge.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-11T16:09:31.217Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Opt_Encrypt.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Encrypt.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Opt_Encrypt.cs",
+              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Encrypt.cs [Design]",
+              "RelativeToolTip": "Project #Filter\\Opt_Encrypt.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-11T16:09:29.646Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }
