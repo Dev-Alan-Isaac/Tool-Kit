@@ -32,6 +32,7 @@
             label3 = new Label();
             panel_Options = new Panel();
             panel1 = new Panel();
+            radioButton_Split = new RadioButton();
             radioButton_Zip = new RadioButton();
             radioButton_Tar = new RadioButton();
             radioButton_Rar = new RadioButton();
@@ -91,6 +92,7 @@
             // panel1
             // 
             panel1.AutoScroll = true;
+            panel1.Controls.Add(radioButton_Split);
             panel1.Controls.Add(radioButton_Zip);
             panel1.Controls.Add(radioButton_Tar);
             panel1.Controls.Add(radioButton_Rar);
@@ -101,12 +103,26 @@
             panel1.Size = new Size(323, 380);
             panel1.TabIndex = 60;
             // 
+            // radioButton_Split
+            // 
+            radioButton_Split.AutoSize = true;
+            radioButton_Split.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Split.ForeColor = SystemColors.Control;
+            radioButton_Split.Location = new Point(3, 85);
+            radioButton_Split.Name = "radioButton_Split";
+            radioButton_Split.Size = new Size(209, 29);
+            radioButton_Split.TabIndex = 15;
+            radioButton_Split.TabStop = true;
+            radioButton_Split.Text = "Locate and Split Files";
+            radioButton_Split.UseVisualStyleBackColor = true;
+            radioButton_Split.CheckedChanged += radioButton_CheckedChanged;
+            // 
             // radioButton_Zip
             // 
             radioButton_Zip.AutoSize = true;
             radioButton_Zip.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Zip.ForeColor = SystemColors.Control;
-            radioButton_Zip.Location = new Point(3, 152);
+            radioButton_Zip.Location = new Point(3, 292);
             radioButton_Zip.Name = "radioButton_Zip";
             radioButton_Zip.Size = new Size(208, 29);
             radioButton_Zip.TabIndex = 14;
@@ -120,7 +136,7 @@
             radioButton_Tar.AutoSize = true;
             radioButton_Tar.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Tar.ForeColor = SystemColors.Control;
-            radioButton_Tar.Location = new Point(3, 203);
+            radioButton_Tar.Location = new Point(3, 343);
             radioButton_Tar.Name = "radioButton_Tar";
             radioButton_Tar.Size = new Size(214, 29);
             radioButton_Tar.TabIndex = 13;
@@ -134,7 +150,7 @@
             radioButton_Rar.AutoSize = true;
             radioButton_Rar.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Rar.ForeColor = SystemColors.Control;
-            radioButton_Rar.Location = new Point(3, 101);
+            radioButton_Rar.Location = new Point(3, 241);
             radioButton_Rar.Name = "radioButton_Rar";
             radioButton_Rar.Size = new Size(217, 29);
             radioButton_Rar.TabIndex = 12;
@@ -427,5 +443,6 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
+        private RadioButton radioButton_Split;
     }
 }
