@@ -32,21 +32,26 @@ namespace Project__Filter
         {
             string Config_covnvert = "Config_Convert.json";
 
+            button_Filter.Enabled = false;
             if (radioButton_Image.Checked)
             {
                 await Task.Run(() => ImageConvert(Path, Config_covnvert));
+                button_Filter.Enabled = true;
             }
             else if (radioButton_Audio.Checked)
             {
                 await Task.Run(() => AudioConvert(Path, Config_covnvert));
+                button_Filter.Enabled = true;
             }
             else if (radioButton_Video.Checked)
             {
                 await Task.Run(() => VideoConvert(Path, Config_covnvert));
+                button_Filter.Enabled = true;
             }
             else if (radioButton_Document.Checked)
             {
                 await Task.Run(() => DocumentConvert(Path, Config_covnvert));
+                button_Filter.Enabled = true;
             }
         }
 
