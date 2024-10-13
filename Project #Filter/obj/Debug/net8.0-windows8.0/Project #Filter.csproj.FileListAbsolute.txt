@@ -260,7 +260,6 @@ E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ServiceModel.Syndication.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ServiceProcess.ServiceController.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Speech.dll
-E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Text.Json.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Web.Services.Description.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\taglib-sharp.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\ZstdSharp.dll

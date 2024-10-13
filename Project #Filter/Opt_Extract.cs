@@ -92,6 +92,10 @@ namespace Project__Filter
             {
                 await Task.Run(() => Relocate(Path));
             }
+            else if (radioButton_Split.Checked)
+            {
+                await Task.Run(() => Split(Path));
+            }
             else if (radioButton_Rar.Checked)
             {
                 await Task.Run(() => Decompress_RAR(Path));
@@ -108,16 +112,12 @@ namespace Project__Filter
 
         private async void Located(string sourcePath)
         {
-            // Ensure the "Duplicated" folder exists in the source path
-            string duplicatedFolder = System.IO.Path.Combine(sourcePath, "Duplicated");
-            Directory.CreateDirectory(duplicatedFolder);
-
             // Get all files from the source path, including subfolders
             var files = Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories);
-
             // Progress bar setup
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
             int processedFiles = 0;
+            bool duplicateFolderCreated = false;
 
             foreach (var file in files)
             {
@@ -130,17 +130,23 @@ namespace Project__Filter
                     // Check if a file with the same full name (including extension) already exists in the destination path
                     if (File.Exists(destinationFilePath) && file != destinationFilePath)
                     {
-                        // Move the file to the "Duplicated" folder instead
-                        string duplicateFilePath = System.IO.Path.Combine(duplicatedFolder, fileName);
+                        // Ensure the "Duplicated" folder exists in the source path only when a duplicate is found
+                        if (!duplicateFolderCreated)
+                        {
+                            string duplicatedFolder = System.IO.Path.Combine(sourcePath, "Duplicates");
+                            Directory.CreateDirectory(duplicatedFolder);
+                            duplicateFolderCreated = true;
+                        }
 
+                        // Move the file to the "Duplicated" folder instead
+                        string duplicateFilePath = System.IO.Path.Combine(sourcePath, "Duplicates", fileName);
                         // If a file with the same name already exists in the Duplicated folder, create a unique name
                         if (File.Exists(duplicateFilePath))
                         {
                             // Create a unique file name to avoid overwriting
                             string newFileName = System.IO.Path.GetFileNameWithoutExtension(fileName) + "_" + Guid.NewGuid() + System.IO.Path.GetExtension(fileName);
-                            duplicateFilePath = System.IO.Path.Combine(duplicatedFolder, newFileName);
+                            duplicateFilePath = System.IO.Path.Combine(sourcePath, "Duplicates", newFileName);
                         }
-
                         File.Move(file, duplicateFilePath);
                     }
                     else
@@ -150,7 +156,6 @@ namespace Project__Filter
                     }
 
                     processedFiles++;
-
                     // Update the progress bar
                     progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                 }
@@ -163,7 +168,6 @@ namespace Project__Filter
 
             // Reset the progress bar after the operation is complete
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-
             // Notify the user when the process is complete
             MessageBox.Show("Files have been moved and duplicates have been handled.");
         }
@@ -263,6 +267,55 @@ namespace Project__Filter
 
             // Notify the user when the relocation process is done
             MessageBox.Show("Files relocated successfully.");
+        }
+
+        private async void Split(string path)
+        {
+            var files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
+            Dictionary<string, List<string>> hashGroups = new Dictionary<string, List<string>>();
+            int folderNumber = 1;
+
+            foreach (var file in files)
+            {
+                try
+                {
+                    string hash = await ComputeFileHashAsync(file);
+
+                    if (!hashGroups.ContainsKey(hash))
+                    {
+                        hashGroups[hash] = new List<string>();
+                    }
+                    hashGroups[hash].Add(file);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error processing file {file}: {ex.Message}");
+                }
+            }
+
+            foreach (var group in hashGroups)
+            {
+                if (group.Value.Count > 1)
+                {
+                    // Create "Hashes" folder if it doesn't exist
+                    string hashesFolder = System.IO.Path.Combine(path, "Hashes");
+                    Directory.CreateDirectory(hashesFolder);
+
+                    // Create a numbered folder for the group
+                    string numberedFolder = System.IO.Path.Combine(hashesFolder, folderNumber.ToString());
+                    Directory.CreateDirectory(numberedFolder);
+
+                    foreach (var file in group.Value)
+                    {
+                        string fileName = System.IO.Path.GetFileName(file);
+                        string destinationFilePath = System.IO.Path.Combine(numberedFolder, fileName);
+                        File.Move(file, destinationFilePath);
+                    }
+                    folderNumber++;
+                }
+            }
+
+            MessageBox.Show("Files have been processed and duplicates moved.");
         }
 
         private async Task<string> ComputeFileHashAsync(string filePath)
