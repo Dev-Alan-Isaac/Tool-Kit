@@ -92,10 +92,6 @@ namespace Project__Filter
             {
                 await Task.Run(() => Relocate(Path));
             }
-            else if (radioButton_Split.Checked)
-            {
-                await Task.Run(() => Split(Path));
-            }
             else if (radioButton_Rar.Checked)
             {
                 await Task.Run(() => Decompress_RAR(Path));
@@ -171,7 +167,6 @@ namespace Project__Filter
             // Notify the user when the process is complete
             MessageBox.Show("Files have been moved and duplicates have been handled.");
         }
-
 
         private async void Relocate(string path)
         {
@@ -281,73 +276,6 @@ namespace Project__Filter
                 }
             }
         }
-
-        private async void Split(string path)
-        {
-            // Ensure the "Duplicates" folder exists
-            string duplicatesFolder = System.IO.Path.Combine(path, "Duplicates");
-            Directory.CreateDirectory(duplicatesFolder);
-
-            // Get all files from the path, including subfolders
-            var files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
-
-            // Dictionary to store file hashes and their corresponding folders
-            Dictionary<string, string> fileHashes = new Dictionary<string, string>();
-
-            // Counter for creating unique numbered folders
-            int folderCounter = 1;
-
-            // Progress bar setup (if applicable, remove if not needed)
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
-            int processedFiles = 0;
-
-            foreach (var file in files)
-            {
-                try
-                {
-                    // Compute the hash for the current file
-                    string fileHash = await ComputeFileHashAsync(file);
-
-                    // Check if the hash already exists in the dictionary
-                    if (!fileHashes.ContainsKey(fileHash))
-                    {
-                        // Create a new folder for this hash
-                        string newFolder = System.IO.Path.Combine(duplicatesFolder, $"Folder_{folderCounter}");
-                        Directory.CreateDirectory(newFolder);
-
-                        // Store the folder path associated with this hash
-                        fileHashes[fileHash] = newFolder;
-
-                        // Increment the folder counter for the next set of duplicates
-                        folderCounter++;
-                    }
-
-                    // Get the folder path for the current file's hash
-                    string targetFolder = fileHashes[fileHash];
-
-                    // Move the file to the appropriate folder
-                    string destinationFilePath = System.IO.Path.Combine(targetFolder, System.IO.Path.GetFileName(file));
-                    File.Move(file, destinationFilePath);
-
-                    processedFiles++;
-
-                    // Update the progress bar (if applicable)
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                }
-                catch (Exception ex)
-                {
-                    // Handle errors (e.g., file in use or permission issues)
-                    MessageBox.Show($"Error processing file {file}: {ex.Message}");
-                }
-            }
-
-            // Reset the progress bar after the operation is complete (if applicable)
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-
-            // Notify the user when the process is complete
-            MessageBox.Show("Duplicate files have been organized into folders successfully.");
-        }
-
 
         private async void Decompress_RAR(string path)
         {

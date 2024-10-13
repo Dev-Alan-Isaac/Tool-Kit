@@ -32,6 +32,7 @@
             label3 = new Label();
             panel_Options = new Panel();
             panel1 = new Panel();
+            radioButton_Locate = new RadioButton();
             radioButton_Split = new RadioButton();
             radioButton_Zip = new RadioButton();
             radioButton_Tar = new RadioButton();
@@ -57,7 +58,6 @@
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
-            radioButton_Locate = new RadioButton();
             panel_Options.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -104,6 +104,20 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(323, 380);
             panel1.TabIndex = 60;
+            // 
+            // radioButton_Locate
+            // 
+            radioButton_Locate.AutoSize = true;
+            radioButton_Locate.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Locate.ForeColor = SystemColors.Control;
+            radioButton_Locate.Location = new Point(3, 53);
+            radioButton_Locate.Name = "radioButton_Locate";
+            radioButton_Locate.Size = new Size(129, 29);
+            radioButton_Locate.TabIndex = 16;
+            radioButton_Locate.TabStop = true;
+            radioButton_Locate.Text = "Locate Files";
+            radioButton_Locate.UseVisualStyleBackColor = true;
+            radioButton_Locate.CheckedChanged += radioButton_CheckedChanged;
             // 
             // radioButton_Split
             // 
@@ -389,20 +403,6 @@
             // 
             bunifuElipse3.ElipseRadius = 5;
             bunifuElipse3.TargetControl = treeView1;
-            // 
-            // radioButton_Locate
-            // 
-            radioButton_Locate.AutoSize = true;
-            radioButton_Locate.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Locate.ForeColor = SystemColors.Control;
-            radioButton_Locate.Location = new Point(3, 53);
-            radioButton_Locate.Name = "radioButton_Locate";
-            radioButton_Locate.Size = new Size(129, 29);
-            radioButton_Locate.TabIndex = 16;
-            radioButton_Locate.TabStop = true;
-            radioButton_Locate.Text = "Locate Files";
-            radioButton_Locate.UseVisualStyleBackColor = true;
-            radioButton_Locate.CheckedChanged += radioButton_CheckedChanged;
             // 
             // Opt_Extract
             // 
