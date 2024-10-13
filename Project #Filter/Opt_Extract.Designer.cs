@@ -57,6 +57,7 @@
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
+            radioButton_Locate = new RadioButton();
             panel_Options.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -92,6 +93,7 @@
             // panel1
             // 
             panel1.AutoScroll = true;
+            panel1.Controls.Add(radioButton_Locate);
             panel1.Controls.Add(radioButton_Split);
             panel1.Controls.Add(radioButton_Zip);
             panel1.Controls.Add(radioButton_Tar);
@@ -108,7 +110,7 @@
             radioButton_Split.AutoSize = true;
             radioButton_Split.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Split.ForeColor = SystemColors.Control;
-            radioButton_Split.Location = new Point(3, 85);
+            radioButton_Split.Location = new Point(3, 123);
             radioButton_Split.Name = "radioButton_Split";
             radioButton_Split.Size = new Size(209, 29);
             radioButton_Split.TabIndex = 15;
@@ -164,7 +166,7 @@
             radioButton_Relocate.AutoSize = true;
             radioButton_Relocate.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             radioButton_Relocate.ForeColor = SystemColors.Control;
-            radioButton_Relocate.Location = new Point(3, 50);
+            radioButton_Relocate.Location = new Point(3, 88);
             radioButton_Relocate.Name = "radioButton_Relocate";
             radioButton_Relocate.Size = new Size(244, 29);
             radioButton_Relocate.TabIndex = 11;
@@ -388,6 +390,20 @@
             bunifuElipse3.ElipseRadius = 5;
             bunifuElipse3.TargetControl = treeView1;
             // 
+            // radioButton_Locate
+            // 
+            radioButton_Locate.AutoSize = true;
+            radioButton_Locate.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Locate.ForeColor = SystemColors.Control;
+            radioButton_Locate.Location = new Point(3, 53);
+            radioButton_Locate.Name = "radioButton_Locate";
+            radioButton_Locate.Size = new Size(129, 29);
+            radioButton_Locate.TabIndex = 16;
+            radioButton_Locate.TabStop = true;
+            radioButton_Locate.Text = "Locate Files";
+            radioButton_Locate.UseVisualStyleBackColor = true;
+            radioButton_Locate.CheckedChanged += radioButton_CheckedChanged;
+            // 
             // Opt_Extract
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -444,5 +460,6 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
         private RadioButton radioButton_Split;
+        private RadioButton radioButton_Locate;
     }
 }

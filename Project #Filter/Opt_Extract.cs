@@ -70,7 +70,7 @@ namespace Project__Filter
         {
             // Enable the filter button when any radio button is checked
             if (radioButton_Relocate.Checked || radioButton_Rar.Checked ||
-                radioButton_Zip.Checked || radioButton_Tar.Checked|| radioButton_Split.Checked)
+                radioButton_Zip.Checked || radioButton_Tar.Checked || radioButton_Split.Checked || radioButton_Locate.Checked)
             {
                 button_Filter.Enabled = true;
             }
@@ -84,7 +84,11 @@ namespace Project__Filter
         {
             button_Filter.Enabled = false;
 
-            if (radioButton_Relocate.Checked)
+            if (radioButton_Locate.Checked)
+            {
+                await Task.Run(() => Located(Path));
+            }
+            else if (radioButton_Relocate.Checked)
             {
                 await Task.Run(() => Relocate(Path));
             }
@@ -105,6 +109,69 @@ namespace Project__Filter
                 await Task.Run(() => Decompress_TAR(Path));
             }
         }
+
+        private async void Located(string sourcePath)
+        {
+            // Ensure the "Duplicated" folder exists in the source path
+            string duplicatedFolder = System.IO.Path.Combine(sourcePath, "Duplicated");
+            Directory.CreateDirectory(duplicatedFolder);
+
+            // Get all files from the source path, including subfolders
+            var files = Directory.GetFiles(sourcePath, "*.*", SearchOption.AllDirectories);
+
+            // Progress bar setup
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
+
+            foreach (var file in files)
+            {
+                try
+                {
+                    // Get the file name and the destination path for this file
+                    string fileName = System.IO.Path.GetFileName(file);
+                    string destinationFilePath = System.IO.Path.Combine(sourcePath, fileName);
+
+                    // Check if a file with the same full name (including extension) already exists in the destination path
+                    if (File.Exists(destinationFilePath) && file != destinationFilePath)
+                    {
+                        // Move the file to the "Duplicated" folder instead
+                        string duplicateFilePath = System.IO.Path.Combine(duplicatedFolder, fileName);
+
+                        // If a file with the same name already exists in the Duplicated folder, create a unique name
+                        if (File.Exists(duplicateFilePath))
+                        {
+                            // Create a unique file name to avoid overwriting
+                            string newFileName = System.IO.Path.GetFileNameWithoutExtension(fileName) + "_" + Guid.NewGuid() + System.IO.Path.GetExtension(fileName);
+                            duplicateFilePath = System.IO.Path.Combine(duplicatedFolder, newFileName);
+                        }
+
+                        File.Move(file, duplicateFilePath);
+                    }
+                    else
+                    {
+                        // Move the file to the destination path
+                        File.Move(file, destinationFilePath);
+                    }
+
+                    processedFiles++;
+
+                    // Update the progress bar
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                }
+                catch (Exception ex)
+                {
+                    // Handle errors (e.g., file in use or permission issues)
+                    MessageBox.Show($"Error processing file {file}: {ex.Message}");
+                }
+            }
+
+            // Reset the progress bar after the operation is complete
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Notify the user when the process is complete
+            MessageBox.Show("Files have been moved and duplicates have been handled.");
+        }
+
 
         private async void Relocate(string path)
         {
