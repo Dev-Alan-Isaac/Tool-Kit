@@ -275,12 +275,16 @@ namespace Project__Filter
             Dictionary<string, List<string>> hashGroups = new Dictionary<string, List<string>>();
             int folderNumber = 1;
 
+            // Progress bar setup for hashing
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
+
+            // Compute hashes and group files by hash
             foreach (var file in files)
             {
                 try
                 {
                     string hash = await ComputeFileHashAsync(file);
-
                     if (!hashGroups.ContainsKey(hash))
                     {
                         hashGroups[hash] = new List<string>();
@@ -291,8 +295,21 @@ namespace Project__Filter
                 {
                     MessageBox.Show($"Error processing file {file}: {ex.Message}");
                 }
+                processedFiles++;
+                // Update the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
 
+            // Reset the progress bar for moving files
+            progressBar_Time.Invoke((Action)(() =>
+            {
+                progressBar_Time.Value = 0;
+                progressBar_Time.Maximum = hashGroups.Values.Sum(group => group.Count > 1 ? group.Count : 0);
+            }));
+
+            processedFiles = 0;
+
+            // Move duplicate files into separate folders
             foreach (var group in hashGroups)
             {
                 if (group.Value.Count > 1)
@@ -310,11 +327,16 @@ namespace Project__Filter
                         string fileName = System.IO.Path.GetFileName(file);
                         string destinationFilePath = System.IO.Path.Combine(numberedFolder, fileName);
                         File.Move(file, destinationFilePath);
+                        processedFiles++;
+                        // Update the progress bar
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
                     folderNumber++;
                 }
             }
 
+            // Final reset of the progress bar
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             MessageBox.Show("Files have been processed and duplicates moved.");
         }
 
