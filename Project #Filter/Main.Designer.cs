@@ -162,7 +162,7 @@
             button_Extract.Name = "button_Extract";
             button_Extract.Size = new Size(186, 40);
             button_Extract.TabIndex = 4;
-            button_Extract.Text = "    REFINE";
+            button_Extract.Text = "    EXTRACT";
             button_Extract.TextImageRelation = TextImageRelation.ImageBeforeText;
             button_Extract.UseVisualStyleBackColor = false;
             button_Extract.Click += button_Extract_Click;

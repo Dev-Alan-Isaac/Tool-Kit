@@ -18,61 +18,78 @@
         private void button_Type_Click(object sender, EventArgs e)
         {
             menu_Type1.BringToFront();
+            Panel_Index_Config.BackColor = Color.DarkGray;
             FollowButton(sender as Button);
         }
 
         private void button_Size_Click(object sender, EventArgs e)
         {
             menu_Sizes1.BringToFront();
+            Panel_Index_Config.BackColor = Color.DarkGray;
             FollowButton(sender as Button);
         }
 
         private void button_Name_Click(object sender, EventArgs e)
         {
-            menu_Name1.BringToFront();
+            menu_Name1.BringToFront(); Panel_Index_Config.BackColor = Color.DarkGray;
+
             FollowButton(sender as Button);
         }
 
 
         private void button_Auth_Click(object sender, EventArgs e)
         {
-            menu_Auth1.BringToFront();
+            menu_Auth1.BringToFront(); Panel_Index_Config.BackColor = Color.DarkGray;
+
             FollowButton(sender as Button);
         }
 
         private void button_Tags_Click(object sender, EventArgs e)
         {
-            menu_Tags1.BringToFront();
+            menu_Tags1.BringToFront(); Panel_Index_Config.BackColor = Color.DarkGray;
+
             FollowButton(sender as Button);
         }
 
         private void button_Folders_Click(object sender, EventArgs e)
         {
-            menu_Folder1.BringToFront();
+            menu_Folder1.BringToFront(); Panel_Index_Config.BackColor = Color.DarkGray;
+
             FollowButton(sender as Button);
         }
 
         private void button_Media_Click(object sender, EventArgs e)
         {
-            menu_Media1.BringToFront();
+            menu_Media1.BringToFront(); Panel_Index_Config.BackColor = Color.DarkGray;
+
             FollowButton(sender as Button);
         }
 
         private void button_Date_Click(object sender, EventArgs e)
         {
-            menu_Date1.BringToFront();
+            menu_Date1.BringToFront(); Panel_Index_Config.BackColor = Color.DarkGray;
+
             FollowButton(sender as Button);
         }
 
         private void button_GeneralSort_Click(object sender, EventArgs e)
         {
-            menu_Sort1.BringToFront();
+            menu_Sort1.BringToFront(); Panel_Index_Config.BackColor = Color.Teal;
+
             FollowButton(sender as Button);
         }
 
         private void button_GeneralConvert_Click(object sender, EventArgs e)
         {
-            menu_Convert1.BringToFront();
+            menu_Convert1.BringToFront(); Panel_Index_Config.BackColor = Color.Teal;
+
+            FollowButton(sender as Button);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            menu_Extract1.BringToFront(); Panel_Index_Config.BackColor = Color.Teal;
+
             FollowButton(sender as Button);
         }
     }

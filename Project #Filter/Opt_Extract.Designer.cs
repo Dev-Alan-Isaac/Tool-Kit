@@ -32,12 +32,10 @@
             label3 = new Label();
             panel_Options = new Panel();
             panel1 = new Panel();
-            radioButton_Locate = new RadioButton();
-            radioButton_Split = new RadioButton();
+            radioButton_Extract = new RadioButton();
             radioButton_Zip = new RadioButton();
             radioButton_Tar = new RadioButton();
             radioButton_Rar = new RadioButton();
-            radioButton_Relocate = new RadioButton();
             panel3 = new Panel();
             treeView1 = new TreeView();
             panel4 = new Panel();
@@ -93,45 +91,29 @@
             // panel1
             // 
             panel1.AutoScroll = true;
-            panel1.Controls.Add(radioButton_Locate);
-            panel1.Controls.Add(radioButton_Split);
+            panel1.Controls.Add(radioButton_Extract);
             panel1.Controls.Add(radioButton_Zip);
             panel1.Controls.Add(radioButton_Tar);
             panel1.Controls.Add(radioButton_Rar);
-            panel1.Controls.Add(radioButton_Relocate);
             panel1.Controls.Add(label3);
             panel1.Location = new Point(3, 5);
             panel1.Name = "panel1";
             panel1.Size = new Size(323, 380);
             panel1.TabIndex = 60;
             // 
-            // radioButton_Locate
+            // radioButton_Extract
             // 
-            radioButton_Locate.AutoSize = true;
-            radioButton_Locate.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Locate.ForeColor = SystemColors.Control;
-            radioButton_Locate.Location = new Point(3, 53);
-            radioButton_Locate.Name = "radioButton_Locate";
-            radioButton_Locate.Size = new Size(129, 29);
-            radioButton_Locate.TabIndex = 16;
-            radioButton_Locate.TabStop = true;
-            radioButton_Locate.Text = "Locate Files";
-            radioButton_Locate.UseVisualStyleBackColor = true;
-            radioButton_Locate.CheckedChanged += radioButton_CheckedChanged;
-            // 
-            // radioButton_Split
-            // 
-            radioButton_Split.AutoSize = true;
-            radioButton_Split.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Split.ForeColor = SystemColors.Control;
-            radioButton_Split.Location = new Point(3, 123);
-            radioButton_Split.Name = "radioButton_Split";
-            radioButton_Split.Size = new Size(209, 29);
-            radioButton_Split.TabIndex = 15;
-            radioButton_Split.TabStop = true;
-            radioButton_Split.Text = "Locate and Split Files";
-            radioButton_Split.UseVisualStyleBackColor = true;
-            radioButton_Split.CheckedChanged += radioButton_CheckedChanged;
+            radioButton_Extract.AutoSize = true;
+            radioButton_Extract.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Extract.ForeColor = SystemColors.Control;
+            radioButton_Extract.Location = new Point(3, 53);
+            radioButton_Extract.Name = "radioButton_Extract";
+            radioButton_Extract.Size = new Size(133, 29);
+            radioButton_Extract.TabIndex = 16;
+            radioButton_Extract.TabStop = true;
+            radioButton_Extract.Text = "Extract Files";
+            radioButton_Extract.UseVisualStyleBackColor = true;
+            radioButton_Extract.CheckedChanged += radioButton_CheckedChanged;
             // 
             // radioButton_Zip
             // 
@@ -174,20 +156,6 @@
             radioButton_Rar.Text = "Decompress RAR files";
             radioButton_Rar.UseVisualStyleBackColor = true;
             radioButton_Rar.CheckedChanged += radioButton_CheckedChanged;
-            // 
-            // radioButton_Relocate
-            // 
-            radioButton_Relocate.AutoSize = true;
-            radioButton_Relocate.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Relocate.ForeColor = SystemColors.Control;
-            radioButton_Relocate.Location = new Point(3, 88);
-            radioButton_Relocate.Name = "radioButton_Relocate";
-            radioButton_Relocate.Size = new Size(244, 29);
-            radioButton_Relocate.TabIndex = 11;
-            radioButton_Relocate.TabStop = true;
-            radioButton_Relocate.Text = "Locate and Relocate Files";
-            radioButton_Relocate.UseVisualStyleBackColor = true;
-            radioButton_Relocate.CheckedChanged += radioButton_CheckedChanged;
             // 
             // panel3
             // 
@@ -452,14 +420,12 @@
         private Panel panel_Bottom;
         private Button button_Path;
         private Panel panel_Top;
-        private RadioButton radioButton_Relocate;
         private RadioButton radioButton_Rar;
         private RadioButton radioButton_Zip;
         private RadioButton radioButton_Tar;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
-        private RadioButton radioButton_Split;
-        private RadioButton radioButton_Locate;
+        private RadioButton radioButton_Extract;
     }
 }
