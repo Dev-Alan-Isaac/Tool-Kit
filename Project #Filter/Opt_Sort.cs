@@ -60,7 +60,7 @@ namespace Project__Filter
         {
             string config_Path, config_Path2, Config_Sort = "Config_Sort.json";
 
-            // Clear TreeView before sorting
+            button_Filter.Enabled = false;
             treeView1.Nodes.Clear();
 
             foreach (string item in checkedItems)
@@ -265,6 +265,8 @@ namespace Project__Filter
             Invoke(() => Populated_Treeview(folderPath));
 
             MessageBox.Show("Sorting completed!");
+
+            button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
         }
 
         private async void SortSize(string folderPath, string jsonPath)

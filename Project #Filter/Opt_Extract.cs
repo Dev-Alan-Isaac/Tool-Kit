@@ -3,6 +3,7 @@ using SharpCompress.Archives.Rar;
 using SharpCompress.Archives.Tar;
 using SharpCompress.Common;
 using SharpCompress.Writers;
+using System.Collections.Concurrent;
 using System.IO.Compression;
 using System.Security.Cryptography;
 
@@ -166,9 +167,8 @@ namespace Project__Filter
                 }
             }
 
-            // Reset the progress bar after the operation is complete
+            button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-            // Notify the user when the process is complete
             MessageBox.Show("Files have been moved and duplicates have been handled.");
         }
 
@@ -272,41 +272,54 @@ namespace Project__Filter
         private async void Split(string path)
         {
             var files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
-            Dictionary<string, List<string>> hashGroups = new Dictionary<string, List<string>>();
+            ConcurrentDictionary<string, List<string>> hashGroups = new ConcurrentDictionary<string, List<string>>();
             int folderNumber = 1;
 
-            // Progress bar setup for hashing
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            // Ensure progress bar minimum and maximum values are set
+            progressBar_Time.Invoke((Action)(() =>
+            {
+                progressBar_Time.Minimum = 0;
+                progressBar_Time.Maximum = files.Length;
+                progressBar_Time.Value = 0;
+            }));
             int processedFiles = 0;
 
             // Compute hashes and group files by hash
-            foreach (var file in files)
+            await Task.Run(() =>
             {
-                try
+                Parallel.ForEach(files, file =>
                 {
-                    string hash = await ComputeFileHashAsync(file);
-                    if (!hashGroups.ContainsKey(hash))
+                    try
                     {
-                        hashGroups[hash] = new List<string>();
+                        string hash = ComputeFileHashAsync(file).Result;
+                        hashGroups.AddOrUpdate(hash,
+                            new List<string> { file },
+                            (key, existingList) =>
+                            {
+                                lock (existingList)
+                                {
+                                    existingList.Add(file);
+                                }
+                                return existingList;
+                            });
+
+                        Interlocked.Increment(ref processedFiles);
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
-                    hashGroups[hash].Add(file);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error processing file {file}: {ex.Message}");
-                }
-                processedFiles++;
-                // Update the progress bar
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-            }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error processing file {file}: {ex.Message}");
+                    }
+                });
+            });
 
             // Reset the progress bar for moving files
             progressBar_Time.Invoke((Action)(() =>
             {
+                progressBar_Time.Minimum = 0;
                 progressBar_Time.Value = 0;
                 progressBar_Time.Maximum = hashGroups.Values.Sum(group => group.Count > 1 ? group.Count : 0);
             }));
-
             processedFiles = 0;
 
             // Move duplicate files into separate folders
@@ -337,6 +350,7 @@ namespace Project__Filter
 
             // Final reset of the progress bar
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+            button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
             MessageBox.Show("Files have been processed and duplicates moved.");
         }
 
