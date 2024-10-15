@@ -395,7 +395,6 @@ namespace Project__Filter
             MessageBox.Show("Files relocated successfully.");
         }
 
-
         private async void Hash_Group(string path)
         {
             string[] files = await ProcessFiles(path);
@@ -432,7 +431,7 @@ namespace Project__Filter
                             });
 
                         Interlocked.Increment(ref processedFiles);
-                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                        progressBar_Time.Invoke(() => progressBar_Time.Value = processedFiles);
                     }
                     catch (Exception ex)
                     {
@@ -442,29 +441,34 @@ namespace Project__Filter
             });
 
             // Reset the progress bar for moving files
-            progressBar_Time.Invoke((Action)(() =>
+            progressBar_Time.Invoke(() =>
             {
                 progressBar_Time.Minimum = 0;
                 progressBar_Time.Value = 0;
                 progressBar_Time.Maximum = hashGroups.Values.Sum(group => group.Count > 1 ? group.Count : 0);
-            }));
+            });
             processedFiles = 0;
 
-            // Move duplicate files into separate folders
+            // Create "File" folder for non-duplicate files
+            string fileFolder = System.IO.Path.Combine(path, "File");
+            Directory.CreateDirectory(fileFolder);
+
+            // Create "Hashes" folder for groups of duplicates
+            string hashesFolder = System.IO.Path.Combine(path, "Hashes");
+            Directory.CreateDirectory(hashesFolder);
+
+            // Move files based on their hash groups
             await Task.Run(() =>
             {
                 foreach (var group in hashGroups)
                 {
                     if (group.Value.Count > 1)
                     {
-                        // Create "Hashes" folder if it doesn't exist
-                        string hashesFolder = System.IO.Path.Combine(path, "Hashes");
-                        Directory.CreateDirectory(hashesFolder);
-
-                        // Create a numbered folder for the group
-                        string numberedFolder = System.IO.Path.Combine(hashesFolder, folderNumber.ToString());
+                        // For duplicate files, create a new folder for the group (Hash_Group[Number])
+                        string numberedFolder = System.IO.Path.Combine(hashesFolder, $"Hash_Group{folderNumber}");
                         Directory.CreateDirectory(numberedFolder);
 
+                        // Move each file in the group to the numbered folder
                         foreach (var file in group.Value)
                         {
                             try
@@ -472,22 +476,18 @@ namespace Project__Filter
                                 string fileName = System.IO.Path.GetFileName(file);
                                 string destinationFilePath = System.IO.Path.Combine(numberedFolder, fileName);
 
-                                // If the destination file already exists, append a unique identifier
+                                // If the file already exists in the folder (same name), add [Hash] prefix
                                 if (File.Exists(destinationFilePath))
                                 {
-                                    string fileWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(fileName);
-                                    string extension = System.IO.Path.GetExtension(fileName);
-                                    destinationFilePath = System.IO.Path.Combine(
-                                        numberedFolder,
-                                        $"{fileWithoutExtension}_{Guid.NewGuid()}{extension}" // Append GUID to the file name
-                                    );
+                                    string hashPrefix = "[Hash]" + fileName;
+                                    destinationFilePath = System.IO.Path.Combine(numberedFolder, hashPrefix);
                                 }
 
                                 File.Move(file, destinationFilePath);
                                 processedFiles++;
 
                                 // Update the progress bar
-                                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                                progressBar_Time.Invoke(() => progressBar_Time.Value = processedFiles);
                             }
                             catch (Exception ex)
                             {
@@ -496,12 +496,37 @@ namespace Project__Filter
                         }
                         folderNumber++;
                     }
+                    else
+                    {
+                        // Move non-duplicate files to the "File" folder
+                        string file = group.Value.First();
+                        string fileName = System.IO.Path.GetFileName(file);
+                        string newFilePath = System.IO.Path.Combine(fileFolder, fileName);
+
+                        // Handle name collisions in the "File" folder
+                        if (File.Exists(newFilePath))
+                        {
+                            string relocatedFileName = "[File]" + fileName;
+                            newFilePath = System.IO.Path.Combine(fileFolder, relocatedFileName);
+                        }
+
+                        try
+                        {
+                            File.Move(file, newFilePath);
+                            processedFiles++;
+                            progressBar_Time.Invoke(() => progressBar_Time.Value = processedFiles);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Error moving file {file}: {ex.Message}");
+                        }
+                    }
                 }
             });
 
             // Final reset of the progress bar
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-            button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
+            progressBar_Time.Invoke(() => progressBar_Time.Value = 0);
+            button_Filter.Invoke(() => button_Filter.Enabled = true);
             MessageBox.Show("Files have been processed and duplicates moved.");
         }
 
