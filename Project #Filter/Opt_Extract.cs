@@ -1,11 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using SharpCompress.Archives;
-using SharpCompress.Archives.Rar;
-using SharpCompress.Archives.Tar;
-using SharpCompress.Common;
-using SharpCompress.Writers;
 using System.Collections.Concurrent;
-using System.IO.Compression;
 using System.Security.Cryptography;
 
 namespace Project__Filter
@@ -304,9 +298,12 @@ namespace Project__Filter
 
         private async void Hash_Split(string path)
         {
-            // Ensure the target "Files" directory exists
+            // Ensure the target directories for "Files" and "Duplicates" exist
             string filesFolder = System.IO.Path.Combine(path, "Files");
             Directory.CreateDirectory(filesFolder);
+
+            string duplicatesFolder = System.IO.Path.Combine(path, "Duplicates");
+            Directory.CreateDirectory(duplicatesFolder);
 
             // Get all files from the path, including subfolders
             string[] files = await ProcessFiles(path);
@@ -320,8 +317,6 @@ namespace Project__Filter
             int processedFiles = 0;
             List<string> errorFiles = new List<string>(); // List to track files with errors
             ConcurrentDictionary<string, string> fileHashes = new ConcurrentDictionary<string, string>(); // To track file hashes
-            bool duplicatesFound = false;
-            string duplicatesFolder = System.IO.Path.Combine(path, "Duplicates");
 
             await Task.Run(() =>
             {
@@ -332,23 +327,16 @@ namespace Project__Filter
                         // Compute a hash for the file (or use file name as the key)
                         string fileHash = ComputeFileHashAsync(file).Result;
 
-                        // Check if the file's hash is already in the dictionary (duplicate)
+                        // Check if the file's hash is already in the dictionary (duplicate by hash)
                         if (fileHashes.ContainsKey(fileHash))
                         {
-                            // Create the "Duplicates" folder if any duplicate is found
-                            if (!duplicatesFound)
-                            {
-                                Directory.CreateDirectory(duplicatesFolder);
-                                duplicatesFound = true; // Mark that duplicates have been found
-                            }
-
                             // Move the duplicate file to the "Duplicates" folder
                             string duplicateFilePath = System.IO.Path.Combine(duplicatesFolder, System.IO.Path.GetFileName(file));
 
-                            // Handle possible file name collisions in "Duplicates" folder
+                            // Handle possible file name collisions in the "Duplicates" folder
                             if (File.Exists(duplicateFilePath))
                             {
-                                string relocatedFileName = "[Duplicate]" + System.IO.Path.GetFileName(file);
+                                string relocatedFileName = "[Duplicated]" + System.IO.Path.GetFileName(file);
                                 duplicateFilePath = System.IO.Path.Combine(duplicatesFolder, relocatedFileName);
                             }
 
@@ -359,11 +347,11 @@ namespace Project__Filter
                             // Define the new file path in the "Files" folder
                             string newFilePath = System.IO.Path.Combine(filesFolder, System.IO.Path.GetFileName(file));
 
-                            // Check if a file with the same name already exists in the destination folder
+                            // Check if a file with the same name already exists in the "Files" folder (same name, different hash)
                             if (File.Exists(newFilePath))
                             {
-                                // Rename the file by adding the "[Relocated]" prefix
-                                string relocatedFileName = "[Relocated]" + System.IO.Path.GetFileName(file);
+                                // Rename the file by adding the "[File]" prefix to indicate it's the same name but not a duplicate by hash
+                                string relocatedFileName = "[File]" + System.IO.Path.GetFileName(file);
                                 newFilePath = System.IO.Path.Combine(filesFolder, relocatedFileName);
                             }
 
@@ -376,7 +364,7 @@ namespace Project__Filter
 
                         // Update the processed file count and progress bar
                         Interlocked.Increment(ref processedFiles);
-                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                        progressBar_Time.Invoke(() => progressBar_Time.Value = processedFiles);
                     }
                     catch (Exception ex)
                     {
@@ -402,10 +390,11 @@ namespace Project__Filter
             }
 
             // Reset progress bar and re-enable filter button
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-            button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
+            progressBar_Time.Invoke(() => progressBar_Time.Value = 0);
+            button_Filter.Invoke(() => button_Filter.Enabled = true);
             MessageBox.Show("Files relocated successfully.");
         }
+
 
         private async void Hash_Group(string path)
         {
