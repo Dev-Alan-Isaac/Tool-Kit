@@ -311,85 +311,99 @@ namespace Project__Filter
             // Get all files from the path, including subfolders
             string[] files = await ProcessFiles(path);
 
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            progressBar_Time.Invoke(() =>
+            {
+                progressBar_Time.Maximum = files.Length;
+                progressBar_Time.Value = 0;
+            });
+
             int processedFiles = 0;
             List<string> errorFiles = new List<string>(); // List to track files with errors
-
-            // Dictionary to track file hashes (or use file names if you don't want to compare hashes)
-            Dictionary<string, string> fileHashes = new Dictionary<string, string>();
-
-            // Track if any duplicates are found
+            ConcurrentDictionary<string, string> fileHashes = new ConcurrentDictionary<string, string>(); // To track file hashes
             bool duplicatesFound = false;
+            string duplicatesFolder = System.IO.Path.Combine(path, "Duplicates");
 
-            foreach (var file in files)
+            await Task.Run(() =>
             {
-                try
+                Parallel.ForEach(files, file =>
                 {
-                    // Compute a hash for the file to check for duplicates (or use file name as the key)
-                    string fileHash = await ComputeFileHashAsync(file);
-
-                    // Check if the file's hash is already in the dictionary (duplicate)
-                    if (fileHashes.ContainsKey(fileHash))
+                    try
                     {
-                        // If this is the first duplicate, create the "Duplicates" folder
-                        if (!duplicatesFound)
+                        // Compute a hash for the file (or use file name as the key)
+                        string fileHash = ComputeFileHashAsync(file).Result;
+
+                        // Check if the file's hash is already in the dictionary (duplicate)
+                        if (fileHashes.ContainsKey(fileHash))
                         {
-                            string duplicatesFolder = System.IO.Path.Combine(path, "Duplicates");
-                            Directory.CreateDirectory(duplicatesFolder);
-                            duplicatesFound = true; // Mark that duplicates have been found
+                            // Create the "Duplicates" folder if any duplicate is found
+                            if (!duplicatesFound)
+                            {
+                                Directory.CreateDirectory(duplicatesFolder);
+                                duplicatesFound = true; // Mark that duplicates have been found
+                            }
+
+                            // Move the duplicate file to the "Duplicates" folder
+                            string duplicateFilePath = System.IO.Path.Combine(duplicatesFolder, System.IO.Path.GetFileName(file));
+
+                            // Handle possible file name collisions in "Duplicates" folder
+                            if (File.Exists(duplicateFilePath))
+                            {
+                                string relocatedFileName = "[Duplicate]" + System.IO.Path.GetFileName(file);
+                                duplicateFilePath = System.IO.Path.Combine(duplicatesFolder, relocatedFileName);
+                            }
+
+                            File.Move(file, duplicateFilePath);
+                        }
+                        else
+                        {
+                            // Define the new file path in the "Files" folder
+                            string newFilePath = System.IO.Path.Combine(filesFolder, System.IO.Path.GetFileName(file));
+
+                            // Check if a file with the same name already exists in the destination folder
+                            if (File.Exists(newFilePath))
+                            {
+                                // Rename the file by adding the "[Relocated]" prefix
+                                string relocatedFileName = "[Relocated]" + System.IO.Path.GetFileName(file);
+                                newFilePath = System.IO.Path.Combine(filesFolder, relocatedFileName);
+                            }
+
+                            // Move the file to the "Files" folder
+                            File.Move(file, newFilePath);
+
+                            // Add the file's hash to the dictionary
+                            fileHashes.TryAdd(fileHash, newFilePath);
                         }
 
-                        // Move the duplicate file to the "Duplicates" folder
-                        string duplicatesFolderPath = System.IO.Path.Combine(path, "Duplicates");
-                        string duplicateFilePath = System.IO.Path.Combine(duplicatesFolderPath, System.IO.Path.GetFileName(file));
-                        File.Move(file, duplicateFilePath);
+                        // Update the processed file count and progress bar
+                        Interlocked.Increment(ref processedFiles);
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        // Define the new file path in the "Files" folder
-                        string newFilePath = System.IO.Path.Combine(filesFolder, System.IO.Path.GetFileName(file));
-
-                        // Check if a file with the same name already exists in the destination folder
-                        if (File.Exists(newFilePath))
+                        // Log the file and exception message in the error list
+                        lock (errorFiles)
                         {
-                            // Rename the file by adding the "[Relocated]" prefix
-                            string relocatedFileName = "[Relocated]" + System.IO.Path.GetFileName(file);
-                            newFilePath = System.IO.Path.Combine(filesFolder, relocatedFileName);
+                            errorFiles.Add($"{file}: {ex.Message}");
                         }
-
-                        // Move the file to the "Files" folder
-                        File.Move(file, newFilePath);
-
-                        // Add the file's hash to the dictionary
-                        fileHashes[fileHash] = newFilePath;
                     }
-
-                    processedFiles++;
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                }
-                catch (Exception ex)
-                {
-                    // Log the file and exception message in the error list
-                    errorFiles.Add($"{file}: {ex.Message}");
-                }
-            }
+                });
+            });
 
             // Handle post-processing of errors
             if (errorFiles.Count == 1)
             {
-                // If only one file caused an error, show a message box
                 MessageBox.Show($"Error processing file {errorFiles[0]}");
             }
             else if (errorFiles.Count > 1)
             {
-                // If more than one file caused an error, log the errors in a text file
                 string errorLogPath = System.IO.Path.Combine(path, "ErrorLog.txt");
                 File.WriteAllLines(errorLogPath, errorFiles);
                 MessageBox.Show($"Multiple files failed to process. See error log at {errorLogPath}");
             }
 
-            button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
+            // Reset progress bar and re-enable filter button
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+            button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
             MessageBox.Show("Files relocated successfully.");
         }
 
@@ -406,6 +420,7 @@ namespace Project__Filter
                 progressBar_Time.Maximum = files.Length;
                 progressBar_Time.Value = 0;
             });
+
             int processedFiles = 0;
 
             // Compute hashes and group files by hash
@@ -447,43 +462,53 @@ namespace Project__Filter
             processedFiles = 0;
 
             // Move duplicate files into separate folders
-            foreach (var group in hashGroups)
+            await Task.Run(() =>
             {
-                if (group.Value.Count > 1)
+                foreach (var group in hashGroups)
                 {
-                    // Create "Hashes" folder if it doesn't exist
-                    string hashesFolder = System.IO.Path.Combine(path, "Hashes");
-                    Directory.CreateDirectory(hashesFolder);
-
-                    // Create a numbered folder for the group
-                    string numberedFolder = System.IO.Path.Combine(hashesFolder, folderNumber.ToString());
-                    Directory.CreateDirectory(numberedFolder);
-
-                    foreach (var file in group.Value)
+                    if (group.Value.Count > 1)
                     {
-                        string fileName = System.IO.Path.GetFileName(file);
-                        string destinationFilePath = System.IO.Path.Combine(numberedFolder, fileName);
+                        // Create "Hashes" folder if it doesn't exist
+                        string hashesFolder = System.IO.Path.Combine(path, "Hashes");
+                        Directory.CreateDirectory(hashesFolder);
 
-                        // If the destination file already exists, append a unique identifier
-                        if (File.Exists(destinationFilePath))
+                        // Create a numbered folder for the group
+                        string numberedFolder = System.IO.Path.Combine(hashesFolder, folderNumber.ToString());
+                        Directory.CreateDirectory(numberedFolder);
+
+                        foreach (var file in group.Value)
                         {
-                            string fileWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(fileName);
-                            string extension = System.IO.Path.GetExtension(fileName);
-                            destinationFilePath = System.IO.Path.Combine(
-                                numberedFolder,
-                                $"{fileWithoutExtension}_{Guid.NewGuid()}{extension}" // Append GUID to the file name
-                            );
+                            try
+                            {
+                                string fileName = System.IO.Path.GetFileName(file);
+                                string destinationFilePath = System.IO.Path.Combine(numberedFolder, fileName);
+
+                                // If the destination file already exists, append a unique identifier
+                                if (File.Exists(destinationFilePath))
+                                {
+                                    string fileWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(fileName);
+                                    string extension = System.IO.Path.GetExtension(fileName);
+                                    destinationFilePath = System.IO.Path.Combine(
+                                        numberedFolder,
+                                        $"{fileWithoutExtension}_{Guid.NewGuid()}{extension}" // Append GUID to the file name
+                                    );
+                                }
+
+                                File.Move(file, destinationFilePath);
+                                processedFiles++;
+
+                                // Update the progress bar
+                                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Error moving file {file}: {ex.Message}");
+                            }
                         }
-
-                        File.Move(file, destinationFilePath);
-                        processedFiles++;
-
-                        // Update the progress bar
-                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                        folderNumber++;
                     }
-                    folderNumber++;
                 }
-            }
+            });
 
             // Final reset of the progress bar
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
@@ -491,16 +516,13 @@ namespace Project__Filter
             MessageBox.Show("Files have been processed and duplicates moved.");
         }
 
-
         private async Task<string> ComputeFileHashAsync(string filePath)
         {
+            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true))
             using (var sha256 = SHA256.Create())
             {
-                using (var fileStream = File.OpenRead(filePath))
-                {
-                    var hash = await sha256.ComputeHashAsync(fileStream);
-                    return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
-                }
+                byte[] hashBytes = await sha256.ComputeHashAsync(stream);
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
             }
         }
 

@@ -5,8 +5,8 @@
     "ByName": false,
     "ByHash": true,
     "Root": false,
-    "Split": false,
-    "Group": true,
+    "Split": true,
+    "Group": false,
     "RootDecompress": true,
     "Folder": false
   }
