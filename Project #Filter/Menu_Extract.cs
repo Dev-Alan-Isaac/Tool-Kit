@@ -29,16 +29,19 @@ namespace Project__Filter
                     var jsonContent = new JObject(
                          new JProperty("Option", new JObject(
                              new JProperty("Delete", true),
-                             new JProperty("Subfolder", true),
+                             new JProperty("Subfolder", true)
+                         )),
+                         new JProperty("Hash", new JObject(
                              new JProperty("ByName", true),
                              new JProperty("ByHash", false),
                              new JProperty("Root", false),
                              new JProperty("Split", false),
-                             new JProperty("Group", false),
+                             new JProperty("Group", false)
+                         )),
+                         new JProperty("Decompress", new JObject(
                              new JProperty("RootDecompress", true),
                              new JProperty("Folder", false)
-                         ))
-                    );
+                         )));
 
                     // Save to a file (e.g., "Extensions.json")
                     File.WriteAllText("Config_Extract.json", jsonContent.ToString());

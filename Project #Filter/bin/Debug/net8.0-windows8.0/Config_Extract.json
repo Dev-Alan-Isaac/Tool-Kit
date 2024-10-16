@@ -1,12 +1,16 @@
 {
   "Option": {
     "Delete": true,
-    "Subfolder": true,
-    "ByName": false,
-    "ByHash": true,
+    "Subfolder": true
+  },
+  "Hash": {
+    "ByName": true,
+    "ByHash": false,
     "Root": false,
-    "Split": true,
-    "Group": false,
+    "Split": false,
+    "Group": false
+  },
+  "Decompress": {
     "RootDecompress": true,
     "Folder": false
   }
