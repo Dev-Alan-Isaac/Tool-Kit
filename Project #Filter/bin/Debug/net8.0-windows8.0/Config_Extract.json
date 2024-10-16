@@ -4,9 +4,14 @@
     "Subfolder": true
   },
   "Hash": {
-    "ByName": true,
-    "ByHash": false,
-    "Root": false,
+    "ByName": false,
+    "ByHash": true,
+    "Root": true,
+    "Split": false,
+    "Group": false
+  },
+  "Location": {
+    "Root": true,
     "Split": false,
     "Group": false
   },
