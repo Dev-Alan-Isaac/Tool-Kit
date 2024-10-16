@@ -274,6 +274,10 @@ namespace Project__Filter
             var files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);
             Dictionary<string, List<string>> hashGroups = new Dictionary<string, List<string>>();
             int folderNumber = 1;
+            int processedFiles = 0;
+
+            // Set the progress bar maximum value to the total number of files
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
 
             foreach (var file in files)
             {
@@ -286,12 +290,19 @@ namespace Project__Filter
                         hashGroups[hash] = new List<string>();
                     }
                     hashGroups[hash].Add(file);
+
+                    // Update the progress bar after processing each file's hash
+                    processedFiles++;
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error processing file {file}: {ex.Message}");
                 }
             }
+
+            processedFiles = 0; // Reset the counter for file moving progress
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length)); // Reset max value to total files count
 
             foreach (var group in hashGroups)
             {
@@ -310,6 +321,10 @@ namespace Project__Filter
                         string fileName = System.IO.Path.GetFileName(file);
                         string destinationFilePath = System.IO.Path.Combine(numberedFolder, fileName);
                         File.Move(file, destinationFilePath);
+
+                        // Update the progress bar after moving each file
+                        processedFiles++;
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
                     folderNumber++;
                 }
@@ -317,6 +332,7 @@ namespace Project__Filter
 
             MessageBox.Show("Files have been processed and duplicates moved.");
         }
+
 
         private async Task<string> ComputeFileHashAsync(string filePath)
         {
