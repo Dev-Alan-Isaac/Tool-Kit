@@ -1,14 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Project__Filter
 {
@@ -30,15 +21,6 @@ namespace Project__Filter
                          new JProperty("Option", new JObject(
                              new JProperty("Delete", true),
                              new JProperty("Subfolder", true)
-                         )),
-                         new JProperty("Hash", new JObject(
-                             new JProperty("ByName", true),
-                             new JProperty("ByHash", false)
-                         )),
-                         new JProperty("Location", new JObject(
-                             new JProperty("Root", false),
-                             new JProperty("Split", false),
-                             new JProperty("Group", false)
                          )),
                          new JProperty("Decompress", new JObject(
                              new JProperty("RootDecompress", true),
@@ -73,38 +55,11 @@ namespace Project__Filter
                 {
                     bool isDelete = jsonObject["Option"]["Delete"]?.ToObject<bool>() ?? false;
                     bool isSubfolder = jsonObject["Option"]["Subfolder"]?.ToObject<bool>() ?? false;
-                    bool isName = jsonObject["Hash"]["ByName"]?.ToObject<bool>() ?? false;
-                    bool isHash = jsonObject["Hash"]["ByHash"]?.ToObject<bool>() ?? false;
-                    bool isRoot = jsonObject["Location"]["Root"]?.ToObject<bool>() ?? false;
-                    bool isSplit = jsonObject["Location"]["Split"]?.ToObject<bool>() ?? false;
-                    bool isGroup = jsonObject["Location"]["Group"]?.ToObject<bool>() ?? false;
                     bool isRootDecompress = jsonObject["Decompress"]["RootDecompress"]?.ToObject<bool>() ?? false;
                     bool isFolder = jsonObject["Decompress"]["Folder"]?.ToObject<bool>() ?? false;
 
                     checkBox_Delete.Checked = isDelete;
                     checkBox_Subfolders.Checked = isSubfolder;
-
-                    if (isName)
-                    {
-                        radioButton_Name.Checked = true;
-                    }
-                    else if (isHash)
-                    {
-                        radioButton_Hash.Checked = true;
-                    }
-
-                    if (isRoot)
-                    {
-                        radioButton_Root.Checked = true;
-                    }
-                    else if (isSplit)
-                    {
-                        radioButton_Split.Checked = true;
-                    }
-                    else if (isGroup)
-                    {
-                        radioButton_Group.Checked = true;
-                    }
 
                     if (isRootDecompress)
                     {
@@ -127,20 +82,6 @@ namespace Project__Filter
                     ["Delete"] = checkBox_Delete.Checked,
                     ["Subfolder"] = checkBox_Subfolders.Checked
                 },
-                ["Hash"] = new JObject
-                {
-                    ["ByName"] = radioButton_Name.Checked,
-                    ["ByHash"] = radioButton_Hash.Checked,
-                    ["Root"] = radioButton_Root.Checked,
-                    ["Split"] = radioButton_Split.Checked,
-                    ["Group"] = radioButton_Group.Checked
-                },
-                ["Location"] = new JObject
-                {
-                    ["Root"] = radioButton_Root.Checked,
-                    ["Split"] = radioButton_Split.Checked,
-                    ["Group"] = radioButton_Group.Checked
-                },
                 ["Decompress"] = new JObject
                 {
                     ["RootDecompress"] = radioButton_RootDecompress.Checked,
@@ -156,22 +97,6 @@ namespace Project__Filter
 
             // Optionally, show a message to indicate that the file was saved
             MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void radioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButton_Name.Checked)
-            {
-                radioButton_Root.Enabled = false;
-                radioButton_Group.Enabled = false;
-                radioButton_Split.Enabled = false;
-            }
-            else if (radioButton_Hash.Checked)
-            {
-                radioButton_Root.Enabled = true;
-                radioButton_Group.Enabled = true;
-                radioButton_Split.Enabled = true;
-            }
         }
 
         private void panel5_Paint(object sender, PaintEventArgs e)
