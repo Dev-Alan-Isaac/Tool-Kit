@@ -614,63 +614,81 @@ namespace Project__Filter
             var extensions = jsonContent["Extensions"].ToObject<JObject>();
             var allow = jsonContent["Allow"].ToObject<JObject>();
 
+            // Create a dictionary of allowed extensions for faster lookup
+            HashSet<string> allowedExtensions = new HashSet<string>();
+            foreach (var allowCategory in allow)
+            {
+                bool isAllowed = (bool)allowCategory.Value;
+                if (isAllowed)
+                {
+                    JArray categoryExtensions = (JArray)extensions[allowCategory.Key];
+                    foreach (var ext in categoryExtensions)
+                    {
+                        allowedExtensions.Add(ext.ToString().Trim().ToLower());
+                    }
+                }
+            }
+
             // Get all files in the target folder
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
 
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
-            int processedFiles = 0;
-
-            // Update the file count label
-            Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
+            // Update UI elements safely
+            Invoke((Action)(() =>
+            {
+                progressBar_Time.Maximum = totalFiles;
+                File_Count.Text = $"Total Files: {totalFiles}";
+            }));
 
             // Dictionary to store hash and corresponding files
             Dictionary<string, List<string>> fileHashes = new Dictionary<string, List<string>>();
 
-            // Process each file in the folder
-            foreach (var file in files)
+            // Create a lock object for thread safety while updating the dictionary
+            object lockObject = new object();
+            int processedFiles = 0;
+
+            // Process each file in parallel for faster hashing
+            await Task.Run(() =>
             {
-                // Get the file extension (without the dot, in lowercase)
-                string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
-
-                // Check each category in "Allow"
-                foreach (var allowCategory in allow)
+                Parallel.ForEach(files, file =>
                 {
-                    bool isAllowed = (bool)allowCategory.Value;
-                    string category = allowCategory.Key;
+                    // Get the file extension in lowercase
+                    string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
 
-                    // If the category is allowed
-                    if (isAllowed)
+                    // Check if the file extension is allowed
+                    if (allowedExtensions.Contains(fileExtension))
                     {
-                        // Get the list of extensions for this category
-                        JArray categoryExtensions = (JArray)extensions[category];
+                        // Calculate the hash of the file
+                        string fileHash = GetFileHash(file);
 
-                        // Ensure the comparison is string-based and case-insensitive
-                        bool extensionExists = categoryExtensions
-                            .Select(ext => ext.ToString().Trim().ToLower())
-                            .Contains(fileExtension);
-
-                        // If the file's extension matches any of the allowed extensions
-                        if (extensionExists)
+                        // Lock to safely update the shared dictionary
+                        lock (lockObject)
                         {
-                            // Calculate the hash of the file
-                            string fileHash = GetFileHash(file);
-
-                            // Check if the hash already exists in the dictionary
                             if (fileHashes.ContainsKey(fileHash))
                             {
-                                // If it does, add the file to the list
+                                // If hash exists, add the file to the list
                                 fileHashes[fileHash].Add(file);
                             }
                             else
                             {
-                                // If it doesn't, create a new entry
+                                // If hash doesn't exist, create a new entry
                                 fileHashes[fileHash] = new List<string> { file };
                             }
                         }
                     }
-                }
-            }
+
+                    // Update progress in batches to avoid UI thread congestion
+                    Interlocked.Increment(ref processedFiles);
+                    if (processedFiles % 10 == 0)
+                    {
+                        // Safely update the progress bar on the UI thread
+                        Invoke((Action)(() =>
+                        {
+                            progressBar_Time.Value = processedFiles;
+                        }));
+                    }
+                });
+            });
 
             // Now, move files with the same hash into numbered folders
             int folderCount = 1;
@@ -696,7 +714,7 @@ namespace Project__Filter
                         if (File.Exists(destinationPath))
                         {
                             // Create a subfolder with the file name inside the date folder
-                            string fileNameFolder = System.IO.Path.Combine(dateSubfolder, Path.GetFileNameWithoutExtension(file));
+                            string fileNameFolder = System.IO.Path.Combine(dateSubfolder, System.IO.Path.GetFileNameWithoutExtension(file));
                             Directory.CreateDirectory(fileNameFolder);
 
                             // Move the file inside the file name folder
@@ -708,15 +726,13 @@ namespace Project__Filter
 
                     folderCount++;
                 }
-                // Increment the progress bar after processing each file
-                processedFiles++;
-
-                // Update the progress bar
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
             }
 
             // Reset progress bar on the UI thread
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+            Invoke((Action)(() =>
+            {
+                progressBar_Time.Value = 0;
+            }));
 
             // Call Populated_Treeview on the UI thread
             Invoke(() => Populated_Treeview(folderPath));
