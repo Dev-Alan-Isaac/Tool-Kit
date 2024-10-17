@@ -684,10 +684,25 @@ namespace Project__Filter
                     string folderName = System.IO.Path.Combine(folderPath, $"Hash_{folderCount}");
                     Directory.CreateDirectory(folderName);
 
-                    // Move each file into the folder
+                    // Create a subfolder with the current date
+                    string dateSubfolder = System.IO.Path.Combine(folderName, DateTime.Now.ToString("yyyy-MM-dd"));
+                    Directory.CreateDirectory(dateSubfolder);
+
                     foreach (var file in filesWithSameHash)
                     {
-                        string destinationPath = System.IO.Path.Combine(folderName, System.IO.Path.GetFileName(file));
+                        string destinationPath = System.IO.Path.Combine(dateSubfolder, System.IO.Path.GetFileName(file));
+
+                        // If a file with the same name already exists in the date folder
+                        if (File.Exists(destinationPath))
+                        {
+                            // Create a subfolder with the file name inside the date folder
+                            string fileNameFolder = System.IO.Path.Combine(dateSubfolder, Path.GetFileNameWithoutExtension(file));
+                            Directory.CreateDirectory(fileNameFolder);
+
+                            // Move the file inside the file name folder
+                            destinationPath = System.IO.Path.Combine(fileNameFolder, System.IO.Path.GetFileName(file));
+                        }
+
                         File.Move(file, destinationPath);
                     }
 
@@ -708,6 +723,7 @@ namespace Project__Filter
 
             MessageBox.Show("Sorting completed!");
         }
+
 
         private string GetFileHash(string filePath)
         {
