@@ -11,7 +11,7 @@ namespace Project__Filter
         public Opt_Extract()
         {
             InitializeComponent();
-        }
+        } 
 
         private void button_Path_Click(object sender, EventArgs e)
         {
