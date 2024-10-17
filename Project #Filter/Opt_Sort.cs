@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 using NReco.VideoInfo;
 
@@ -955,21 +956,23 @@ namespace Project__Filter
 
             bool sortByAlphabetical = jsonContent["Option"]["Alphabetical"]?.ToObject<bool>() ?? false;
             bool sortByDepth = jsonContent["Option"]["Depth"]?.ToObject<bool>() ?? false;
+            bool caseSensitive = jsonContent["Additional"]["Case"]?.ToObject<bool>() ?? false;
+            bool skipSpecialCharacters = jsonContent["Additional"]["Special"]?.ToObject<bool>() ?? false;
 
             if (sortByAlphabetical)
             {
-                SortAlphabetical(folderPath);
+                SortAlphabetical(folderPath, caseSensitive, skipSpecialCharacters);
             }
 
             if (sortByDepth)
             {
-                SortByDepth(folderPath);
+                SortByDepth(folderPath, skipSpecialCharacters);
             }
 
             MessageBox.Show("Folders sorted!");
         }
 
-        private void SortAlphabetical(string folderPath)
+        private void SortAlphabetical(string folderPath, bool caseSensitive, bool skipSpecialCharacters)
         {
             string alphabeticalFolder = System.IO.Path.Combine(folderPath, "Alphabetical");
             Directory.CreateDirectory(alphabeticalFolder);
@@ -979,12 +982,23 @@ namespace Project__Filter
             foreach (var dir in directories)
             {
                 string dirName = System.IO.Path.GetFileName(dir);
-                string targetDir = System.IO.Path.Combine(alphabeticalFolder, dirName);
-                Directory.Move(dir, targetDir);
+
+                // Skip folders with special characters if the option is set
+                if (skipSpecialCharacters && !Regex.IsMatch(dirName, @"^[a-zA-Z0-9_\-]+$"))
+                {
+                    continue;
+                }
+
+                // Handle case sensitivity
+                string firstChar = caseSensitive ? dirName.Substring(0, 1) : dirName.Substring(0, 1).ToUpperInvariant();
+
+                string targetDir = System.IO.Path.Combine(alphabeticalFolder, firstChar);
+                Directory.CreateDirectory(targetDir);
+                Directory.Move(dir, System.IO.Path.Combine(targetDir, dirName));
             }
         }
 
-        private void SortByDepth(string folderPath)
+        private void SortByDepth(string folderPath, bool skipSpecialCharacters)
         {
             string depthFolder = System.IO.Path.Combine(folderPath, "Depth");
             Directory.CreateDirectory(depthFolder);
@@ -993,6 +1007,11 @@ namespace Project__Filter
 
             foreach (var dir in directories)
             {
+                if (skipSpecialCharacters && !Regex.IsMatch(System.IO.Path.GetFileName(dir), @"^[a-zA-Z0-9_\-]+$"))
+                {
+                    continue;
+                }
+
                 int depth = GetFolderDepth(dir);
                 string depthDir = System.IO.Path.Combine(depthFolder, $"Depth_{depth}");
                 Directory.CreateDirectory(depthDir);
