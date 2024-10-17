@@ -82,7 +82,7 @@ namespace Project__Filter
 
             if (radioButton_Extract.Checked)
             {
-                await Task.Run(() => Extact_Option(Path));
+                await Task.Run(() => Extract_Files(Path));
             }
             else if (radioButton_Rar.Checked)
             {
@@ -101,7 +101,7 @@ namespace Project__Filter
         private async void Extract_Files(string path)
         {
             // Ensure the "Extracted" directory exists
-            string extractedFolder = Path.Combine(path, "Extracted");
+            string extractedFolder = System.IO.Path.Combine(path, "Extracted");
             Directory.CreateDirectory(extractedFolder);
 
             // Get the files to process
@@ -124,7 +124,7 @@ namespace Project__Filter
                     {
                         // Get the file name and define the destination path in "Extracted"
                         string fileName = System.IO.Path.GetFileName(file);
-                        string destinationFilePath = Path.Combine(extractedFolder, fileName);
+                        string destinationFilePath = System.IO.Path.Combine(extractedFolder, fileName);
 
                         // If the file already exists in the "Extracted" folder
                         if (File.Exists(destinationFilePath))
