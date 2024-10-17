@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net8.0-windows8.0": {
-      "Aspose.Cells/24.9.0": {
+      "Aspose.Cells/24.10.0": {
         "type": "package",
         "dependencies": {
           "System.Drawing.Common": "6.0.0",
@@ -20,7 +20,7 @@
           }
         }
       },
-      "Aspose.PDF/24.9.0": {
+      "Aspose.PDF/24.10.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyModel": "8.0.0",
@@ -2072,17 +2072,17 @@
     }
   },
   "libraries": {
-    "Aspose.Cells/24.9.0": {
-      "sha512": "QpnHwYZd0M9W58Upqifd195FlSdID3Wz6UuZsxW8L5QHhCxsxG3m9cJVI2Ps4iBaQ6PfXNEqslFAfiPqGRuNXw==",
+    "Aspose.Cells/24.10.0": {
+      "sha512": "UwXsjvz/I95t12PXalcFM/ATJ/d4qzDh3XV9RT3MaJ1uz8Fn3fM8yzQ9rs2H/2IaafGu7TmDpcPX6C4FwBuvTQ==",
       "type": "package",
-      "path": "aspose.cells/24.9.0",
+      "path": "aspose.cells/24.10.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Help/Aspose.Cells For .NET Documentation.chm",
         "License/Aspose_End-User-License-Agreement.txt",
         "License/thirdpartylicenses.Aspose.Cells.for.NET.pdf",
-        "aspose.cells.24.9.0.nupkg.sha512",
+        "aspose.cells.24.10.0.nupkg.sha512",
         "aspose.cells.nuspec",
         "images/aspose_cells-for-net.png",
         "lib/net40-client/Aspose.Cells.dll",
@@ -2105,14 +2105,14 @@
         "lib/netstandard2.0/Aspose.Cells.xml"
       ]
     },
-    "Aspose.PDF/24.9.0": {
-      "sha512": "GfcUQ5/bROukhYb3Tw11sLf0h9V085dAVI/YZwqE5rJruSi1q4fPejb2DCPThS0lcvLcrxqbv/5E7NaiKWH1Ug==",
+    "Aspose.PDF/24.10.0": {
+      "sha512": "txr3/tSOJ+IWxfSqwTQ6zd0RvUoiBR+7YVywo1b2IPmfGl49mYSXQoKYjiGYIgote3DjgJCO+ytUZURJZW93cA==",
       "type": "package",
-      "path": "aspose.pdf/24.9.0",
+      "path": "aspose.pdf/24.10.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "aspose.pdf.24.9.0.nupkg.sha512",
+        "aspose.pdf.24.10.0.nupkg.sha512",
         "aspose.pdf.nuspec",
         "images/aspose_pdf-for-net.png",
         "lib/net4.8.1/Aspose.PDF.dll",
@@ -5736,8 +5736,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-windows8.0": [
-      "Aspose.Cells >= 24.9.0",
-      "Aspose.PDF >= 24.9.0",
+      "Aspose.Cells >= 24.10.0",
+      "Aspose.PDF >= 24.10.0",
       "Aspose.Slides.NET >= 24.10.0",
       "Aspose.Words >= 24.10.0",
       "Bunifu.UI.WinForms >= 6.0.1",
@@ -5758,19 +5758,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Alan_\\.nuget\\packages\\": {}
+    "C:\\Users\\Sistemas\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj",
+      "projectUniqueName": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
       "projectName": "Project #Filter",
-      "projectPath": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Project #Filter.csproj",
-      "packagesPath": "C:\\Users\\Alan_\\.nuget\\packages\\",
-      "outputPath": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\obj\\",
+      "projectPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
+      "packagesPath": "C:\\Users\\Sistemas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Alan_\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Sistemas\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5804,11 +5804,11 @@
         "dependencies": {
           "Aspose.Cells": {
             "target": "Package",
-            "version": "[24.9.0, )"
+            "version": "[24.10.0, )"
           },
           "Aspose.PDF": {
             "target": "Package",
-            "version": "[24.9.0, )"
+            "version": "[24.10.0, )"
           },
           "Aspose.Slides.NET": {
             "target": "Package",
