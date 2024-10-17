@@ -2,7 +2,6 @@
 using System.Security.Cryptography;
 using Newtonsoft.Json.Linq;
 using NReco.VideoInfo;
-using Org.BouncyCastle.Crypto;
 
 namespace Project__Filter
 {
@@ -113,7 +112,6 @@ namespace Project__Filter
             DeleteEmptyFolders(Path);
         }
 
-
         public async Task<string[]> ProcessFiles(string parentPath)
         {
             string config_file = "Config_Sort.json";
@@ -183,7 +181,7 @@ namespace Project__Filter
             if (InvokeRequired)
             {
                 // Use Invoke to run the method on the UI thread
-                return (TreeNode)Invoke(new Func<TreeNode>(() => FindOrCreateNode(nodes, nodeName)));
+                return Invoke(new Func<TreeNode>(() => FindOrCreateNode(nodes, nodeName)));
             }
 
             // If already on the UI thread, proceed as normal
@@ -945,12 +943,67 @@ namespace Project__Filter
 
         private async void SortFolderLocation(string folderPath, string jsonPath)
         {
+            if (!File.Exists(jsonPath))
+            {
+                MessageBox.Show("Config file not found.");
+                return;
+            }
 
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
+
+            bool sortByAlphabetical = jsonContent["Option"]["Alphabetical"]?.ToObject<bool>() ?? false;
+            bool sortByDepth = jsonContent["Option"]["Depth"]?.ToObject<bool>() ?? false;
+
+            if (sortByAlphabetical)
+            {
+                SortAlphabetical(folderPath);
+            }
+
+            if (sortByDepth)
+            {
+                SortByDepth(folderPath);
+            }
+
+            MessageBox.Show("Folders sorted!");
+        }
+
+        private void SortAlphabetical(string folderPath)
+        {
+            string alphabeticalFolder = System.IO.Path.Combine(folderPath, "Alphabetical");
+            Directory.CreateDirectory(alphabeticalFolder);
+
+            var directories = Directory.GetDirectories(folderPath, "*", SearchOption.TopDirectoryOnly);
+
+            foreach (var dir in directories)
+            {
+                string dirName = System.IO.Path.GetFileName(dir);
+                string targetDir = System.IO.Path.Combine(alphabeticalFolder, dirName);
+                Directory.Move(dir, targetDir);
+            }
+        }
+
+        private void SortByDepth(string folderPath)
+        {
+            string depthFolder = System.IO.Path.Combine(folderPath, "Depth");
+            Directory.CreateDirectory(depthFolder);
+
+            var directories = Directory.GetDirectories(folderPath, "*", SearchOption.TopDirectoryOnly);
+
+            foreach (var dir in directories)
+            {
+                int depth = GetFolderDepth(dir);
+                string depthDir = System.IO.Path.Combine(depthFolder, $"Depth_{depth}");
+                Directory.CreateDirectory(depthDir);
+
+                string targetDir = System.IO.Path.Combine(depthDir, System.IO.Path.GetFileName(dir));
+                Directory.Move(dir, targetDir);
+            }
         }
 
         private int GetFolderDepth(string folder)
         {
-            // Count how many subfolders are present
             return Directory.GetDirectories(folder, "*", SearchOption.AllDirectories).Length;
         }
 

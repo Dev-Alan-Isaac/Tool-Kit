@@ -42,10 +42,15 @@
             panel10 = new Panel();
             panel9 = new Panel();
             panel5 = new Panel();
+            panel6 = new Panel();
+            checkBox_IgnoreSpecialChar = new CheckBox();
+            checkBox_CapsSens = new CheckBox();
+            label4 = new Label();
             panel4.SuspendLayout();
             panel10.SuspendLayout();
             panel9.SuspendLayout();
             panel5.SuspendLayout();
+            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // bunifuElipse1
@@ -69,6 +74,7 @@
             button_Saved.Size = new Size(570, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
+            button_Saved.Click += button_Saved_Click;
             // 
             // panel3
             // 
@@ -177,6 +183,7 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel5.Controls.Add(panel6);
             panel5.Controls.Add(radioButton_Depth);
             panel5.Controls.Add(radioButton_Alphabetical);
             panel5.Controls.Add(panel10);
@@ -185,6 +192,55 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(570, 394);
             panel5.TabIndex = 69;
+            // 
+            // panel6
+            // 
+            panel6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panel6.Controls.Add(checkBox_IgnoreSpecialChar);
+            panel6.Controls.Add(checkBox_CapsSens);
+            panel6.Controls.Add(label4);
+            panel6.Location = new Point(3, 133);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(564, 129);
+            panel6.TabIndex = 63;
+            // 
+            // checkBox_IgnoreSpecialChar
+            // 
+            checkBox_IgnoreSpecialChar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            checkBox_IgnoreSpecialChar.AutoSize = true;
+            checkBox_IgnoreSpecialChar.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox_IgnoreSpecialChar.ForeColor = SystemColors.Control;
+            checkBox_IgnoreSpecialChar.Location = new Point(3, 88);
+            checkBox_IgnoreSpecialChar.Name = "checkBox_IgnoreSpecialChar";
+            checkBox_IgnoreSpecialChar.Size = new Size(248, 29);
+            checkBox_IgnoreSpecialChar.TabIndex = 2;
+            checkBox_IgnoreSpecialChar.Text = "Ignore Special Characters";
+            checkBox_IgnoreSpecialChar.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_CapsSens
+            // 
+            checkBox_CapsSens.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            checkBox_CapsSens.AutoSize = true;
+            checkBox_CapsSens.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            checkBox_CapsSens.ForeColor = SystemColors.Control;
+            checkBox_CapsSens.Location = new Point(3, 47);
+            checkBox_CapsSens.Name = "checkBox_CapsSens";
+            checkBox_CapsSens.Size = new Size(223, 29);
+            checkBox_CapsSens.TabIndex = 1;
+            checkBox_CapsSens.Text = "Case-Sensitive Sorting";
+            checkBox_CapsSens.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Dock = DockStyle.Top;
+            label4.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
+            label4.ForeColor = SystemColors.Control;
+            label4.Location = new Point(0, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(224, 32);
+            label4.TabIndex = 0;
+            label4.Text = "Additional Options:";
             // 
             // Menu_Folder
             // 
@@ -206,6 +262,8 @@
             panel9.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -224,5 +282,9 @@
         private Panel panel10;
         private Panel panel9;
         private Panel panel5;
+        private Panel panel6;
+        private CheckBox checkBox_IgnoreSpecialChar;
+        private CheckBox checkBox_CapsSens;
+        private Label label4;
     }
 }

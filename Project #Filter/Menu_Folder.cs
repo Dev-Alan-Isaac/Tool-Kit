@@ -20,8 +20,12 @@ namespace Project__Filter
                     var jsonContent = new JObject(
                         new JProperty("Option", new JObject(
                             new JProperty("Alphabetical", true),
-                            new JProperty("Depth", true)
-                        ))
+                            new JProperty("Depth", false)
+                        )),
+                         new JProperty("Additional", new JObject(
+                             new JProperty("Case", true),
+                             new JProperty("Special", true)
+                         ))
                      );
 
 
@@ -54,12 +58,22 @@ namespace Project__Filter
 
                     if (isAlphabetical)
                     {
-                        radioButton_Alphabetical.Checked = true; // Assuming this is the radio button for "Alphabetically"
+                        radioButton_Alphabetical.Checked = isAlphabetical; // Assuming this is the radio button for "Alphabetically"
                     }
                     else if (isDeep)
                     {
-                        radioButton_Depth.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
+                        radioButton_Depth.Checked = isDeep; // Assuming this is the radio button for "AlphabeticallyExtension"
                     }
+                }
+
+                if (jsonObject["Additional"] != null)
+                {
+                    // Check the state of "Case" and "Special" and set checkboxes accordingly
+                    bool isCase = jsonObject["Additional"]["Case"]?.ToObject<bool>() ?? false;
+                    bool isSpecial = jsonObject["Additional"]["Special"]?.ToObject<bool>() ?? false;
+
+                    checkBox_CapsSens.Checked = isCase; // Assuming this is the checkbox for "Case"
+                    checkBox_IgnoreSpecialChar.Checked = isSpecial; // Assuming this is the checkbox for "Special"
                 }
             }
         }
@@ -72,6 +86,11 @@ namespace Project__Filter
                 {
                     ["Alphabetical"] = radioButton_Alphabetical.Checked,
                     ["Depth"] = radioButton_Depth.Checked,
+                },
+                ["Additional"] = new JObject
+                {
+                    ["Case"] = checkBox_CapsSens.Checked,
+                    ["Special"] = checkBox_IgnoreSpecialChar.Checked
                 }
             };
 

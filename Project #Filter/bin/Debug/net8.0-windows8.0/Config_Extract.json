@@ -3,18 +3,6 @@
     "Delete": true,
     "Subfolder": true
   },
-  "Hash": {
-    "ByName": false,
-    "ByHash": true,
-    "Root": true,
-    "Split": false,
-    "Group": false
-  },
-  "Location": {
-    "Root": true,
-    "Split": false,
-    "Group": false
-  },
   "Decompress": {
     "RootDecompress": true,
     "Folder": false
