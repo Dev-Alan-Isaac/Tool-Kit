@@ -3,22 +3,6 @@
   "WorkspaceRootPath": "E:\\ReposVisualStudio\\Project #Filter\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\opt_extract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_extract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\opt_extract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_extract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\opt_encrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_encrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\opt_convert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_convert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|e:\\reposvisualstudio\\project #filter\\project #filter\\opt_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -55,68 +39,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Opt_Extract.cs",
-              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Extract.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Opt_Extract.cs",
-              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Extract.cs",
-              "RelativeToolTip": "Project #Filter\\Opt_Extract.cs",
-              "ViewState": "AgIAAGoAAAAAAAAAAAAwwJoAAABNAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T04:32:26.477Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Opt_Extract.cs [Design]",
-              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Extract.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Opt_Extract.cs",
-              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Extract.cs [Design]",
-              "RelativeToolTip": "Project #Filter\\Opt_Extract.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T04:32:16.729Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Opt_Encrypt.cs [Design]",
-              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Encrypt.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Opt_Encrypt.cs",
-              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Encrypt.cs [Design] \u2B24",
-              "RelativeToolTip": "Project #Filter\\Opt_Encrypt.cs [Design] \u2B24",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T04:32:16.241Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Opt_Convert.cs [Design]",
-              "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Convert.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Opt_Convert.cs",
-              "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Convert.cs [Design] \u2B24",
-              "RelativeToolTip": "Project #Filter\\Opt_Convert.cs [Design] \u2B24",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T04:32:15.67Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "Opt_Sort.cs",
               "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Sort.cs",
               "RelativeDocumentMoniker": "Project #Filter\\Opt_Sort.cs",
               "ToolTip": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Sort.cs",
               "RelativeToolTip": "Project #Filter\\Opt_Sort.cs",
-              "ViewState": "AgIAAJoCAAAAAAAAAAAnwMACAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIsCAAAAAAAAAAAnwBMEAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-17T02:09:38.079Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Opt_Sort.cs [Design]",
               "DocumentMoniker": "E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\Opt_Sort.cs",
               "RelativeDocumentMoniker": "Project #Filter\\Opt_Sort.cs",

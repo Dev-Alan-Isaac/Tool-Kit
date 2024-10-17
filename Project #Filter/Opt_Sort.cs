@@ -646,6 +646,7 @@ namespace Project__Filter
             // Create a lock object for thread safety while updating the dictionary
             object lockObject = new object();
             int processedFiles = 0;
+            bool duplicatesFound = false;
 
             // Process each file in parallel for faster hashing
             await Task.Run(() =>
@@ -690,15 +691,10 @@ namespace Project__Filter
                 });
             });
 
-            // Create one main subfolder to store all sorted files
-            string mainSubfolder = System.IO.Path.Combine(folderPath, "SortedFiles");
-            Directory.CreateDirectory(mainSubfolder);
+            string mainSubfolder = null;  // Move this outside to keep track of it if duplicates are found
+            string dateSubfolder = null;
 
-            // Create a folder with the current date inside the main subfolder
-            string dateSubfolder = System.IO.Path.Combine(mainSubfolder, DateTime.Now.ToString("yyyy-MM-dd"));
-            Directory.CreateDirectory(dateSubfolder);
-
-            // Now, move files with the same hash into the date folder
+            // Now, move files with the same hash into a "Duplicates" folder if duplicates are found
             foreach (var hashEntry in fileHashes)
             {
                 var filesWithSameHash = hashEntry.Value;
@@ -706,6 +702,20 @@ namespace Project__Filter
                 // If more than one file shares the same hash
                 if (filesWithSameHash.Count > 1)
                 {
+                    // Create the Duplicates folder only if it's not created yet
+                    if (!duplicatesFound)
+                    {
+                        duplicatesFound = true;
+
+                        // Create one main subfolder to store all duplicate files
+                        mainSubfolder = System.IO.Path.Combine(folderPath, "Duplicates");
+                        Directory.CreateDirectory(mainSubfolder);
+
+                        // Create a folder with the current date inside the main subfolder
+                        dateSubfolder = System.IO.Path.Combine(mainSubfolder, DateTime.Now.ToString("yyyy-MM-dd"));
+                        Directory.CreateDirectory(dateSubfolder);
+                    }
+
                     foreach (var file in filesWithSameHash)
                     {
                         string destinationPath = System.IO.Path.Combine(dateSubfolder, System.IO.Path.GetFileName(file));
@@ -727,15 +737,23 @@ namespace Project__Filter
             }
 
             // Reset progress bar on the UI thread
-            Invoke((Action)(() =>
+            Invoke(() =>
             {
+                button_Filter.Enabled = true;
                 progressBar_Time.Value = 0;
-            }));
+            });
 
             // Call Populated_Treeview on the UI thread
             Invoke(() => Populated_Treeview(folderPath));
 
-            MessageBox.Show("Sorting completed!");
+            if (duplicatesFound)
+            {
+                MessageBox.Show("Duplicates found and sorted!");
+            }
+            else
+            {
+                MessageBox.Show("No duplicates found.");
+            }
         }
 
         private string GetFileHash(string filePath)
