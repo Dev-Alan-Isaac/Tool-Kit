@@ -41,10 +41,10 @@
             panel4 = new Panel();
             label3 = new Label();
             panel5 = new Panel();
-            panel9 = new Panel();
+            radioButton_AspectRatio = new RadioButton();
             radioButton_Codec = new RadioButton();
             radioButton_Frames = new RadioButton();
-            radioButton_AspectRatio = new RadioButton();
+            panel9 = new Panel();
             panel10.SuspendLayout();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
@@ -183,14 +183,18 @@
             panel5.Size = new Size(570, 394);
             panel5.TabIndex = 69;
             // 
-            // panel9
+            // radioButton_AspectRatio
             // 
-            panel9.Controls.Add(label3);
-            panel9.Dock = DockStyle.Top;
-            panel9.Location = new Point(0, 0);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(570, 42);
-            panel9.TabIndex = 1;
+            radioButton_AspectRatio.AutoSize = true;
+            radioButton_AspectRatio.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_AspectRatio.ForeColor = SystemColors.Control;
+            radioButton_AspectRatio.Location = new Point(3, 260);
+            radioButton_AspectRatio.Name = "radioButton_AspectRatio";
+            radioButton_AspectRatio.Size = new Size(138, 29);
+            radioButton_AspectRatio.TabIndex = 63;
+            radioButton_AspectRatio.TabStop = true;
+            radioButton_AspectRatio.Text = "Aspect Ratio";
+            radioButton_AspectRatio.UseVisualStyleBackColor = true;
             // 
             // radioButton_Codec
             // 
@@ -218,18 +222,14 @@
             radioButton_Frames.Text = "Frame Rate";
             radioButton_Frames.UseVisualStyleBackColor = true;
             // 
-            // radioButton_AspectRatio
+            // panel9
             // 
-            radioButton_AspectRatio.AutoSize = true;
-            radioButton_AspectRatio.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_AspectRatio.ForeColor = SystemColors.Control;
-            radioButton_AspectRatio.Location = new Point(3, 260);
-            radioButton_AspectRatio.Name = "radioButton_AspectRatio";
-            radioButton_AspectRatio.Size = new Size(138, 29);
-            radioButton_AspectRatio.TabIndex = 63;
-            radioButton_AspectRatio.TabStop = true;
-            radioButton_AspectRatio.Text = "Aspect Ratio";
-            radioButton_AspectRatio.UseVisualStyleBackColor = true;
+            panel9.Controls.Add(label3);
+            panel9.Dock = DockStyle.Top;
+            panel9.Location = new Point(0, 0);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(570, 42);
+            panel9.TabIndex = 1;
             // 
             // Menu_Media
             // 

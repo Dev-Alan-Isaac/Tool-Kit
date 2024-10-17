@@ -20,49 +20,25 @@ namespace Project__Filter
                         new JProperty("Option", new JObject(
                             new JProperty("Delete", true),
                             new JProperty("Subfolder", true),
-                            new JProperty("Keep", true),
-                            new JProperty("Original", true),
-                            new JProperty("Custom", false),
-                            new JProperty("ByDate", true),
-                            new JProperty("ByName", false),
-                            new JProperty("BySize", false)
+                            new JProperty("Original", true), 
+                            new JProperty("Keep", true)
+
+                        )),
+                        new JProperty("Additional", new JObject(
+                             new JProperty("Name", true),
+                             new JProperty("Custom", true)
                         )),
                         new JProperty("Video", new JObject(
-                            new JProperty("GIF", true),
-                            new JProperty("WEBP", false),
-                            new JProperty("AVI", false),
-                            new JProperty("MP4", false),
-                            new JProperty("FLV", false),
-                            new JProperty("MKV", false),
-                            new JProperty("MOV", false),
-                            new JProperty("AUDIO", false)
+                            new JProperty("GIF", true)
                         )),
                         new JProperty("Audio", new JObject(
-                            new JProperty("WAV", true),
-                            new JProperty("MP3", false),
-                            new JProperty("WMA", false)
+                            new JProperty("WAV", true)
                         )),
                         new JProperty("Image", new JObject(
-                            new JProperty("JPEG", true),
-                            new JProperty("PNG", false),
-                            new JProperty("TIFF", false),
-                            new JProperty("ICO", false),
-                            new JProperty("SVG", false),
-                            new JProperty("WEBP", false)
+                            new JProperty("JPEG", true)
                         )),
                         new JProperty("Document", new JObject(
-                            new JProperty("WORD", true),
-                            new JProperty("PDF", false),
-                            new JProperty("WEB", false),
-                            new JProperty("PLAIN", false),
-                            new JProperty("EXCEL", false),
-                            new JProperty("IMAGE", false)
-                        )), 
-                        new JProperty("Extensions", new JObject(
-                            new JProperty("Image", new JArray("jpeg", "png", "tiff", "ico", "svg", "webp")),
-                            new JProperty("Audio", new JArray("wav", "mp3", "wma")),
-                            new JProperty("Video", new JArray("gif", "webm", "avi", "mp4", "flv", "mov", "mkv")),
-                            new JProperty("Document", new JArray("doc", "docx", "pdf", "html", "htm", "txt", "xls", "xlsx"))
+                            new JProperty("WORD", true)
                         ))
                     );
 
@@ -88,43 +64,44 @@ namespace Project__Filter
                 var jsonObject = JObject.Parse(jsonContent);
 
                 // Check if the "Option" property exists
-                if (jsonObject["Option"] != null)
+
+                bool isDelete = jsonObject["Option"]["Delete"]?.ToObject<bool>() ?? false;
+                bool isSubfolder = jsonObject["Option"]["Subfolder"]?.ToObject<bool>() ?? false;
+                bool isOriginal = jsonObject["Option"]["Original"]?.ToObject<bool>() ?? false;
+                bool isKeep = jsonObject["Option"]["Keep"]?.ToObject<bool>() ?? false;
+
+                bool isName = jsonObject["Option"]["ByName"]?.ToObject<bool>() ?? false;
+                bool isCustom = jsonObject["Option"]["Custom"]?.ToObject<bool>() ?? false;
+
+
+                bool isDate = jsonObject["Option"]["ByDate"]?.ToObject<bool>() ?? false;
+                bool isSize = jsonObject["Option"]["BySize"]?.ToObject<bool>() ?? false;
+
+
+                checkBox_Delete.Checked = isDelete;
+                checkBox_Subfolders.Checked = isSubfolder;
+                checkBox_Keep.Checked = isKeep;
+
+                if (isOriginal)
                 {
-                    bool isDelete = jsonObject["Option"]["Delete"]?.ToObject<bool>() ?? false;
-                    bool isSubfolder = jsonObject["Option"]["Subfolder"]?.ToObject<bool>() ?? false;
-                    bool isKeep = jsonObject["Option"]["Keep"]?.ToObject<bool>() ?? false;
-                    bool isOriginal = jsonObject["Option"]["Original"]?.ToObject<bool>() ?? false;
-                    bool isCustom = jsonObject["Option"]["Custom"]?.ToObject<bool>() ?? false;
-                    bool isDate = jsonObject["Option"]["ByDate"]?.ToObject<bool>() ?? false;
-                    bool isName = jsonObject["Option"]["ByName"]?.ToObject<bool>() ?? false;
-                    bool isSize = jsonObject["Option"]["BySize"]?.ToObject<bool>() ?? false;
+                    radioButton_Original.Checked = isOriginal;
+                }
+                else if (isCustom)
+                {
+                    radioButton_Custom.Checked = isCustom;
+                }
 
-
-                    checkBox_Delete.Checked = isDelete;
-                    checkBox_Subfolders.Checked = isSubfolder;
-                    checkBox_Keep.Checked = isKeep;
-
-                    if (isOriginal)
-                    {
-                        radioButton_Original.Checked = isOriginal;
-                    }
-                    else if (isCustom)
-                    {
-                        radioButton_Custom.Checked = isCustom;
-                    }
-
-                    if (isDate)
-                    {
-                        radioButton_Date.Checked = isDate;
-                    }
-                    else if (isName)
-                    {
-                        radioButton_Name.Checked = isName;
-                    }
-                    else if (isSize)
-                    {
-                        radioButton_Size.Checked = isSize;
-                    }
+                if (isDate)
+                {
+                    radioButton_Date.Checked = isDate;
+                }
+                else if (isName)
+                {
+                    radioButton_Name.Checked = isName;
+                }
+                else if (isSize)
+                {
+                    radioButton_Size.Checked = isSize;
                 }
             }
         }
@@ -160,6 +137,11 @@ namespace Project__Filter
 
             // Optionally, show a message to indicate that the file was saved
             MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
