@@ -372,3 +372,4 @@ E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows8.0
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.pdb
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project #Filter.genruntimeconfig.cache
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows8.0\ref\Project #Filter.dll
+E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Menu_Extract.resources
