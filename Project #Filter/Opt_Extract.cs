@@ -152,7 +152,7 @@ namespace Project__Filter
                 }
             });
 
-            // Reset the progress bar and notify the user
+            button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             MessageBox.Show("Files extracted successfully.");
         }

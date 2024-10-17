@@ -690,8 +690,15 @@ namespace Project__Filter
                 });
             });
 
-            // Now, move files with the same hash into numbered folders
-            int folderCount = 1;
+            // Create one main subfolder to store all sorted files
+            string mainSubfolder = System.IO.Path.Combine(folderPath, "SortedFiles");
+            Directory.CreateDirectory(mainSubfolder);
+
+            // Create a folder with the current date inside the main subfolder
+            string dateSubfolder = System.IO.Path.Combine(mainSubfolder, DateTime.Now.ToString("yyyy-MM-dd"));
+            Directory.CreateDirectory(dateSubfolder);
+
+            // Now, move files with the same hash into the date folder
             foreach (var hashEntry in fileHashes)
             {
                 var filesWithSameHash = hashEntry.Value;
@@ -699,13 +706,6 @@ namespace Project__Filter
                 // If more than one file shares the same hash
                 if (filesWithSameHash.Count > 1)
                 {
-                    string folderName = System.IO.Path.Combine(folderPath, $"Hash_{folderCount}");
-                    Directory.CreateDirectory(folderName);
-
-                    // Create a subfolder with the current date
-                    string dateSubfolder = System.IO.Path.Combine(folderName, DateTime.Now.ToString("yyyy-MM-dd"));
-                    Directory.CreateDirectory(dateSubfolder);
-
                     foreach (var file in filesWithSameHash)
                     {
                         string destinationPath = System.IO.Path.Combine(dateSubfolder, System.IO.Path.GetFileName(file));
@@ -723,8 +723,6 @@ namespace Project__Filter
 
                         File.Move(file, destinationPath);
                     }
-
-                    folderCount++;
                 }
             }
 
@@ -739,7 +737,6 @@ namespace Project__Filter
 
             MessageBox.Show("Sorting completed!");
         }
-
 
         private string GetFileHash(string filePath)
         {
