@@ -1,4 +1,6 @@
 ﻿using System.Data;
+using Aspose.Cells;
+using Aspose.Slides;
 using ImageMagick;
 using NAudio.Lame;
 using NAudio.Wave;
@@ -296,9 +298,71 @@ namespace Project__Filter
 
         private async void DocumentConvert(string folderPath, string extension)
         {
+            try
+            {
+                var files = Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories);
 
+                foreach (var file in files)
+                {
+                    string newFilePath = System.IO.Path.ChangeExtension(file, extension);
+
+                    if (file.EndsWith(".docx") || file.EndsWith(".doc"))
+                    {
+                        await Task.Run(() =>
+                        {
+                            var doc = new Aspose.Words.Document(file);
+                            doc.Save(newFilePath);
+                        });
+                    }
+                    else if (file.EndsWith(".xlsx") || file.EndsWith(".xls"))
+                    {
+                        await Task.Run(() =>
+                        {
+                            var workbook = new Workbook(file);
+                            workbook.Save(newFilePath);
+                        });
+                    }
+                    else if (file.EndsWith(".pptx") || file.EndsWith(".ppt"))
+                    {
+                        await Task.Run(() =>
+                        {
+                            var presentation = new Presentation(file);
+                            presentation.Save(newFilePath, GetSlideFormat(extension));
+                        });
+                    }
+                    else if (file.EndsWith(".pdf"))
+                    {
+                        await Task.Run(() =>
+                        {
+                            var pdfDocument = new Aspose.Pdf.Document(file);
+                            pdfDocument.Save(newFilePath);
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show($"File format for {file} not supported for conversion.", "Format Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+
+                MessageBox.Show($"Documents converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error converting document: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
+        private Aspose.Slides.Export.SaveFormat GetSlideFormat(string extension)
+        {
+            return extension.ToLower() switch
+            {
+                "pptx" => Aspose.Slides.Export.SaveFormat.Pptx,
+                "ppt" => Aspose.Slides.Export.SaveFormat.Ppt,
+                "pdf" => Aspose.Slides.Export.SaveFormat.Pdf,
+                _ => throw new NotSupportedException($"The extension '{extension}' is not supported for slides."),
+            };
+
+        }
 
         private string askTitle(string selectedPath)
         {
@@ -316,7 +380,6 @@ namespace Project__Filter
             }
         }
 
-        
         private async void CreatedPdf(byte[] pdfByteArray, string title)
         {
             // Specify the output file path
@@ -337,4 +400,5 @@ namespace Project__Filter
         }
 
     }
+
 }
