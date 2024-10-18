@@ -1,0 +1,10 @@
+{
+  "Option": {
+    "Delete": true,
+    "Subfolder": true
+  },
+  "Decompress": {
+    "RootDecompress": true,
+    "Folder": false
+  }
+}

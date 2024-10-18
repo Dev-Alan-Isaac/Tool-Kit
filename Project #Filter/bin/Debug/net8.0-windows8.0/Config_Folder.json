@@ -1,0 +1,10 @@
+{
+  "Option": {
+    "Alphabetical": true,
+    "Depth": false
+  },
+  "Additional": {
+    "Case": true,
+    "Special": true
+  }
+}

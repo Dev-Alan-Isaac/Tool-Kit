@@ -1,0 +1,9 @@
+{
+  "Option": {
+    "Duration": true,
+    "Resolution": false,
+    "Frame_Rate": false,
+    "Codec": false,
+    "Aspect": false
+  }
+}

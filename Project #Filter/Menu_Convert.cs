@@ -70,8 +70,8 @@ namespace Project__Filter
                 bool isOriginal = jsonObject["Option"]["Original"]?.ToObject<bool>() ?? false;
                 bool isKeep = jsonObject["Option"]["Keep"]?.ToObject<bool>() ?? false;
 
-                bool isName = jsonObject["Option"]["ByName"]?.ToObject<bool>() ?? false;
-                bool isCustom = jsonObject["Option"]["Custom"]?.ToObject<bool>() ?? false;
+                bool isName = jsonObject["Additional"]["Name"]?.ToObject<bool>() ?? false;
+                bool isCustom = jsonObject["Additional"]["Custom"]?.ToObject<bool>() ?? false;
 
 
                 bool isDate = jsonObject["Option"]["ByDate"]?.ToObject<bool>() ?? false;
