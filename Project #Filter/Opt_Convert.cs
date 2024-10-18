@@ -73,6 +73,30 @@ namespace Project__Filter
             Populated_Treeview();
         }
 
+        public async Task<string[]> ProcessFiles(string parentPath)
+        {
+            string config_file = "Config_Convert.json";
+
+            if (!File.Exists(config_file))
+            {
+                MessageBox.Show("Config file not found.");
+                return Array.Empty<string>(); // Return an empty array if the config file doesn't exist
+            }
+
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(config_file);
+            var jsonContent = JObject.Parse(jsonString);
+
+            bool processSubfolders = (bool)jsonContent["Option"]["Subfolder"];
+
+            // Get files based on whether subfolder processing is allowed
+            var files = processSubfolders
+                ? Directory.GetFiles(parentPath, "*.*", SearchOption.AllDirectories)
+                : Directory.GetFiles(parentPath);
+
+            return files; // Return the list of file paths
+        }
+
         private async void Populated_Treeview()
         {
             // Clear the TreeView first
@@ -139,6 +163,12 @@ namespace Project__Filter
             // Get the selected node
             TreeNode selectedNode = e.Node;
 
+            // Remove the extension from the selected node's text
+            string nodeNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(selectedNode.Text);
+
+            // Update label with the selected node's name (without extension)
+            label_SelectedNode.Text = nodeNameWithoutExtension;
+
             // Read the JSON content from the file
             string jsonContent = File.ReadAllText("Config_Convert.json");
 
@@ -166,33 +196,11 @@ namespace Project__Filter
                 extension = jsonObject["Document"]["Selected"].ToString();
             }
 
+            // Convert extension to lowercase
+            extension = extension.ToLower();
+
             // Update label with the selected node's name and extension
-            label_SelectedNode.Text = $"{selectedNode.Text}.{extension}";
-        }
-
-
-        public async Task<string[]> ProcessFiles(string parentPath)
-        {
-            string config_file = "Config_Convert.json";
-
-            if (!File.Exists(config_file))
-            {
-                MessageBox.Show("Config file not found.");
-                return Array.Empty<string>(); // Return an empty array if the config file doesn't exist
-            }
-
-            // Read and parse the JSON file
-            string jsonString = await File.ReadAllTextAsync(config_file);
-            var jsonContent = JObject.Parse(jsonString);
-
-            bool processSubfolders = (bool)jsonContent["Option"]["Subfolder"];
-
-            // Get files based on whether subfolder processing is allowed
-            var files = processSubfolders
-                ? Directory.GetFiles(parentPath, "*.*", SearchOption.AllDirectories)
-                : Directory.GetFiles(parentPath);
-
-            return files; // Return the list of file paths
+            label_Output.Text = $"{nodeNameWithoutExtension}.{extension}";
         }
 
         private async void ImageConvert(string folderPath, string jsonPath)
@@ -869,6 +877,4 @@ namespace Project__Filter
         //}
 
     }
-
-
 }
