@@ -9,6 +9,7 @@ namespace Project__Filter
     public partial class Opt_Transform : UserControl
     {
         private string Path;
+        private string FilePath;
 
         public Opt_Transform()
         {
@@ -36,7 +37,7 @@ namespace Project__Filter
             button_Filter.Enabled = false;
             if (radioButton_Image.Checked)
             {
-                await Task.Run(() => ImageConvert(Path, Config_covnvert));
+                await Task.Run(() => ImageConvert(FilePath, Config_covnvert));
                 button_Filter.Enabled = true;
             }
             else if (radioButton_Audio.Checked)
@@ -169,6 +170,9 @@ namespace Project__Filter
             // Update label with the selected node's name (without extension)
             label_SelectedNode.Text = nodeNameWithoutExtension;
 
+            // Set the full file path
+            FilePath = System.IO.Path.Combine(Path, selectedNode.Text);
+
             // Read the JSON content from the file
             string jsonContent = File.ReadAllText("Config_Convert.json");
 
@@ -203,12 +207,43 @@ namespace Project__Filter
             label_Output.Text = $"{nodeNameWithoutExtension}.{extension}";
         }
 
-        private async void ImageConvert(string folderPath, string jsonPath)
-        {
 
+        private async void ImageConvert(string file, string extension)
+        {
+            try
+            {
+                using (MagickImage image = new MagickImage(file))
+                {
+                    // Set the format of the image to the desired extension
+                    image.Format = GetMagickFormat(extension);
+
+                    // Save the converted image
+                    string newFilePath = System.IO.Path.ChangeExtension(file, extension);
+                    await image.WriteAsync(newFilePath);
+                }
+
+                MessageBox.Show($"Image converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error converting image: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private async void AudioConvert(string folderPath, string jsonPath)
+        private MagickFormat GetMagickFormat(string extension)
+        {
+            return extension.ToLower() switch
+            {
+                "bmp" => MagickFormat.Bmp,
+                "jpeg" => MagickFormat.Jpeg,
+                "png" => MagickFormat.Png,
+                "tiff" => MagickFormat.Tiff,
+                "gif" => MagickFormat.Gif,
+                _ => throw new NotSupportedException($"The extension '{extension}' is not supported."),
+            };
+        }
+
+        private async void AudioConvert(string file, string jsonPath)
         {
 
         }
