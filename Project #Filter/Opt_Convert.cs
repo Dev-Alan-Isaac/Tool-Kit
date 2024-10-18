@@ -2,6 +2,7 @@
 using ImageMagick;
 using NAudio.Wave;
 using Newtonsoft.Json.Linq;
+using SharpCompress.Common;
 
 namespace Project__Filter
 {
@@ -72,28 +73,8 @@ namespace Project__Filter
             Populated_Treeview();
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            // Get the selected node
-            TreeNode selectedNode = e.Node;
-
-            // Alternatively, update a label control with the selected node's name
-            label_SelectedNode.Text = $"{selectedNode.Text}";
-        }
-
         private async void Populated_Treeview()
         {
-            // Check if the config file exists
-            if (!File.Exists("Config_Convert.json"))
-            {
-                MessageBox.Show("Config file not found.");
-                return;
-            }
-
-            // Load the JSON configuration
-            var json = File.ReadAllText("Config_Convert.json");
-            var config = JObject.Parse(json);
-
             // Clear the TreeView first
             treeView1.Nodes.Clear();
 
@@ -102,19 +83,19 @@ namespace Project__Filter
 
             if (radioButton_Image.Checked)
             {
-                allowedExtensions = (JArray)config["Extensions"]["Image"];
+                allowedExtensions = ["BMP", "JPEG", "PNG", "TIFF", "JIFF", "ICO"];
             }
             else if (radioButton_Audio.Checked)
             {
-                allowedExtensions = (JArray)config["Extensions"]["Audio"];
+                allowedExtensions = ["MP3", "WAV", "AAC", "FLAC"];
             }
             else if (radioButton_Video.Checked)
             {
-                allowedExtensions = (JArray)config["Extensions"]["Video"];
+                allowedExtensions = ["MP4", "WEBM", "AVI", "WAV", "GIF", "MP3"];
             }
             else if (radioButton_Document.Checked)
             {
-                allowedExtensions = (JArray)config["Extensions"]["Document"];
+                allowedExtensions = ["DOC", "DOCX", "XLSX", "XLS", "PDF", "TXT"];
             }
 
             if (allowedExtensions != null)
@@ -130,6 +111,9 @@ namespace Project__Filter
                             .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
                         .Distinct() // Ensures files are unique
                         .ToList();
+
+                    int filestotal = filteredFiles.Count;
+                    File_Count.Text = $"{filestotal}";
 
                     // Populate TreeView with filtered files
                     foreach (var file in filteredFiles)
@@ -149,6 +133,43 @@ namespace Project__Filter
                 }
             }
         }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            // Get the selected node
+            TreeNode selectedNode = e.Node;
+
+            // Read the JSON content from the file
+            string jsonContent = File.ReadAllText("Config_Convert.json");
+
+            // Deserialize the JSON content into a JObject
+            var jsonObject = JObject.Parse(jsonContent);
+
+            // Initialize extension variable
+            string extension = string.Empty;
+
+            // Check which radio button is checked and get the corresponding extension from JSON
+            if (radioButton_Image.Checked)
+            {
+                extension = jsonObject["Image"]["Selected"].ToString();
+            }
+            else if (radioButton_Audio.Checked)
+            {
+                extension = jsonObject["Audio"]["Selected"].ToString();
+            }
+            else if (radioButton_Video.Checked)
+            {
+                extension = jsonObject["Video"]["Selected"].ToString();
+            }
+            else if (radioButton_Document.Checked)
+            {
+                extension = jsonObject["Document"]["Selected"].ToString();
+            }
+
+            // Update label with the selected node's name and extension
+            label_SelectedNode.Text = $"{selectedNode.Text}.{extension}";
+        }
+
 
         public async Task<string[]> ProcessFiles(string parentPath)
         {
@@ -193,8 +214,6 @@ namespace Project__Filter
         {
 
         }
-
-     
 
 
         //private string askTitle(string selectedPath)

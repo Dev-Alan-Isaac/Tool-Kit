@@ -34,21 +34,15 @@
             checkBox_Subfolders = new CheckBox();
             checkBox_Keep = new CheckBox();
             panel6 = new Panel();
-            label7 = new Label();
-            comboBox4 = new ComboBox();
-            label6 = new Label();
-            comboBox3 = new ComboBox();
-            label5 = new Label();
-            comboBox2 = new ComboBox();
-            label4 = new Label();
-            comboBox1 = new ComboBox();
-            radioButton_Size = new RadioButton();
-            radioButton_Custom = new RadioButton();
-            radioButton_Name = new RadioButton();
-            radioButton_Date = new RadioButton();
-            label3 = new Label();
-            radioButton_Original = new RadioButton();
             label2 = new Label();
+            label7 = new Label();
+            comboBox_Document = new ComboBox();
+            label6 = new Label();
+            comboBox_Video = new ComboBox();
+            label5 = new Label();
+            comboBox_Image = new ComboBox();
+            label4 = new Label();
+            comboBox_Audio = new ComboBox();
             panel10 = new Panel();
             button_Saved = new Button();
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
@@ -115,193 +109,110 @@
             // panel6
             // 
             panel6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panel6.Controls.Add(label7);
-            panel6.Controls.Add(comboBox4);
-            panel6.Controls.Add(label6);
-            panel6.Controls.Add(comboBox3);
-            panel6.Controls.Add(label5);
-            panel6.Controls.Add(comboBox2);
-            panel6.Controls.Add(label4);
-            panel6.Controls.Add(comboBox1);
-            panel6.Controls.Add(radioButton_Size);
-            panel6.Controls.Add(radioButton_Custom);
-            panel6.Controls.Add(radioButton_Name);
-            panel6.Controls.Add(radioButton_Date);
-            panel6.Controls.Add(label3);
-            panel6.Controls.Add(radioButton_Original);
             panel6.Controls.Add(label2);
+            panel6.Controls.Add(label7);
+            panel6.Controls.Add(comboBox_Document);
+            panel6.Controls.Add(label6);
+            panel6.Controls.Add(comboBox_Video);
+            panel6.Controls.Add(label5);
+            panel6.Controls.Add(comboBox_Image);
+            panel6.Controls.Add(label4);
+            panel6.Controls.Add(comboBox_Audio);
             panel6.Location = new Point(3, 114);
             panel6.Name = "panel6";
             panel6.Size = new Size(564, 232);
             panel6.TabIndex = 60;
+            // 
+            // label2
+            // 
+            label2.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.Control;
+            label2.Location = new Point(3, 111);
+            label2.Name = "label2";
+            label2.Size = new Size(556, 69);
+            label2.TabIndex = 16;
+            label2.Text = "Selected value in the dropdown is the output format for the chosen conversion option";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(441, 159);
+            label7.Location = new Point(441, 24);
             label7.Name = "label7";
             label7.Size = new Size(107, 25);
             label7.TabIndex = 15;
             label7.Text = "Document:";
             // 
-            // comboBox4
+            // comboBox_Document
             // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Items.AddRange(new object[] { "WORD", "EXCEL", "PDF", "TEXT" });
-            comboBox4.Location = new Point(441, 187);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(118, 23);
-            comboBox4.TabIndex = 14;
+            comboBox_Document.FormattingEnabled = true;
+            comboBox_Document.Items.AddRange(new object[] { "DOC", "DOCX", "XLSX", "XLS", "PDF", "TXT" });
+            comboBox_Document.Location = new Point(441, 52);
+            comboBox_Document.Name = "comboBox_Document";
+            comboBox_Document.Size = new Size(118, 23);
+            comboBox_Document.TabIndex = 14;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(295, 159);
+            label6.Location = new Point(295, 24);
             label6.Name = "label6";
             label6.Size = new Size(66, 25);
             label6.TabIndex = 13;
             label6.Text = "Video:";
             // 
-            // comboBox3
+            // comboBox_Video
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Items.AddRange(new object[] { "GIF", "MP4", "WEBM", "AVI", "WAV", "AUDIO" });
-            comboBox3.Location = new Point(295, 187);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(118, 23);
-            comboBox3.TabIndex = 12;
+            comboBox_Video.FormattingEnabled = true;
+            comboBox_Video.Items.AddRange(new object[] { "MP4", "WEBM", "AVI", "WAV", "GIF", "MP3" });
+            comboBox_Video.Location = new Point(295, 52);
+            comboBox_Video.Name = "comboBox_Video";
+            comboBox_Video.Size = new Size(118, 23);
+            comboBox_Video.TabIndex = 12;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(149, 159);
+            label5.Location = new Point(3, 24);
             label5.Name = "label5";
             label5.Size = new Size(71, 25);
             label5.TabIndex = 11;
             label5.Text = "Image:";
             // 
-            // comboBox2
+            // comboBox_Image
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "BMP", "JPEG", "PNG", "TIFF", "JIFF", "ICO" });
-            comboBox2.Location = new Point(149, 187);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(118, 23);
-            comboBox2.TabIndex = 10;
+            comboBox_Image.FormattingEnabled = true;
+            comboBox_Image.Items.AddRange(new object[] { "BMP", "JPEG", "PNG", "TIFF", "JIFF", "ICO" });
+            comboBox_Image.Location = new Point(3, 52);
+            comboBox_Image.Name = "comboBox_Image";
+            comboBox_Image.Size = new Size(118, 23);
+            comboBox_Image.TabIndex = 10;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
             label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(3, 159);
+            label4.Location = new Point(149, 24);
             label4.Name = "label4";
             label4.Size = new Size(68, 25);
             label4.TabIndex = 9;
             label4.Text = "Audio:";
             // 
-            // comboBox1
+            // comboBox_Audio
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "MP3", "WAV", "AAC", "FLAC" });
-            comboBox1.Location = new Point(3, 187);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(118, 23);
-            comboBox1.TabIndex = 8;
-            // 
-            // radioButton_Size
-            // 
-            radioButton_Size.AutoSize = true;
-            radioButton_Size.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Size.ForeColor = SystemColors.Control;
-            radioButton_Size.Location = new Point(322, 97);
-            radioButton_Size.Name = "radioButton_Size";
-            radioButton_Size.Size = new Size(131, 29);
-            radioButton_Size.TabIndex = 5;
-            radioButton_Size.TabStop = true;
-            radioButton_Size.Text = "Sort by Size";
-            radioButton_Size.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_Custom
-            // 
-            radioButton_Custom.AutoSize = true;
-            radioButton_Custom.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Custom.ForeColor = SystemColors.Control;
-            radioButton_Custom.Location = new Point(199, 28);
-            radioButton_Custom.Name = "radioButton_Custom";
-            radioButton_Custom.Size = new Size(188, 29);
-            radioButton_Custom.TabIndex = 7;
-            radioButton_Custom.TabStop = true;
-            radioButton_Custom.Text = "Custom File Name";
-            radioButton_Custom.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_Name
-            // 
-            radioButton_Name.AutoSize = true;
-            radioButton_Name.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Name.ForeColor = SystemColors.Control;
-            radioButton_Name.Location = new Point(157, 97);
-            radioButton_Name.Name = "radioButton_Name";
-            radioButton_Name.Size = new Size(149, 29);
-            radioButton_Name.TabIndex = 4;
-            radioButton_Name.TabStop = true;
-            radioButton_Name.Text = "Sort by Name";
-            radioButton_Name.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_Date
-            // 
-            radioButton_Date.AutoSize = true;
-            radioButton_Date.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Date.ForeColor = SystemColors.Control;
-            radioButton_Date.Location = new Point(3, 97);
-            radioButton_Date.Name = "radioButton_Date";
-            radioButton_Date.Size = new Size(138, 29);
-            radioButton_Date.TabIndex = 3;
-            radioButton_Date.TabStop = true;
-            radioButton_Date.Text = "Sort by Date";
-            radioButton_Date.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(3, 60);
-            label3.Name = "label3";
-            label3.Size = new Size(213, 25);
-            label3.TabIndex = 3;
-            label3.Text = "Sort images to convert:";
-            // 
-            // radioButton_Original
-            // 
-            radioButton_Original.AutoSize = true;
-            radioButton_Original.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Original.ForeColor = SystemColors.Control;
-            radioButton_Original.Location = new Point(3, 28);
-            radioButton_Original.Name = "radioButton_Original";
-            radioButton_Original.Size = new Size(190, 29);
-            radioButton_Original.TabIndex = 6;
-            radioButton_Original.TabStop = true;
-            radioButton_Original.Text = "Original File Name";
-            radioButton_Original.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Dock = DockStyle.Top;
-            label2.Font = new Font("Segoe UI Semibold", 14F, FontStyle.Bold);
-            label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(0, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(110, 25);
-            label2.TabIndex = 0;
-            label2.Text = "Documents";
+            comboBox_Audio.FormattingEnabled = true;
+            comboBox_Audio.Items.AddRange(new object[] { "MP3", "WAV", "AAC", "FLAC" });
+            comboBox_Audio.Location = new Point(149, 52);
+            comboBox_Audio.Name = "comboBox_Audio";
+            comboBox_Audio.Size = new Size(118, 23);
+            comboBox_Audio.TabIndex = 8;
             // 
             // panel10
             // 
@@ -420,21 +331,15 @@
         private Panel panel1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Panel panel6;
-        private Label label2;
-        private Label label3;
-        private RadioButton radioButton_Name;
-        private RadioButton radioButton_Date;
-        private RadioButton radioButton_Size;
-        private RadioButton radioButton_Custom;
-        private RadioButton radioButton_Original;
         private CheckBox checkBox_Keep;
-        private ComboBox comboBox1;
+        private ComboBox comboBox_Audio;
         private Label label4;
         private Label label7;
-        private ComboBox comboBox4;
+        private ComboBox comboBox_Document;
         private Label label6;
-        private ComboBox comboBox3;
+        private ComboBox comboBox_Video;
         private Label label5;
-        private ComboBox comboBox2;
+        private ComboBox comboBox_Image;
+        private Label label2;
     }
 }
