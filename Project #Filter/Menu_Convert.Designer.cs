@@ -208,7 +208,7 @@
             // comboBox_Audio
             // 
             comboBox_Audio.FormattingEnabled = true;
-            comboBox_Audio.Items.AddRange(new object[] { "MP3", "WAV", "AAC", "FLAC" });
+            comboBox_Audio.Items.AddRange(new object[] { "MP3", "WAV" });
             comboBox_Audio.Location = new Point(149, 52);
             comboBox_Audio.Name = "comboBox_Audio";
             comboBox_Audio.Size = new Size(118, 23);
