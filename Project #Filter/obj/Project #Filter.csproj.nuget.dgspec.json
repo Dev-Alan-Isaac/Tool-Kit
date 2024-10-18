@@ -86,6 +86,10 @@
               "target": "Package",
               "version": "[2.2.1, )"
             },
+            "NAudio.Lame": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "NReco.VideoConverter": {
               "target": "Package",
               "version": "[1.2.1, )"

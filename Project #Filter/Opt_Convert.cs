@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using ImageMagick;
+using NAudio.Lame;
 using NAudio.Wave;
 using Newtonsoft.Json.Linq;
 using SharpCompress.Common;
@@ -10,6 +11,7 @@ namespace Project__Filter
     {
         private string Path;
         private string FilePath;
+        string extension = string.Empty;
 
         public Opt_Transform()
         {
@@ -32,27 +34,25 @@ namespace Project__Filter
 
         private async void button_Filter_Click_1(object sender, EventArgs e)
         {
-            string Config_covnvert = "Config_Convert.json";
-
             button_Filter.Enabled = false;
             if (radioButton_Image.Checked)
             {
-                await Task.Run(() => ImageConvert(FilePath, Config_covnvert));
+                await Task.Run(() => ImageConvert(FilePath, extension));
                 button_Filter.Enabled = true;
             }
             else if (radioButton_Audio.Checked)
             {
-                await Task.Run(() => AudioConvert(Path, Config_covnvert));
+                await Task.Run(() => AudioConvert(Path, extension));
                 button_Filter.Enabled = true;
             }
             else if (radioButton_Video.Checked)
             {
-                await Task.Run(() => VideoConvert(Path, Config_covnvert));
+                await Task.Run(() => VideoConvert(Path, extension));
                 button_Filter.Enabled = true;
             }
             else if (radioButton_Document.Checked)
             {
-                await Task.Run(() => DocumentConvert(Path, Config_covnvert));
+                await Task.Run(() => DocumentConvert(Path, extension));
                 button_Filter.Enabled = true;
             }
         }
@@ -179,9 +179,6 @@ namespace Project__Filter
             // Deserialize the JSON content into a JObject
             var jsonObject = JObject.Parse(jsonContent);
 
-            // Initialize extension variable
-            string extension = string.Empty;
-
             // Check which radio button is checked and get the corresponding extension from JSON
             if (radioButton_Image.Checked)
             {
@@ -206,7 +203,6 @@ namespace Project__Filter
             // Update label with the selected node's name and extension
             label_Output.Text = $"{nodeNameWithoutExtension}.{extension}";
         }
-
 
         private async void ImageConvert(string file, string extension)
         {
@@ -239,21 +235,48 @@ namespace Project__Filter
                 "png" => MagickFormat.Png,
                 "tiff" => MagickFormat.Tiff,
                 "gif" => MagickFormat.Gif,
+                "ico" => MagickFormat.Ico,
                 _ => throw new NotSupportedException($"The extension '{extension}' is not supported."),
             };
         }
 
-        private async void AudioConvert(string file, string jsonPath)
+        private async void AudioConvert(string file, string extension)
+        {
+            try
+            {
+                // Initialize NAudio reader
+                using var reader = new AudioFileReader(file);
+                string newFilePath = Path.ChangeExtension(file, extension);
+
+                // Write to the appropriate format
+                using var writer = GetAudioFileWriter(newFilePath, reader.WaveFormat);
+                await Task.Run(() => reader.CopyTo(writer));
+
+                MessageBox.Show($"Audio converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error converting audio: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private Stream GetAudioFileWriter(string filePath, WaveFormat waveFormat)
+        {
+            string ext = System.IO.Path.GetExtension(filePath).ToLower();
+            return ext switch
+            {
+                ".wav" => new WaveFileWriter(filePath, waveFormat),
+                ".mp3" => new LameMP3FileWriter(filePath, waveFormat, LAMEPreset.STANDARD),
+                _ => throw new NotSupportedException($"The extension '{ext}' is not supported."),
+            };
+        }
+
+        private async void VideoConvert(string folderPath, string extension)
         {
 
         }
 
-        private async void VideoConvert(string folderPath, string jsonPath)
-        {
-
-        }
-
-        private async void DocumentConvert(string folderPath, string jsonPath)
+        private async void DocumentConvert(string folderPath, string extension)
         {
 
         }
