@@ -705,7 +705,6 @@ namespace Project__Filter
             using (var fileStream = new BufferedStream(File.OpenRead(filePath), 1024 * 32)) // Buffer size 32KB
             {
                 byte[] hashBytes = sha256.ComputeHash(fileStream);
-                Debug.WriteLine($"Hash: > {BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant()}");
                 return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
             }
         }
