@@ -87,6 +87,7 @@
             button_Saved.Size = new Size(570, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
+            button_Saved.Click += button_Saved_Click_1;
             // 
             // radioButton_Accessed
             // 

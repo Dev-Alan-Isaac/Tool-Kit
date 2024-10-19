@@ -7,9 +7,6 @@
     <Compile Update="Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Menu_Audio.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="Menu_Auth.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -19,16 +16,10 @@
     <Compile Update="Menu_Date.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Menu_Document.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="Menu_Extract.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Menu_Folder.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Menu_Images.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Menu_Media.cs">
@@ -53,9 +44,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Menu_Sizes.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Menu_Video.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Opt_Encrypt.cs">

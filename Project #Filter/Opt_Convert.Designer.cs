@@ -32,7 +32,7 @@
             label3 = new Label();
             panel1 = new Panel();
             panel5 = new Panel();
-            label7 = new Label();
+            label_Output = new Label();
             label6 = new Label();
             label_SelectedNode = new Label();
             label2 = new Label();
@@ -99,7 +99,7 @@
             // 
             // panel5
             // 
-            panel5.Controls.Add(label7);
+            panel5.Controls.Add(label_Output);
             panel5.Controls.Add(label6);
             panel5.Controls.Add(label_SelectedNode);
             panel5.Controls.Add(label2);
@@ -109,16 +109,16 @@
             panel5.Size = new Size(323, 123);
             panel5.TabIndex = 16;
             // 
-            // label7
+            // label_Output
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            label7.ForeColor = SystemColors.Control;
-            label7.Location = new Point(7, 75);
-            label7.Name = "label7";
-            label7.Size = new Size(23, 25);
-            label7.TabIndex = 3;
-            label7.Text = "#";
+            label_Output.AutoSize = true;
+            label_Output.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            label_Output.ForeColor = SystemColors.Control;
+            label_Output.Location = new Point(7, 75);
+            label_Output.Name = "label_Output";
+            label_Output.Size = new Size(23, 25);
+            label_Output.TabIndex = 3;
+            label_Output.Text = "#";
             // 
             // label6
             // 
@@ -497,7 +497,7 @@
         private RadioButton radioButton_Image;
         private Panel panel5;
         private RadioButton radioButton_Document;
-        private Label label7;
+        private Label label_Output;
         private Label label6;
         private Label label_SelectedNode;
         private Label label2;

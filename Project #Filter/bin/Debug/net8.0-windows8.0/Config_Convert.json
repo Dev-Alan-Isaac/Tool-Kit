@@ -2,23 +2,18 @@
   "Option": {
     "Delete": true,
     "Subfolder": true,
-    "Original": true,
     "Keep": true
   },
-  "Additional": {
-    "Name": true,
-    "Custom": true
-  },
   "Video": {
-    "GIF": true
+    "Selected": "MP4"
   },
   "Audio": {
-    "WAV": true
+    "Selected": "MP3"
   },
   "Image": {
-    "JPEG": true
+    "Selected": "BMP"
   },
   "Document": {
-    "WORD": true
+    "Selected": "DOC"
   }
 }
