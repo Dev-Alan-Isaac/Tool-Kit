@@ -364,40 +364,40 @@ namespace Project__Filter
 
         }
 
-        private string askTitle(string selectedPath)
-        {
-            string Title = string.Empty;
-            DialogResult result = MessageBox.Show("Do you want a custom title?", "Title Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                Title = Microsoft.VisualBasic.Interaction.InputBox("Enter the custom title:", "Title", "", -1, -1);
-                return Title;
-            }
-            else
-            {
-                Title = System.IO.Path.GetFileName(selectedPath);
-                return Title;
-            }
-        }
+        //private string askTitle(string selectedPath)
+        //{
+        //    string Title = string.Empty;
+        //    DialogResult result = MessageBox.Show("Do you want a custom title?", "Title Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        //    if (result == DialogResult.Yes)
+        //    {
+        //        Title = Microsoft.VisualBasic.Interaction.InputBox("Enter the custom title:", "Title", "", -1, -1);
+        //        return Title;
+        //    }
+        //    else
+        //    {
+        //        Title = System.IO.Path.GetFileName(selectedPath);
+        //        return Title;
+        //    }
+        //}
 
-        private async void CreatedPdf(byte[] pdfByteArray, string title)
-        {
-            // Specify the output file path
-            string outputPath = System.IO.Path.Combine(selectedPath, $"{title}.pdf");
+        //private async void CreatedPdf(byte[] pdfByteArray, string title)
+        //{
+        //    // Specify the output file path
+        //    string outputPath = System.IO.Path.Combine(selectedPath, $"{title}.pdf");
 
-            // Check if the file already exists
-            int count = 1;
-            string originalOutputPath = outputPath;
-            while (File.Exists(outputPath))
-            {
-                // Append (Count) to the title
-                outputPath = System.IO.Path.Combine(selectedPath, $"{title} ({count}).pdf");
-                count++;
-            }
+        //    // Check if the file already exists
+        //    int count = 1;
+        //    string originalOutputPath = outputPath;
+        //    while (File.Exists(outputPath))
+        //    {
+        //        // Append (Count) to the title
+        //        outputPath = System.IO.Path.Combine(selectedPath, $"{title} ({count}).pdf");
+        //        count++;
+        //    }
 
-            // Save the byte array to the modified output path
-            File.WriteAllBytes(outputPath, pdfByteArray);
-        }
+        //    // Save the byte array to the modified output path
+        //    File.WriteAllBytes(outputPath, pdfByteArray);
+        //}
 
     }
 

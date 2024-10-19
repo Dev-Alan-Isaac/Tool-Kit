@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
@@ -103,7 +104,7 @@ namespace Project__Filter
                         break;
                     case "File Hash":
                         config_Path = System.IO.Path.GetFullPath("Config_Type.json");
-                        await Task.Run(() => SortHash(Path, config_Path));
+                        await Task.Run(() => SortHash(Path, config_Path, CancellationToken.None));
                         break;
                     default:
                         break;
@@ -597,7 +598,7 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!");
         }
 
-        private async void SortHash(string folderPath, string jsonPath)
+        private async Task SortHash(string folderPath, string jsonPath, CancellationToken cancellationToken)
         {
             if (!File.Exists(jsonPath))
             {
@@ -606,111 +607,127 @@ namespace Project__Filter
             }
 
             // Read and parse the JSON file
-            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            string jsonString = await File.ReadAllTextAsync(jsonPath, cancellationToken);
             var jsonContent = JObject.Parse(jsonString);
 
             // Get the "Extensions" and "Allow" sections from the JSON
             var extensions = jsonContent["Extensions"].ToObject<JObject>();
             var allow = jsonContent["Allow"].ToObject<JObject>();
 
-            // Create a dictionary of allowed extensions for faster lookup
-            HashSet<string> allowedExtensions = new HashSet<string>();
-            foreach (var allowCategory in allow)
-            {
-                bool isAllowed = (bool)allowCategory.Value;
-                if (isAllowed)
-                {
-                    JArray categoryExtensions = (JArray)extensions[allowCategory.Key];
-                    foreach (var ext in categoryExtensions)
-                    {
-                        allowedExtensions.Add(ext.ToString().Trim().ToLower());
-                    }
-                }
-            }
+            // Create a HashSet for allowed extensions (faster lookup)
+            HashSet<string> allowedExtensions = new HashSet<string>(
+                allow.Properties()
+                     .Where(p => (bool)p.Value)
+                     .SelectMany(p => extensions[p.Name].Select(e => e.ToString().Trim().ToLower()))
+            );
 
             // Get all files in the target folder
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
 
-            // Update UI elements safely
-            Invoke((Action)(() =>
+            // UI updates on the main thread
+            Invoke(() =>
             {
                 progressBar_Time.Maximum = totalFiles;
                 File_Count.Text = $"Total Files: {totalFiles}";
-            }));
+            });
 
-            // Dictionary to store hash and corresponding files
-            Dictionary<string, List<string>> fileHashes = new Dictionary<string, List<string>>();
-
-            // Create a lock object for thread safety while updating the dictionary
-            object lockObject = new object();
+            // Use a thread-safe ConcurrentDictionary for storing file hashes and files
+            ConcurrentDictionary<string, List<string>> fileHashes = new ConcurrentDictionary<string, List<string>>();
             int processedFiles = 0;
             bool duplicatesFound = false;
 
-            // Process each file in parallel for faster hashing
+            // Create ParallelOptions to control the degree of parallelism
+            var parallelOptions = new ParallelOptions
+            {
+                MaxDegreeOfParallelism = Environment.ProcessorCount, // Utilize all available cores
+                CancellationToken = cancellationToken
+            };
+
+            // Process files in parallel
             await Task.Run(() =>
             {
-                Parallel.ForEach(files, file =>
+                Parallel.ForEach(files, parallelOptions, file =>
                 {
-                    // Get the file extension in lowercase
-                    string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
-
-                    // Check if the file extension is allowed
-                    if (allowedExtensions.Contains(fileExtension))
+                    try
                     {
-                        // Calculate the hash of the file
+                        // Early exit if cancellation is requested
+                        parallelOptions.CancellationToken.ThrowIfCancellationRequested();
+
+                        // Check file extension
+                        string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
+                        if (!allowedExtensions.Contains(fileExtension)) return;
+
+                        // Calculate the hash of the file with buffered stream for performance
                         string fileHash = GetFileHash(file);
 
-                        // Lock to safely update the shared dictionary
-                        lock (lockObject)
+                        // Safely add/update file hashes
+                        fileHashes.AddOrUpdate(fileHash, new List<string> { file }, (key, existingList) =>
                         {
-                            if (fileHashes.ContainsKey(fileHash))
+                            existingList.Add(file);
+                            return existingList;
+                        });
+
+                        // Update progress every 500 files to reduce UI thread congestion
+                        Interlocked.Increment(ref processedFiles);
+                        if (processedFiles % 500 == 0)
+                        {
+                            Invoke(() =>
                             {
-                                // If hash exists, add the file to the list
-                                fileHashes[fileHash].Add(file);
-                            }
-                            else
-                            {
-                                // If hash doesn't exist, create a new entry
-                                fileHashes[fileHash] = new List<string> { file };
-                            }
+                                progressBar_Time.Value = processedFiles;
+                            });
                         }
                     }
-
-                    // Update progress in batches to avoid UI thread congestion
-                    Interlocked.Increment(ref processedFiles);
-                    if (processedFiles % 10 == 0)
+                    catch (Exception ex)
                     {
-                        // Safely update the progress bar on the UI thread
-                        Invoke((Action)(() =>
-                        {
-                            progressBar_Time.Value = processedFiles;
-                        }));
+                        Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                     }
                 });
-            });
+            }, cancellationToken);
 
-            string mainSubfolder = null;  // Move this outside to keep track of it if duplicates are found
+            // Handle duplicates
+            await HandleDuplicates(fileHashes, folderPath);
+
+            // Reset progress bar and update UI
+            Invoke(() =>
+            {
+                progressBar_Time.Value = 0;
+                button_Filter.Enabled = true;
+                Populated_Treeview(folderPath);
+                MessageBox.Show(duplicatesFound ? "Duplicates found and sorted!" : "No duplicates found.");
+            });
+        }
+
+        // Helper to calculate hash with BufferedStream for performance
+        private string GetFileHash(string filePath)
+        {
+            using (var sha256 = SHA256.Create())
+            using (var fileStream = new BufferedStream(File.OpenRead(filePath), 1024 * 32)) // Buffer size 32KB
+            {
+                byte[] hashBytes = sha256.ComputeHash(fileStream);
+                Debug.WriteLine($"Hash: > {BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant()}");
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
+            }
+        }
+
+        // Handle duplicates (move files into Duplicates folder)
+        private async Task HandleDuplicates(ConcurrentDictionary<string, List<string>> fileHashes, string folderPath)
+        {
+            bool duplicatesFound = false;
+            string mainSubfolder = null;
             string dateSubfolder = null;
 
-            // Now, move files with the same hash into a "Duplicates" folder if duplicates are found
             foreach (var hashEntry in fileHashes)
             {
                 var filesWithSameHash = hashEntry.Value;
 
-                // If more than one file shares the same hash
                 if (filesWithSameHash.Count > 1)
                 {
-                    // Create the Duplicates folder only if it's not created yet
                     if (!duplicatesFound)
                     {
                         duplicatesFound = true;
-
-                        // Create one main subfolder to store all duplicate files
                         mainSubfolder = System.IO.Path.Combine(folderPath, "Duplicates");
                         Directory.CreateDirectory(mainSubfolder);
-
-                        // Create a folder with the current date inside the main subfolder
                         dateSubfolder = System.IO.Path.Combine(mainSubfolder, DateTime.Now.ToString("yyyy-MM-dd"));
                         Directory.CreateDirectory(dateSubfolder);
                     }
@@ -719,50 +736,17 @@ namespace Project__Filter
                     {
                         string destinationPath = System.IO.Path.Combine(dateSubfolder, System.IO.Path.GetFileName(file));
 
-                        // If a file with the same name already exists in the date folder
+                        // Avoid file name conflicts
                         if (File.Exists(destinationPath))
                         {
-                            // Create a subfolder with the file name inside the date folder
                             string fileNameFolder = System.IO.Path.Combine(dateSubfolder, System.IO.Path.GetFileNameWithoutExtension(file));
                             Directory.CreateDirectory(fileNameFolder);
-
-                            // Move the file inside the file name folder
                             destinationPath = System.IO.Path.Combine(fileNameFolder, System.IO.Path.GetFileName(file));
                         }
 
+                        // Move the file
                         File.Move(file, destinationPath);
                     }
-                }
-            }
-
-            // Reset progress bar on the UI thread
-            Invoke(() =>
-            {
-                button_Filter.Enabled = true;
-                progressBar_Time.Value = 0;
-            });
-
-            // Call Populated_Treeview on the UI thread
-            Invoke(() => Populated_Treeview(folderPath));
-
-            if (duplicatesFound)
-            {
-                MessageBox.Show("Duplicates found and sorted!");
-            }
-            else
-            {
-                MessageBox.Show("No duplicates found.");
-            }
-        }
-
-        private string GetFileHash(string filePath)
-        {
-            using (var sha256 = SHA256.Create())
-            {
-                using (var fileStream = File.OpenRead(filePath))
-                {
-                    byte[] hashBytes = sha256.ComputeHash(fileStream);
-                    return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
                 }
             }
         }
