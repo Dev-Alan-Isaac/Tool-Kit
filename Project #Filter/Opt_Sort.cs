@@ -668,15 +668,12 @@ namespace Project__Filter
                             return existingList;
                         });
 
-                        // Update progress every 500 files to reduce UI thread congestion
+                        // Update progress after each file is hashed
                         Interlocked.Increment(ref processedFiles);
-                        if (processedFiles % 500 == 0)
+                        Invoke(() =>
                         {
-                            Invoke(() =>
-                            {
-                                progressBar_Time.Value = processedFiles;
-                            });
-                        }
+                            progressBar_Time.Value = processedFiles;
+                        });
                     }
                     catch (Exception ex)
                     {
@@ -684,6 +681,13 @@ namespace Project__Filter
                     }
                 });
             }, cancellationToken);
+
+            // Reset the progress bar for the duplicate handling stage
+            Invoke(() =>
+            {
+                progressBar_Time.Value = 0;
+                progressBar_Time.Maximum = fileHashes.Count(h => h.Value.Count > 1); // Set max to the number of duplicate hash groups
+            });
 
             // Handle duplicates
             await HandleDuplicates(fileHashes, folderPath);
@@ -698,23 +702,23 @@ namespace Project__Filter
             });
         }
 
-        // Helper to calculate hash with BufferedStream for performance
-        private string GetFileHash(string filePath)
-        {
-            using (var sha256 = SHA256.Create())
-            using (var fileStream = new BufferedStream(File.OpenRead(filePath), 1024 * 32)) // Buffer size 32KB
-            {
-                byte[] hashBytes = sha256.ComputeHash(fileStream);
-                return BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
-            }
-        }
-
-        // Handle duplicates (move files into Duplicates folder)
         private async Task HandleDuplicates(ConcurrentDictionary<string, List<string>> fileHashes, string folderPath)
         {
             bool duplicatesFound = false;
             string mainSubfolder = null;
             string dateSubfolder = null;
+            int movedFilesCount = 0;
+
+            // Count total number of files to be moved (duplicates)
+            int totalDuplicateFiles = fileHashes
+                .Where(hashEntry => hashEntry.Value.Count > 1)
+                .Sum(hashEntry => hashEntry.Value.Count);
+
+            // Set progress bar maximum before moving duplicates
+            Invoke(() =>
+            {
+                progressBar_Time.Maximum = totalDuplicateFiles;
+            });
 
             foreach (var hashEntry in fileHashes)
             {
@@ -745,8 +749,37 @@ namespace Project__Filter
 
                         // Move the file
                         File.Move(file, destinationPath);
+
+                        // Update progress as files are moved
+                        movedFilesCount++;
+                        Invoke(() =>
+                        {
+                            progressBar_Time.Value = movedFilesCount;
+                        });
                     }
                 }
+            }
+        }
+
+        private string GetFileHash(string filePath)
+        {
+            using (var sha256 = SHA256.Create())
+            using (var fileStream = File.OpenRead(filePath))
+            {
+                byte[] buffer = new byte[1024 * 1024]; // Read 1MB at a time
+                int bytesRead;
+
+                // Read file in chunks and compute hash incrementally
+                while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    sha256.TransformBlock(buffer, 0, bytesRead, null, 0);
+                }
+
+                // Finalize the hash computation
+                sha256.TransformFinalBlock(new byte[0], 0, 0);
+
+                // Convert hash bytes to string
+                return BitConverter.ToString(sha256.Hash).Replace("-", "").ToLowerInvariant();
             }
         }
 

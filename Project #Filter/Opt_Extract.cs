@@ -11,7 +11,7 @@ namespace Project__Filter
         public Opt_Extract()
         {
             InitializeComponent();
-        } 
+        }
 
         private void button_Path_Click(object sender, EventArgs e)
         {
@@ -154,9 +154,9 @@ namespace Project__Filter
 
             button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+            DeleteEmptyFolders(path);
             MessageBox.Show("Files extracted successfully.");
         }
-
 
         public async Task<string[]> ProcessFiles(string parentPath)
         {
@@ -195,6 +195,20 @@ namespace Project__Filter
         private async void Decompress_TAR(string path)
         {
 
+        }
+
+        public void DeleteEmptyFolders(string folderPath)
+        {
+            foreach (var directory in Directory.GetDirectories(folderPath))
+            {
+                DeleteEmptyFolders(directory); // Recursively delete empty subfolders
+
+                // If the directory is empty after processing subfolders, delete it
+                if (Directory.GetFiles(directory).Length == 0 && Directory.GetDirectories(directory).Length == 0)
+                {
+                    Directory.Delete(directory);
+                }
+            }
         }
     }
 }
