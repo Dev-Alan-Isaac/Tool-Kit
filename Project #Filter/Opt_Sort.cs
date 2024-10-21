@@ -196,6 +196,8 @@ namespace Project__Filter
             return node;
         }
 
+
+
         public async void SortTypes(string folderPath, string jsonPath)
         {
             if (!File.Exists(jsonPath))
@@ -215,13 +217,20 @@ namespace Project__Filter
             int totalFiles = files.Length;
 
             // Set progress bar maximum value on the UI thread
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = totalFiles));
+
+            // Cache directory creation results to avoid redundant checks
+            var directoryCache = new Dictionary<string, string>();
+
+            // Using a shared counter for progress updates
             int processedFiles = 0;
+            int batchUpdateSize = 50; // Batch progress updates
 
             // Update the file count label on the UI thread
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
-            foreach (var file in files)
+            // Use Parallel.ForEach to speed up file processing
+            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
             {
                 string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
 
@@ -241,9 +250,15 @@ namespace Project__Filter
                         {
                             string originalDirectory = System.IO.Path.GetDirectoryName(file);
                             string targetDirectory = System.IO.Path.Combine(originalDirectory, category);
-                            if (!Directory.Exists(targetDirectory))
+
+                            // Check the directory cache to avoid redundant checks
+                            if (!directoryCache.ContainsKey(targetDirectory))
                             {
-                                Directory.CreateDirectory(targetDirectory);
+                                if (!Directory.Exists(targetDirectory))
+                                {
+                                    Directory.CreateDirectory(targetDirectory);
+                                }
+                                directoryCache[targetDirectory] = targetDirectory;
                             }
 
                             string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
@@ -252,22 +267,34 @@ namespace Project__Filter
                     }
                 }
 
-                processedFiles++;
+                // Increment the shared processedFiles count
+                Interlocked.Increment(ref processedFiles);
 
-                // Update the progress bar on the UI thread
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-            }
+                // Update the progress bar only in batches
+                if (processedFiles % batchUpdateSize == 0)
+                {
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                }
+            });
 
-            // Reset progress bar on the UI thread
+            // Final progress bar update after all files are processed
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = totalFiles));
+
+            // Set progress bar to 0 after completion
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
 
             // Call Populated_Treeview on the UI thread
             Invoke(() => Populated_Treeview(folderPath));
 
-            MessageBox.Show("Sorting completed!");
+            // Display a message informing the user that sorting is completed
+            MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+            // Re-enable the filter button
             button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
+
+            Path = folderPath; // Update Path to reflect the last sorted directory
         }
+
 
         private async void SortSize(string folderPath, string jsonPath)
         {
