@@ -398,7 +398,6 @@ namespace Project__Filter
         //    // Save the byte array to the modified output path
         //    File.WriteAllBytes(outputPath, pdfByteArray);
         //}
-
     }
 
 }
