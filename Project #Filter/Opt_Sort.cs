@@ -1158,11 +1158,8 @@ namespace Project__Filter
                     TimeSpan duration = TimeSpan.FromSeconds((int)videoInfo.Duration.TotalSeconds);
                     string durationFolder = duration.ToString(@"hh\-mm\-ss"); // Folder name in hh-mm-ss format (use '-' instead of ':')
 
-                    // Define the base folder where sorted videos will be stored
-                    string baseFolder = "SortedVideos"; // Adjust this to the desired base folder
-
                     // Construct the full path to the folder based on duration
-                    string targetFolderPath = System.IO.Path.Combine(Path, baseFolder, durationFolder);
+                    string targetFolderPath = System.IO.Path.Combine(Path, durationFolder);
 
                     // Create the folder if it doesn't exist
                     if (!Directory.Exists(targetFolderPath))
