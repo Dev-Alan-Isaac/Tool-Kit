@@ -1469,7 +1469,6 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!");
         }
 
-
         private async Task SortByAspect(string[] videoFiles, string[] imageFiles)
         {
             if (videoFiles.Length == 0 && imageFiles.Length == 0)
@@ -1479,9 +1478,9 @@ namespace Project__Filter
             }
 
             var ffProbe = new FFProbe();
-
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = videoFiles.Length + imageFiles.Length));
             int processedFiles = 0;
+            var directoriesCreated = new ConcurrentDictionary<string, bool>();
 
             await Task.Run(() =>
             {
@@ -1499,17 +1498,22 @@ namespace Project__Filter
                             var folderName = $"AspectRatio_{aspectRatio:F2}";
                             var targetFolderPath = System.IO.Path.Combine(Path, folderName);
 
-                            Directory.CreateDirectory(targetFolderPath);
-
-                            var destinationPath = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
-                            if (!File.Exists(destinationPath))
+                            directoriesCreated.GetOrAdd(targetFolderPath, _ =>
                             {
-                                File.Move(file, destinationPath);
-                                Debug.WriteLine($"Moved file {file} to {destinationPath}");
+                                Directory.CreateDirectory(targetFolderPath);
+                                return true;
+                            });
+
+                            var destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
+
+                            if (!File.Exists(destinationFile))
+                            {
+                                File.Move(file, destinationFile);
+                                Debug.WriteLine($"Moved file {file} to {destinationFile}");
                             }
                             else
                             {
-                                Debug.WriteLine($"File already exists: {destinationPath}. Skipping move.");
+                                Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
                             }
 
                             Interlocked.Increment(ref processedFiles);
@@ -1538,17 +1542,22 @@ namespace Project__Filter
                             var folderName = $"AspectRatio_{aspectRatio:F2}";
                             var targetFolderPath = System.IO.Path.Combine(Path, folderName);
 
-                            Directory.CreateDirectory(targetFolderPath);
-
-                            var destinationPath = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
-                            if (!File.Exists(destinationPath))
+                            directoriesCreated.GetOrAdd(targetFolderPath, _ =>
                             {
-                                File.Move(file, destinationPath);
-                                Debug.WriteLine($"Moved file {file} to {destinationPath}");
+                                Directory.CreateDirectory(targetFolderPath);
+                                return true;
+                            });
+
+                            var destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
+
+                            if (!File.Exists(destinationFile))
+                            {
+                                File.Move(file, destinationFile);
+                                Debug.WriteLine($"Moved file {file} to {destinationFile}");
                             }
                             else
                             {
-                                Debug.WriteLine($"File already exists: {destinationPath}. Skipping move.");
+                                Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
                             }
 
                             Interlocked.Increment(ref processedFiles);
@@ -1566,6 +1575,5 @@ namespace Project__Filter
             Invoke(() => Populated_Treeview(Path));
             MessageBox.Show("Sorting completed!");
         }
-
     }
 }
