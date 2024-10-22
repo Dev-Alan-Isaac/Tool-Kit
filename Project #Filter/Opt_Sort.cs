@@ -1219,9 +1219,9 @@ namespace Project__Filter
             }
 
             var ffProbe = new FFProbe();
-
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = videoFiles.Length));
             int processedFiles = 0;
+            var directoriesCreated = new ConcurrentDictionary<string, bool>();
 
             await Task.Run(() =>
             {
@@ -1232,10 +1232,13 @@ namespace Project__Filter
                         var videoInfo = ffProbe.GetMediaInfo(file);
                         TimeSpan duration = TimeSpan.FromSeconds((int)videoInfo.Duration.TotalSeconds);
                         string durationFolder = duration.ToString(@"hh\-mm\-ss");
-
                         string targetFolderPath = System.IO.Path.Combine(Path, durationFolder);
 
-                        Directory.CreateDirectory(targetFolderPath);
+                        directoriesCreated.GetOrAdd(targetFolderPath, _ =>
+                        {
+                            Directory.CreateDirectory(targetFolderPath);
+                            return true;
+                        });
 
                         string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
 
@@ -1263,6 +1266,7 @@ namespace Project__Filter
             Invoke(() => Populated_Treeview(Path));
             MessageBox.Show("Sorting completed!");
         }
+
 
         private async Task SortByResolution(string[] videoFiles, string[] imageFiles)
         {
