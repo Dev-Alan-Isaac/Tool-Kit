@@ -1185,46 +1185,34 @@ namespace Project__Filter
                 .Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
                 .ToArray();
 
-            var sortingTasks = new List<Task>();
 
             if (isDuration)
             {
-                sortingTasks.Add(Task.Run(() => sortByDuration(videoFiles)));
+                await SortByDuration(videoFiles);
             }
             if (isFrameRate)
             {
-                sortingTasks.Add(Task.Run(() => sortByFrameRate(videoFiles)));
+                await sortByFrameRate(videoFiles);
             }
             if (isCodec)
             {
-                sortingTasks.Add(Task.Run(() => sortByCodec(videoFiles)));
+                await sortByCodec(videoFiles);
             }
             if (isResolution)
             {
-                sortingTasks.Add(Task.Run(() =>
-                {
-                    sortByResolution_Videos(videoFiles);
-                    sortByResolution_Images(imageFiles);
-                }));
+                await SortByResolution(videoFiles, imageFiles);
             }
             if (isAspect)
             {
-                sortingTasks.Add(Task.Run(() =>
-                {
-                    sortByAspect_Videos(videoFiles);
-                    sortByAspect_Images(imageFiles);
-                }));
+                await SortByAspect(videoFiles, imageFiles);
             }
-
-            await Task.WhenAll(sortingTasks);
-
             MessageBox.Show("Sorting completed!");
         }
 
 
-        private async Task SortByDuration(string[] files)
+        private async Task SortByDuration(string[] videoFiles)
         {
-            if (files.Length == 0)
+            if (videoFiles.Length == 0)
             {
                 Debug.WriteLine("No files to display.");
                 return;
@@ -1232,12 +1220,12 @@ namespace Project__Filter
 
             var ffProbe = new FFProbe();
 
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = videoFiles.Length));
             int processedFiles = 0;
 
             await Task.Run(() =>
             {
-                Parallel.ForEach(files, file =>
+                Parallel.ForEach(videoFiles, file =>
                 {
                     try
                     {
@@ -1276,138 +1264,94 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!");
         }
 
-
-        private void sortByResolution_Videos(string[] files)
+        private async Task SortByResolution(string[] videoFiles, string[] imageFiles)
         {
-            //Check if the files array is empty
-            if (files.Length == 0)
+            if (videoFiles.Length == 0 && imageFiles.Length == 0)
             {
                 Debug.WriteLine("No files to display.");
                 return;
             }
 
-            // Initialize FFProbe
             var ffProbe = new FFProbe();
 
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = videoFiles.Length + imageFiles.Length));
             int processedFiles = 0;
 
-            foreach (var file in files)
+            await Task.Run(() =>
             {
-                try
+                Parallel.ForEach(videoFiles, file =>
                 {
-                    // Get media info of the file
-                    var videoInfo = ffProbe.GetMediaInfo(file);
-
-                    // Get the resolution of the video (Width x Height)
-                    string resolution = $"{videoInfo.Streams[0].Width}x{videoInfo.Streams[0].Height}";
-
-                    // Define the base folder where sorted videos will be stored
-                    string baseFolder = "SortedByResolution_Videos"; // Adjust this to the desired base folder
-
-                    // Construct the full path to the folder based on resolution
-                    string targetFolderPath = System.IO.Path.Combine(Path, baseFolder, resolution);
-
-                    // Create the folder if it doesn't exist
-                    if (!Directory.Exists(targetFolderPath))
+                    try
                     {
+                        var videoInfo = ffProbe.GetMediaInfo(file);
+                        string resolution = $"{videoInfo.Streams[0].Width}x{videoInfo.Streams[0].Height}";
+                        string baseFolder = "SortedByResolution_Videos";
+                        string targetFolderPath =  System.IO.Path.Combine(Path, baseFolder, resolution);
+
                         Directory.CreateDirectory(targetFolderPath);
-                    }
 
-                    // Construct the target file path (same file name in the new folder)
-                    string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
+                        string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
 
-                    // Check if the file already exists in the target folder
-                    if (!File.Exists(destinationFile))
-                    {
-                        // Move the file to the target folder
-                        File.Move(file, destinationFile);
-                        Debug.WriteLine($"Moved file {file} to {destinationFile}");
-                    }
-                    else
-                    {
-                        Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
-                    }
-
-                    // Increment the progress bar after processing each file
-                    processedFiles++;
-
-                    // Update the progress bar
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                }
-                catch (Exception ex)
-                {
-                    // Handle any exceptions (e.g., if FFProbe fails or access is denied)
-                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
-                }
-            }
-
-            // Reset progress bar on the UI thread
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-
-            // Call Populated_Treeview on the UI thread
-            Invoke(() => Populated_Treeview(Path));
-
-            MessageBox.Show("Sorting completed!");
-        }
-
-        private void sortByResolution_Images(string[] files)
-        {
-            if (files.Length == 0)
-            {
-                Debug.WriteLine("No files to display.");
-                return;
-            }
-
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
-            int processedFiles = 0;
-
-            foreach (var file in files)
-            {
-                try
-                {
-                    using (var img = Image.FromFile(file))
-                    {
-                        string resolution = $"{img.Width}x{img.Height}";
-                        string targetFolderPath = System.IO.Path.Combine(Path, resolution);
-
-                        // Check if the file already exists in the target folder
-                        if (!File.Exists(targetFolderPath))
+                        if (!File.Exists(destinationFile))
                         {
-                            // Move the file to the target folder
-                            File.Move(file, targetFolderPath);
-                            Debug.WriteLine($"Moved file {file} to {targetFolderPath}");
+                            File.Move(file, destinationFile);
                         }
                         else
                         {
-                            Debug.WriteLine($"File already exists: {targetFolderPath}. Skipping move.");
+                            Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
                         }
 
-                        // Increment the progress bar after processing each file
-                        processedFiles++;
-
-                        // Update the progress bar
+                        Interlocked.Increment(ref processedFiles);
                         progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
-                }
-                catch (Exception ex)
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                    }
+                });
+
+                Parallel.ForEach(imageFiles, file =>
                 {
-                    // Handle any exceptions (e.g., if FFProbe fails or access is denied)
-                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
-                }
-            }
-            // Reset progress bar on the UI thread
+                    try
+                    {
+                        using (var img = Image.FromFile(file))
+                        {
+                            string resolution = $"{img.Width}x{img.Height}";
+                            string targetFolderPath = System.IO.Path.Combine(Path, "SortedByResolution_Images", resolution);
+
+                            Directory.CreateDirectory(targetFolderPath);
+
+                            string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
+
+                            if (!File.Exists(destinationFile))
+                            {
+                                File.Move(file, destinationFile);
+                                Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                            }
+                            else
+                            {
+                                Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
+                            }
+
+                            Interlocked.Increment(ref processedFiles);
+                            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                    }
+                });
+            });
+
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-
-            // Call Populated_Treeview on the UI thread
             Invoke(() => Populated_Treeview(Path));
-
             MessageBox.Show("Sorting completed!");
         }
 
-        private void sortByFrameRate(string[] files)
+        private async Task sortByFrameRate(string[] videoFiles)
         {
-            if (files.Length == 0)
+            if (videoFiles.Length == 0)
             {
                 Debug.WriteLine("No files to display.");
                 return;
@@ -1416,10 +1360,10 @@ namespace Project__Filter
             // Initialize FFProbe
             var ffProbe = new FFProbe();
 
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = videoFiles.Length));
             int processedFiles = 0;
 
-            foreach (var file in files)
+            foreach (var file in videoFiles)
             {
                 try
                 {
@@ -1463,9 +1407,9 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!");
         }
 
-        private void sortByCodec(string[] files)
+        private async Task sortByCodec(string[] videoFiles)
         {
-            if (files.Length == 0)
+            if (videoFiles.Length == 0)
             {
                 Debug.WriteLine("No files to display.");
                 return;
@@ -1474,10 +1418,10 @@ namespace Project__Filter
             // Initialize FFProbe
             var ffProbe = new FFProbe();
 
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = videoFiles.Length));
             int processedFiles = 0;
 
-            foreach (var file in files)
+            foreach (var file in videoFiles)
             {
                 try
                 {
@@ -1521,131 +1465,102 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!");
         }
 
-        private void sortByAspect_Videos(string[] files)
+        private async Task SortByAspect(string[] videoFiles, string[] imageFiles)
         {
-            if (files.Length == 0)
+            if (videoFiles.Length == 0 && imageFiles.Length == 0)
             {
                 Debug.WriteLine("No files to display.");
                 return;
             }
 
-            // Initialize FFProbe
             var ffProbe = new FFProbe();
 
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = videoFiles.Length + imageFiles.Length));
             int processedFiles = 0;
 
-            foreach (var file in files)
+            await Task.Run(() =>
             {
-                try
+                Parallel.ForEach(videoFiles, file =>
                 {
-                    // Get media info
-                    var videoInfo = ffProbe.GetMediaInfo(file);
-                    var videoStream = videoInfo.Streams.FirstOrDefault(s => s.CodecType == "video");
-
-                    if (videoStream != null)
+                    try
                     {
-                        var width = videoStream.Width;
-                        var height = videoStream.Height;
-                        var aspectRatio = (double)width / height;
-
-                        // Create folder name based on aspect ratio
-                        var folderName = $"AspectRatio_{aspectRatio:F2}";
-
-                        // Create directory if it doesn't exist
-                        if (!Directory.Exists(folderName))
+                        var videoInfo = ffProbe.GetMediaInfo(file);
+                        var videoStream = videoInfo.Streams.FirstOrDefault(s => s.CodecType == "video");
+                        if (videoStream != null)
                         {
-                            Directory.CreateDirectory(folderName);
+                            var width = videoStream.Width;
+                            var height = videoStream.Height;
+                            var aspectRatio = (double)width / height;
+                            var folderName = $"AspectRatio_{aspectRatio:F2}";
+                            var targetFolderPath = System.IO.Path.Combine(Path, folderName);
+
+                            Directory.CreateDirectory(targetFolderPath);
+
+                            var destinationPath = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
+                            if (!File.Exists(destinationPath))
+                            {
+                                File.Move(file, destinationPath);
+                                Debug.WriteLine($"Moved file {file} to {destinationPath}");
+                            }
+                            else
+                            {
+                                Debug.WriteLine($"File already exists: {destinationPath}. Skipping move.");
+                            }
+
+                            Interlocked.Increment(ref processedFiles);
+                            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                         }
-
-                        // Move file to the corresponding folder
-                        var destinationPath = System.IO.Path.Combine(Path, folderName);
-                        File.Move(file, destinationPath);
-
-                        Debug.WriteLine($"Moved file {file} to {destinationPath}");
+                        else
+                        {
+                            Debug.WriteLine("No video stream found.");
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        Debug.WriteLine("No video stream found.");
+                        Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                     }
-                }
-                catch (Exception ex)
+                });
+
+                Parallel.ForEach(imageFiles, file =>
                 {
-                    // Handle any exceptions (e.g., if FFProbe fails or access is denied)
-                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
-                }
-                // Increment the progress bar after processing each file
-                processedFiles++;
+                    try
+                    {
+                        using (var image = Image.FromFile(file))
+                        {
+                            var width = image.Width;
+                            var height = image.Height;
+                            var aspectRatio = (double)width / height;
+                            var folderName = $"AspectRatio_{aspectRatio:F2}";
+                            var targetFolderPath = System.IO.Path.Combine(Path, folderName);
 
-                // Update the progress bar
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-            }
-            // Reset progress bar on the UI thread
+                            Directory.CreateDirectory(targetFolderPath);
+
+                            var destinationPath = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
+                            if (!File.Exists(destinationPath))
+                            {
+                                File.Move(file, destinationPath);
+                                Debug.WriteLine($"Moved file {file} to {destinationPath}");
+                            }
+                            else
+                            {
+                                Debug.WriteLine($"File already exists: {destinationPath}. Skipping move.");
+                            }
+
+                            Interlocked.Increment(ref processedFiles);
+                            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                    }
+                });
+            });
+
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-
-            // Call Populated_Treeview on the UI thread
             Invoke(() => Populated_Treeview(Path));
-
             MessageBox.Show("Sorting completed!");
         }
 
-        private void sortByAspect_Images(string[] files)
-        {
-            if (files.Length == 0)
-            {
-                Debug.WriteLine("No files to display.");
-                return;
-            }
-
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
-            int processedFiles = 0;
-
-            foreach (var file in files)
-            {
-                try
-                {
-                    // Load the image
-                    using (var image = Image.FromFile(file))
-                    {
-                        var width = image.Width;
-                        var height = image.Height;
-                        var aspectRatio = (double)width / height;
-
-                        // Create folder name based on aspect ratio
-                        var folderName = $"AspectRatio_{aspectRatio:F2}";
-
-                        // Create directory if it doesn't exist
-                        if (!Directory.Exists(folderName))
-                        {
-                            Directory.CreateDirectory(folderName);
-                        }
-
-                        // Move file to the corresponding folder
-                        var destinationPath = System.IO.Path.Combine(folderName, System.IO.Path.GetFileName(file));
-                        File.Move(file, destinationPath);
-
-                        Debug.WriteLine($"Moved file {file} to {destinationPath}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Handle any exceptions (e.g., if the image fails to load or access is denied)
-                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
-                }
-                // Increment the progress bar after processing each file
-                processedFiles++;
-
-                // Update the progress bar
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-            }
-
-            // Reset progress bar on the UI thread
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-
-            // Call Populated_Treeview on the UI thread
-            Invoke(() => Populated_Treeview(Path));
-
-            MessageBox.Show("Sorting completed!");
-        }
     }
 }
