@@ -37,27 +37,27 @@ namespace Project__Filter
 
         private async void button_Filter_Click_1(object sender, EventArgs e)
         {
-            button_Filter.Enabled = false;
-            if (radioButton_Image.Checked)
+            if (!string.IsNullOrEmpty(Path))
             {
-                await Task.Run(() => ImageConvert(FilePath, extension));
-                button_Filter.Enabled = true;
+                button_Filter.Enabled = false;
+                if (radioButton_Image.Checked)
+                {
+                    await Task.Run(() => ImageConvert(FilePath, extension));
+                }
+                else if (radioButton_Audio.Checked)
+                {
+                    await Task.Run(() => AudioConvert(FilePath, extension));
+                }
+                else if (radioButton_Video.Checked)
+                {
+                    await Task.Run(() => VideoConvert(FilePath, extension));
+                }
+                else if (radioButton_Document.Checked)
+                {
+                    await Task.Run(() => DocumentConvert(FilePath, extension));
+                }
             }
-            else if (radioButton_Audio.Checked)
-            {
-                await Task.Run(() => AudioConvert(Path, extension));
-                button_Filter.Enabled = true;
-            }
-            else if (radioButton_Video.Checked)
-            {
-                await Task.Run(() => VideoConvert(Path, extension));
-                button_Filter.Enabled = true;
-            }
-            else if (radioButton_Document.Checked)
-            {
-                await Task.Run(() => DocumentConvert(Path, extension));
-                button_Filter.Enabled = true;
-            }
+            button_Filter.Enabled = true;
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
@@ -300,48 +300,44 @@ namespace Project__Filter
         {
             try
             {
-                var files = Directory.GetFiles(folderPath, "*.*", SearchOption.AllDirectories);
 
-                foreach (var file in files)
+                string newFilePath = System.IO.Path.ChangeExtension(folderPath, extension);
+
+                if (folderPath.EndsWith(".docx") || folderPath.EndsWith(".doc"))
                 {
-                    string newFilePath = System.IO.Path.ChangeExtension(file, extension);
-
-                    if (file.EndsWith(".docx") || file.EndsWith(".doc"))
+                    await Task.Run(() =>
                     {
-                        await Task.Run(() =>
-                        {
-                            var doc = new Aspose.Words.Document(file);
-                            doc.Save(newFilePath);
-                        });
-                    }
-                    else if (file.EndsWith(".xlsx") || file.EndsWith(".xls"))
+                        var doc = new Aspose.Words.Document(folderPath);
+                        doc.Save(newFilePath);
+                    });
+                }
+                else if (folderPath.EndsWith(".xlsx") || folderPath.EndsWith(".xls"))
+                {
+                    await Task.Run(() =>
                     {
-                        await Task.Run(() =>
-                        {
-                            var workbook = new Workbook(file);
-                            workbook.Save(newFilePath);
-                        });
-                    }
-                    else if (file.EndsWith(".pptx") || file.EndsWith(".ppt"))
+                        var workbook = new Workbook(folderPath);
+                        workbook.Save(newFilePath);
+                    });
+                }
+                else if (folderPath.EndsWith(".pptx") || folderPath.EndsWith(".ppt"))
+                {
+                    await Task.Run(() =>
                     {
-                        await Task.Run(() =>
-                        {
-                            var presentation = new Presentation(file);
-                            presentation.Save(newFilePath, GetSlideFormat(extension));
-                        });
-                    }
-                    else if (file.EndsWith(".pdf"))
+                        var presentation = new Presentation(folderPath);
+                        presentation.Save(newFilePath, GetSlideFormat(extension));
+                    });
+                }
+                else if (folderPath.EndsWith(".pdf"))
+                {
+                    await Task.Run(() =>
                     {
-                        await Task.Run(() =>
-                        {
-                            var pdfDocument = new Aspose.Pdf.Document(file);
-                            pdfDocument.Save(newFilePath);
-                        });
-                    }
-                    else
-                    {
-                        MessageBox.Show($"File format for {file} not supported for conversion.", "Format Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                        var pdfDocument = new Aspose.Pdf.Document(folderPath);
+                        pdfDocument.Save(newFilePath);
+                    });
+                }
+                else
+                {
+                    MessageBox.Show($"File format for {folderPath} not supported for conversion.", "Format Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 MessageBox.Show($"Documents converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);

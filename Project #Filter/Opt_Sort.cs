@@ -61,60 +61,62 @@ namespace Project__Filter
         {
             string config_Path, config_Path2;
             const string Config_Sort = "Config_Sort.json";
-
-            button_Filter.Enabled = false;
-            treeView1.Nodes.Clear();
-
-            foreach (string item in checkedItems)
+            if (!string.IsNullOrEmpty(Path))
             {
-                switch (item)
+
+                button_Filter.Enabled = false;
+                treeView1.Nodes.Clear();
+
+                foreach (string item in checkedItems)
                 {
-                    case "File Type":
-                        config_Path = System.IO.Path.GetFullPath("Config_Type.json");
-                        await SortTypes(Path, config_Path);  // Await to ensure it's completed before moving on
-                        break;
-                    case "File Size":
-                        config_Path = System.IO.Path.GetFullPath("Config_Size.json");
-                        await SortSize(Path, config_Path);  // Await to ensure completion
-                        break;
-                    case "File Date":
-                        config_Path = System.IO.Path.GetFullPath("Config_Date.json");
-                        await SortDates(Path, config_Path);
-                        break;
-                    case "File Name":
-                        config_Path = System.IO.Path.GetFullPath("Config_Names.json");
-                        await SortNames(Path, config_Path);
-                        break;
-                    case "File Hash":
-                        config_Path = System.IO.Path.GetFullPath("Config_Type.json");
-                        await SortHash(Path, config_Path);
-                        break;
-                    case "File Permissions":
-                        config_Path = System.IO.Path.GetFullPath("Config_Names.json");
-                        config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
-                        await SortPermissions(Path, config_Path, config_Path2);
-                        break;
-                    case "Custom Tags":
-                        config_Path = System.IO.Path.GetFullPath("Config_Tags.json");
-                        await SortCustomTags(Path, config_Path);
-                        break;
-                    case "Folder Location":
-                        config_Path = System.IO.Path.GetFullPath("Config_Folder.json");
-                        await SortFolderLocation(Path, config_Path);
-                        break;
-                    case "Media Metadata":
-                        config_Path = System.IO.Path.GetFullPath("Config_Media.json");
-                        config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
-                        await SortMedia(Path, config_Path, config_Path2);
-                        break;
-                    default:
-                        break;
+                    switch (item)
+                    {
+                        case "File Type":
+                            config_Path = System.IO.Path.GetFullPath("Config_Type.json");
+                            await SortTypes(Path, config_Path);  // Await to ensure it's completed before moving on
+                            break;
+                        case "File Size":
+                            config_Path = System.IO.Path.GetFullPath("Config_Size.json");
+                            await SortSize(Path, config_Path);  // Await to ensure completion
+                            break;
+                        case "File Date":
+                            config_Path = System.IO.Path.GetFullPath("Config_Date.json");
+                            await SortDates(Path, config_Path);
+                            break;
+                        case "File Name":
+                            config_Path = System.IO.Path.GetFullPath("Config_Names.json");
+                            await SortNames(Path, config_Path);
+                            break;
+                        case "File Hash":
+                            config_Path = System.IO.Path.GetFullPath("Config_Type.json");
+                            await SortHash(Path, config_Path);
+                            break;
+                        case "File Permissions":
+                            config_Path = System.IO.Path.GetFullPath("Config_Names.json");
+                            config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
+                            await SortPermissions(Path, config_Path, config_Path2);
+                            break;
+                        case "Custom Tags":
+                            config_Path = System.IO.Path.GetFullPath("Config_Tags.json");
+                            await SortCustomTags(Path, config_Path);
+                            break;
+                        case "Folder Location":
+                            config_Path = System.IO.Path.GetFullPath("Config_Folder.json");
+                            await SortFolderLocation(Path, config_Path);
+                            break;
+                        case "Media Metadata":
+                            config_Path = System.IO.Path.GetFullPath("Config_Media.json");
+                            config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
+                            await SortMedia(Path, config_Path, config_Path2);
+                            break;
+                        default:
+                            break;
+                    }
                 }
+
+                // After all sorts are done, delete empty folders
+                DeleteEmptyFolders(Path);
             }
-
-            // After all sorts are done, delete empty folders
-            DeleteEmptyFolders(Path);
-
             // Re-enable the button after processing is done
             button_Filter.Enabled = true;
         }
