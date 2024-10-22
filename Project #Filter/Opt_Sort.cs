@@ -119,7 +119,6 @@ namespace Project__Filter
             button_Filter.Enabled = true;
         }
 
-
         public async Task<string[]> ProcessFiles(string parentPath)
         {
             string config_file = "Config_Sort.json";
@@ -201,7 +200,6 @@ namespace Project__Filter
             }
             return node;
         }
-
 
 
         public async Task SortTypes(string folderPath, string jsonPath)
@@ -306,7 +304,6 @@ namespace Project__Filter
             // Re-enable the filter button
             button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
         }
-
 
         private async Task SortSize(string folderPath, string jsonPath)
         {
@@ -917,7 +914,6 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!");
         }
 
-
         private async Task SortCustomTags(string folderPath, string jsonPath)
         {
             if (!File.Exists(jsonPath))
@@ -1007,7 +1003,6 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information); // "Information" for success
         }
 
-
         private async Task SortFolderLocation(string folderPath, string jsonPath)
         {
             if (!File.Exists(jsonPath))
@@ -1043,25 +1038,36 @@ namespace Project__Filter
             string alphabeticalFolder = System.IO.Path.Combine(folderPath, "Alphabetical");
             Directory.CreateDirectory(alphabeticalFolder);
 
+            // Cache the created directories
+            var directoryCache = new ConcurrentDictionary<string, bool>();
+
+            // Precompile regex for performance
+            Regex specialCharRegex = new Regex(@"^[a-zA-Z0-9_\-]+$", RegexOptions.Compiled);
+
+            // Get directories and process them in parallel
             var directories = Directory.GetDirectories(folderPath, "*", SearchOption.TopDirectoryOnly);
 
-            foreach (var dir in directories)
+            Parallel.ForEach(directories, dir =>
             {
                 string dirName = System.IO.Path.GetFileName(dir);
 
                 // Skip folders with special characters if the option is set
-                if (skipSpecialCharacters && !Regex.IsMatch(dirName, @"^[a-zA-Z0-9_\-]+$"))
+                if (skipSpecialCharacters && !specialCharRegex.IsMatch(dirName))
                 {
-                    continue;
+                    return;
                 }
 
                 // Handle case sensitivity
                 string firstChar = caseSensitive ? dirName.Substring(0, 1) : dirName.Substring(0, 1).ToUpperInvariant();
 
                 string targetDir = System.IO.Path.Combine(alphabeticalFolder, firstChar);
-                Directory.CreateDirectory(targetDir);
+
+                // Only create the directory once
+                directoryCache.GetOrAdd(targetDir, _ => Directory.CreateDirectory(targetDir) != null);
+
+                // Move the directory
                 Directory.Move(dir, System.IO.Path.Combine(targetDir, dirName));
-            }
+            });
         }
 
         private void SortByDepth(string folderPath, bool skipSpecialCharacters)
@@ -1069,22 +1075,33 @@ namespace Project__Filter
             string depthFolder = System.IO.Path.Combine(folderPath, "Depth");
             Directory.CreateDirectory(depthFolder);
 
+            // Cache the created directories
+            var directoryCache = new ConcurrentDictionary<string, bool>();
+
+            // Precompile regex for performance
+            Regex specialCharRegex = new Regex(@"^[a-zA-Z0-9_\-]+$", RegexOptions.Compiled);
+
+            // Get directories and process them in parallel
             var directories = Directory.GetDirectories(folderPath, "*", SearchOption.TopDirectoryOnly);
 
-            foreach (var dir in directories)
+            Parallel.ForEach(directories, dir =>
             {
-                if (skipSpecialCharacters && !Regex.IsMatch(System.IO.Path.GetFileName(dir), @"^[a-zA-Z0-9_\-]+$"))
+                string dirName = System.IO.Path.GetFileName(dir);
+
+                if (skipSpecialCharacters && !specialCharRegex.IsMatch(dirName))
                 {
-                    continue;
+                    return;
                 }
 
                 int depth = GetFolderDepth(dir);
                 string depthDir = System.IO.Path.Combine(depthFolder, $"Depth_{depth}");
-                Directory.CreateDirectory(depthDir);
 
-                string targetDir = System.IO.Path.Combine(depthDir, System.IO.Path.GetFileName(dir));
-                Directory.Move(dir, targetDir);
-            }
+                // Only create the directory once
+                directoryCache.GetOrAdd(depthDir, _ => Directory.CreateDirectory(depthDir) != null);
+
+                // Move the directory
+                Directory.Move(dir, System.IO.Path.Combine(depthDir, dirName));
+            });
         }
 
         private int GetFolderDepth(string folder)
@@ -1102,11 +1119,15 @@ namespace Project__Filter
             }
 
             // Read and parse the JSON files
-            string jsonStringOptions = await File.ReadAllTextAsync(jsonPath);
-            string jsonStringConfig = await File.ReadAllTextAsync(configTypePath);
+            var tasks = new[]
+            {
+                File.ReadAllTextAsync(jsonPath),
+                File.ReadAllTextAsync(configTypePath)
+            };
 
-            var jsonOptions = JObject.Parse(jsonStringOptions);
-            var jsonConfig = JObject.Parse(jsonStringConfig);
+            var results = await Task.WhenAll(tasks);
+            var jsonOptions = JObject.Parse(results[0]);
+            var jsonConfig = JObject.Parse(results[1]);
 
             // Extract sorting options from jsonPath
             var option = jsonOptions["Option"].ToObject<JObject>();
@@ -1125,7 +1146,6 @@ namespace Project__Filter
 
             // Filter allowed media types based on the "Allow" section
             var allowedMediaTypes = mediaTypes.Where(type => (bool)allow[type]).ToList();
-
             if (!allowedMediaTypes.Any())
             {
                 MessageBox.Show("No media types are allowed for sorting.");
@@ -1140,11 +1160,13 @@ namespace Project__Filter
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
             // Filter files by allowed extensions
-            var filteredFiles = files.Where(file => allowedMediaTypes.Any(type =>
-            {
-                var allowedExtensions = extensions[type].ToObject<string[]>();
-                return allowedExtensions.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
-            })).ToArray();
+            var allowedExtensions = allowedMediaTypes
+                .SelectMany(type => extensions[type].ToObject<string[]>())
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+            var filteredFiles = files
+                .Where(file => allowedExtensions.Contains(System.IO.Path.GetExtension(file).TrimStart('.')))
+                .ToArray();
 
             if (!filteredFiles.Any())
             {
@@ -1153,105 +1175,107 @@ namespace Project__Filter
             }
 
             // Split files into different media type categories
-            var videoFiles = filteredFiles.Where(file => extensions["Videos"].ToObject<string[]>().Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))).ToArray();
-            var imageFiles = filteredFiles.Where(file => extensions["Images"].ToObject<string[]>().Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))).ToArray();
+            var videoFiles = filteredFiles
+                .Where(file => extensions["Videos"].ToObject<string[]>()
+                .Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                .ToArray();
+
+            var imageFiles = filteredFiles
+                .Where(file => extensions["Images"].ToObject<string[]>()
+                .Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                .ToArray();
+
+            var sortingTasks = new List<Task>();
 
             if (isDuration)
             {
-                sortByDuration(videoFiles);
+                sortingTasks.Add(Task.Run(() => sortByDuration(videoFiles)));
             }
-            else if (isFrameRate)
+            if (isFrameRate)
             {
-                sortByFrameRate(videoFiles);
+                sortingTasks.Add(Task.Run(() => sortByFrameRate(videoFiles)));
             }
-            else if (isCodec)
+            if (isCodec)
             {
-                sortByCodec(videoFiles);
+                sortingTasks.Add(Task.Run(() => sortByCodec(videoFiles)));
             }
-            else if (isResolution)
+            if (isResolution)
             {
-                sortByResolution_Videos(videoFiles);
-                sortByResolution_Images(imageFiles);
+                sortingTasks.Add(Task.Run(() =>
+                {
+                    sortByResolution_Videos(videoFiles);
+                    sortByResolution_Images(imageFiles);
+                }));
             }
-            else if (isAspect)
+            if (isAspect)
             {
-                sortByAspect_Videos(videoFiles);
-                sortByAspect_Images(imageFiles);
+                sortingTasks.Add(Task.Run(() =>
+                {
+                    sortByAspect_Videos(videoFiles);
+                    sortByAspect_Images(imageFiles);
+                }));
             }
+
+            await Task.WhenAll(sortingTasks);
+
+            MessageBox.Show("Sorting completed!");
         }
 
-        private void sortByDuration(string[] files)
+
+        private async Task SortByDuration(string[] files)
         {
-            // Check if the files array is empty
             if (files.Length == 0)
             {
                 Debug.WriteLine("No files to display.");
                 return;
             }
 
-            // Initialize FFProbe
             var ffProbe = new FFProbe();
 
-            // Set the progress bar maximum to the total number of files
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
-
             int processedFiles = 0;
 
-            foreach (var file in files)
+            await Task.Run(() =>
             {
-                try
+                Parallel.ForEach(files, file =>
                 {
-                    // Get media info of the file
-                    var videoInfo = ffProbe.GetMediaInfo(file);
-
-                    // Get the duration in total seconds and convert to hh:mm:ss
-                    TimeSpan duration = TimeSpan.FromSeconds((int)videoInfo.Duration.TotalSeconds);
-                    string durationFolder = duration.ToString(@"hh\-mm\-ss"); // Folder name in hh-mm-ss format (use '-' instead of ':')
-
-                    // Construct the full path to the folder based on duration
-                    string targetFolderPath = System.IO.Path.Combine(Path, durationFolder);
-
-                    // Create the folder if it doesn't exist
-                    if (!Directory.Exists(targetFolderPath))
+                    try
                     {
+                        var videoInfo = ffProbe.GetMediaInfo(file);
+                        TimeSpan duration = TimeSpan.FromSeconds((int)videoInfo.Duration.TotalSeconds);
+                        string durationFolder = duration.ToString(@"hh\-mm\-ss");
+
+                        string targetFolderPath = System.IO.Path.Combine(Path, durationFolder);
+
                         Directory.CreateDirectory(targetFolderPath);
+
+                        string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
+
+                        if (!File.Exists(destinationFile))
+                        {
+                            File.Move(file, destinationFile);
+                            Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                        }
+                        else
+                        {
+                            Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
+                        }
+
+                        Interlocked.Increment(ref processedFiles);
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
-
-                    // Construct the target file path (same file name in the new folder)
-                    string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
-
-                    // Check if the file already exists in the target folder
-                    if (!File.Exists(destinationFile))
+                    catch (Exception ex)
                     {
-                        // Move the file to the target folder
-                        File.Move(file, destinationFile);
-                        Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                        Debug.WriteLine($"Error processing file {file}: {ex.Message}");
                     }
-                    else
-                    {
-                        Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
-                    }
+                });
+            });
 
-                    // Increment the progress bar after processing each file
-                    processedFiles++;
-
-                    // Update the progress bar
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                }
-                catch (Exception ex)
-                {
-                    // Handle any exceptions (e.g., if FFProbe fails or access is denied)
-                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
-                }
-            }
-            // Reset progress bar on the UI thread
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-
-            // Call Populated_Treeview on the UI thread
             Invoke(() => Populated_Treeview(Path));
-
             MessageBox.Show("Sorting completed!");
         }
+
 
         private void sortByResolution_Videos(string[] files)
         {
