@@ -1356,7 +1356,6 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!");
         }
 
-
         private async Task SortByFrameRate(string[] videoFiles)
         {
             if (videoFiles.Length == 0)
@@ -1421,55 +1420,55 @@ namespace Project__Filter
                 return;
             }
 
-            // Initialize FFProbe
             var ffProbe = new FFProbe();
-
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = videoFiles.Length));
             int processedFiles = 0;
+            var directoriesCreated = new ConcurrentDictionary<string, bool>();
 
-            foreach (var file in videoFiles)
+            await Task.Run(() =>
             {
-                try
+                Parallel.ForEach(videoFiles, file =>
                 {
-                    // Get media info
-                    var videoInfo = ffProbe.GetMediaInfo(file);
-                    var codec = videoInfo.Streams.First().CodecName;
-
-                    // Create folder name based on codec
-                    var folderName = $"Codec_{codec}";
-
-                    // Create directory if it doesn't exist
-                    if (!Directory.Exists(folderName))
+                    try
                     {
-                        Directory.CreateDirectory(folderName);
+                        var videoInfo = ffProbe.GetMediaInfo(file);
+                        var codec = videoInfo.Streams.First().CodecName;
+                        var folderName = $"Codec_{codec}";
+                        var targetFolderPath = System.IO.Path.Combine(Path, folderName);
+
+                        directoriesCreated.GetOrAdd(targetFolderPath, _ =>
+                        {
+                            Directory.CreateDirectory(targetFolderPath);
+                            return true;
+                        });
+
+                        var destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
+
+                        if (!File.Exists(destinationFile))
+                        {
+                            File.Move(file, destinationFile);
+                            Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                        }
+                        else
+                        {
+                            Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
+                        }
+
+                        Interlocked.Increment(ref processedFiles);
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                    }
+                });
+            });
 
-                    // Move file to the corresponding folder
-                    var destinationPath = System.IO.Path.Combine(Path, folderName);
-                    File.Move(file, destinationPath);
-
-                    Debug.WriteLine($"Moved file {file} to {destinationPath}");
-                }
-                catch (Exception ex)
-                {
-                    // Handle any exceptions (e.g., if FFProbe fails or access is denied)
-                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
-                }
-
-                // Increment the progress bar after processing each file
-                processedFiles++;
-
-                // Update the progress bar
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-            }
-            // Reset progress bar on the UI thread
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-
-            // Call Populated_Treeview on the UI thread
             Invoke(() => Populated_Treeview(Path));
-
             MessageBox.Show("Sorting completed!");
         }
+
 
         private async Task SortByAspect(string[] videoFiles, string[] imageFiles)
         {
