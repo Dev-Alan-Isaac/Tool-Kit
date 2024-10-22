@@ -208,7 +208,7 @@ namespace Project__Filter
         {
             if (!File.Exists(jsonPath))
             {
-                MessageBox.Show("Config file not found.");
+                MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -226,60 +226,68 @@ namespace Project__Filter
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = totalFiles));
 
             // Cache directory creation results to avoid redundant checks
-            var directoryCache = new Dictionary<string, string>();
-
-            // Using a shared counter for progress updates
-            int processedFiles = 0;
-            int batchUpdateSize = 50; // Batch progress updates
+            var directoryCache = new ConcurrentDictionary<string, string>(); // Use ConcurrentDictionary for thread safety
 
             // Update the file count label on the UI thread
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
+            // Counter for processed files
+            int processedFiles = 0;
+            int batchUpdateSize = 50; // Batch progress updates
+
             // Use Parallel.ForEach to speed up file processing
             Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
             {
-                string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
-
-                foreach (var allowCategory in allow)
+                try
                 {
-                    bool isAllowed = (bool)allowCategory.Value;
-                    string category = allowCategory.Key;
+                    string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
 
-                    if (isAllowed)
+                    foreach (var allowCategory in allow)
                     {
-                        JArray categoryExtensions = (JArray)extensions[category];
-                        bool extensionExists = categoryExtensions
-                            .Select(ext => ext.ToString().Trim().ToLower())
-                            .Contains(fileExtension);
+                        bool isAllowed = (bool)allowCategory.Value;
+                        string category = allowCategory.Key;
 
-                        if (extensionExists)
+                        if (isAllowed)
                         {
-                            string originalDirectory = System.IO.Path.GetDirectoryName(file);
-                            string targetDirectory = System.IO.Path.Combine(originalDirectory, category);
+                            JArray categoryExtensions = (JArray)extensions[category];
+                            bool extensionExists = categoryExtensions
+                                .Select(ext => ext.ToString().Trim().ToLower())
+                                .Contains(fileExtension);
 
-                            // Check the directory cache to avoid redundant checks
-                            if (!directoryCache.ContainsKey(targetDirectory))
+                            if (extensionExists)
                             {
-                                if (!Directory.Exists(targetDirectory))
-                                {
-                                    Directory.CreateDirectory(targetDirectory);
-                                }
-                                directoryCache[targetDirectory] = targetDirectory;
-                            }
+                                string originalDirectory = System.IO.Path.GetDirectoryName(file);
+                                string targetDirectory = System.IO.Path.Combine(originalDirectory, category);
 
-                            string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
-                            File.Move(file, targetPath);
+                                // Check the directory cache to avoid redundant checks
+                                if (!directoryCache.ContainsKey(targetDirectory))
+                                {
+                                    if (!Directory.Exists(targetDirectory))
+                                    {
+                                        Directory.CreateDirectory(targetDirectory);
+                                    }
+                                    directoryCache[targetDirectory] = targetDirectory;
+                                }
+
+                                string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
+                                File.Move(file, targetPath);
+                            }
                         }
                     }
+
+                    // Increment the shared processedFiles count
+                    Interlocked.Increment(ref processedFiles);
+
+                    // Update the progress bar only in batches
+                    if (processedFiles % batchUpdateSize == 0)
+                    {
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                    }
                 }
-
-                // Increment the shared processedFiles count
-                Interlocked.Increment(ref processedFiles);
-
-                // Update the progress bar only in batches
-                if (processedFiles % batchUpdateSize == 0)
+                catch (Exception ex)
                 {
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                    // Handle exceptions (you may want to log them or show a message)
+                    MessageBox.Show($"Error processing file {file}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             });
 
@@ -298,6 +306,7 @@ namespace Project__Filter
             // Re-enable the filter button
             button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
         }
+
 
         private async Task SortSize(string folderPath, string jsonPath)
         {
