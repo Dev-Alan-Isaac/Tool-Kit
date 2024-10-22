@@ -913,7 +913,7 @@ namespace Project__Filter
         {
             if (!File.Exists(jsonPath))
             {
-                MessageBox.Show("Config file not found.");
+                MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // "Danger" type for errors
                 return;
             }
 
@@ -926,7 +926,7 @@ namespace Project__Filter
 
             if (tagsArray == null || !tagsArray.Any())
             {
-                MessageBox.Show("No tags found in the JSON file.");
+                MessageBox.Show("No tags found in the JSON file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // "Danger" type for errors
                 return;
             }
 
@@ -934,47 +934,60 @@ namespace Project__Filter
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
 
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            if (totalFiles == 0)
+            {
+                MessageBox.Show("No files found in the target folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // "Danger" type for errors
+                return;
+            }
+
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = totalFiles));
             int processedFiles = 0;
 
             // Update the file count label
             Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
 
-            foreach (var file in files)
+            // Use Parallel.ForEach for faster processing
+            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
             {
-                // Get the file name (without the path)
-                string fileName = System.IO.Path.GetFileName(file);
-
-                // Check if the file name starts with any tag
-                foreach (var tag in tagsArray)
+                try
                 {
-                    string tagString = tag.ToString();
-                    string tagPrefix = $"[{tagString}]";
+                    // Get the file name (without the path)
+                    string fileName = System.IO.Path.GetFileName(file);
 
-                    if (fileName.StartsWith(tagPrefix))
+                    // Check if the file name starts with any tag
+                    foreach (var tag in tagsArray)
                     {
-                        // Create the target directory based on the tag if it doesn't exist
-                        string targetDirectory = System.IO.Path.Combine(folderPath, tagString);
-                        if (!Directory.Exists(targetDirectory))
+                        string tagString = tag.ToString();
+                        string tagPrefix = $"[{tagString}]";
+
+                        if (fileName.StartsWith(tagPrefix))
                         {
+                            // Create the "Tags" folder and tag-specific subfolder
+                            string tagsFolder = System.IO.Path.Combine(folderPath, "Tags");
+                            string targetDirectory = System.IO.Path.Combine(tagsFolder, tagString);
+
+                            // Use Directory.CreateDirectory, it will only create if it doesn't exist
                             Directory.CreateDirectory(targetDirectory);
+
+                            // Move the file to the target directory
+                            string targetPath = System.IO.Path.Combine(targetDirectory, fileName);
+
+                            // Perform the file move
+                            File.Move(file, targetPath);
+                            break; // Once the file is moved, stop checking other tags for this file
                         }
-
-                        // Move the file to the target directory
-                        string targetPath = System.IO.Path.Combine(targetDirectory, fileName);
-                        File.Move(file, targetPath);
-
-                        // Optionally, show a message indicating the file has been moved
-                        MessageBox.Show($"Moved {fileName} to {targetDirectory}");
-                        break; // Once the file is moved, stop checking other tags for this file
                     }
-                    // Increment the progress bar after processing each file
-                    processedFiles++;
 
-                    // Update the progress bar
+                    // Increment the progress bar after processing each file
+                    Interlocked.Increment(ref processedFiles);
                     progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                 }
-            }
+                catch (Exception ex)
+                {
+                    // Log error in debug or handle it here
+                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                }
+            });
 
             // Reset progress bar on the UI thread
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
@@ -982,8 +995,9 @@ namespace Project__Filter
             // Call Populated_Treeview on the UI thread
             Invoke(() => Populated_Treeview(folderPath));
 
-            MessageBox.Show("Sorting completed!");
+            MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information); // "Information" for success
         }
+
 
         private async Task SortFolderLocation(string folderPath, string jsonPath)
         {
