@@ -1209,7 +1209,6 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!");
         }
 
-
         private async Task SortByDuration(string[] videoFiles)
         {
             if (videoFiles.Length == 0)
@@ -1267,7 +1266,6 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!");
         }
 
-
         private async Task SortByResolution(string[] videoFiles, string[] imageFiles)
         {
             if (videoFiles.Length == 0 && imageFiles.Length == 0)
@@ -1277,9 +1275,9 @@ namespace Project__Filter
             }
 
             var ffProbe = new FFProbe();
-
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = videoFiles.Length + imageFiles.Length));
             int processedFiles = 0;
+            var directoriesCreated = new ConcurrentDictionary<string, bool>();
 
             await Task.Run(() =>
             {
@@ -1289,13 +1287,15 @@ namespace Project__Filter
                     {
                         var videoInfo = ffProbe.GetMediaInfo(file);
                         string resolution = $"{videoInfo.Streams[0].Width}x{videoInfo.Streams[0].Height}";
-                        string baseFolder = "SortedByResolution_Videos";
-                        string targetFolderPath =  System.IO.Path.Combine(Path, baseFolder, resolution);
+                        string targetFolderPath = System.IO.Path.Combine(Path, resolution);
 
-                        Directory.CreateDirectory(targetFolderPath);
+                        directoriesCreated.GetOrAdd(targetFolderPath, _ =>
+                        {
+                            Directory.CreateDirectory(targetFolderPath);
+                            return true;
+                        });
 
                         string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
-
                         if (!File.Exists(destinationFile))
                         {
                             File.Move(file, destinationFile);
@@ -1323,10 +1323,13 @@ namespace Project__Filter
                             string resolution = $"{img.Width}x{img.Height}";
                             string targetFolderPath = System.IO.Path.Combine(Path, "SortedByResolution_Images", resolution);
 
-                            Directory.CreateDirectory(targetFolderPath);
+                            directoriesCreated.GetOrAdd(targetFolderPath, _ =>
+                            {
+                                Directory.CreateDirectory(targetFolderPath);
+                                return true;
+                            });
 
                             string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
-
                             if (!File.Exists(destinationFile))
                             {
                                 File.Move(file, destinationFile);
@@ -1352,6 +1355,7 @@ namespace Project__Filter
             Invoke(() => Populated_Treeview(Path));
             MessageBox.Show("Sorting completed!");
         }
+
 
         private async Task sortByFrameRate(string[] videoFiles)
         {
