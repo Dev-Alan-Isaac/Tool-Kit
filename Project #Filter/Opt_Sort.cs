@@ -651,32 +651,131 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!");
         }
 
-        private async Task SortHash(string folderPath, string jsonPath)
+        public async Task SortHash(string folderPath, string jsonPath)
         {
-           
+            if (!File.Exists(jsonPath))
+            {
+                MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
+
+            var extensions = jsonContent["Extensions"].ToObject<JObject>();
+            var allow = jsonContent["Allow"].ToObject<JObject>();
+
+            var files = await ProcessFiles(folderPath);
+            int totalFiles = files.Length;
+
+            // Set progress bar maximum value on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = totalFiles));
+
+            // Cache directory creation results to avoid redundant checks
+            var directoryCache = new Dictionary<string, string>();
+
+            // Hash storage to detect duplicates
+            var fileHashes = new Dictionary<string, List<string>>();
+            var hashToFolderMap = new Dictionary<string, string>();
+
+            int processedFiles = 0;
+            int batchUpdateSize = 50;
+
+            Invoke((MethodInvoker)(() => File_Count.Text = $"Total Files: {totalFiles}"));
+
+            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
+            {
+                string fileExtension = Path.GetExtension(file).TrimStart('.').ToLower();
+                string fileHash = GetFileHash(file);
+
+                foreach (var allowCategory in allow)
+                {
+                    bool isAllowed = (bool)allowCategory.Value;
+                    string category = allowCategory.Key;
+
+                    if (isAllowed)
+                    {
+                        JArray categoryExtensions = (JArray)extensions[category];
+                        bool extensionExists = categoryExtensions
+                            .Select(ext => ext.ToString().Trim().ToLower())
+                            .Contains(fileExtension);
+
+                        if (extensionExists)
+                        {
+                            string originalDirectory = Path.GetDirectoryName(file);
+                            string duplicatesDirectory = Path.Combine(originalDirectory, "Duplicates");
+                            string hashDirectory = Path.Combine(duplicatesDirectory, fileHash);
+
+                            // Check if the hash already exists in the dictionary
+                            if (!fileHashes.ContainsKey(fileHash))
+                            {
+                                fileHashes[fileHash] = new List<string>();
+                                // Cache the directory for the hash folder
+                                if (!directoryCache.ContainsKey(hashDirectory))
+                                {
+                                    Directory.CreateDirectory(hashDirectory);
+                                    directoryCache[hashDirectory] = hashDirectory;
+                                }
+                            }
+
+                            // Move the file to the hash folder
+                            string targetFilePath = Path.Combine(hashDirectory, Path.GetFileName(file));
+
+                            // If a file with the same name exists, rename it with the hash as a prefix
+                            if (File.Exists(targetFilePath))
+                            {
+                                string newFileName = $"{fileHash}_{Path.GetFileName(file)}";
+                                targetFilePath = Path.Combine(hashDirectory, newFileName);
+                            }
+
+                            File.Move(file, targetFilePath);
+                            fileHashes[fileHash].Add(targetFilePath); // Add the file path to the hash list
+                        }
+                    }
+                }
+
+                Interlocked.Increment(ref processedFiles);
+
+                if (processedFiles % batchUpdateSize == 0)
+                {
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                }
+            });
+
+            // Final update of progress bar
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = totalFiles));
+
+            // Reset progress bar
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Refresh UI
+            Invoke(() => Populated_Treeview(folderPath));
+
+            MessageBox.Show("Hash Sorting Completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
         }
-      
+
         private string GetFileHash(string filePath)
         {
             using (var sha256 = SHA256.Create())
             using (var fileStream = File.OpenRead(filePath))
             {
-                byte[] buffer = new byte[1024 * 1024]; // Read 1MB at a time
+                byte[] buffer = new byte[1024 * 1024]; // 1 MB buffer
                 int bytesRead;
 
-                // Read file in chunks and compute hash incrementally
                 while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
                 {
                     sha256.TransformBlock(buffer, 0, bytesRead, null, 0);
                 }
 
-                // Finalize the hash computation
                 sha256.TransformFinalBlock(new byte[0], 0, 0);
 
-                // Convert hash bytes to string
                 return BitConverter.ToString(sha256.Hash).Replace("-", "").ToLowerInvariant();
             }
         }
+
 
         private async Task SortPermissions(string folderPath, string jsonPath, string configTypePath)
         {
