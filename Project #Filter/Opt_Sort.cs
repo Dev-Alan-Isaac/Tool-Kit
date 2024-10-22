@@ -1022,18 +1022,18 @@ namespace Project__Filter
 
             if (sortByAlphabetical)
             {
-                SortAlphabetical(folderPath, caseSensitive, skipSpecialCharacters);
+                await SortAlphabetical(folderPath, caseSensitive, skipSpecialCharacters);
             }
 
             if (sortByDepth)
             {
-                SortByDepth(folderPath, skipSpecialCharacters);
+                await SortByDepth(folderPath, skipSpecialCharacters);
             }
 
             MessageBox.Show("Folders sorted!");
         }
 
-        private void SortAlphabetical(string folderPath, bool caseSensitive, bool skipSpecialCharacters)
+        private async Task SortAlphabetical(string folderPath, bool caseSensitive, bool skipSpecialCharacters)
         {
             string alphabeticalFolder = System.IO.Path.Combine(folderPath, "Alphabetical");
             Directory.CreateDirectory(alphabeticalFolder);
@@ -1070,7 +1070,7 @@ namespace Project__Filter
             });
         }
 
-        private void SortByDepth(string folderPath, bool skipSpecialCharacters)
+        private async Task SortByDepth(string folderPath, bool skipSpecialCharacters)
         {
             string depthFolder = System.IO.Path.Combine(folderPath, "Depth");
             Directory.CreateDirectory(depthFolder);
