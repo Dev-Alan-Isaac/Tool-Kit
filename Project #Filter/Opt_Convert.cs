@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Aspose.Cells;
+using Aspose.Cells.Charts;
 using Aspose.Slides;
 using ImageMagick;
 using NAudio.Lame;
@@ -13,7 +14,7 @@ namespace Project__Filter
     public partial class Opt_Transform : UserControl
     {
         private string Path;
-        private string extension = string.Empty;
+        private string Extension = string.Empty;
         private string[] FileList;
 
         public Opt_Transform()
@@ -62,19 +63,19 @@ namespace Project__Filter
                 button_Filter.Enabled = false;
                 if (radioButton_Image.Checked)
                 {
-                    await Task.Run(() => ImageConvert(FileList, extension));
+                    await ImageConvert(FileList, Extension);
                 }
                 else if (radioButton_Audio.Checked)
                 {
-                    await Task.Run(() => AudioConvert(FileList, extension));
+                    await AudioConvert(FileList, Extension);
                 }
                 else if (radioButton_Video.Checked)
                 {
-                    await Task.Run(() => VideoConvert(FileList, extension));
+                    await VideoConvert(FileList, Extension);
                 }
                 else if (radioButton_Document.Checked)
                 {
-                    await Task.Run(() => DocumentConvert(FileList, extension));
+                    await DocumentConvert(FileList, Extension);
                 }
             }
             button_Filter.Enabled = true;
@@ -210,6 +211,8 @@ namespace Project__Filter
             // Convert extension to lowercase
             extension = extension.ToLower();
 
+            Extension = extension;
+
             // Check if the node is a folder or a file
             if (selectedNode.Nodes.Count > 0) // If the node has child nodes, it's a folder
             {
@@ -233,28 +236,81 @@ namespace Project__Filter
             }
         }
 
-        private async void ImageConvert(string[] files, string extension)
+        private async Task ImageConvert(string[] files, string targetExtension)
         {
+
+            if (targetExtension == "docx" || targetExtension == "pdf")
+            {
+                await ConvertDocument(files, targetExtension);
+            }
+
             try
             {
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+                int processedFiles = 0;
+
                 foreach (var file in files)
                 {
+                    string fileExtension = System.IO.Path.GetExtension(file).ToLower();
+
+
+                    // Proceed with image conversion
                     using (MagickImage image = new MagickImage(file))
                     {
-                        // Set the format of the image to the desired extension
-                        image.Format = GetMagickFormat(extension);
-
-                        // Save the converted image
-                        string newFilePath = System.IO.Path.ChangeExtension(file, extension);
+                        image.Format = GetMagickFormat(targetExtension);
+                        string newFilePath = System.IO.Path.ChangeExtension(file, targetExtension);
                         await image.WriteAsync(newFilePath);
                     }
+
+
+                    processedFiles++;
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                 }
 
-                MessageBox.Show($"Image converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+                MessageBox.Show($"Files converted successfully to {targetExtension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error converting image: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error converting file: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async Task ConvertDocument(string[] files, string targetExtension)
+        {
+
+            string config_file = "Config_Convert.json";
+
+            if (!File.Exists(config_file))
+            {
+                MessageBox.Show("Config file not found.");
+            }
+
+            DialogResult result = MessageBox.Show("Do you want a custom title?", "Title Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            string Title = string.Empty;
+
+            if (result == DialogResult.Yes)
+            {
+                Title = Microsoft.VisualBasic.Interaction.InputBox("Enter the custom title:", "Title", "", -1, -1);
+            }
+
+            try
+            {
+                if (targetExtension.ToLower() == "pdf")
+                {
+                    if (string.IsNullOrEmpty(Title))
+                    {
+
+                    }
+                }
+                else if (targetExtension.ToLower() == "docx")
+                {
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error converting document: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -272,21 +328,31 @@ namespace Project__Filter
             };
         }
 
-        private async void AudioConvert(string[] files, string extension)
+
+        private async Task AudioConvert(string[] files, string extension)
         {
             try
             {
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+                int processedFiles = 0;
+
                 foreach (var file in files)
                 {
-                    using var reader = new AudioFileReader(file);
-                    string newFilePath = System.IO.Path.ChangeExtension(file, extension);
+                    using (var reader = new AudioFileReader(file))
+                    {
+                        string newFilePath = System.IO.Path.ChangeExtension(file, extension);
+                        using (var writer = GetAudioFileWriter(newFilePath, extension, reader.WaveFormat))
+                        {
+                            await Task.Run(() => reader.CopyTo(writer));
+                        }
+                    }
 
-                    // Write to the appropriate format
-                    using var writer = GetAudioFileWriter(newFilePath, extension, reader.WaveFormat);
-                    await Task.Run(() => reader.CopyTo(writer));
-
-                    MessageBox.Show($"Audio converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    processedFiles++;
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                 }
+
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+                MessageBox.Show($"Audio converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -304,7 +370,9 @@ namespace Project__Filter
             };
         }
 
-        private async void VideoConvert(string[] files, string extension)
+
+
+        private async Task VideoConvert(string[] files, string extension)
         {
             try
             {
@@ -327,7 +395,7 @@ namespace Project__Filter
             }
         }
 
-        private async void DocumentConvert(string[] files, string extension)
+        private async Task DocumentConvert(string[] files, string extension)
         {
             try
             {
@@ -393,41 +461,6 @@ namespace Project__Filter
             };
 
         }
-
-        //private string askTitle(string selectedPath)
-        //{
-        //    string Title = string.Empty;
-        //    DialogResult result = MessageBox.Show("Do you want a custom title?", "Title Prompt", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-        //    if (result == DialogResult.Yes)
-        //    {
-        //        Title = Microsoft.VisualBasic.Interaction.InputBox("Enter the custom title:", "Title", "", -1, -1);
-        //        return Title;
-        //    }
-        //    else
-        //    {
-        //        Title = System.IO.Path.GetFileName(selectedPath);
-        //        return Title;
-        //    }
-        //}
-
-        //private async void CreatedPdf(byte[] pdfByteArray, string title)
-        //{
-        //    // Specify the output file path
-        //    string outputPath = System.IO.Path.Combine(selectedPath, $"{title}.pdf");
-
-        //    // Check if the file already exists
-        //    int count = 1;
-        //    string originalOutputPath = outputPath;
-        //    while (File.Exists(outputPath))
-        //    {
-        //        // Append (Count) to the title
-        //        outputPath = System.IO.Path.Combine(selectedPath, $"{title} ({count}).pdf");
-        //        count++;
-        //    }
-
-        //    // Save the byte array to the modified output path
-        //    File.WriteAllBytes(outputPath, pdfByteArray);
-        //}
     }
 
 }
