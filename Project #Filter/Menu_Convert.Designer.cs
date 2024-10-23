@@ -188,7 +188,7 @@
             // comboBox_Image
             // 
             comboBox_Image.FormattingEnabled = true;
-            comboBox_Image.Items.AddRange(new object[] { "BMP", "JPEG", "PNG", "TIFF", "JIFF", "ICO" });
+            comboBox_Image.Items.AddRange(new object[] { "BMP", "JPEG", "PNG", "TIFF", "JIFF", "ICO", "DOCX", "PDF" });
             comboBox_Image.Location = new Point(3, 52);
             comboBox_Image.Name = "comboBox_Image";
             comboBox_Image.Size = new Size(118, 23);
