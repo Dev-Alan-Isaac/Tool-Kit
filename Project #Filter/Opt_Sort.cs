@@ -63,7 +63,6 @@ namespace Project__Filter
             const string Config_Sort = "Config_Sort.json";
             if (!string.IsNullOrEmpty(Path))
             {
-
                 button_Filter.Enabled = false;
                 treeView1.Nodes.Clear();
 
@@ -202,7 +201,6 @@ namespace Project__Filter
             }
             return node;
         }
-
 
         public async Task SortTypes(string folderPath, string jsonPath)
         {
