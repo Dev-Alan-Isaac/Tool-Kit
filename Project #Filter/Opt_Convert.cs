@@ -14,7 +14,8 @@ namespace Project__Filter
     {
         private string Path;
         private string FilePath;
-        string extension = string.Empty;
+        private string extension = string.Empty;
+        private string[] FileList;
 
         public Opt_Transform()
         {
@@ -33,6 +34,23 @@ namespace Project__Filter
                     textBox_Path.Text = Path;
                 }
             }
+        }
+
+        private void radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            // Enable the filter button when any radio button is checked
+            if (radioButton_Image.Checked || radioButton_Audio.Checked ||
+                radioButton_Video.Checked || radioButton_Document.Checked)
+            {
+                button_Filter.Enabled = true;
+            }
+            else
+            {
+                button_Filter.Enabled = false;
+            }
+
+            // Populate the TreeView based on the selected radio button
+            Populated_Treeview(Path);
         }
 
         private async void button_Filter_Click_1(object sender, EventArgs e)
@@ -60,21 +78,72 @@ namespace Project__Filter
             button_Filter.Enabled = true;
         }
 
-        private void radioButton_CheckedChanged(object sender, EventArgs e)
+        private async void Populated_Treeview(string folderPath)
         {
-            // Enable the filter button when any radio button is checked
-            if (radioButton_Image.Checked || radioButton_Audio.Checked ||
-                radioButton_Video.Checked || radioButton_Document.Checked)
+            // Clear the TreeView first
+            treeView1.Nodes.Clear();
+
+            // Define which set of extensions to use depending on the selected radio button
+            JArray allowedExtensions = null;
+
+            if (radioButton_Image.Checked)
             {
-                button_Filter.Enabled = true;
+                allowedExtensions = new JArray { "BMP", "JPEG", "PNG", "TIFF", "JIFF", "ICO" };
             }
-            else
+            else if (radioButton_Audio.Checked)
             {
-                button_Filter.Enabled = false;
+                allowedExtensions = new JArray { "MP3", "WAV", "AAC", "FLAC" };
+            }
+            else if (radioButton_Video.Checked)
+            {
+                allowedExtensions = new JArray { "MP4", "WEBM", "AVI", "WAV", "GIF", "MP3" };
+            }
+            else if (radioButton_Document.Checked)
+            {
+                allowedExtensions = new JArray { "DOC", "DOCX", "XLSX", "XLS", "PDF", "TXT" };
             }
 
-            // Populate the TreeView based on the selected radio button
-            Populated_Treeview();
+            if (allowedExtensions != null)
+            {
+                if (!string.IsNullOrEmpty(folderPath))
+                {
+                    // Fetch the files
+                    var files = await ProcessFiles(folderPath);
+
+                    // Ensure unique files
+                    var filteredFiles = files
+                        .Where(file => allowedExtensions
+                            .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
+                        .Distinct() // Ensures files are unique
+                        .ToList();
+
+                    FileList = filteredFiles.ToArray();
+
+                    int filestotal = filteredFiles.Count;
+                    File_Count.Text = $"{filestotal}";
+
+                    // Populate TreeView with filtered files
+                    foreach (var file in filteredFiles)
+                    {
+                        string fileName = System.IO.Path.GetFileName(file); // Get only the file name
+
+                        // Check if the folder node already exists in the TreeView
+                        string folderName = System.IO.Path.GetFileName(System.IO.Path.GetDirectoryName(file)); // Get the folder name
+
+                        TreeNode folderNode = FindOrCreateNode(treeView1.Nodes, folderName);
+
+                        // Check if the file is already in the folder node
+                        if (!folderNode.Nodes.Cast<TreeNode>().Any(node => node.Text == fileName))
+                        {
+                            folderNode.Nodes.Add(new TreeNode(fileName));
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No Path Selected");
+                }
+            }
         }
 
         public async Task<string[]> ProcessFiles(string parentPath)
@@ -101,65 +170,15 @@ namespace Project__Filter
             return files; // Return the list of file paths
         }
 
-        private async void Populated_Treeview()
+        private TreeNode FindOrCreateNode(TreeNodeCollection nodes, string nodeName)
         {
-            // Clear the TreeView first
-            treeView1.Nodes.Clear();
-
-            // Define which set of extensions to use depending on the selected radio button
-            JArray allowedExtensions = null;
-
-            if (radioButton_Image.Checked)
+            TreeNode node = nodes.Cast<TreeNode>().FirstOrDefault(n => n.Text == nodeName);
+            if (node == null)
             {
-                allowedExtensions = ["BMP", "JPEG", "PNG", "TIFF", "JIFF", "ICO"];
+                node = new TreeNode(nodeName);
+                nodes.Add(node);
             }
-            else if (radioButton_Audio.Checked)
-            {
-                allowedExtensions = ["MP3", "WAV", "AAC", "FLAC"];
-            }
-            else if (radioButton_Video.Checked)
-            {
-                allowedExtensions = ["MP4", "WEBM", "AVI", "WAV", "GIF", "MP3"];
-            }
-            else if (radioButton_Document.Checked)
-            {
-                allowedExtensions = ["DOC", "DOCX", "XLSX", "XLS", "PDF", "TXT"];
-            }
-
-            if (allowedExtensions != null)
-            {
-                if (!string.IsNullOrEmpty(Path))
-                {
-                    // Fetch the files
-                    string[] files = await ProcessFiles(Path);
-
-                    // Ensure unique files
-                    var filteredFiles = files
-                        .Where(file => allowedExtensions
-                            .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
-                        .Distinct() // Ensures files are unique
-                        .ToList();
-
-                    int filestotal = filteredFiles.Count;
-                    File_Count.Text = $"{filestotal}";
-
-                    // Populate TreeView with filtered files
-                    foreach (var file in filteredFiles)
-                    {
-                        string fileName = System.IO.Path.GetFileName(file);
-
-                        // Check if the file is already in the TreeView
-                        if (!treeView1.Nodes.Cast<TreeNode>().Any(node => node.Text == fileName))
-                        {
-                            treeView1.Nodes.Add(fileName);
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Not Path Selected");
-                }
-            }
+            return node;
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
@@ -167,44 +186,53 @@ namespace Project__Filter
             // Get the selected node
             TreeNode selectedNode = e.Node;
 
-            // Remove the extension from the selected node's text
-            string nodeNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(selectedNode.Text);
-
-            // Update label with the selected node's name (without extension)
-            label_SelectedNode.Text = nodeNameWithoutExtension;
-
-            // Set the full file path
-            FilePath = System.IO.Path.Combine(Path, selectedNode.Text);
-
-            // Read the JSON content from the file
-            string jsonContent = File.ReadAllText("Config_Convert.json");
-
-            // Deserialize the JSON content into a JObject
-            var jsonObject = JObject.Parse(jsonContent);
-
-            // Check which radio button is checked and get the corresponding extension from JSON
-            if (radioButton_Image.Checked)
+            // Check if the node is a folder or a file
+            if (selectedNode.Nodes.Count > 0) // If the node has child nodes, it's a folder
             {
-                extension = jsonObject["Image"]["Selected"].ToString();
+                label_SelectedNode.Text = "Folder";  // Display "Folder" in the label
+                label_Output.Text = string.Empty;    // Clear the output label for folders
             }
-            else if (radioButton_Audio.Checked)
+            else // It's a file
             {
-                extension = jsonObject["Audio"]["Selected"].ToString();
-            }
-            else if (radioButton_Video.Checked)
-            {
-                extension = jsonObject["Video"]["Selected"].ToString();
-            }
-            else if (radioButton_Document.Checked)
-            {
-                extension = jsonObject["Document"]["Selected"].ToString();
-            }
+                // Remove the extension from the selected node's text (if it's a file)
+                string nodeNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(selectedNode.Text);
 
-            // Convert extension to lowercase
-            extension = extension.ToLower();
+                // Update label with the selected node's name (without extension)
+                label_SelectedNode.Text = nodeNameWithoutExtension;
 
-            // Update label with the selected node's name and extension
-            label_Output.Text = $"{nodeNameWithoutExtension}.{extension}";
+                // Set the full file path
+                FilePath = System.IO.Path.Combine(Path, selectedNode.Text);
+
+                // Read the JSON content from the file
+                string jsonContent = File.ReadAllText("Config_Convert.json");
+
+                // Deserialize the JSON content into a JObject
+                var jsonObject = JObject.Parse(jsonContent);
+
+                // Check which radio button is checked and get the corresponding extension from JSON
+                if (radioButton_Image.Checked)
+                {
+                    extension = jsonObject["Image"]["Selected"].ToString();
+                }
+                else if (radioButton_Audio.Checked)
+                {
+                    extension = jsonObject["Audio"]["Selected"].ToString();
+                }
+                else if (radioButton_Video.Checked)
+                {
+                    extension = jsonObject["Video"]["Selected"].ToString();
+                }
+                else if (radioButton_Document.Checked)
+                {
+                    extension = jsonObject["Document"]["Selected"].ToString();
+                }
+
+                // Convert extension to lowercase
+                extension = extension.ToLower();
+
+                // Update label with the selected node's name and extension
+                label_Output.Text = $"{nodeNameWithoutExtension}.{extension}";
+            }
         }
 
         private async void ImageConvert(string filePath, string extension)
