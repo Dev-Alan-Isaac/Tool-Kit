@@ -13,7 +13,6 @@ namespace Project__Filter
     public partial class Opt_Transform : UserControl
     {
         private string Path;
-        private string FilePath;
         private string extension = string.Empty;
         private string[] FileList;
 
@@ -38,6 +37,9 @@ namespace Project__Filter
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
+            label_SelectedNode.Text = "#";
+            label_Output.Text = "#";
+
             // Enable the filter button when any radio button is checked
             if (radioButton_Image.Checked || radioButton_Audio.Checked ||
                 radioButton_Video.Checked || radioButton_Document.Checked)
@@ -60,19 +62,19 @@ namespace Project__Filter
                 button_Filter.Enabled = false;
                 if (radioButton_Image.Checked)
                 {
-                    await Task.Run(() => ImageConvert(FilePath, extension));
+                    await Task.Run(() => ImageConvert(FileList, extension));
                 }
                 else if (radioButton_Audio.Checked)
                 {
-                    await Task.Run(() => AudioConvert(FilePath, extension));
+                    await Task.Run(() => AudioConvert(FileList, extension));
                 }
                 else if (radioButton_Video.Checked)
                 {
-                    await Task.Run(() => VideoConvert(FilePath, extension));
+                    await Task.Run(() => VideoConvert(FileList, extension));
                 }
                 else if (radioButton_Document.Checked)
                 {
-                    await Task.Run(() => DocumentConvert(FilePath, extension));
+                    await Task.Run(() => DocumentConvert(FileList, extension));
                 }
             }
             button_Filter.Enabled = true;
@@ -174,73 +176,78 @@ namespace Project__Filter
             return files; // Return the list of file paths
         }
 
-
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             // Get the selected node
             TreeNode selectedNode = e.Node;
 
+            // Read the JSON content from the file
+            string jsonContent = File.ReadAllText("Config_Convert.json");
+            // Deserialize the JSON content into a JObject
+            var jsonObject = JObject.Parse(jsonContent);
+
+            // Initialize extension variable
+            string extension = string.Empty;
+
+            // Check which radio button is checked and get the corresponding extension from JSON
+            if (radioButton_Image.Checked)
+            {
+                extension = jsonObject["Image"]["Selected"].ToString();
+            }
+            else if (radioButton_Audio.Checked)
+            {
+                extension = jsonObject["Audio"]["Selected"].ToString();
+            }
+            else if (radioButton_Video.Checked)
+            {
+                extension = jsonObject["Video"]["Selected"].ToString();
+            }
+            else if (radioButton_Document.Checked)
+            {
+                extension = jsonObject["Document"]["Selected"].ToString();
+            }
+
+            // Convert extension to lowercase
+            extension = extension.ToLower();
+
             // Check if the node is a folder or a file
             if (selectedNode.Nodes.Count > 0) // If the node has child nodes, it's a folder
             {
                 label_SelectedNode.Text = "Folder";  // Display "Folder" in the label
-                label_Output.Text = string.Empty;    // Clear the output label for folders
+                label_Output.Text = $"Files.{extension}";    // Clear the output label for folders        
             }
-            else // It's a file
+            else
             {
                 // Remove the extension from the selected node's text (if it's a file)
                 string nodeNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(selectedNode.Text);
-
                 // Update label with the selected node's name (without extension)
                 label_SelectedNode.Text = nodeNameWithoutExtension;
-
                 // Set the full file path
-                FilePath = System.IO.Path.Combine(Path, selectedNode.Text);
+                string FilePath = System.IO.Path.Combine(Path, selectedNode.Text);
 
-                // Read the JSON content from the file
-                string jsonContent = File.ReadAllText("Config_Convert.json");
-
-                // Deserialize the JSON content into a JObject
-                var jsonObject = JObject.Parse(jsonContent);
-
-                // Check which radio button is checked and get the corresponding extension from JSON
-                if (radioButton_Image.Checked)
-                {
-                    extension = jsonObject["Image"]["Selected"].ToString();
-                }
-                else if (radioButton_Audio.Checked)
-                {
-                    extension = jsonObject["Audio"]["Selected"].ToString();
-                }
-                else if (radioButton_Video.Checked)
-                {
-                    extension = jsonObject["Video"]["Selected"].ToString();
-                }
-                else if (radioButton_Document.Checked)
-                {
-                    extension = jsonObject["Document"]["Selected"].ToString();
-                }
-
-                // Convert extension to lowercase
-                extension = extension.ToLower();
+                // Clear FileList and add only the selected file
+                FileList = new string[] { FilePath };
 
                 // Update label with the selected node's name and extension
                 label_Output.Text = $"{nodeNameWithoutExtension}.{extension}";
             }
         }
 
-        private async void ImageConvert(string filePath, string extension)
+        private async void ImageConvert(string[] files, string extension)
         {
             try
             {
-                using (MagickImage image = new MagickImage(filePath))
+                foreach (var file in files)
                 {
-                    // Set the format of the image to the desired extension
-                    image.Format = GetMagickFormat(extension);
+                    using (MagickImage image = new MagickImage(file))
+                    {
+                        // Set the format of the image to the desired extension
+                        image.Format = GetMagickFormat(extension);
 
-                    // Save the converted image
-                    string newFilePath = System.IO.Path.ChangeExtension(filePath, extension);
-                    await image.WriteAsync(newFilePath);
+                        // Save the converted image
+                        string newFilePath = System.IO.Path.ChangeExtension(file, extension);
+                        await image.WriteAsync(newFilePath);
+                    }
                 }
 
                 MessageBox.Show($"Image converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -265,18 +272,21 @@ namespace Project__Filter
             };
         }
 
-        private async void AudioConvert(string file, string extension)
+        private async void AudioConvert(string[] files, string extension)
         {
             try
             {
-                using var reader = new AudioFileReader(file);
-                string newFilePath = System.IO.Path.ChangeExtension(file, extension);
+                foreach (var file in files)
+                {
+                    using var reader = new AudioFileReader(file);
+                    string newFilePath = System.IO.Path.ChangeExtension(file, extension);
 
-                // Write to the appropriate format
-                using var writer = GetAudioFileWriter(newFilePath, extension, reader.WaveFormat);
-                await Task.Run(() => reader.CopyTo(writer));
+                    // Write to the appropriate format
+                    using var writer = GetAudioFileWriter(newFilePath, extension, reader.WaveFormat);
+                    await Task.Run(() => reader.CopyTo(writer));
 
-                MessageBox.Show($"Audio converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Audio converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
@@ -294,11 +304,10 @@ namespace Project__Filter
             };
         }
 
-        private async void VideoConvert(string filePath, string extension)
+        private async void VideoConvert(string[] files, string extension)
         {
             try
             {
-                var files = Directory.GetFiles(filePath, "*.*", SearchOption.AllDirectories);
                 var ffmpeg = new FFMpegConverter();
 
                 foreach (var file in files)
@@ -318,51 +327,54 @@ namespace Project__Filter
             }
         }
 
-        private async void DocumentConvert(string folderPath, string extension)
+        private async void DocumentConvert(string[] files, string extension)
         {
             try
             {
 
-                string newFilePath = System.IO.Path.ChangeExtension(folderPath, extension);
+                foreach (var file in files)
+                {
+                    string newFilePath = System.IO.Path.ChangeExtension(file, extension);
 
-                if (folderPath.EndsWith(".docx") || folderPath.EndsWith(".doc"))
-                {
-                    await Task.Run(() =>
+                    if (file.EndsWith(".docx") || file.EndsWith(".doc"))
                     {
-                        var doc = new Aspose.Words.Document(folderPath);
-                        doc.Save(newFilePath);
-                    });
-                }
-                else if (folderPath.EndsWith(".xlsx") || folderPath.EndsWith(".xls"))
-                {
-                    await Task.Run(() =>
+                        await Task.Run(() =>
+                        {
+                            var doc = new Aspose.Words.Document(file);
+                            doc.Save(newFilePath);
+                        });
+                    }
+                    else if (file.EndsWith(".xlsx") || file.EndsWith(".xls"))
                     {
-                        var workbook = new Workbook(folderPath);
-                        workbook.Save(newFilePath);
-                    });
-                }
-                else if (folderPath.EndsWith(".pptx") || folderPath.EndsWith(".ppt"))
-                {
-                    await Task.Run(() =>
+                        await Task.Run(() =>
+                        {
+                            var workbook = new Workbook(file);
+                            workbook.Save(newFilePath);
+                        });
+                    }
+                    else if (file.EndsWith(".pptx") || file.EndsWith(".ppt"))
                     {
-                        var presentation = new Presentation(folderPath);
-                        presentation.Save(newFilePath, GetSlideFormat(extension));
-                    });
-                }
-                else if (folderPath.EndsWith(".pdf"))
-                {
-                    await Task.Run(() =>
+                        await Task.Run(() =>
+                        {
+                            var presentation = new Presentation(file);
+                            presentation.Save(newFilePath, GetSlideFormat(extension));
+                        });
+                    }
+                    else if (file.EndsWith(".pdf"))
                     {
-                        var pdfDocument = new Aspose.Pdf.Document(folderPath);
-                        pdfDocument.Save(newFilePath);
-                    });
-                }
-                else
-                {
-                    MessageBox.Show($"File format for {folderPath} not supported for conversion.", "Format Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                        await Task.Run(() =>
+                        {
+                            var pdfDocument = new Aspose.Pdf.Document(file);
+                            pdfDocument.Save(newFilePath);
+                        });
+                    }
+                    else
+                    {
+                        MessageBox.Show($"File format for {file} not supported for conversion.", "Format Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
 
-                MessageBox.Show($"Documents converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Documents converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
