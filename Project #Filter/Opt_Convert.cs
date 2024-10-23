@@ -85,7 +85,6 @@ namespace Project__Filter
 
             // Define which set of extensions to use depending on the selected radio button
             JArray allowedExtensions = null;
-
             if (radioButton_Image.Checked)
             {
                 allowedExtensions = new JArray { "BMP", "JPEG", "PNG", "TIFF", "JIFF", "ICO" };
@@ -109,16 +108,13 @@ namespace Project__Filter
                 {
                     // Fetch the files
                     var files = await ProcessFiles(folderPath);
-
                     // Ensure unique files
                     var filteredFiles = files
                         .Where(file => allowedExtensions
                             .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
                         .Distinct() // Ensures files are unique
                         .ToList();
-
                     FileList = filteredFiles.ToArray();
-
                     int filestotal = filteredFiles.Count;
                     File_Count.Text = $"{filestotal}";
 
@@ -126,12 +122,9 @@ namespace Project__Filter
                     foreach (var file in filteredFiles)
                     {
                         string fileName = System.IO.Path.GetFileName(file); // Get only the file name
-
-                        // Check if the folder node already exists in the TreeView
+                                                                            // Check if the folder node already exists in the TreeView
                         string folderName = System.IO.Path.GetFileName(System.IO.Path.GetDirectoryName(file)); // Get the folder name
-
                         TreeNode folderNode = FindOrCreateNode(treeView1.Nodes, folderName);
-
                         // Check if the file is already in the folder node
                         if (!folderNode.Nodes.Cast<TreeNode>().Any(node => node.Text == fileName))
                         {
@@ -144,6 +137,17 @@ namespace Project__Filter
                     MessageBox.Show("No Path Selected");
                 }
             }
+        }
+
+        private TreeNode FindOrCreateNode(TreeNodeCollection nodes, string folderName)
+        {
+            TreeNode folderNode = nodes.Cast<TreeNode>().FirstOrDefault(n => n.Text == folderName);
+            if (folderNode == null)
+            {
+                folderNode = new TreeNode(folderName);
+                nodes.Add(folderNode);
+            }
+            return folderNode;
         }
 
         public async Task<string[]> ProcessFiles(string parentPath)
@@ -170,16 +174,6 @@ namespace Project__Filter
             return files; // Return the list of file paths
         }
 
-        private TreeNode FindOrCreateNode(TreeNodeCollection nodes, string nodeName)
-        {
-            TreeNode node = nodes.Cast<TreeNode>().FirstOrDefault(n => n.Text == nodeName);
-            if (node == null)
-            {
-                node = new TreeNode(nodeName);
-                nodes.Add(node);
-            }
-            return node;
-        }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
