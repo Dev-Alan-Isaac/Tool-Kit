@@ -1,13 +1,14 @@
 ﻿using System.Data;
 using Aspose.Cells;
-using Aspose.Cells.Charts;
 using Aspose.Slides;
 using ImageMagick;
+using iTextSharp.text.pdf;
 using NAudio.Lame;
 using NAudio.Wave;
 using Newtonsoft.Json.Linq;
 using NReco.VideoConverter;
-using SharpCompress.Common;
+using PdfSharp.Pdf;
+using PdfDocument = PdfSharp.Pdf.PdfDocument;
 
 namespace Project__Filter
 {
@@ -243,36 +244,38 @@ namespace Project__Filter
             {
                 await ConvertDocument(files, targetExtension);
             }
-
-            try
+            else
             {
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
-                int processedFiles = 0;
-
-                foreach (var file in files)
+                try
                 {
-                    string fileExtension = System.IO.Path.GetExtension(file).ToLower();
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+                    int processedFiles = 0;
 
-
-                    // Proceed with image conversion
-                    using (MagickImage image = new MagickImage(file))
+                    foreach (var file in files)
                     {
-                        image.Format = GetMagickFormat(targetExtension);
-                        string newFilePath = System.IO.Path.ChangeExtension(file, targetExtension);
-                        await image.WriteAsync(newFilePath);
+                        string fileExtension = System.IO.Path.GetExtension(file).ToLower();
+
+
+                        // Proceed with image conversion
+                        using (MagickImage image = new MagickImage(file))
+                        {
+                            image.Format = GetMagickFormat(targetExtension);
+                            string newFilePath = System.IO.Path.ChangeExtension(file, targetExtension);
+                            await image.WriteAsync(newFilePath);
+                        }
+
+
+                        processedFiles++;
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
 
-
-                    processedFiles++;
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+                    MessageBox.Show($"Files converted successfully to {targetExtension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-                MessageBox.Show($"Files converted successfully to {targetExtension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error converting file: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error converting file: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -298,10 +301,7 @@ namespace Project__Filter
             {
                 if (targetExtension.ToLower() == "pdf")
                 {
-                    if (string.IsNullOrEmpty(Title))
-                    {
-
-                    }
+                    await PDFBuilder(files, Title);
                 }
                 else if (targetExtension.ToLower() == "docx")
                 {
@@ -313,6 +313,36 @@ namespace Project__Filter
                 MessageBox.Show($"Error converting document: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private async Task PDFBuilder(string[] arrayFiles, string title)
+        {
+            if (string.IsNullOrEmpty(title))
+            {
+                MessageBox.Show("Title cannot be empty.");
+                return;
+            }
+
+            try
+            {
+               
+
+                MessageBox.Show($"PDF created successfully with title '{title}'!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating PDF: {ex.Message}", "PDF Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private async Task DocxBuilder(string[] arrayFiles, string title)
+        {
+            if (string.IsNullOrEmpty(title))
+            {
+
+            }
+        }
+
 
         private MagickFormat GetMagickFormat(string extension)
         {
