@@ -1,7 +1,9 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using Aspose.Cells;
 using Aspose.Slides;
 using ImageMagick;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using NAudio.Lame;
 using NAudio.Wave;
@@ -264,7 +266,6 @@ namespace Project__Filter
                             await image.WriteAsync(newFilePath);
                         }
 
-
                         processedFiles++;
                         progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
@@ -318,22 +319,40 @@ namespace Project__Filter
         {
             if (string.IsNullOrEmpty(title))
             {
-                MessageBox.Show("Title cannot be empty.");
-                return;
-            }
+                try
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        Document document = new Document();
+                        PdfWriter.GetInstance(document, ms);
 
-            try
-            {
-               
+                        document.Open();
+                        for (int i = 0; i < arrayFiles.Length; i++)
+                        {
+                            string file = arrayFiles[i];
+                            iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
+                            document.SetPageSize(new iTextSharp.text.Rectangle(0, 0, image.Width, image.Height));
+                            document.NewPage();
+                            image.SetAbsolutePosition(0, 0);
+                            document.Add(image);
+                        }
 
-                MessageBox.Show($"PDF created successfully with title '{title}'!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        document.Close();
+                        string outputFilePath = System.IO.Path.Combine(Path, "untitle.pdf");
+                        File.WriteAllBytes(outputFilePath, ms.ToArray());
+                        MessageBox.Show($"PDF created successfully!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error creating PDF: {ex.Message}", "PDF Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show($"Error creating PDF: {ex.Message}", "PDF Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show($"PDF created successfully with title '{title}'!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
 
         private async Task DocxBuilder(string[] arrayFiles, string title)
         {
