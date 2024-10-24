@@ -464,120 +464,122 @@ namespace Project__Filter
 
         private async Task SortDates(string folderPath, string jsonPath)
         {
-            if (!File.Exists(jsonPath))
-            {
-                MessageBox.Show("Config file not found.");
-                return;
-            }
+            //if (!File.Exists(jsonPath))
+            //{
+            //    MessageBox.Show("Config file not found.");
+            //    return;
+            //}
 
-            // Read and parse the JSON file
-            string jsonString = await File.ReadAllTextAsync(jsonPath);
-            var jsonContent = JObject.Parse(jsonString);
+            //// Read and parse the JSON file
+            //string jsonString = await File.ReadAllTextAsync(jsonPath);
+            //var jsonContent = JObject.Parse(jsonString);
 
-            var option = jsonContent["Option"] as JObject;
+            //var option = jsonContent["Option"] as JObject;
 
-            // Get all files in the folder
-            var files = await ProcessFiles(folderPath);
-            int totalFiles = files.Length;
-            var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
+            //// Get all files in the folder
+            //var files = await ProcessFiles(folderPath);
+            //int totalFiles = files.Length;
+            //var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
 
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = totalFiles));
-            int processedFiles = 0;
-            int batchUpdateSize = Math.Max(1, totalFiles / 100); // Update every 1% of progress
+            //progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = totalFiles));
+            //int processedFiles = 0;
+            //int batchUpdateSize = Math.Max(1, totalFiles / 100); // Update every 1% of progress
 
-            // Cache directories to reduce redundant checks
-            var directoryCache = new ConcurrentDictionary<string, string>();
+            //// Cache directories to reduce redundant checks
+            //var directoryCache = new ConcurrentDictionary<string, string>();
 
-            // Update file count label
-            Invoke((MethodInvoker)(() => File_Count.Text = $"{totalFiles}"));
+            //// Update file count label
+            //Invoke((MethodInvoker)(() => File_Count.Text = $"{totalFiles}"));
 
-            // Process each sorting option in parallel
-            Parallel.ForEach(option.Properties().Where(p => (bool)p.Value), new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, allowOption =>
-            {
-                string sortingOption = allowOption.Name;
-                IEnumerable<FileInfo> sortedFiles;
+            //// Process each sorting option in parallel
+            //Parallel.ForEach(option.Properties().Where(p => (bool)p.Value), new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, allowOption =>
+            //{
+            //    string sortingOption = allowOption.Name;
+            //    IEnumerable<FileInfo> sortedFiles;
 
-                // Sort files based on the current option (Accessed, Creation, Modified)
-                switch (sortingOption)
-                {
-                    case "Accessed":
-                        sortedFiles = fileInfoList.OrderBy(f => f.LastAccessTime);
-                        break;
-                    case "Creation":
-                        sortedFiles = fileInfoList.OrderBy(f => f.CreationTime);
-                        break;
-                    case "Modified":
-                        sortedFiles = fileInfoList.OrderBy(f => f.LastWriteTime);
-                        break;
-                    default:
-                        return; // Skip invalid options
-                }
+            //    // Sort files based on the current option (Accessed, Creation, Modified)
+            //    switch (sortingOption)
+            //    {
+            //        case "Accessed":
+            //            sortedFiles = fileInfoList.OrderBy(f => f.LastAccessTime);
+            //            break;
+            //        case "Creation":
+            //            sortedFiles = fileInfoList.OrderBy(f => f.CreationTime);
+            //            break;
+            //        case "Modified":
+            //            sortedFiles = fileInfoList.OrderBy(f => f.LastWriteTime);
+            //            break;
+            //        default:
+            //            return; // Skip invalid options
+            //    }
 
-                // Move each file to the appropriate folder
-                foreach (var file in sortedFiles)
-                {
-                    DateTime folderDate;
-                    switch (sortingOption)
-                    {
-                        case "Accessed":
-                            folderDate = file.LastAccessTime.Date;
-                            break;
-                        case "Creation":
-                            folderDate = file.CreationTime.Date;
-                            break;
-                        case "Modified":
-                            folderDate = file.LastWriteTime.Date;
-                            break;
-                        default:
-                            continue;
-                    }
 
-                    // Create target directory based on file date
-                    string targetDirectory = System.IO.Path.Combine(folderPath, folderDate.ToString("yyyy-MM-dd"));
 
-                    if (!directoryCache.ContainsKey(targetDirectory))
-                    {
-                        if (!Directory.Exists(targetDirectory))
-                        {
-                            Directory.CreateDirectory(targetDirectory);
-                        }
-                        directoryCache[targetDirectory] = targetDirectory;
-                    }
+            //    // Move each file to the appropriate folder
+            //    foreach (var file in sortedFiles)
+            //    {
+            //        DateTime folderDate;
+            //        switch (sortingOption)
+            //        {
+            //            case "Accessed":
+            //                folderDate = file.LastAccessTime.Date;
+            //                break;
+            //            case "Creation":
+            //                folderDate = file.CreationTime.Date;
+            //                break;
+            //            case "Modified":
+            //                folderDate = file.LastWriteTime.Date;
+            //                break;
+            //            default:
+            //                continue;
+            //        }
 
-                    string targetFileName = System.IO.Path.GetFileName(file.FullName);
-                    string targetPath = System.IO.Path.Combine(targetDirectory, targetFileName);
+            //        // Create target directory based on file date
+            //        string targetDirectory = System.IO.Path.Combine(folderPath, folderDate.ToString("yyyy-MM-dd"));
 
-                    // Check if a file with the same name already exists
-                    if (File.Exists(targetPath))
-                    {
-                        // Add [Duplicate] prefix to the file name if a duplicate exists
-                        string duplicateFileName = "[Duplicate]" + targetFileName;
-                        targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
-                    }
+            //        if (!directoryCache.ContainsKey(targetDirectory))
+            //        {
+            //            if (!Directory.Exists(targetDirectory))
+            //            {
+            //                Directory.CreateDirectory(targetDirectory);
+            //            }
+            //            directoryCache[targetDirectory] = targetDirectory;
+            //        }
 
-                    // Move the file to the target directory
-                    File.Move(file.FullName, targetPath);
+            //        string targetFileName = System.IO.Path.GetFileName(file.FullName);
+            //        string targetPath = System.IO.Path.Combine(targetDirectory, targetFileName);
 
-                    // Increment processed files and batch update progress bar
-                    Interlocked.Increment(ref processedFiles);
-                    if (processedFiles % batchUpdateSize == 0)
-                    {
-                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                    }
-                }
-            });
+            //        // Check if a file with the same name already exists
+            //        if (File.Exists(targetPath))
+            //        {
+            //            // Add [Duplicate] prefix to the file name if a duplicate exists
+            //            string duplicateFileName = "[Duplicate]" + targetFileName;
+            //            targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+            //        }
 
-            // Final progress bar update
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = totalFiles));
+            //        // Move the file to the target directory
+            //        File.Move(file.FullName, targetPath);
 
-            // Reset progress bar
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+            //        // Increment processed files and batch update progress bar
+            //        Interlocked.Increment(ref processedFiles);
+            //        if (processedFiles % batchUpdateSize == 0)
+            //        {
+            //            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+            //        }
+            //    }
+            //});
 
-            // Update TreeView
-            Invoke(() => Populated_Treeview(folderPath));
+            //// Final progress bar update
+            //progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = totalFiles));
 
-            // Display a message informing the user that sorting is completed
-            MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //// Reset progress bar
+            //progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            //// Update TreeView
+            //Invoke(() => Populated_Treeview(folderPath));
+
+            //// Display a message informing the user that sorting is completed
+            //MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async Task SortNames(string folderPath, string jsonPath)
