@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
+using System.IO;
 using Aspose.Cells;
+using Aspose.Cells.Charts;
 using Aspose.Slides;
 using ImageMagick;
 using iTextSharp.text;
@@ -10,6 +12,7 @@ using NAudio.Wave;
 using Newtonsoft.Json.Linq;
 using NReco.VideoConverter;
 using PdfSharp.Pdf;
+using Paragraph = iTextSharp.text.Paragraph;
 using PdfDocument = PdfSharp.Pdf.PdfDocument;
 
 namespace Project__Filter
@@ -325,8 +328,8 @@ namespace Project__Filter
                     {
                         Document document = new Document();
                         PdfWriter.GetInstance(document, ms);
-
                         document.Open();
+
                         for (int i = 0; i < arrayFiles.Length; i++)
                         {
                             string file = arrayFiles[i];
@@ -338,8 +341,9 @@ namespace Project__Filter
                         }
 
                         document.Close();
-                        string outputFilePath = System.IO.Path.Combine(Path, "untitle.pdf");
+                        string outputFilePath = System.IO.Path.Combine(Path, "untitled.pdf");
                         File.WriteAllBytes(outputFilePath, ms.ToArray());
+
                         MessageBox.Show($"PDF created successfully!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
@@ -350,9 +354,58 @@ namespace Project__Filter
             }
             else
             {
-                //MessageBox.Show($"PDF created successfully with title '{title}'!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        Document document = new Document();
+                        PdfWriter writer = PdfWriter.GetInstance(document, ms);
+
+                        document.Open();
+
+                        // Add title page
+                        document.SetPageSize(PageSize.LETTER);
+                        document.NewPage();
+
+                        for (int i = 0; i < 20; i++) // Adjust this value to move the title up or down
+                        {
+                            document.Add(new Paragraph("\n"));
+                        }
+
+                        Paragraph titleParagraph = new Paragraph(title, FontFactory.GetFont(FontFactory.HELVETICA, 50f, iTextSharp.text.Font.BOLD));
+                        titleParagraph.Alignment = Element.ALIGN_CENTER;
+                        document.Add(titleParagraph);
+
+                        for (int i = 0; i < 10; i++) // Adjust this value to move the title up or down
+                        {
+                            document.Add(new Paragraph("\n"));
+                        }
+
+                        // Add images to the document
+                        for (int i = 0; i < arrayFiles.Length; i++)
+                        {
+                            string file = arrayFiles[i];
+                            iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
+                            document.SetPageSize(new iTextSharp.text.Rectangle(0, 0, image.Width, image.Height));
+                            document.NewPage();
+                            image.SetAbsolutePosition(0, 0);
+                            document.Add(image);
+                        }
+
+                        document.Close();
+                        string outputFilePath = System.IO.Path.Combine(Path, $"{title}.pdf");
+                        File.WriteAllBytes(outputFilePath, ms.ToArray());
+
+                        MessageBox.Show($"PDF created successfully with title '{title}'!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error creating PDF: {ex.Message}", "PDF Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
+
 
         private async Task DocxBuilder(string[] arrayFiles, string title)
         {
