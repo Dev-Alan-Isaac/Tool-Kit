@@ -12,12 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspose.Cells" Version="24.10.0" />
-    <PackageReference Include="Aspose.PDF" Version="24.10.0" />
-    <PackageReference Include="Aspose.Slides.NET" Version="24.10.0" />
-    <PackageReference Include="Aspose.Words" Version="24.10.0" />
     <PackageReference Include="Bunifu.UI.WinForms" Version="6.0.1" />
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.67" />
+    <PackageReference Include="DocX" Version="3.0.1" />
     <PackageReference Include="iTextSharp" Version="5.5.13.4" />
     <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="14.0.0" />
     <PackageReference Include="MediaToolkit" Version="1.1.0.1" />
@@ -27,11 +23,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NReco.VideoConverter" Version="1.2.1" />
     <PackageReference Include="NReco.VideoInfo" Version="1.2.0" />
-    <PackageReference Include="PDFsharp" Version="6.1.1" />
-    <PackageReference Include="SharpCompress" Version="0.38.0" />
-    <PackageReference Include="System.Formats.Asn1" Version="8.0.1" />
-    <PackageReference Include="System.Text.Json" Version="8.0.5" />
-    <PackageReference Include="taglib-sharp-netstandard2.0" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Data;
-using System.IO;
-using Aspose.Cells;
-using Aspose.Cells.Charts;
-using Aspose.Slides;
+﻿using System.Data;
 using ImageMagick;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
@@ -11,15 +6,18 @@ using NAudio.Lame;
 using NAudio.Wave;
 using Newtonsoft.Json.Linq;
 using NReco.VideoConverter;
-using PdfSharp.Pdf;
-using Paragraph = iTextSharp.text.Paragraph;
-using PdfDocument = PdfSharp.Pdf.PdfDocument;
+using Paragraph_iTextSharp = iTextSharp.text.Paragraph;
+using DocumentPDF_iTextSharp = iTextSharp.text.Document;
+using Xceed.Words.NET;
+using Xceed.Document.NET;
+
 
 namespace Project__Filter
 {
     public partial class Opt_Transform : UserControl
     {
         private string Path;
+        private bool isProgrammaticChange = false;
         private string Extension = string.Empty;
         private string[] FileList;
 
@@ -44,12 +42,15 @@ namespace Project__Filter
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
+            // If the change was programmatically triggered, ignore it
+            if (isProgrammaticChange)
+                return;
+
             label_SelectedNode.Text = "#";
             label_Output.Text = "#";
 
             // Enable the filter button when any radio button is checked
-            if (radioButton_Image.Checked || radioButton_Audio.Checked ||
-                radioButton_Video.Checked || radioButton_Document.Checked)
+            if (radioButton_Image.Checked || radioButton_Audio.Checked || radioButton_Video.Checked || radioButton_Document.Checked)
             {
                 button_Filter.Enabled = true;
             }
@@ -58,9 +59,30 @@ namespace Project__Filter
                 button_Filter.Enabled = false;
             }
 
-            // Populate the TreeView based on the selected radio button
-            Populated_Treeview(Path);
+            if (!string.IsNullOrEmpty(Path))
+            {
+                Populated_Treeview(Path);
+            }
+            else
+            {
+                MessageBox.Show("No Path Selected");
+
+                // Temporarily set the flag to true to prevent triggering the event multiple times
+                isProgrammaticChange = true;
+                try
+                {
+                    radioButton_Image.Checked = false;
+                    radioButton_Audio.Checked = false;
+                    radioButton_Video.Checked = false;
+                    radioButton_Document.Checked = false;
+                }
+                finally
+                {
+                    isProgrammaticChange = false;
+                }
+            }
         }
+
 
         private async void button_Filter_Click_1(object sender, EventArgs e)
         {
@@ -113,38 +135,34 @@ namespace Project__Filter
 
             if (allowedExtensions != null)
             {
-                if (!string.IsNullOrEmpty(folderPath))
-                {
-                    // Fetch the files
-                    var files = await ProcessFiles(folderPath);
-                    // Ensure unique files
-                    var filteredFiles = files
-                        .Where(file => allowedExtensions
-                            .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
-                        .Distinct() // Ensures files are unique
-                        .ToList();
-                    FileList = filteredFiles.ToArray();
-                    int filestotal = filteredFiles.Count;
-                    File_Count.Text = $"{filestotal}";
 
-                    // Populate TreeView with filtered files
-                    foreach (var file in filteredFiles)
-                    {
-                        string fileName = System.IO.Path.GetFileName(file); // Get only the file name
-                                                                            // Check if the folder node already exists in the TreeView
-                        string folderName = System.IO.Path.GetFileName(System.IO.Path.GetDirectoryName(file)); // Get the folder name
-                        TreeNode folderNode = FindOrCreateNode(treeView1.Nodes, folderName);
-                        // Check if the file is already in the folder node
-                        if (!folderNode.Nodes.Cast<TreeNode>().Any(node => node.Text == fileName))
-                        {
-                            folderNode.Nodes.Add(new TreeNode(fileName));
-                        }
-                    }
-                }
-                else
+                // Fetch the files
+                var files = await ProcessFiles(folderPath);
+                // Ensure unique files
+                var filteredFiles = files
+                    .Where(file => allowedExtensions
+                        .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
+                    .Distinct() // Ensures files are unique
+                    .ToList();
+                FileList = filteredFiles.ToArray();
+                int filestotal = filteredFiles.Count;
+                File_Count.Text = $"{filestotal}";
+
+                // Populate TreeView with filtered files
+                foreach (var file in filteredFiles)
                 {
-                    MessageBox.Show("No Path Selected");
+                    string fileName = System.IO.Path.GetFileName(file); // Get only the file name
+                                                                        // Check if the folder node already exists in the TreeView
+                    string folderName = System.IO.Path.GetFileName(System.IO.Path.GetDirectoryName(file)); // Get the folder name
+                    TreeNode folderNode = FindOrCreateNode(treeView1.Nodes, folderName);
+                    // Check if the file is already in the folder node
+                    if (!folderNode.Nodes.Cast<TreeNode>().Any(node => node.Text == fileName))
+                    {
+                        folderNode.Nodes.Add(new TreeNode(fileName));
+                    }
+
                 }
+
             }
         }
 
@@ -244,7 +262,6 @@ namespace Project__Filter
 
         private async Task ImageConvert(string[] files, string targetExtension)
         {
-
             if (targetExtension == "docx" || targetExtension == "pdf")
             {
                 await ConvertDocument(files, targetExtension);
@@ -285,7 +302,6 @@ namespace Project__Filter
 
         private async Task ConvertDocument(string[] files, string targetExtension)
         {
-
             string config_file = "Config_Convert.json";
 
             if (!File.Exists(config_file))
@@ -309,7 +325,7 @@ namespace Project__Filter
                 }
                 else if (targetExtension.ToLower() == "docx")
                 {
-
+                    await DocxBuilder(files, Title);
                 }
             }
             catch (Exception ex)
@@ -320,30 +336,36 @@ namespace Project__Filter
 
         private async Task PDFBuilder(string[] arrayFiles, string title)
         {
+            DocumentPDF_iTextSharp document = new DocumentPDF_iTextSharp();
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = arrayFiles.Length));
+            int processedFiles = 0;
+
             if (string.IsNullOrEmpty(title))
             {
                 try
                 {
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Document document = new Document();
                         PdfWriter.GetInstance(document, ms);
                         document.Open();
 
-                        for (int i = 0; i < arrayFiles.Length; i++)
+                        foreach (var file in arrayFiles)
                         {
-                            string file = arrayFiles[i];
                             iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
                             document.SetPageSize(new iTextSharp.text.Rectangle(0, 0, image.Width, image.Height));
                             document.NewPage();
                             image.SetAbsolutePosition(0, 0);
                             document.Add(image);
+
+                            processedFiles++;
+                            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                         }
 
                         document.Close();
                         string outputFilePath = System.IO.Path.Combine(Path, "untitled.pdf");
                         File.WriteAllBytes(outputFilePath, ms.ToArray());
 
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
                         MessageBox.Show($"PDF created successfully!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
@@ -358,44 +380,42 @@ namespace Project__Filter
                 {
                     using (MemoryStream ms = new MemoryStream())
                     {
-                        Document document = new Document();
                         PdfWriter writer = PdfWriter.GetInstance(document, ms);
-
                         document.Open();
 
                         // Add title page
                         document.SetPageSize(PageSize.LETTER);
                         document.NewPage();
-
                         for (int i = 0; i < 20; i++) // Adjust this value to move the title up or down
                         {
-                            document.Add(new Paragraph("\n"));
+                            document.Add(new Paragraph_iTextSharp("\n"));
                         }
-
-                        Paragraph titleParagraph = new Paragraph(title, FontFactory.GetFont(FontFactory.HELVETICA, 50f, iTextSharp.text.Font.BOLD));
+                        Paragraph_iTextSharp titleParagraph = new Paragraph_iTextSharp(title, FontFactory.GetFont(FontFactory.HELVETICA, 50f, iTextSharp.text.Font.BOLD));
                         titleParagraph.Alignment = Element.ALIGN_CENTER;
                         document.Add(titleParagraph);
-
                         for (int i = 0; i < 10; i++) // Adjust this value to move the title up or down
                         {
-                            document.Add(new Paragraph("\n"));
+                            document.Add(new Paragraph_iTextSharp("\n"));
                         }
 
                         // Add images to the document
-                        for (int i = 0; i < arrayFiles.Length; i++)
+                        foreach (var file in arrayFiles)
                         {
-                            string file = arrayFiles[i];
                             iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
                             document.SetPageSize(new iTextSharp.text.Rectangle(0, 0, image.Width, image.Height));
                             document.NewPage();
                             image.SetAbsolutePosition(0, 0);
                             document.Add(image);
+
+                            processedFiles++;
+                            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                         }
 
                         document.Close();
                         string outputFilePath = System.IO.Path.Combine(Path, $"{title}.pdf");
                         File.WriteAllBytes(outputFilePath, ms.ToArray());
 
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
                         MessageBox.Show($"PDF created successfully with title '{title}'!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
@@ -406,15 +426,65 @@ namespace Project__Filter
             }
         }
 
-
         private async Task DocxBuilder(string[] arrayFiles, string title)
         {
-            if (string.IsNullOrEmpty(title))
-            {
+            // Create a new document
+            var doc = DocX.Create(!string.IsNullOrEmpty(title) ? $"{Path}\\{title}.docx" : $"{Path}\\untitled.docx");
 
+            // Set up the progress bar
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = arrayFiles.Length));
+            int processedFiles = 0;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(title))
+                {
+                    // Add the title to the document
+                    var titleParagraph = doc.InsertParagraph(title)
+                                             .FontSize(50)
+                                             .Bold()
+                                             .Alignment = Alignment.center;
+
+                    // Add some spacing
+                    doc.InsertParagraph(new string('\n', 10));
+                }
+
+                foreach (var file in arrayFiles)
+                {
+                    var image = doc.AddImage(file);
+                    var picture = image.CreatePicture();
+
+                    // Ensure the picture fits the entire page
+                    picture.Width = doc.PageWidth - doc.MarginLeft - doc.MarginRight;
+                    picture.Height = doc.PageHeight - doc.MarginTop - doc.MarginBottom;
+
+                    // Add the picture to a new paragraph
+                    var pictureParagraph = doc.InsertParagraph()
+                                               .AppendPicture(picture)
+                                               .Alignment = Alignment.center;
+
+                    // Ensure each image gets its own page
+                    if (processedFiles < arrayFiles.Length - 1) // Prevents adding a blank page after the last image
+                    {
+                        doc.InsertParagraph().InsertPageBreakAfterSelf();
+                    }
+
+                    processedFiles++;
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                }
+
+                // Save the document to the specified path
+                doc.Save();
+
+                // Reset progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+                MessageBox.Show($"DOCX created successfully!", "DOCX Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating DOCX: {ex.Message}", "DOCX Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private MagickFormat GetMagickFormat(string extension)
         {
@@ -510,32 +580,28 @@ namespace Project__Filter
                     {
                         await Task.Run(() =>
                         {
-                            var doc = new Aspose.Words.Document(file);
-                            doc.Save(newFilePath);
+
                         });
                     }
                     else if (file.EndsWith(".xlsx") || file.EndsWith(".xls"))
                     {
                         await Task.Run(() =>
                         {
-                            var workbook = new Workbook(file);
-                            workbook.Save(newFilePath);
+
                         });
                     }
                     else if (file.EndsWith(".pptx") || file.EndsWith(".ppt"))
                     {
                         await Task.Run(() =>
                         {
-                            var presentation = new Presentation(file);
-                            presentation.Save(newFilePath, GetSlideFormat(extension));
+
                         });
                     }
                     else if (file.EndsWith(".pdf"))
                     {
                         await Task.Run(() =>
                         {
-                            var pdfDocument = new Aspose.Pdf.Document(file);
-                            pdfDocument.Save(newFilePath);
+
                         });
                     }
                     else
@@ -551,18 +617,5 @@ namespace Project__Filter
                 MessageBox.Show($"Error converting document: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private Aspose.Slides.Export.SaveFormat GetSlideFormat(string extension)
-        {
-            return extension.ToLower() switch
-            {
-                "pptx" => Aspose.Slides.Export.SaveFormat.Pptx,
-                "ppt" => Aspose.Slides.Export.SaveFormat.Ppt,
-                "pdf" => Aspose.Slides.Export.SaveFormat.Pdf,
-                _ => throw new NotSupportedException($"The extension '{extension}' is not supported for slides."),
-            };
-
-        }
     }
-
 }

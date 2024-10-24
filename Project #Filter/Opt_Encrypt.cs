@@ -1,10 +1,4 @@
-﻿using ImageMagick;
-using SharpCompress.Common;
-using System.Diagnostics;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace Project__Filter
+﻿namespace Project__Filter
 {
     public partial class Opt_Encrypt : UserControl
     {
