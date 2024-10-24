@@ -690,7 +690,6 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-
         public async Task SortHash(string folderPath, string jsonPath)
         {
             if (!File.Exists(jsonPath))
