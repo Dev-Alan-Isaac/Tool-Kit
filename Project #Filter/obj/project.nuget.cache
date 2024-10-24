@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "4IAqFIZ8mS0=",
+  "dgSpecHash": "amnRpdAf5Ak=",
   "success": true,
   "projectFilePath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Project #Filter.csproj",
   "expectedPackageFiles": [
@@ -52,6 +52,7 @@
     "C:\\Users\\Sistemas\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Sistemas\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Sistemas\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\Sistemas\\.nuget\\packages\\sharpcompress\\0.38.0\\sharpcompress.0.38.0.nupkg.sha512",
     "C:\\Users\\Sistemas\\.nuget\\packages\\system.codedom\\8.0.0\\system.codedom.8.0.0.nupkg.sha512",
     "C:\\Users\\Sistemas\\.nuget\\packages\\system.componentmodel.composition\\8.0.0\\system.componentmodel.composition.8.0.0.nupkg.sha512",
     "C:\\Users\\Sistemas\\.nuget\\packages\\system.componentmodel.composition.registration\\8.0.0\\system.componentmodel.composition.registration.8.0.0.nupkg.sha512",
@@ -92,7 +93,8 @@
     "C:\\Users\\Sistemas\\.nuget\\packages\\system.text.encoding.codepages\\8.0.0\\system.text.encoding.codepages.8.0.0.nupkg.sha512",
     "C:\\Users\\Sistemas\\.nuget\\packages\\system.threading.accesscontrol\\8.0.0\\system.threading.accesscontrol.8.0.0.nupkg.sha512",
     "C:\\Users\\Sistemas\\.nuget\\packages\\system.web.services.description\\4.10.0\\system.web.services.description.4.10.0.nupkg.sha512",
-    "C:\\Users\\Sistemas\\.nuget\\packages\\system.windows.extensions\\8.0.0\\system.windows.extensions.8.0.0.nupkg.sha512"
+    "C:\\Users\\Sistemas\\.nuget\\packages\\system.windows.extensions\\8.0.0\\system.windows.extensions.8.0.0.nupkg.sha512",
+    "C:\\Users\\Sistemas\\.nuget\\packages\\zstdsharp.port\\0.8.1\\zstdsharp.port.0.8.1.nupkg.sha512"
   ],
   "logs": [
     {

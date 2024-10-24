@@ -24,6 +24,7 @@
     <PackageReference Include="NReco.VideoConverter" Version="1.2.1" />
     <PackageReference Include="NReco.VideoInfo" Version="1.2.0" />
     <PackageReference Include="PDFsharp" Version="6.1.1" />
+    <PackageReference Include="SharpCompress" Version="0.38.0" />
   </ItemGroup>
 
   <ItemGroup>
