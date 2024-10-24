@@ -74,10 +74,6 @@
               "target": "Package",
               "version": "[2.1.0, )"
             },
-            "NPOI": {
-              "target": "Package",
-              "version": "[2.7.1, )"
-            },
             "NReco.VideoConverter": {
               "target": "Package",
               "version": "[1.2.1, )"

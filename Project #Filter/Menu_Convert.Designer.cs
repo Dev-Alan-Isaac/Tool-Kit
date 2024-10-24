@@ -148,7 +148,7 @@
             // comboBox_Document
             // 
             comboBox_Document.FormattingEnabled = true;
-            comboBox_Document.Items.AddRange(new object[] { "DOC", "DOCX", "XLSX", "XLS", "PDF", "TXT" });
+            comboBox_Document.Items.AddRange(new object[] { "DOC", "DOCX", "PDF", "TXT" });
             comboBox_Document.Location = new Point(441, 52);
             comboBox_Document.Name = "comboBox_Document";
             comboBox_Document.Size = new Size(118, 23);

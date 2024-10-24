@@ -10,9 +10,6 @@ using Paragraph_iTextSharp = iTextSharp.text.Paragraph;
 using DocumentPDF_iTextSharp = iTextSharp.text.Document;
 using Xceed.Words.NET;
 using Xceed.Document.NET;
-using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
 using iTextSharp.text.pdf.parser;
 
 
