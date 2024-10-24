@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
-using System.Collections.Concurrent;
-using System.Security.Cryptography;
+using SharpCompress.Archives;
+using SharpCompress.Common;
 
 namespace Project__Filter
 {
@@ -82,23 +82,23 @@ namespace Project__Filter
 
             if (radioButton_Extract.Checked)
             {
-                await Task.Run(() => Extract_Files(Path));
+                await Extract_Files(Path);
             }
             else if (radioButton_Rar.Checked)
             {
-                await Task.Run(() => Decompress_RAR(Path));
+                await Decompress_RAR(Path);
             }
             else if (radioButton_Zip.Checked)
             {
-                await Task.Run(() => Decompress_ZIP(Path));
+                await Decompress_ZIP(Path);
             }
             else if (radioButton_Tar.Checked)
             {
-                await Task.Run(() => Decompress_TAR(Path));
+                await Decompress_TAR(Path);
             }
         }
 
-        private async void Extract_Files(string path)
+        private async Task Extract_Files(string path)
         {
             // Ensure the "Extracted" directory exists
             string extractedFolder = System.IO.Path.Combine(path, "Extracted");
@@ -182,19 +182,79 @@ namespace Project__Filter
             return files; // Return the list of file paths
         }
 
-        private async void Decompress_RAR(string path)
+        private async Task Decompress_RAR(string rarPath)
         {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var archive = ArchiveFactory.Open(rarPath))
+                    {
+                        // Decompress the archive into the specified path
+                        archive.WriteToDirectory(Path, new ExtractionOptions()
+                        {
+                            ExtractFullPath = true,
+                            Overwrite = true
+                        });
+                    }
+                });
 
+                MessageBox.Show($"RAR file decompressed successfully!", "Decompression Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error decompressing RAR file: {ex.Message}", "Decompression Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private async void Decompress_ZIP(string path)
+        private async Task Decompress_ZIP(string zipPath)
         {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var archive = ArchiveFactory.Open(zipPath))
+                    {
+                        // Decompress the archive into the specified path
+                        archive.WriteToDirectory(Path, new ExtractionOptions()
+                        {
+                            ExtractFullPath = true,
+                            Overwrite = true
+                        });
+                    }
+                });
 
+                MessageBox.Show($"ZIP file decompressed successfully!", "Decompression Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error decompressing ZIP file: {ex.Message}", "Decompression Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private async void Decompress_TAR(string path)
+        private async Task Decompress_TAR(string tarPath)
         {
+            try
+            {
+                await Task.Run(() =>
+                {
+                    using (var archive = ArchiveFactory.Open(tarPath))
+                    {
+                        // Decompress the archive into the specified path
+                        archive.WriteToDirectory(Path, new ExtractionOptions()
+                        {
+                            ExtractFullPath = true,
+                            Overwrite = true
+                        });
+                    }
+                });
 
+                MessageBox.Show($"TAR file decompressed successfully!", "Decompression Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error decompressing TAR file: {ex.Message}", "Decompression Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void DeleteEmptyFolders(string folderPath)
