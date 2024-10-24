@@ -268,7 +268,18 @@ namespace Project__Filter
                                     directoryCache[targetDirectory] = targetDirectory;
                                 }
 
-                                string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
+                                string targetFileName = System.IO.Path.GetFileName(file);
+                                string targetPath = System.IO.Path.Combine(targetDirectory, targetFileName);
+
+                                // Check if a file with the same name already exists
+                                if (File.Exists(targetPath))
+                                {
+                                    // Add [Duplicate] prefix to the file name if a duplicate exists
+                                    string duplicateFileName = "[Duplicate]" + targetFileName;
+                                    targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+                                }
+
+                                // Move the file to the target directory
                                 File.Move(file, targetPath);
                             }
                         }
@@ -413,8 +424,18 @@ namespace Project__Filter
                         directoryCache[targetDirectory] = targetDirectory;
                     }
 
+                    string targetFileName = System.IO.Path.GetFileName(file);
+                    string targetPath = System.IO.Path.Combine(targetDirectory, targetFileName);
+
+                    // Check if a file with the same name already exists
+                    if (File.Exists(targetPath))
+                    {
+                        // Add [Duplicate] prefix to the file name if a duplicate exists
+                        string duplicateFileName = "[Duplicate]" + targetFileName;
+                        targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+                    }
+
                     // Move the file to the target directory
-                    string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
                     File.Move(file, targetPath);
                 }
 
@@ -523,12 +544,19 @@ namespace Project__Filter
                         directoryCache[targetDirectory] = targetDirectory;
                     }
 
-                    string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file.FullName));
+                    string targetFileName = System.IO.Path.GetFileName(file.FullName);
+                    string targetPath = System.IO.Path.Combine(targetDirectory, targetFileName);
 
-                    if (!File.Exists(targetPath))
+                    // Check if a file with the same name already exists
+                    if (File.Exists(targetPath))
                     {
-                        File.Move(file.FullName, targetPath);
+                        // Add [Duplicate] prefix to the file name if a duplicate exists
+                        string duplicateFileName = "[Duplicate]" + targetFileName;
+                        targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
                     }
+
+                    // Move the file to the target directory
+                    File.Move(file.FullName, targetPath);
 
                     // Increment processed files and batch update progress bar
                     Interlocked.Increment(ref processedFiles);
@@ -548,7 +576,8 @@ namespace Project__Filter
             // Update TreeView
             Invoke(() => Populated_Treeview(folderPath));
 
-            MessageBox.Show("Sorting completed!");
+            // Display a message informing the user that sorting is completed
+            MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public async Task SortHash(string folderPath, string jsonPath)
@@ -661,7 +690,7 @@ namespace Project__Filter
                     // If a file with the same name already exists, add hash as a prefix to the filename
                     if (File.Exists(targetFilePath))
                     {
-                        string newFileName = $"[Hash_{hashGroup.Key}]_{System.IO.Path.GetFileName(duplicateFile)}";
+                        string newFileName = $"[Hash]_{System.IO.Path.GetFileName(duplicateFile)}";
                         targetFilePath = System.IO.Path.Combine(duplicatesDirectory, newFileName);
                     }
 
@@ -781,11 +810,15 @@ namespace Project__Filter
 
                             string targetPath = System.IO.Path.Combine(targetDirectory, fileInfo.Name);
 
-                            // Only move if the file doesn't already exist
-                            if (!File.Exists(targetPath))
+                            // If the file already exists, add a prefix to avoid overwriting
+                            if (File.Exists(targetPath))
                             {
-                                File.Move(fileInfo.FullName, targetPath);
+                                string newFileName = $"[{sortingOption}]_{fileInfo.Name}";
+                                targetPath = System.IO.Path.Combine(targetDirectory, newFileName);
                             }
+
+                            // Move the file to the target directory
+                            File.Move(fileInfo.FullName, targetPath);
                         }
 
                         // Increment the progress
@@ -807,7 +840,7 @@ namespace Project__Filter
             // Refresh UI
             Invoke(() => Populated_Treeview(folderPath));
 
-            MessageBox.Show("Sorting completed!");
+            MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async Task SortCustomTags(string folderPath, string jsonPath)
@@ -870,10 +903,18 @@ namespace Project__Filter
                             // Use Directory.CreateDirectory, it will only create if it doesn't exist
                             Directory.CreateDirectory(targetDirectory);
 
-                            // Move the file to the target directory
+                            // Build the target path for the file
                             string targetPath = System.IO.Path.Combine(targetDirectory, fileName);
 
-                            // Perform the file move
+                            // Check if a file with the same name exists
+                            if (File.Exists(targetPath))
+                            {
+                                // If file already exists, add [Duplicate] prefix to the file name
+                                string duplicateFileName = $"[Duplicate]_{fileName}";
+                                targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+                            }
+
+                            // Move the file to the target directory
                             File.Move(file, targetPath);
                             break; // Once the file is moved, stop checking other tags for this file
                         }
@@ -898,6 +939,7 @@ namespace Project__Filter
 
             MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information); // "Information" for success
         }
+
 
         private async Task SortFolderLocation(string folderPath, string jsonPath)
         {
@@ -1137,15 +1179,17 @@ namespace Project__Filter
 
                         string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
 
-                        if (!File.Exists(destinationFile))
+                        // Check if a file with the same name already exists in the destination folder
+                        if (File.Exists(destinationFile))
                         {
-                            File.Move(file, destinationFile);
-                            Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                            // If the file exists, add the [Duplicate] prefix to the file name
+                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
-                        else
-                        {
-                            Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
-                        }
+
+                        // Move the file to the target folder
+                        File.Move(file, destinationFile);
+                        Debug.WriteLine($"Moved file {file} to {destinationFile}");
 
                         Interlocked.Increment(ref processedFiles);
                         progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
@@ -1192,14 +1236,15 @@ namespace Project__Filter
                         });
 
                         string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
-                        if (!File.Exists(destinationFile))
+
+                        if (File.Exists(destinationFile))
                         {
-                            File.Move(file, destinationFile);
+                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
-                        else
-                        {
-                            Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
-                        }
+
+                        File.Move(file, destinationFile);
+                        Debug.WriteLine($"Moved file {file} to {destinationFile}");
 
                         Interlocked.Increment(ref processedFiles);
                         progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
@@ -1226,15 +1271,15 @@ namespace Project__Filter
                             });
 
                             string destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
-                            if (!File.Exists(destinationFile))
+
+                            if (File.Exists(destinationFile))
                             {
-                                File.Move(file, destinationFile);
-                                Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                                string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                                destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                             }
-                            else
-                            {
-                                Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
-                            }
+
+                            File.Move(file, destinationFile);
+                            Debug.WriteLine($"Moved file {file} to {destinationFile}");
 
                             Interlocked.Increment(ref processedFiles);
                             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
@@ -1284,14 +1329,14 @@ namespace Project__Filter
 
                         var destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
 
-                        if (!File.Exists(destinationFile))
+                        if (File.Exists(destinationFile))
                         {
-                            File.Move(file, destinationFile);
+                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
-                        else
-                        {
-                            Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
-                        }
+
+                        File.Move(file, destinationFile);
+                        Debug.WriteLine($"Moved file {file} to {destinationFile}");
 
                         Interlocked.Increment(ref processedFiles);
                         progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
@@ -1340,15 +1385,14 @@ namespace Project__Filter
 
                         var destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
 
-                        if (!File.Exists(destinationFile))
+                        if (File.Exists(destinationFile))
                         {
-                            File.Move(file, destinationFile);
-                            Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
-                        else
-                        {
-                            Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
-                        }
+
+                        File.Move(file, destinationFile);
+                        Debug.WriteLine($"Moved file {file} to {destinationFile}");
 
                         Interlocked.Increment(ref processedFiles);
                         progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
@@ -1402,15 +1446,14 @@ namespace Project__Filter
 
                             var destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
 
-                            if (!File.Exists(destinationFile))
+                            if (File.Exists(destinationFile))
                             {
-                                File.Move(file, destinationFile);
-                                Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                                string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                                destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                             }
-                            else
-                            {
-                                Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
-                            }
+
+                            File.Move(file, destinationFile);
+                            Debug.WriteLine($"Moved file {file} to {destinationFile}");
 
                             Interlocked.Increment(ref processedFiles);
                             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
@@ -1446,15 +1489,14 @@ namespace Project__Filter
 
                             var destinationFile = System.IO.Path.Combine(targetFolderPath, System.IO.Path.GetFileName(file));
 
-                            if (!File.Exists(destinationFile))
+                            if (File.Exists(destinationFile))
                             {
-                                File.Move(file, destinationFile);
-                                Debug.WriteLine($"Moved file {file} to {destinationFile}");
+                                string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                                destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                             }
-                            else
-                            {
-                                Debug.WriteLine($"File already exists: {destinationFile}. Skipping move.");
-                            }
+
+                            File.Move(file, destinationFile);
+                            Debug.WriteLine($"Moved file {file} to {destinationFile}");
 
                             Interlocked.Increment(ref processedFiles);
                             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
