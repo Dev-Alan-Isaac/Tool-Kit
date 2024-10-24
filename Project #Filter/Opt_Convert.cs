@@ -13,6 +13,7 @@ using Xceed.Document.NET;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
+using iTextSharp.text.pdf.parser;
 
 
 namespace Project__Filter
@@ -125,7 +126,7 @@ namespace Project__Filter
             }
             else if (radioButton_Audio.Checked)
             {
-                allowedExtensions = new JArray { "MP3", "WAV", "AAC", "FLAC" };
+                allowedExtensions = new JArray { "MP3", "WAV", "AAC" };
             }
             else if (radioButton_Video.Checked)
             {
@@ -133,7 +134,7 @@ namespace Project__Filter
             }
             else if (radioButton_Document.Checked)
             {
-                allowedExtensions = new JArray { "DOC", "DOCX", "XLSX", "XLS", "PDF", "TXT" };
+                allowedExtensions = new JArray { "DOC", "DOCX", "PDF", "TXT" };
             }
 
             if (allowedExtensions != null)
@@ -530,7 +531,6 @@ namespace Project__Filter
             }
         }
 
-
         private async Task DocumentConvert(string[] files, string extension)
         {
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
@@ -549,40 +549,22 @@ namespace Project__Filter
                             var doc = DocX.Load(file);
                             if (extension == ".pdf")
                             {
-                                // Convert DocX to PDF
-                                // (You'd need to use an intermediary tool or service to handle this conversion)
+                                // Convert DocX to PDF using iTextSharp
+                                using (FileStream fs = new FileStream(newFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                                {
+                                    var document = new DocumentPDF_iTextSharp(PageSize.A4);
+                                    PdfWriter writer = PdfWriter.GetInstance(document, fs);
+                                    document.Open();
+                                    document.Add(new Paragraph_iTextSharp(doc.Text));
+                                    document.Close();
+                                }
                             }
-                            else if (extension == ".pptx" || extension == ".ppt")
+                            else if (extension == ".txt")
                             {
-                                // Convert DocX to PPTX/PPT
-                                // (Similar approach as above or use a third-party tool)
+                                // Convert DocX to plain text (.txt)
+                                File.WriteAllText(newFilePath, doc.Text);
                             }
                             doc.SaveAs(newFilePath);
-                        });
-                    }
-                    else if (file.EndsWith(".xlsx") || file.EndsWith(".xls"))
-                    {
-                        await Task.Run(() =>
-                        {
-                            IWorkbook workbook;
-                            using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
-                            {
-                                workbook = file.EndsWith(".xlsx") ? (IWorkbook)new XSSFWorkbook(fs) : new HSSFWorkbook(fs);
-                            }
-
-                            if (extension == ".pdf")
-                            {
-                                // Convert Excel to PDF
-                                // (Intermediary steps or third-party library required)
-                            }
-                            workbook.Write(new FileStream(newFilePath, FileMode.Create, FileAccess.Write));
-                        });
-                    }
-                    else if (file.EndsWith(".pptx") || file.EndsWith(".ppt"))
-                    {
-                        await Task.Run(() =>
-                        {
-                            // For PPTX/PPT conversions (use a third-party tool or service)
                         });
                     }
                     else if (file.EndsWith(".pdf"))
@@ -591,11 +573,34 @@ namespace Project__Filter
                         {
                             if (extension == ".docx" || extension == ".doc")
                             {
-                                // Convert PDF to DocX (use a third-party tool or service)
+                                // Convert PDF to Word using iTextSharp
+                                using (PdfReader pdfReader = new PdfReader(file))
+                                {
+                                    using (var doc = DocX.Create(newFilePath))
+                                    {
+                                        for (int i = 1; i <= pdfReader.NumberOfPages; i++)
+                                        {
+                                            string text = PdfTextExtractor.GetTextFromPage(pdfReader, i);
+                                            doc.InsertParagraph(text);
+                                        }
+                                        doc.Save();
+                                    }
+                                }
                             }
-                            else if (extension == ".pptx" || extension == ".ppt")
+                            else if (extension == ".txt")
                             {
-                                // Convert PDF to PPTX (use a third-party tool or service)
+                                // Convert PDF to plain text (.txt) using iTextSharp
+                                using (PdfReader pdfReader = new PdfReader(file))
+                                {
+                                    using (StreamWriter sw = new StreamWriter(newFilePath))
+                                    {
+                                        for (int i = 1; i <= pdfReader.NumberOfPages; i++)
+                                        {
+                                            string text = PdfTextExtractor.GetTextFromPage(pdfReader, i);
+                                            sw.WriteLine(text);
+                                        }
+                                    }
+                                }
                             }
                         });
                     }
