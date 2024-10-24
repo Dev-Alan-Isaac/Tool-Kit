@@ -87,7 +87,6 @@ namespace Project__Filter
             }
         }
 
-
         private async void button_Filter_Click_1(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(Path))
@@ -650,6 +649,5 @@ namespace Project__Filter
                 MessageBox.Show($"Error converting document: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }
