@@ -580,6 +580,117 @@ namespace Project__Filter
             MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private async Task SortNames(string folderPath, string jsonPath)
+        {
+            if (!File.Exists(jsonPath))
+            {
+                MessageBox.Show("Config file not found.");
+                return;
+            }
+
+            // Read and parse the JSON file
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
+
+            var option = jsonContent["Option"] as JObject;
+            var additional = jsonContent["Additional"] as JObject;
+
+            // Determine sorting options
+            bool sortAlphabetically = (bool)option["Alphabetically"];
+            bool sortByExtension = (bool)option["AlphabeticallyExtension"];
+            bool caseSensitive = (bool)additional["Case"];
+            bool ignoreSpecialCharacters = (bool)additional["Special"];
+
+            // Get all files in the folder
+            var files = await ProcessFiles(folderPath);
+            int totalFiles = files.Length;
+            var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
+
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
+
+            // Update the file count label
+            Invoke((MethodInvoker)(() => File_Count.Text = $"{totalFiles}"));
+
+            // Define a function to remove special characters if needed
+            string RemoveSpecialCharacters(string input)
+            {
+                return new string(input.Where(c => char.IsLetterOrDigit(c)).ToArray());
+            }
+
+            // Sort files based on the options
+            IEnumerable<FileInfo> sortedFiles;
+            if (sortByExtension)
+            {
+                // Sort by extension first, then by name
+                sortedFiles = fileInfoList.OrderBy(f => f.Extension)
+                                          .ThenBy(f => ignoreSpecialCharacters ? RemoveSpecialCharacters(f.Name) : f.Name);
+            }
+            else if (sortAlphabetically)
+            {
+                // Sort by name
+                sortedFiles = fileInfoList.OrderBy(f => ignoreSpecialCharacters ? RemoveSpecialCharacters(f.Name) : f.Name);
+            }
+            else
+            {
+                MessageBox.Show("No sorting option selected.");
+                return;
+            }
+
+            // Create folders and move files
+            foreach (var file in sortedFiles)
+            {
+                string fileName = file.Name;
+                string folderName;
+
+                // Handle case sensitivity
+                if (caseSensitive)
+                {
+                    folderName = fileName.Substring(0, 1); // First character of the file name
+                }
+                else
+                {
+                    folderName = fileName.Substring(0, 1).ToUpper(); // First character, case-insensitive
+                }
+
+                // Create folder based on first letter (with case-sensitivity if enabled)
+                string targetDirectory = System.IO.Path.Combine(folderPath, folderName);
+                if (!Directory.Exists(targetDirectory))
+                {
+                    Directory.CreateDirectory(targetDirectory);
+                }
+
+                // Move the file to the respective folder
+                string targetPath = System.IO.Path.Combine(targetDirectory, file.Name);
+
+                // Check if a file with the same name already exists in the target folder
+                if (File.Exists(targetPath))
+                {
+                    // Add "[Duplicate]" prefix if the file already exists
+                    string duplicateFileName = $"[Duplicate]_{file.Name}";
+                    targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+                }
+
+                // Move the file to the target path
+                File.Move(file.FullName, targetPath);
+
+                // Increment the progress bar after processing each file
+                processedFiles++;
+
+                // Update the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+            }
+
+            // Reset progress bar on the UI thread
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+
+            // Call Populated_Treeview on the UI thread
+            Invoke(() => Populated_Treeview(folderPath));
+
+            MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
         public async Task SortHash(string folderPath, string jsonPath)
         {
             if (!File.Exists(jsonPath))
@@ -939,7 +1050,6 @@ namespace Project__Filter
 
             MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information); // "Information" for success
         }
-
 
         private async Task SortFolderLocation(string folderPath, string jsonPath)
         {
