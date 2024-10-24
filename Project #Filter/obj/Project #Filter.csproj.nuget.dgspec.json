@@ -74,6 +74,10 @@
               "target": "Package",
               "version": "[2.1.0, )"
             },
+            "NPOI": {
+              "target": "Package",
+              "version": "[2.7.1, )"
+            },
             "NReco.VideoConverter": {
               "target": "Package",
               "version": "[1.2.1, )"
@@ -85,6 +89,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "PDFsharp": {
+              "target": "Package",
+              "version": "[6.1.1, )"
             },
             "iTextSharp": {
               "target": "Package",
