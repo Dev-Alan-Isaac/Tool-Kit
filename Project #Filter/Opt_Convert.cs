@@ -604,6 +604,35 @@ namespace Project__Filter
                             }
                         });
                     }
+                    else if (file.EndsWith(".txt"))
+                    {
+                        await Task.Run(() =>
+                        {
+                            string text = File.ReadAllText(file);
+
+                            if (extension == ".docx" || extension == ".doc")
+                            {
+                                // Convert plain text (.txt) to Word (.docx or .doc) using DocX
+                                using (var doc = DocX.Create(newFilePath))
+                                {
+                                    doc.InsertParagraph(text);
+                                    doc.Save();
+                                }
+                            }
+                            else if (extension == ".pdf")
+                            {
+                                // Convert plain text (.txt) to PDF using iTextSharp
+                                using (FileStream fs = new FileStream(newFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                                {
+                                    var document = new DocumentPDF_iTextSharp(PageSize.A4);
+                                    PdfWriter writer = PdfWriter.GetInstance(document, fs);
+                                    document.Open();
+                                    document.Add(new Paragraph_iTextSharp(text));
+                                    document.Close();
+                                }
+                            }
+                        });
+                    }
                     else
                     {
                         MessageBox.Show($"File format for {file} not supported for conversion.", "Format Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
