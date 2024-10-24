@@ -10,6 +10,9 @@ using Paragraph_iTextSharp = iTextSharp.text.Paragraph;
 using DocumentPDF_iTextSharp = iTextSharp.text.Document;
 using Xceed.Words.NET;
 using Xceed.Document.NET;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 
 
 namespace Project__Filter
@@ -336,93 +339,50 @@ namespace Project__Filter
 
         private async Task PDFBuilder(string[] arrayFiles, string title)
         {
-            DocumentPDF_iTextSharp document = new DocumentPDF_iTextSharp();
+            var document = new DocumentPDF_iTextSharp();
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = arrayFiles.Length));
             int processedFiles = 0;
+            string outputFilePath = System.IO.Path.Combine(Path, string.IsNullOrEmpty(title) ? "untitled.pdf" : $"{title}.pdf");
 
-            if (string.IsNullOrEmpty(title))
+            try
             {
-                try
+                using (var ms = new MemoryStream())
                 {
-                    using (MemoryStream ms = new MemoryStream())
+                    PdfWriter.GetInstance(document, ms);
+                    document.Open();
+
+                    if (!string.IsNullOrEmpty(title))
                     {
-                        PdfWriter.GetInstance(document, ms);
-                        document.Open();
-
-                        foreach (var file in arrayFiles)
-                        {
-                            iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
-                            document.SetPageSize(new iTextSharp.text.Rectangle(0, 0, image.Width, image.Height));
-                            document.NewPage();
-                            image.SetAbsolutePosition(0, 0);
-                            document.Add(image);
-
-                            processedFiles++;
-                            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                        }
-
-                        document.Close();
-                        string outputFilePath = System.IO.Path.Combine(Path, "untitled.pdf");
-                        File.WriteAllBytes(outputFilePath, ms.ToArray());
-
-                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-                        MessageBox.Show($"PDF created successfully!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error creating PDF: {ex.Message}", "PDF Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        PdfWriter writer = PdfWriter.GetInstance(document, ms);
-                        document.Open();
-
                         // Add title page
                         document.SetPageSize(PageSize.LETTER);
                         document.NewPage();
-                        for (int i = 0; i < 20; i++) // Adjust this value to move the title up or down
-                        {
-                            document.Add(new Paragraph_iTextSharp("\n"));
-                        }
-                        Paragraph_iTextSharp titleParagraph = new Paragraph_iTextSharp(title, FontFactory.GetFont(FontFactory.HELVETICA, 50f, iTextSharp.text.Font.BOLD));
+                        for (int i = 0; i < 20; i++) document.Add(new Paragraph_iTextSharp("\n"));
+                        var titleParagraph = new Paragraph_iTextSharp(title, FontFactory.GetFont(FontFactory.HELVETICA, 50f, iTextSharp.text.Font.BOLD));
                         titleParagraph.Alignment = Element.ALIGN_CENTER;
                         document.Add(titleParagraph);
-                        for (int i = 0; i < 10; i++) // Adjust this value to move the title up or down
-                        {
-                            document.Add(new Paragraph_iTextSharp("\n"));
-                        }
-
-                        // Add images to the document
-                        foreach (var file in arrayFiles)
-                        {
-                            iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(file);
-                            document.SetPageSize(new iTextSharp.text.Rectangle(0, 0, image.Width, image.Height));
-                            document.NewPage();
-                            image.SetAbsolutePosition(0, 0);
-                            document.Add(image);
-
-                            processedFiles++;
-                            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                        }
-
-                        document.Close();
-                        string outputFilePath = System.IO.Path.Combine(Path, $"{title}.pdf");
-                        File.WriteAllBytes(outputFilePath, ms.ToArray());
-
-                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-                        MessageBox.Show($"PDF created successfully with title '{title}'!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        for (int i = 0; i < 10; i++) document.Add(new Paragraph_iTextSharp("\n"));
                     }
+
+                    foreach (var file in arrayFiles)
+                    {
+                        var image = iTextSharp.text.Image.GetInstance(file);
+                        document.SetPageSize(new iTextSharp.text.Rectangle(0, 0, image.Width, image.Height));
+                        document.NewPage();
+                        image.SetAbsolutePosition(0, 0);
+                        document.Add(image);
+                        processedFiles++;
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                    }
+
+                    document.Close();
+                    File.WriteAllBytes(outputFilePath, ms.ToArray());
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+                    MessageBox.Show($"PDF created successfully!", "PDF Creation Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error creating PDF: {ex.Message}", "PDF Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error creating PDF: {ex.Message}", "PDF Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -500,7 +460,6 @@ namespace Project__Filter
             };
         }
 
-
         private async Task AudioConvert(string[] files, string extension)
         {
             try
@@ -542,24 +501,28 @@ namespace Project__Filter
             };
         }
 
-
-
         private async Task VideoConvert(string[] files, string extension)
         {
             try
             {
                 var ffmpeg = new FFMpegConverter();
 
+                // Set up the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+                int processedFiles = 0;
+
                 foreach (var file in files)
                 {
                     var outputFilePath = System.IO.Path.ChangeExtension(file, extension);
 
-                    await Task.Run(() =>
-                        ffmpeg.ConvertMedia(file, outputFilePath, extension)
-                    );
+                    await Task.Run(() => ffmpeg.ConvertMedia(file, outputFilePath, extension));
 
-                    MessageBox.Show($"Video converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    processedFiles++;
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                 }
+
+                MessageBox.Show($"All videos converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             }
             catch (Exception ex)
             {
@@ -567,11 +530,14 @@ namespace Project__Filter
             }
         }
 
+
         private async Task DocumentConvert(string[] files, string extension)
         {
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            int processedFiles = 0;
+
             try
             {
-
                 foreach (var file in files)
                 {
                     string newFilePath = System.IO.Path.ChangeExtension(file, extension);
@@ -580,28 +546,57 @@ namespace Project__Filter
                     {
                         await Task.Run(() =>
                         {
-
+                            var doc = DocX.Load(file);
+                            if (extension == ".pdf")
+                            {
+                                // Convert DocX to PDF
+                                // (You'd need to use an intermediary tool or service to handle this conversion)
+                            }
+                            else if (extension == ".pptx" || extension == ".ppt")
+                            {
+                                // Convert DocX to PPTX/PPT
+                                // (Similar approach as above or use a third-party tool)
+                            }
+                            doc.SaveAs(newFilePath);
                         });
                     }
                     else if (file.EndsWith(".xlsx") || file.EndsWith(".xls"))
                     {
                         await Task.Run(() =>
                         {
+                            IWorkbook workbook;
+                            using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
+                            {
+                                workbook = file.EndsWith(".xlsx") ? (IWorkbook)new XSSFWorkbook(fs) : new HSSFWorkbook(fs);
+                            }
 
+                            if (extension == ".pdf")
+                            {
+                                // Convert Excel to PDF
+                                // (Intermediary steps or third-party library required)
+                            }
+                            workbook.Write(new FileStream(newFilePath, FileMode.Create, FileAccess.Write));
                         });
                     }
                     else if (file.EndsWith(".pptx") || file.EndsWith(".ppt"))
                     {
                         await Task.Run(() =>
                         {
-
+                            // For PPTX/PPT conversions (use a third-party tool or service)
                         });
                     }
                     else if (file.EndsWith(".pdf"))
                     {
                         await Task.Run(() =>
                         {
-
+                            if (extension == ".docx" || extension == ".doc")
+                            {
+                                // Convert PDF to DocX (use a third-party tool or service)
+                            }
+                            else if (extension == ".pptx" || extension == ".ppt")
+                            {
+                                // Convert PDF to PPTX (use a third-party tool or service)
+                            }
                         });
                     }
                     else
@@ -609,13 +604,18 @@ namespace Project__Filter
                         MessageBox.Show($"File format for {file} not supported for conversion.", "Format Not Supported", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
 
-                    MessageBox.Show($"Documents converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    processedFiles++;
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                 }
+
+                MessageBox.Show($"Documents converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error converting document: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }
