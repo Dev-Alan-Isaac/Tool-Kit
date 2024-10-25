@@ -321,7 +321,7 @@ namespace Project__Filter
         {
             if (!File.Exists(jsonPath))
             {
-                MessageBox.Show("Config file not found.");
+                MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // "Danger" type for errors
                 return;
             }
 
@@ -334,7 +334,7 @@ namespace Project__Filter
 
             if (sizeSection == null)
             {
-                MessageBox.Show("Invalid JSON structure.");
+                MessageBox.Show("Invalid JSON structure.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // "Danger" type for errors
                 return;
             }
 
@@ -586,7 +586,7 @@ namespace Project__Filter
         {
             if (!File.Exists(jsonPath))
             {
-                MessageBox.Show("Config file not found.");
+                MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // "Danger" type for errors
                 return;
             }
 
@@ -635,7 +635,7 @@ namespace Project__Filter
             }
             else
             {
-                MessageBox.Show("No sorting option selected.");
+                MessageBox.Show("No sorting option selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); // "Danger" type for errors
                 return;
             }
 
@@ -696,7 +696,7 @@ namespace Project__Filter
         {
             if (!File.Exists(jsonPath))
             {
-                MessageBox.Show("Config file not found.");
+                MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // "Danger" type for errors
                 return;
             }
 
@@ -849,7 +849,7 @@ namespace Project__Filter
         {
             if (!File.Exists(jsonPath) || !File.Exists(configTypePath))
             {
-                MessageBox.Show("Config file not found.");
+                MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // "Danger" type for errors
                 return;
             }
 
