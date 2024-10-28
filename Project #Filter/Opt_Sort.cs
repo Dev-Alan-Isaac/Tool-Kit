@@ -799,7 +799,12 @@ namespace Project__Filter
                 progressBar_Time.Value = 0;
                 button_Filter.Enabled = true;
                 Populated_Treeview(folderPath);
-                MessageBox.Show(duplicatesFound ? "Duplicates found and sorted!" : "No duplicates found.");
+                MessageBox.Show(
+                    duplicatesFound ? "Duplicates found and sorted!" : "No duplicates found.",
+                    "Duplicate Check",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
             });
         }
 
