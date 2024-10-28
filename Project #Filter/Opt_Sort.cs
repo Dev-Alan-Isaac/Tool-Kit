@@ -211,7 +211,6 @@ namespace Project__Filter
                 return;
             }
 
-            // Read and parse the JSON file
             string jsonString = await File.ReadAllTextAsync(jsonPath);
             var jsonContent = JObject.Parse(jsonString);
 
@@ -221,99 +220,77 @@ namespace Project__Filter
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
 
-            // Set progress bar maximum value on the UI thread
+            // UI setup
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = totalFiles));
-
-            // Cache directory creation results to avoid redundant checks
-            var directoryCache = new ConcurrentDictionary<string, string>(); // Use ConcurrentDictionary for thread safety
-
-            // Update the file count label on the UI thread
             Invoke((MethodInvoker)(() => File_Count.Text = $"{totalFiles}"));
 
-            // Counter for processed files
+            var directoryCache = new ConcurrentDictionary<string, string>();
+
             int processedFiles = 0;
-            int batchUpdateSize = 50; // Batch progress updates
+            int batchUpdateSize = 50;
 
-            // Use Parallel.ForEach to speed up file processing
-            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
+            await Task.Run(() =>
             {
-                try
+                Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
                 {
-                    string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
-
-                    foreach (var allowCategory in allow)
+                    try
                     {
-                        bool isAllowed = (bool)allowCategory.Value;
-                        string category = allowCategory.Key;
+                        string fileExtension = System.IO.Path.GetExtension(file).TrimStart('.').ToLower();
+                        bool fileMoved = false;
 
-                        if (isAllowed)
+                        foreach (var allowCategory in allow)
                         {
-                            JArray categoryExtensions = (JArray)extensions[category];
-                            bool extensionExists = categoryExtensions
-                                .Select(ext => ext.ToString().Trim().ToLower())
-                                .Contains(fileExtension);
+                            bool isAllowed = (bool)allowCategory.Value;
+                            string category = allowCategory.Key;
 
-                            if (extensionExists)
+                            if (isAllowed)
                             {
-                                string originalDirectory = System.IO.Path.GetDirectoryName(file);
-                                string targetDirectory = System.IO.Path.Combine(originalDirectory, category);
-
-                                // Check the directory cache to avoid redundant checks
-                                if (!directoryCache.ContainsKey(targetDirectory))
+                                JArray categoryExtensions = (JArray)extensions[category];
+                                if (categoryExtensions.Select(ext => ext.ToString().Trim().ToLower()).Contains(fileExtension))
                                 {
-                                    if (!Directory.Exists(targetDirectory))
+                                    string targetDirectory = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(file), category);
+                                    if (!directoryCache.ContainsKey(targetDirectory))
                                     {
-                                        Directory.CreateDirectory(targetDirectory);
+                                        if (!Directory.Exists(targetDirectory)) Directory.CreateDirectory(targetDirectory);
+                                        directoryCache[targetDirectory] = targetDirectory;
                                     }
-                                    directoryCache[targetDirectory] = targetDirectory;
+
+                                    string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
+                                    if (File.Exists(targetPath))
+                                        targetPath = System.IO.Path.Combine(targetDirectory, "[Duplicate]" + System.IO.Path.GetFileName(file));
+
+                                    File.Move(file, targetPath);
+                                    fileMoved = true;
+                                    break; // Exit loop after moving the file
                                 }
+                            }
+                        }
 
-                                string targetFileName = System.IO.Path.GetFileName(file);
-                                string targetPath = System.IO.Path.Combine(targetDirectory, targetFileName);
+                        if (fileMoved)
+                        {
+                            Interlocked.Increment(ref processedFiles);
 
-                                // Check if a file with the same name already exists
-                                if (File.Exists(targetPath))
+                            // Update the progress bar only in batches to avoid UI freezing
+                            if (processedFiles % batchUpdateSize == 0)
+                            {
+                                Invoke(() =>
                                 {
-                                    // Add [Duplicate] prefix to the file name if a duplicate exists
-                                    string duplicateFileName = "[Duplicate]" + targetFileName;
-                                    targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
-                                }
-
-                                // Move the file to the target directory
-                                File.Move(file, targetPath);
+                                    progressBar_Time.Value = processedFiles;
+                                });
                             }
                         }
                     }
-
-                    // Increment the shared processedFiles count
-                    Interlocked.Increment(ref processedFiles);
-
-                    // Update the progress bar only in batches
-                    if (processedFiles % batchUpdateSize == 0)
+                    catch (Exception ex)
                     {
-                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                        MessageBox.Show($"Error processing file {file}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Handle exceptions (you may want to log them or show a message)
-                    MessageBox.Show($"Error processing file {file}: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                });
             });
 
-            // Final progress bar update after all files are processed
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = totalFiles));
-
-            // Set progress bar to 0 after completion
+            // Final UI Update after all files are processed
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-
-            // Call Populated_Treeview on the UI thread
             Invoke(() => Populated_Treeview(folderPath));
-
-            // Display a message informing the user that sorting is completed
             MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // Re-enable the filter button
             button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
         }
 
