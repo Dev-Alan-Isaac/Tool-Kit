@@ -134,34 +134,39 @@ namespace Project__Filter
 
             if (allowedExtensions != null)
             {
-
                 // Fetch the files
                 var files = await ProcessFiles(folderPath);
-                // Ensure unique files
                 var filteredFiles = files
                     .Where(file => allowedExtensions
                         .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
-                    .Distinct() // Ensures files are unique
+                    .Distinct()
                     .ToList();
-                FileList = filteredFiles.ToArray();
-                int filestotal = filteredFiles.Count;
-                File_Count.Text = $"{filestotal}";
 
-                // Populate TreeView with filtered files
+                FileList = filteredFiles.ToArray();
+                File_Count.Text = $"{filteredFiles.Count}";
+
                 foreach (var file in filteredFiles)
                 {
-                    string fileName = System.IO.Path.GetFileName(file); // Get only the file name
-                                                                        // Check if the folder node already exists in the TreeView
-                    string folderName = System.IO.Path.GetFileName(System.IO.Path.GetDirectoryName(file)); // Get the folder name
-                    TreeNode folderNode = FindOrCreateNode(treeView1.Nodes, folderName);
-                    // Check if the file is already in the folder node
-                    if (!folderNode.Nodes.Cast<TreeNode>().Any(node => node.Text == fileName))
+                    string fileName = System.IO.Path.GetFileName(file);
+                    string parentFolderName = System.IO.Path.GetFileName(System.IO.Path.GetDirectoryName(file));
+
+                    // Display parent folder name and file name together to make them unique
+                    string displayName = $"{parentFolderName}\\{fileName}";
+
+                    // Find or create the top-level node for the main folder
+                    TreeNode parentNode = FindOrCreateNode(treeView1.Nodes, System.IO.Path.GetFileName(folderPath));
+
+                    // Ensure unique entry by checking the display name
+                    if (!parentNode.Nodes.Cast<TreeNode>().Any(node => node.Text == displayName))
                     {
-                        folderNode.Nodes.Add(new TreeNode(fileName));
+                        // Add file with parent subfolder prefix
+                        TreeNode fileNode = new TreeNode(displayName)
+                        {
+                            Tag = file // Store the full path for reference
+                        };
+                        parentNode.Nodes.Add(fileNode);
                     }
-
                 }
-
             }
         }
 
@@ -233,15 +238,14 @@ namespace Project__Filter
 
             // Convert extension to lowercase
             extension = extension.ToLower();
-
             Extension = extension;
 
-            if (selectedNode.Nodes.Count > 0)
+            if (selectedNode.Nodes.Count > 0) // Folder node selected
             {
                 label_SelectedNode.Text = "Folder";
                 label_Output.Text = $"Files.{extension}";
 
-                // Re-run filter for all files in the selected folder
+                // Re-run filter for all files in the selected folder, including subfolders
                 var allFiles = await ProcessFiles(Path);
 
                 FileList = allFiles
@@ -249,25 +253,24 @@ namespace Project__Filter
                         .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
                     .Distinct()
                     .ToArray();
+            }
+            else if (selectedNode.Tag != null) // File node selected and Tag is set
+            {
+                // Retrieve the full path from the node's Tag
+                string filePath = selectedNode.Tag.ToString();
+                FileList = new string[] { filePath };
 
-                File_Count.Text = $"{FileList.Length}";
+                string nodeNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(selectedNode.Text);
+                label_SelectedNode.Text = nodeNameWithoutExtension;
+                label_Output.Text = $"{nodeNameWithoutExtension}.{extension}";
             }
             else
             {
-                // Remove the extension from the selected node's text (if it's a file)
-                string nodeNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(selectedNode.Text);
-                // Update label with the selected node's name (without extension)
-                label_SelectedNode.Text = nodeNameWithoutExtension;
-                // Set the full file path
-                string FilePath = System.IO.Path.Combine(Path, selectedNode.Text);
-
-                // Clear FileList and add only the selected file
-                FileList = new string[] { FilePath };
-
-                // Update label with the selected node's name and extension
-                label_Output.Text = $"{nodeNameWithoutExtension}.{extension}";
+                // Handle the case where Tag is null (e.g., unexpected node without a Tag)
+                MessageBox.Show("Error: Selected file node does not contain a valid path.", "Invalid Selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private async Task ImageConvert(string[] files, string targetExtension)
         {
@@ -321,76 +324,6 @@ namespace Project__Filter
                 "ico" => MagickFormat.Ico,
                 _ => throw new NotSupportedException($"The extension '{extension}' is not supported."),
             };
-        }
-
-        private async Task AudioConvert(string[] files, string extension)
-        {
-            try
-            {
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
-                int processedFiles = 0;
-
-                foreach (var file in files)
-                {
-                    using (var reader = new AudioFileReader(file))
-                    {
-                        string newFilePath = System.IO.Path.ChangeExtension(file, extension);
-                        using (var writer = GetAudioFileWriter(newFilePath, extension, reader.WaveFormat))
-                        {
-                            await Task.Run(() => reader.CopyTo(writer));
-                        }
-                    }
-
-                    processedFiles++;
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                }
-
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-                MessageBox.Show($"Audio converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error converting audio: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private Stream GetAudioFileWriter(string filePath, string extension, WaveFormat waveFormat)
-        {
-            return extension.ToLower() switch
-            {
-                "wav" => new WaveFileWriter(filePath, waveFormat),
-                "mp3" => new LameMP3FileWriter(filePath, waveFormat, LAMEPreset.STANDARD),
-                _ => throw new NotSupportedException($"The extension '{extension}' is not supported."),
-            };
-        }
-
-        private async Task VideoConvert(string[] files, string extension)
-        {
-            try
-            {
-                var ffmpeg = new FFMpegConverter();
-
-                // Set up the progress bar
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
-                int processedFiles = 0;
-
-                foreach (var file in files)
-                {
-                    var outputFilePath = System.IO.Path.ChangeExtension(file, extension);
-
-                    await Task.Run(() => ffmpeg.ConvertMedia(file, outputFilePath, extension));
-
-                    processedFiles++;
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                }
-
-                MessageBox.Show($"All videos converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error converting video: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private async Task ConvertDocument(string[] files, string targetExtension)
@@ -533,6 +466,76 @@ namespace Project__Filter
             catch (Exception ex)
             {
                 MessageBox.Show($"Error creating DOCX: {ex.Message}", "DOCX Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private async Task AudioConvert(string[] files, string extension)
+        {
+            try
+            {
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+                int processedFiles = 0;
+
+                foreach (var file in files)
+                {
+                    using (var reader = new AudioFileReader(file))
+                    {
+                        string newFilePath = System.IO.Path.ChangeExtension(file, extension);
+                        using (var writer = GetAudioFileWriter(newFilePath, extension, reader.WaveFormat))
+                        {
+                            await Task.Run(() => reader.CopyTo(writer));
+                        }
+                    }
+
+                    processedFiles++;
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                }
+
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+                MessageBox.Show($"Audio converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error converting audio: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private Stream GetAudioFileWriter(string filePath, string extension, WaveFormat waveFormat)
+        {
+            return extension.ToLower() switch
+            {
+                "wav" => new WaveFileWriter(filePath, waveFormat),
+                "mp3" => new LameMP3FileWriter(filePath, waveFormat, LAMEPreset.STANDARD),
+                _ => throw new NotSupportedException($"The extension '{extension}' is not supported."),
+            };
+        }
+
+        private async Task VideoConvert(string[] files, string extension)
+        {
+            try
+            {
+                var ffmpeg = new FFMpegConverter();
+
+                // Set up the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+                int processedFiles = 0;
+
+                foreach (var file in files)
+                {
+                    var outputFilePath = System.IO.Path.ChangeExtension(file, extension);
+
+                    await Task.Run(() => ffmpeg.ConvertMedia(file, outputFilePath, extension));
+
+                    processedFiles++;
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                }
+
+                MessageBox.Show($"All videos converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error converting video: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
