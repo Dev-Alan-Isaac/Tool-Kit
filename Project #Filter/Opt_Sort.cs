@@ -359,71 +359,74 @@ namespace Project__Filter
             int processedFiles = 0;
             int batchUpdateSize = 50; // Progress bar update batch size
 
-            // Process files in parallel for efficiency
-            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
+            await Task.Run(() =>
             {
-                FileInfo fileInfo = new FileInfo(file);
-                long fileSize = fileInfo.Length;  // Size in bytes
-
-                string targetCategory = null;
-
-                // Determine the size category for the file
-                if (fileSize <= smallMax)
-                {
-                    targetCategory = "Small";
-                }
-                else if (fileSize >= mediumMin && fileSize <= mediumMax)
-                {
-                    targetCategory = "Medium";
-                }
-                else if (fileSize >= largeMin && fileSize <= largeMax)
-                {
-                    targetCategory = "Large";
-                }
-                else if (fileSize >= veryLargeMin)
-                {
-                    targetCategory = "Very Large";
-                }
-
-                // If a category was determined, move the file
-                if (targetCategory != null)
-                {
-                    string originalDirectory = System.IO.Path.GetDirectoryName(file);
-                    string targetDirectory = System.IO.Path.Combine(originalDirectory, targetCategory);
-
-                    // Check the directory cache to avoid redundant checks
-                    if (!directoryCache.ContainsKey(targetDirectory))
+                // Process files in parallel for efficiency
+                Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
                     {
-                        if (!Directory.Exists(targetDirectory))
+                        FileInfo fileInfo = new FileInfo(file);
+                        long fileSize = fileInfo.Length;  // Size in bytes
+
+                        string targetCategory = null;
+
+                        // Determine the size category for the file
+                        if (fileSize <= smallMax)
                         {
-                            Directory.CreateDirectory(targetDirectory);
+                            targetCategory = "Small";
                         }
-                        directoryCache[targetDirectory] = targetDirectory;
-                    }
+                        else if (fileSize >= mediumMin && fileSize <= mediumMax)
+                        {
+                            targetCategory = "Medium";
+                        }
+                        else if (fileSize >= largeMin && fileSize <= largeMax)
+                        {
+                            targetCategory = "Large";
+                        }
+                        else if (fileSize >= veryLargeMin)
+                        {
+                            targetCategory = "Very Large";
+                        }
 
-                    string targetFileName = System.IO.Path.GetFileName(file);
-                    string targetPath = System.IO.Path.Combine(targetDirectory, targetFileName);
+                        // If a category was determined, move the file
+                        if (targetCategory != null)
+                        {
+                            string originalDirectory = System.IO.Path.GetDirectoryName(file);
+                            string targetDirectory = System.IO.Path.Combine(originalDirectory, targetCategory);
 
-                    // Check if a file with the same name already exists
-                    if (File.Exists(targetPath))
-                    {
-                        // Add [Duplicate] prefix to the file name if a duplicate exists
-                        string duplicateFileName = "[Duplicate]" + targetFileName;
-                        targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
-                    }
+                            // Check the directory cache to avoid redundant checks
+                            if (!directoryCache.ContainsKey(targetDirectory))
+                            {
+                                if (!Directory.Exists(targetDirectory))
+                                {
+                                    Directory.CreateDirectory(targetDirectory);
+                                }
+                                directoryCache[targetDirectory] = targetDirectory;
+                            }
 
-                    // Move the file to the target directory
-                    File.Move(file, targetPath);
-                }
+                            string targetFileName = System.IO.Path.GetFileName(file);
+                            string targetPath = System.IO.Path.Combine(targetDirectory, targetFileName);
 
-                // Increment processed file count
-                Interlocked.Increment(ref processedFiles);
+                            // Check if a file with the same name already exists
+                            if (File.Exists(targetPath))
+                            {
+                                // Add [Duplicate] prefix to the file name if a duplicate exists
+                                string duplicateFileName = "[Duplicate]" + targetFileName;
+                                targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+                            }
 
-                // Update the progress bar only in batches
-                if (processedFiles % batchUpdateSize == 0)
-                {
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                }
+                            // Move the file to the target directory
+                            File.Move(file, targetPath);
+                        }
+
+                        // Increment processed file count
+                        Interlocked.Increment(ref processedFiles);
+
+                        // Update the progress bar only in batches
+                        if (processedFiles % batchUpdateSize == 0)
+                        {
+                            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                        }
+                    });
             });
 
             // Final update to progress bar
@@ -563,7 +566,7 @@ namespace Project__Filter
         {
             if (!File.Exists(jsonPath))
             {
-                MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // "Danger" type for errors
+                MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -585,7 +588,7 @@ namespace Project__Filter
             int totalFiles = files.Length;
             var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
 
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = totalFiles));
             int processedFiles = 0;
 
             // Update the file count label
@@ -612,53 +615,38 @@ namespace Project__Filter
             }
             else
             {
-                MessageBox.Show("No sorting option selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); // "Danger" type for errors
+                MessageBox.Show("No sorting option selected.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Create folders and move files
-            foreach (var file in sortedFiles)
+            // Process file moving in parallel using Task.Run and Parallel.ForEach
+            await Task.Run(() =>
             {
-                string fileName = file.Name;
-                string folderName;
+                Parallel.ForEach(sortedFiles, file =>
+                {
+                    string fileName = file.Name;
+                    string folderName = caseSensitive ? fileName.Substring(0, 1) : fileName.Substring(0, 1).ToUpper();
+                    string targetDirectory = Path.Combine(folderPath, folderName);
 
-                // Handle case sensitivity
-                if (caseSensitive)
-                {
-                    folderName = fileName.Substring(0, 1); // First character of the file name
-                }
-                else
-                {
-                    folderName = fileName.Substring(0, 1).ToUpper(); // First character, case-insensitive
-                }
-
-                // Create folder based on first letter (with case-sensitivity if enabled)
-                string targetDirectory = System.IO.Path.Combine(folderPath, folderName);
-                if (!Directory.Exists(targetDirectory))
-                {
+                    // Ensure directory exists
                     Directory.CreateDirectory(targetDirectory);
-                }
 
-                // Move the file to the respective folder
-                string targetPath = System.IO.Path.Combine(targetDirectory, file.Name);
+                    // Construct target path and handle duplicates
+                    string targetPath = Path.Combine(targetDirectory, file.Name);
+                    if (File.Exists(targetPath))
+                    {
+                        string duplicateFileName = $"[Duplicate]_{file.Name}";
+                        targetPath = Path.Combine(targetDirectory, duplicateFileName);
+                    }
 
-                // Check if a file with the same name already exists in the target folder
-                if (File.Exists(targetPath))
-                {
-                    // Add "[Duplicate]" prefix if the file already exists
-                    string duplicateFileName = $"[Duplicate]_{file.Name}";
-                    targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
-                }
+                    // Move file
+                    File.Move(file.FullName, targetPath);
 
-                // Move the file to the target path
-                File.Move(file.FullName, targetPath);
-
-                // Increment the progress bar after processing each file
-                processedFiles++;
-
-                // Update the progress bar
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-            }
+                    // Update progress in a thread-safe manner
+                    Interlocked.Increment(ref processedFiles);
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                });
+            });
 
             // Reset progress bar on the UI thread
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
@@ -668,6 +656,7 @@ namespace Project__Filter
 
             MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
 
         public async Task SortHash(string folderPath, string jsonPath)
         {
@@ -870,59 +859,63 @@ namespace Project__Filter
 
                 if (isAllowed)
                 {
-                    Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
+                    await Task.Run(() =>
                     {
-                        FileInfo fileInfo = new FileInfo(file);
-                        bool moveFile = false;
 
-                        // Check the file properties based on the sorting option
-                        switch (sortingOption)
+                        Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
                         {
-                            case "Readable":
-                                if (!fileInfo.IsReadOnly) moveFile = true;
-                                break;
-                            case "Writable":
-                                if (!fileInfo.IsReadOnly) moveFile = true;
-                                break;
-                            case "Executable":
-                                string fileExtension = fileInfo.Extension.TrimStart('.').ToLower();
-                                if (executableExtensions.Contains(fileExtension)) moveFile = true;
-                                break;
-                        }
+                            FileInfo fileInfo = new FileInfo(file);
+                            bool moveFile = false;
 
-                        if (moveFile)
-                        {
-                            // Move file logic in place of MoveFileToFolder function
-                            string targetDirectory = System.IO.Path.Combine(folderPath, sortingOption);
-
-                            // Check and cache folder creation
-                            if (!directoryCache.ContainsKey(targetDirectory))
+                            // Check the file properties based on the sorting option
+                            switch (sortingOption)
                             {
-                                Directory.CreateDirectory(targetDirectory);
-                                directoryCache[targetDirectory] = targetDirectory;
+                                case "Readable":
+                                    if (!fileInfo.IsReadOnly) moveFile = true;
+                                    break;
+                                case "Writable":
+                                    if (!fileInfo.IsReadOnly) moveFile = true;
+                                    break;
+                                case "Executable":
+                                    string fileExtension = fileInfo.Extension.TrimStart('.').ToLower();
+                                    if (executableExtensions.Contains(fileExtension)) moveFile = true;
+                                    break;
                             }
 
-                            string targetPath = System.IO.Path.Combine(targetDirectory, fileInfo.Name);
-
-                            // If the file already exists, add a prefix to avoid overwriting
-                            if (File.Exists(targetPath))
+                            if (moveFile)
                             {
-                                string newFileName = $"[{sortingOption}]_{fileInfo.Name}";
-                                targetPath = System.IO.Path.Combine(targetDirectory, newFileName);
+                                // Move file logic in place of MoveFileToFolder function
+                                string targetDirectory = System.IO.Path.Combine(folderPath, sortingOption);
+
+                                // Check and cache folder creation
+                                if (!directoryCache.ContainsKey(targetDirectory))
+                                {
+                                    Directory.CreateDirectory(targetDirectory);
+                                    directoryCache[targetDirectory] = targetDirectory;
+                                }
+
+                                string targetPath = System.IO.Path.Combine(targetDirectory, fileInfo.Name);
+
+                                // If the file already exists, add a prefix to avoid overwriting
+                                if (File.Exists(targetPath))
+                                {
+                                    string newFileName = $"[{sortingOption}]_{fileInfo.Name}";
+                                    targetPath = System.IO.Path.Combine(targetDirectory, newFileName);
+                                }
+
+                                // Move the file to the target directory
+                                File.Move(fileInfo.FullName, targetPath);
                             }
 
-                            // Move the file to the target directory
-                            File.Move(fileInfo.FullName, targetPath);
-                        }
+                            // Increment the progress
+                            Interlocked.Increment(ref processedFiles);
 
-                        // Increment the progress
-                        Interlocked.Increment(ref processedFiles);
-
-                        // Update progress bar in batches
-                        if (processedFiles % batchUpdateSize == 0)
-                        {
-                            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                        }
+                            // Update progress bar in batches
+                            if (processedFiles % batchUpdateSize == 0)
+                            {
+                                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                            }
+                        });
                     });
                 }
             }
@@ -974,57 +967,59 @@ namespace Project__Filter
             // Update the file count label
             Invoke((MethodInvoker)(() => File_Count.Text = $"{totalFiles}"));
 
-            // Use Parallel.ForEach for faster processing
-            Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
+            await Task.Run(() =>
             {
-                try
+                // Use Parallel.ForEach for faster processing
+                Parallel.ForEach(files, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, file =>
                 {
-                    // Get the file name (without the path)
-                    string fileName = System.IO.Path.GetFileName(file);
-
-                    // Check if the file name starts with any tag
-                    foreach (var tag in tagsArray)
+                    try
                     {
-                        string tagString = tag.ToString();
-                        string tagPrefix = $"[{tagString}]";
+                        // Get the file name (without the path)
+                        string fileName = System.IO.Path.GetFileName(file);
 
-                        if (fileName.StartsWith(tagPrefix))
+                        // Check if the file name starts with any tag
+                        foreach (var tag in tagsArray)
                         {
-                            // Create the "Tags" folder and tag-specific subfolder
-                            string tagsFolder = System.IO.Path.Combine(folderPath, "Tags");
-                            string targetDirectory = System.IO.Path.Combine(tagsFolder, tagString);
+                            string tagString = tag.ToString();
+                            string tagPrefix = $"[{tagString}]";
 
-                            // Use Directory.CreateDirectory, it will only create if it doesn't exist
-                            Directory.CreateDirectory(targetDirectory);
-
-                            // Build the target path for the file
-                            string targetPath = System.IO.Path.Combine(targetDirectory, fileName);
-
-                            // Check if a file with the same name exists
-                            if (File.Exists(targetPath))
+                            if (fileName.StartsWith(tagPrefix))
                             {
-                                // If file already exists, add [Duplicate] prefix to the file name
-                                string duplicateFileName = $"[Duplicate]_{fileName}";
-                                targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+                                // Create the "Tags" folder and tag-specific subfolder
+                                string tagsFolder = System.IO.Path.Combine(folderPath, "Tags");
+                                string targetDirectory = System.IO.Path.Combine(tagsFolder, tagString);
+
+                                // Use Directory.CreateDirectory, it will only create if it doesn't exist
+                                Directory.CreateDirectory(targetDirectory);
+
+                                // Build the target path for the file
+                                string targetPath = System.IO.Path.Combine(targetDirectory, fileName);
+
+                                // Check if a file with the same name exists
+                                if (File.Exists(targetPath))
+                                {
+                                    // If file already exists, add [Duplicate] prefix to the file name
+                                    string duplicateFileName = $"[Duplicate]_{fileName}";
+                                    targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+                                }
+
+                                // Move the file to the target directory
+                                File.Move(file, targetPath);
+                                break; // Once the file is moved, stop checking other tags for this file
                             }
-
-                            // Move the file to the target directory
-                            File.Move(file, targetPath);
-                            break; // Once the file is moved, stop checking other tags for this file
                         }
+
+                        // Increment the progress bar after processing each file
+                        Interlocked.Increment(ref processedFiles);
+                        progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
                     }
-
-                    // Increment the progress bar after processing each file
-                    Interlocked.Increment(ref processedFiles);
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                }
-                catch (Exception ex)
-                {
-                    // Log error in debug or handle it here
-                    Debug.WriteLine($"Error processing file {file}: {ex.Message}");
-                }
+                    catch (Exception ex)
+                    {
+                        // Log error in debug or handle it here
+                        Debug.WriteLine($"Error processing file {file}: {ex.Message}");
+                    }
+                });
             });
-
             // Reset progress bar on the UI thread
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
 
@@ -1077,7 +1072,9 @@ namespace Project__Filter
 
             // Get directories and process them in parallel
             var directories = Directory.GetDirectories(folderPath, "*", SearchOption.TopDirectoryOnly);
-
+            await Task.Run(() =>
+            {
+          
             Parallel.ForEach(directories, dir =>
             {
                 string dirName = System.IO.Path.GetFileName(dir);
@@ -1098,7 +1095,7 @@ namespace Project__Filter
 
                 // Move the directory
                 Directory.Move(dir, System.IO.Path.Combine(targetDir, dirName));
-            });
+            });  });
         }
 
         private async Task SortByDepth(string folderPath, bool skipSpecialCharacters)
@@ -1115,6 +1112,9 @@ namespace Project__Filter
             // Get directories and process them in parallel
             var directories = Directory.GetDirectories(folderPath, "*", SearchOption.TopDirectoryOnly);
 
+            await Task.Run(() =>
+            {
+           
             Parallel.ForEach(directories, dir =>
             {
                 string dirName = System.IO.Path.GetFileName(dir);
@@ -1132,7 +1132,7 @@ namespace Project__Filter
 
                 // Move the directory
                 Directory.Move(dir, System.IO.Path.Combine(depthDir, dirName));
-            });
+            }); });
         }
 
         private int GetFolderDepth(string folder)
