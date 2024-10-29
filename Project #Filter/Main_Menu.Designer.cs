@@ -54,6 +54,7 @@
             menu_Convert1 = new Menu_Convert();
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             menu_Extract1 = new Menu_Extract();
+            button2 = new Button();
             panel_Menu_Config.SuspendLayout();
             SuspendLayout();
             // 
@@ -61,6 +62,7 @@
             // 
             panel_Menu_Config.AutoScroll = true;
             panel_Menu_Config.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Menu_Config.Controls.Add(button2);
             panel_Menu_Config.Controls.Add(button1);
             panel_Menu_Config.Controls.Add(button_Convert);
             panel_Menu_Config.Controls.Add(button_Media);
@@ -89,7 +91,7 @@
             button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button1.ForeColor = Color.White;
             button1.Image = Properties.Resources.Button_Icon_Extract;
-            button1.Location = new Point(22, 616);
+            button1.Location = new Point(22, 656);
             button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
             button1.Size = new Size(120, 40);
@@ -108,7 +110,7 @@
             button_Convert.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Convert.ForeColor = Color.White;
             button_Convert.Image = Properties.Resources.Button_Icon_Transform;
-            button_Convert.Location = new Point(22, 557);
+            button_Convert.Location = new Point(22, 593);
             button_Convert.Margin = new Padding(3, 2, 3, 2);
             button_Convert.Name = "button_Convert";
             button_Convert.Size = new Size(120, 40);
@@ -127,7 +129,7 @@
             button_Media.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Media.ForeColor = Color.White;
             button_Media.Image = Properties.Resources.Button_Icon_Media;
-            button_Media.Location = new Point(22, 498);
+            button_Media.Location = new Point(22, 530);
             button_Media.Margin = new Padding(3, 2, 3, 2);
             button_Media.Name = "button_Media";
             button_Media.Size = new Size(120, 40);
@@ -146,7 +148,7 @@
             button_Folder.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Folder.ForeColor = Color.White;
             button_Folder.Image = Properties.Resources.Button_Icon_Tree;
-            button_Folder.Location = new Point(22, 439);
+            button_Folder.Location = new Point(22, 467);
             button_Folder.Margin = new Padding(3, 2, 3, 2);
             button_Folder.Name = "button_Folder";
             button_Folder.Size = new Size(120, 40);
@@ -165,7 +167,7 @@
             button_Tags.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Tags.ForeColor = Color.White;
             button_Tags.Image = Properties.Resources.Button_Icon_Tags;
-            button_Tags.Location = new Point(22, 380);
+            button_Tags.Location = new Point(22, 404);
             button_Tags.Margin = new Padding(3, 2, 3, 2);
             button_Tags.Name = "button_Tags";
             button_Tags.Size = new Size(120, 40);
@@ -184,7 +186,7 @@
             button_Auth.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Auth.ForeColor = Color.White;
             button_Auth.Image = Properties.Resources.Button_Icon_Auth;
-            button_Auth.Location = new Point(22, 321);
+            button_Auth.Location = new Point(22, 341);
             button_Auth.Margin = new Padding(3, 2, 3, 2);
             button_Auth.Name = "button_Auth";
             button_Auth.Size = new Size(120, 40);
@@ -203,7 +205,7 @@
             button_Name.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Name.ForeColor = Color.White;
             button_Name.Image = Properties.Resources.Button_Icon_Name;
-            button_Name.Location = new Point(22, 262);
+            button_Name.Location = new Point(22, 278);
             button_Name.Margin = new Padding(3, 2, 3, 2);
             button_Name.Name = "button_Name";
             button_Name.Size = new Size(120, 40);
@@ -222,7 +224,7 @@
             button_Size.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Size.ForeColor = Color.White;
             button_Size.Image = Properties.Resources.Button_Icon_Size;
-            button_Size.Location = new Point(22, 203);
+            button_Size.Location = new Point(22, 215);
             button_Size.Margin = new Padding(3, 2, 3, 2);
             button_Size.Name = "button_Size";
             button_Size.Size = new Size(120, 40);
@@ -241,7 +243,7 @@
             button_Date.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Date.ForeColor = Color.White;
             button_Date.Image = Properties.Resources.Button_Icon_Calendar;
-            button_Date.Location = new Point(22, 144);
+            button_Date.Location = new Point(22, 152);
             button_Date.Margin = new Padding(3, 2, 3, 2);
             button_Date.Name = "button_Date";
             button_Date.Size = new Size(120, 40);
@@ -260,7 +262,7 @@
             button_Type.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Type.ForeColor = Color.White;
             button_Type.Image = Properties.Resources.Button_Icon_Folder;
-            button_Type.Location = new Point(22, 85);
+            button_Type.Location = new Point(22, 89);
             button_Type.Margin = new Padding(3, 2, 3, 2);
             button_Type.Name = "button_Type";
             button_Type.Size = new Size(120, 40);
@@ -406,6 +408,24 @@
             menu_Extract1.Size = new Size(594, 541);
             menu_Extract1.TabIndex = 25;
             // 
+            // button2
+            // 
+            button2.BackColor = Color.FromArgb(0, 64, 64);
+            button2.Cursor = Cursors.Hand;
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button2.ForeColor = Color.White;
+            button2.Image = Properties.Resources.Button_Icon_Extract;
+            button2.Location = new Point(22, 719);
+            button2.Margin = new Padding(3, 2, 3, 2);
+            button2.Name = "button2";
+            button2.Size = new Size(120, 40);
+            button2.TabIndex = 26;
+            button2.Text = "   Extract";
+            button2.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button2.UseVisualStyleBackColor = false;
+            // 
             // Main_Menu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -456,5 +476,6 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Button button1;
         private Menu_Extract menu_Extract1;
+        private Button button2;
     }
 }
