@@ -271,7 +271,6 @@ namespace Project__Filter
             }
         }
 
-
         private async Task ImageConvert(string[] files, string targetExtension)
         {
             if (targetExtension == "docx" || targetExtension == "pdf")
@@ -555,8 +554,10 @@ namespace Project__Filter
                         await Task.Run(() =>
                         {
                             var doc = DocX.Load(file);
-                            if (extension == ".pdf")
+                            if (extension == "pdf")
                             {
+                                // Corrected new file path with dot in extension
+                                string newFilePath = System.IO.Path.ChangeExtension(file, ".pdf");
                                 using (FileStream fs = new FileStream(newFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
                                 {
                                     var document = new DocumentPDF_iTextSharp(PageSize.A4);
@@ -566,8 +567,9 @@ namespace Project__Filter
                                     document.Close();
                                 }
                             }
-                            else if (extension == ".txt")
+                            else if (extension == "txt")
                             {
+                                string newFilePath = System.IO.Path.ChangeExtension(file, ".txt");
                                 File.WriteAllText(newFilePath, doc.Text);
                             }
                             doc.SaveAs(newFilePath);
@@ -577,8 +579,10 @@ namespace Project__Filter
                     {
                         await Task.Run(() =>
                         {
-                            if (extension == ".docx" || extension == ".doc")
+                            if (extension == "docx" || extension == "doc")
                             {
+                                // Corrected new file path with dot in extension
+                                string newFilePath = System.IO.Path.ChangeExtension(file, ".docx");
                                 using (PdfReader pdfReader = new PdfReader(file))
                                 {
                                     using (var doc = DocX.Create(newFilePath))
@@ -592,8 +596,9 @@ namespace Project__Filter
                                     }
                                 }
                             }
-                            else if (extension == ".txt")
+                            else if (extension == "txt")
                             {
+                                string newFilePath = System.IO.Path.ChangeExtension(file, ".txt");
                                 using (PdfReader pdfReader = new PdfReader(file))
                                 {
                                     using (StreamWriter sw = new StreamWriter(newFilePath))
@@ -612,25 +617,51 @@ namespace Project__Filter
                     {
                         await Task.Run(() =>
                         {
-                            string text = File.ReadAllText(file);
+                            string text = File.ReadAllText(file); // Read the content of the text file
 
-                            if (extension == ".docx" || extension == ".doc")
+                            // Get the name without extension
+                            string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file);
+                            // Create the new file path with the desired extension
+                            string newFilePath = System.IO.Path.Combine(
+                                System.IO.Path.GetDirectoryName(file),
+                                fileNameWithoutExtension + "." + extension); // Ensure the dot is included
+
+                            // Check the desired output format
+                            if (extension == "docx" || extension == "doc")
                             {
-                                using (var doc = DocX.Create(newFilePath))
+                                try
                                 {
-                                    doc.InsertParagraph(text);
-                                    doc.Save();
+                                    // Create a new Word document with the content of the text file
+                                    using (var doc = DocX.Create(newFilePath))
+                                    {
+                                        doc.InsertParagraph(text); // Insert the text into the document
+                                        doc.Save(); // Save the document
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    // Log or show the error if the file creation fails
+                                    MessageBox.Show($"Error creating DOC file: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
-                            else if (extension == ".pdf")
+                            else if (extension == "pdf")
                             {
-                                using (FileStream fs = new FileStream(newFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                                try
                                 {
-                                    var document = new DocumentPDF_iTextSharp(PageSize.A4);
-                                    PdfWriter writer = PdfWriter.GetInstance(document, fs);
-                                    document.Open();
-                                    document.Add(new Paragraph_iTextSharp(text));
-                                    document.Close();
+                                    // Create a new PDF document with the content of the text file
+                                    using (FileStream fs = new FileStream(newFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                                    {
+                                        var document = new DocumentPDF_iTextSharp(PageSize.A4);
+                                        PdfWriter writer = PdfWriter.GetInstance(document, fs);
+                                        document.Open();
+                                        document.Add(new Paragraph_iTextSharp(text)); // Add the text to the PDF document
+                                        document.Close(); // Close the document
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    // Log or show the error if the file creation fails
+                                    MessageBox.Show($"Error creating PDF file: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
                             }
                         });
