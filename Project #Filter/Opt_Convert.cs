@@ -236,9 +236,9 @@ namespace Project__Filter
 
             Extension = extension;
 
-            if (selectedNode.Nodes.Count > 0) 
+            if (selectedNode.Nodes.Count > 0)
             {
-                label_SelectedNode.Text = "Folder";  
+                label_SelectedNode.Text = "Folder";
                 label_Output.Text = $"Files.{extension}";
 
                 // Re-run filter for all files in the selected folder
@@ -306,6 +306,90 @@ namespace Project__Filter
                 {
                     MessageBox.Show($"Error converting file: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private MagickFormat GetMagickFormat(string extension)
+        {
+            return extension.ToLower() switch
+            {
+                "bmp" => MagickFormat.Bmp,
+                "jpeg" => MagickFormat.Jpeg,
+                "png" => MagickFormat.Png,
+                "tiff" => MagickFormat.Tiff,
+                "gif" => MagickFormat.Gif,
+                "ico" => MagickFormat.Ico,
+                _ => throw new NotSupportedException($"The extension '{extension}' is not supported."),
+            };
+        }
+
+        private async Task AudioConvert(string[] files, string extension)
+        {
+            try
+            {
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+                int processedFiles = 0;
+
+                foreach (var file in files)
+                {
+                    using (var reader = new AudioFileReader(file))
+                    {
+                        string newFilePath = System.IO.Path.ChangeExtension(file, extension);
+                        using (var writer = GetAudioFileWriter(newFilePath, extension, reader.WaveFormat))
+                        {
+                            await Task.Run(() => reader.CopyTo(writer));
+                        }
+                    }
+
+                    processedFiles++;
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                }
+
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+                MessageBox.Show($"Audio converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error converting audio: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private Stream GetAudioFileWriter(string filePath, string extension, WaveFormat waveFormat)
+        {
+            return extension.ToLower() switch
+            {
+                "wav" => new WaveFileWriter(filePath, waveFormat),
+                "mp3" => new LameMP3FileWriter(filePath, waveFormat, LAMEPreset.STANDARD),
+                _ => throw new NotSupportedException($"The extension '{extension}' is not supported."),
+            };
+        }
+
+        private async Task VideoConvert(string[] files, string extension)
+        {
+            try
+            {
+                var ffmpeg = new FFMpegConverter();
+
+                // Set up the progress bar
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
+                int processedFiles = 0;
+
+                foreach (var file in files)
+                {
+                    var outputFilePath = System.IO.Path.ChangeExtension(file, extension);
+
+                    await Task.Run(() => ffmpeg.ConvertMedia(file, outputFilePath, extension));
+
+                    processedFiles++;
+                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
+                }
+
+                MessageBox.Show($"All videos converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error converting video: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -449,90 +533,6 @@ namespace Project__Filter
             catch (Exception ex)
             {
                 MessageBox.Show($"Error creating DOCX: {ex.Message}", "DOCX Creation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private MagickFormat GetMagickFormat(string extension)
-        {
-            return extension.ToLower() switch
-            {
-                "bmp" => MagickFormat.Bmp,
-                "jpeg" => MagickFormat.Jpeg,
-                "png" => MagickFormat.Png,
-                "tiff" => MagickFormat.Tiff,
-                "gif" => MagickFormat.Gif,
-                "ico" => MagickFormat.Ico,
-                _ => throw new NotSupportedException($"The extension '{extension}' is not supported."),
-            };
-        }
-
-        private async Task AudioConvert(string[] files, string extension)
-        {
-            try
-            {
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
-                int processedFiles = 0;
-
-                foreach (var file in files)
-                {
-                    using (var reader = new AudioFileReader(file))
-                    {
-                        string newFilePath = System.IO.Path.ChangeExtension(file, extension);
-                        using (var writer = GetAudioFileWriter(newFilePath, extension, reader.WaveFormat))
-                        {
-                            await Task.Run(() => reader.CopyTo(writer));
-                        }
-                    }
-
-                    processedFiles++;
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                }
-
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-                MessageBox.Show($"Audio converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error converting audio: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private Stream GetAudioFileWriter(string filePath, string extension, WaveFormat waveFormat)
-        {
-            return extension.ToLower() switch
-            {
-                "wav" => new WaveFileWriter(filePath, waveFormat),
-                "mp3" => new LameMP3FileWriter(filePath, waveFormat, LAMEPreset.STANDARD),
-                _ => throw new NotSupportedException($"The extension '{extension}' is not supported."),
-            };
-        }
-
-        private async Task VideoConvert(string[] files, string extension)
-        {
-            try
-            {
-                var ffmpeg = new FFMpegConverter();
-
-                // Set up the progress bar
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = files.Length));
-                int processedFiles = 0;
-
-                foreach (var file in files)
-                {
-                    var outputFilePath = System.IO.Path.ChangeExtension(file, extension);
-
-                    await Task.Run(() => ffmpeg.ConvertMedia(file, outputFilePath, extension));
-
-                    processedFiles++;
-                    progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-                }
-
-                MessageBox.Show($"All videos converted successfully to {extension.ToUpper()}!", "Conversion Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error converting video: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
