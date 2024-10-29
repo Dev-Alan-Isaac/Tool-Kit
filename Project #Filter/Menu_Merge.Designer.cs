@@ -106,6 +106,7 @@
             button_Saved.Size = new Size(570, 43);
             button_Saved.TabIndex = 52;
             button_Saved.UseVisualStyleBackColor = false;
+            button_Saved.Click += button_Saved_Click;
             // 
             // panel10
             // 
@@ -185,6 +186,7 @@
             Controls.Add(panel5);
             Name = "Menu_Merge";
             Size = new Size(611, 514);
+            Load += Menu_Merge_Load;
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             panel10.ResumeLayout(false);
