@@ -32,6 +32,38 @@ namespace Project__Filter
                          new JProperty("Option", new JObject(
                              new JProperty("Delete", true),
                              new JProperty("Subfolder", false)
+                         )), 
+                         new JProperty("Type", new JObject(
+                             new JProperty("Delete", true),
+                             new JProperty("Subfolder", false)
+                         )),
+                         new JProperty("Date", new JObject(
+                             new JProperty("Delete", true),
+                             new JProperty("Subfolder", false)
+                         )),
+                         new JProperty("Size", new JObject(
+                             new JProperty("Delete", true),
+                             new JProperty("Subfolder", false)
+                         )),
+                         new JProperty("Name", new JObject(
+                             new JProperty("Delete", true),
+                             new JProperty("Subfolder", false)
+                         )),
+                         new JProperty("Auth", new JObject(
+                             new JProperty("Delete", true),
+                             new JProperty("Subfolder", false)
+                         )),
+                         new JProperty("Tags", new JObject(
+                             new JProperty("Delete", true),
+                             new JProperty("Subfolder", false)
+                         )),
+                         new JProperty("Folders", new JObject(
+                             new JProperty("Delete", true),
+                             new JProperty("Subfolder", false)
+                         )),
+                         new JProperty("Media", new JObject(
+                             new JProperty("Delete", true),
+                             new JProperty("Subfolder", false)
                          ))
                     );
 
@@ -89,5 +121,6 @@ namespace Project__Filter
             // Optionally, show a message to indicate that the file was saved
             MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
     }
 }
