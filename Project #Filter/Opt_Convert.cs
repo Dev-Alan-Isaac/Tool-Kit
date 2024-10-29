@@ -557,7 +557,6 @@ namespace Project__Filter
                             var doc = DocX.Load(file);
                             if (extension == ".pdf")
                             {
-                                // Convert DocX to PDF using iTextSharp
                                 using (FileStream fs = new FileStream(newFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
                                 {
                                     var document = new DocumentPDF_iTextSharp(PageSize.A4);
@@ -569,7 +568,6 @@ namespace Project__Filter
                             }
                             else if (extension == ".txt")
                             {
-                                // Convert DocX to plain text (.txt)
                                 File.WriteAllText(newFilePath, doc.Text);
                             }
                             doc.SaveAs(newFilePath);
@@ -581,7 +579,6 @@ namespace Project__Filter
                         {
                             if (extension == ".docx" || extension == ".doc")
                             {
-                                // Convert PDF to Word using iTextSharp
                                 using (PdfReader pdfReader = new PdfReader(file))
                                 {
                                     using (var doc = DocX.Create(newFilePath))
@@ -597,7 +594,6 @@ namespace Project__Filter
                             }
                             else if (extension == ".txt")
                             {
-                                // Convert PDF to plain text (.txt) using iTextSharp
                                 using (PdfReader pdfReader = new PdfReader(file))
                                 {
                                     using (StreamWriter sw = new StreamWriter(newFilePath))
@@ -620,7 +616,6 @@ namespace Project__Filter
 
                             if (extension == ".docx" || extension == ".doc")
                             {
-                                // Convert plain text (.txt) to Word (.docx or .doc) using DocX
                                 using (var doc = DocX.Create(newFilePath))
                                 {
                                     doc.InsertParagraph(text);
@@ -629,7 +624,6 @@ namespace Project__Filter
                             }
                             else if (extension == ".pdf")
                             {
-                                // Convert plain text (.txt) to PDF using iTextSharp
                                 using (FileStream fs = new FileStream(newFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
                                 {
                                     var document = new DocumentPDF_iTextSharp(PageSize.A4);
@@ -658,5 +652,6 @@ namespace Project__Filter
                 MessageBox.Show($"Error converting document: {ex.Message}", "Conversion Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }
