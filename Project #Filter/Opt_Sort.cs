@@ -626,17 +626,17 @@ namespace Project__Filter
                 {
                     string fileName = file.Name;
                     string folderName = caseSensitive ? fileName.Substring(0, 1) : fileName.Substring(0, 1).ToUpper();
-                    string targetDirectory = Path.Combine(folderPath, folderName);
+                    string targetDirectory = System.IO.Path.Combine(folderPath, folderName);
 
                     // Ensure directory exists
                     Directory.CreateDirectory(targetDirectory);
 
                     // Construct target path and handle duplicates
-                    string targetPath = Path.Combine(targetDirectory, file.Name);
+                    string targetPath = System.IO.Path.Combine(targetDirectory, file.Name);
                     if (File.Exists(targetPath))
                     {
                         string duplicateFileName = $"[Duplicate]_{file.Name}";
-                        targetPath = Path.Combine(targetDirectory, duplicateFileName);
+                        targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
                     }
 
                     // Move file
@@ -656,7 +656,6 @@ namespace Project__Filter
 
             MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
 
         public async Task SortHash(string folderPath, string jsonPath)
         {
