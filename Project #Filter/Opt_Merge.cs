@@ -138,38 +138,38 @@
 
             if (radioButton_Text.Checked)
             {
-                await Task.Run(() => Text_Merge());
+                await Text_Merge();
             }
             else if (radioButton_Word.Checked)
             {
-                await Task.Run(() => Word_Merge());
+                await Word_Merge();
             }
             else if (radioButton_PDF.Checked)
             {
-                await Task.Run(() => PDF_Merge());
+                await PDF_Merge();
             }
             else if (radioButton_HTML.Checked)
             {
-                await Task.Run(() => Html_Merge());
+                await Html_Merge();
             }
         }
 
-        private async void Text_Merge()
+        private async Task Text_Merge()
         {
 
         }
 
-        private async void Word_Merge()
+        private async Task Word_Merge()
         {
 
         }
 
-        private async void PDF_Merge()
+        private async Task PDF_Merge()
         {
 
         }
 
-        private async void Html_Merge()
+        private async Task Html_Merge()
         {
 
         }
