@@ -23,7 +23,6 @@ namespace Project__Filter
                 {
                     Path = fbd.SelectedPath;
                     textBox_Path.Text = Path;
-                    Populated_Treeview(fbd.SelectedPath);
                     var files = Directory.GetFiles(fbd.SelectedPath, "*.*", SearchOption.AllDirectories);
                     int filestotal = files.Length;
                     File_Count.Text = $"{filestotal}";
@@ -68,6 +67,7 @@ namespace Project__Filter
             if (radioButton_Rar.Checked || radioButton_Zip.Checked
                 || radioButton_Tar.Checked || radioButton_Extract.Checked)
             {
+                Populated_Treeview(Path);
                 button_Filter.Enabled = true;
             }
             else
