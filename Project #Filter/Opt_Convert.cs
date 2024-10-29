@@ -21,6 +21,7 @@ namespace Project__Filter
         private bool isProgrammaticChange = false;
         private string Extension = string.Empty;
         private string[] FileList;
+        JArray allowedExtensions = null;
 
         public Opt_Transform()
         {
@@ -114,8 +115,6 @@ namespace Project__Filter
             // Clear the TreeView first
             treeView1.Nodes.Clear();
 
-            // Define which set of extensions to use depending on the selected radio button
-            JArray allowedExtensions = null;
             if (radioButton_Image.Checked)
             {
                 allowedExtensions = new JArray { "BMP", "JPEG", "PNG", "TIFF", "JIFF", "ICO" };
@@ -201,7 +200,7 @@ namespace Project__Filter
             return files; // Return the list of file paths
         }
 
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        private async void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             // Get the selected node
             TreeNode selectedNode = e.Node;
@@ -237,11 +236,21 @@ namespace Project__Filter
 
             Extension = extension;
 
-            // Check if the node is a folder or a file
-            if (selectedNode.Nodes.Count > 0) // If the node has child nodes, it's a folder
+            if (selectedNode.Nodes.Count > 0) 
             {
-                label_SelectedNode.Text = "Folder";  // Display "Folder" in the label
-                label_Output.Text = $"Files.{extension}";    // Clear the output label for folders        
+                label_SelectedNode.Text = "Folder";  
+                label_Output.Text = $"Files.{extension}";
+
+                // Re-run filter for all files in the selected folder
+                var allFiles = await ProcessFiles(Path);
+
+                FileList = allFiles
+                    .Where(file => allowedExtensions
+                        .Any(ext => file.EndsWith($".{ext}", StringComparison.OrdinalIgnoreCase)))
+                    .Distinct()
+                    .ToArray();
+
+                File_Count.Text = $"{FileList.Length}";
             }
             else
             {
