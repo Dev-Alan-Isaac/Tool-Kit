@@ -30,7 +30,8 @@
         {
             components = new System.ComponentModel.Container();
             panel_Menu_Config = new Panel();
-            button1 = new Button();
+            button_Merge = new Button();
+            button_Extract = new Button();
             button_Convert = new Button();
             button_Media = new Button();
             button_Folder = new Button();
@@ -54,7 +55,7 @@
             menu_Convert1 = new Menu_Convert();
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             menu_Extract1 = new Menu_Extract();
-            button2 = new Button();
+            menu_Merge1 = new Menu_Merge();
             panel_Menu_Config.SuspendLayout();
             SuspendLayout();
             // 
@@ -62,8 +63,8 @@
             // 
             panel_Menu_Config.AutoScroll = true;
             panel_Menu_Config.BackColor = Color.FromArgb(0, 64, 64);
-            panel_Menu_Config.Controls.Add(button2);
-            panel_Menu_Config.Controls.Add(button1);
+            panel_Menu_Config.Controls.Add(button_Merge);
+            panel_Menu_Config.Controls.Add(button_Extract);
             panel_Menu_Config.Controls.Add(button_Convert);
             panel_Menu_Config.Controls.Add(button_Media);
             panel_Menu_Config.Controls.Add(button_Folder);
@@ -82,24 +83,43 @@
             panel_Menu_Config.Size = new Size(171, 541);
             panel_Menu_Config.TabIndex = 1;
             // 
-            // button1
+            // button_Merge
             // 
-            button1.BackColor = Color.FromArgb(0, 64, 64);
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button1.ForeColor = Color.White;
-            button1.Image = Properties.Resources.Button_Icon_Extract;
-            button1.Location = new Point(22, 656);
-            button1.Margin = new Padding(3, 2, 3, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(120, 40);
-            button1.TabIndex = 25;
-            button1.Text = "   Extract";
-            button1.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            button_Merge.BackColor = Color.FromArgb(0, 64, 64);
+            button_Merge.Cursor = Cursors.Hand;
+            button_Merge.FlatAppearance.BorderSize = 0;
+            button_Merge.FlatStyle = FlatStyle.Flat;
+            button_Merge.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button_Merge.ForeColor = Color.White;
+            button_Merge.Image = Properties.Resources.Button_Icon_Merge;
+            button_Merge.Location = new Point(22, 719);
+            button_Merge.Margin = new Padding(3, 2, 3, 2);
+            button_Merge.Name = "button_Merge";
+            button_Merge.Size = new Size(120, 40);
+            button_Merge.TabIndex = 26;
+            button_Merge.Text = "   Merge";
+            button_Merge.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button_Merge.UseVisualStyleBackColor = false;
+            button_Merge.Click += button_Merge_Click;
+            // 
+            // button_Extract
+            // 
+            button_Extract.BackColor = Color.FromArgb(0, 64, 64);
+            button_Extract.Cursor = Cursors.Hand;
+            button_Extract.FlatAppearance.BorderSize = 0;
+            button_Extract.FlatStyle = FlatStyle.Flat;
+            button_Extract.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button_Extract.ForeColor = Color.White;
+            button_Extract.Image = Properties.Resources.Button_Icon_Extract;
+            button_Extract.Location = new Point(22, 656);
+            button_Extract.Margin = new Padding(3, 2, 3, 2);
+            button_Extract.Name = "button_Extract";
+            button_Extract.Size = new Size(120, 40);
+            button_Extract.TabIndex = 25;
+            button_Extract.Text = "   Extract";
+            button_Extract.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button_Extract.UseVisualStyleBackColor = false;
+            button_Extract.Click += button_Extract_Click;
             // 
             // button_Convert
             // 
@@ -408,29 +428,21 @@
             menu_Extract1.Size = new Size(594, 541);
             menu_Extract1.TabIndex = 25;
             // 
-            // button2
+            // menu_Merge1
             // 
-            button2.BackColor = Color.FromArgb(0, 64, 64);
-            button2.Cursor = Cursors.Hand;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button2.ForeColor = Color.White;
-            button2.Image = Properties.Resources.Button_Icon_Extract;
-            button2.Location = new Point(22, 719);
-            button2.Margin = new Padding(3, 2, 3, 2);
-            button2.Name = "button2";
-            button2.Size = new Size(120, 40);
-            button2.TabIndex = 26;
-            button2.Text = "   Extract";
-            button2.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button2.UseVisualStyleBackColor = false;
+            menu_Merge1.BackColor = Color.FromArgb(64, 64, 64);
+            menu_Merge1.Dock = DockStyle.Fill;
+            menu_Merge1.Location = new Point(171, 0);
+            menu_Merge1.Name = "menu_Merge1";
+            menu_Merge1.Size = new Size(594, 541);
+            menu_Merge1.TabIndex = 27;
             // 
             // Main_Menu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
+            Controls.Add(menu_Merge1);
             Controls.Add(menu_Extract1);
             Controls.Add(menu_Convert1);
             Controls.Add(menu_Sort1);
@@ -474,8 +486,9 @@
         private Button button_Date;
         private Button button_Type;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
-        private Button button1;
+        private Button button_Extract;
         private Menu_Extract menu_Extract1;
-        private Button button2;
+        private Button button_Merge;
+        private Menu_Merge menu_Merge1;
     }
 }

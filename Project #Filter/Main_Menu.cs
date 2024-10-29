@@ -86,9 +86,16 @@
             FollowButton(sender as Button);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button_Extract_Click(object sender, EventArgs e)
         {
             menu_Extract1.BringToFront(); Panel_Index_Config.BackColor = Color.Teal;
+
+            FollowButton(sender as Button);
+        }
+
+        private void button_Merge_Click(object sender, EventArgs e)
+        {
+            menu_Merge1.BringToFront(); Panel_Index_Config.BackColor = Color.Teal;
 
             FollowButton(sender as Button);
         }
