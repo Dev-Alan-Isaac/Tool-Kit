@@ -62,29 +62,30 @@ namespace Project__Filter
 
         private void button_Saved_Click(object sender, EventArgs e)
         {
-            var jsonObject = new JObject
-            {
-                ["Option"] = new JObject
-                {
-                    ["Accessed"] = radioButton_Accessed.Checked,
-                    ["Creation"] = radioButton_Creation.Checked,
-                    ["Modified"] = radioButton_Modified.Checked
-                }
-            };
-
             // Define the path to the JSON file
-            string filePath = "Config_Date.json";
+            string filePath = "Config_Sort.json";
 
-            // Write the JSON object to the file
-            File.WriteAllText(filePath, jsonObject.ToString());
+            // Load the JSON file
+            JObject jsonObject;
+            if (File.Exists(filePath))
+            {
+                jsonObject = JObject.Parse(File.ReadAllText(filePath));
+            }
+            else
+            {
+                MessageBox.Show("Configuration file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            // Optionally, show a message to indicate that the file was saved
+            jsonObject["Date"]["Accessed"] = radioButton_Accessed.Checked;
+            jsonObject["Date"]["Creation"] = radioButton_Creation.Checked;
+            jsonObject["Date"]["Modified"] = radioButton_Modified.Checked;
+           
+            // Write the modified JSON object back to the file
+            File.WriteAllText(filePath, jsonObject.ToString(Formatting.Indented));
+
+            // Show a message to indicate that the file was saved
             MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void button_Saved_Click_1(object sender, EventArgs e)
-        {
-
         }
     }
 }
