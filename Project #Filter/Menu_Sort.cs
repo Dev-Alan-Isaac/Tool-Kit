@@ -1,16 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Project__Filter
 {
@@ -29,41 +18,67 @@ namespace Project__Filter
                 {
                     // Create the JSON object
                     var jsonContent = new JObject(
-                         new JProperty("Option", new JObject(
+                         new JProperty("General", new JObject(
                              new JProperty("Delete", true),
                              new JProperty("Subfolder", false)
-                         )), 
+                         )),
                          new JProperty("Type", new JObject(
-                             new JProperty("Delete", true),
-                             new JProperty("Subfolder", false)
+                            new JProperty("Images", new JArray("jpg", "png", "gif", "bmp", "jpeg")),
+                             new JProperty("Videos", new JArray("mp4", "m4v", "avi", "mkv", "3gp", "mov", "wmv", "webm", "ts", "mpg", "asf", "flv", "mpeg")),
+                             new JProperty("Documents", new JArray("txt", "docx", "pdf", "pptx")),
+                             new JProperty("Audio", new JArray("mp3", "wav", "aac", "flac", "ogg", "m4a", "wma", "alac", "aiff")),
+                             new JProperty("Archives", new JArray("zip", "rar", "7z", "tar", "gz", "bz2", "iso", "xz")),
+                             new JProperty("Executables", new JArray("exe", "bat", "sh", "msi", "bin", "cmd", "apk", "com", "jar"))
+                         )),
+                         new JProperty("Type_Additional", new JObject(
+                             new JProperty("Documents", true),
+                             new JProperty("Images", true),
+                             new JProperty("Audio", true),
+                             new JProperty("Videos", true),
+                             new JProperty("Archives", true),
+                             new JProperty("Executables", true)
                          )),
                          new JProperty("Date", new JObject(
-                             new JProperty("Delete", true),
-                             new JProperty("Subfolder", false)
+                             new JProperty("Accessed", true),
+                             new JProperty("Creation", false),
+                             new JProperty("Modified", false)
                          )),
                          new JProperty("Size", new JObject(
-                             new JProperty("Delete", true),
-                             new JProperty("Subfolder", false)
+                             new JProperty("Small", "100", "MB"),
+                             new JProperty("Medium", "100", "MB", "1", "GB"),
+                             new JProperty("Large", "1", "GB", "10", "GB"),
+                             new JProperty("Very Large", "10", "GB")
                          )),
                          new JProperty("Name", new JObject(
-                             new JProperty("Delete", true),
-                             new JProperty("Subfolder", false)
+                              new JProperty("Alphabetically", true),
+                              new JProperty("AlphabeticallyExtension", false)
+                         )),
+                         new JProperty("Name_Additional", new JObject(
+                             new JProperty("Case", true),
+                             new JProperty("Special", true)
                          )),
                          new JProperty("Auth", new JObject(
-                             new JProperty("Delete", true),
-                             new JProperty("Subfolder", false)
+                             new JProperty("Readable", true),
+                             new JProperty("Writable", false),
+                             new JProperty("Executable", false)
                          )),
-                         new JProperty("Tags", new JObject(
-                             new JProperty("Delete", true),
-                             new JProperty("Subfolder", false)
+                         new JProperty("Tag", new JObject(
+                             new JProperty("Tags", new JArray())
                          )),
-                         new JProperty("Folders", new JObject(
-                             new JProperty("Delete", true),
-                             new JProperty("Subfolder", false)
+                         new JProperty("Folder", new JObject(
+                            new JProperty("Alphabetical", true),
+                            new JProperty("Depth", false)
+                         )),
+                         new JProperty("Folder_Additional", new JObject(
+                             new JProperty("Case", true),
+                             new JProperty("Special", true)
                          )),
                          new JProperty("Media", new JObject(
-                             new JProperty("Delete", true),
-                             new JProperty("Subfolder", false)
+                             new JProperty("Duration", true),
+                             new JProperty("Resolution", false),
+                             new JProperty("Frame_Rate", false),
+                             new JProperty("Codec", false),
+                             new JProperty("Aspect", false)
                          ))
                     );
 
@@ -89,7 +104,7 @@ namespace Project__Filter
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
                 // Access the "Allow" object inside the JSON
-                var extensionsObject = jsonObject["Option"] as JObject;
+                var extensionsObject = jsonObject["General"] as JObject;
 
                 if (extensionsObject != null)
                 {
@@ -100,27 +115,31 @@ namespace Project__Filter
             }
         }
 
-
         private void button_Saved_Click(object sender, EventArgs e)
         {
-            var jsonObject = new JObject
-            {
-                ["Option"] = new JObject
-                {
-                    ["Delete"] = checkBox_Delete.Checked,
-                    ["Subfolder"] = checkBox_Subfolders.Checked,
-                }
-            };
-
             // Define the path to the JSON file
             string filePath = "Config_Sort.json";
 
-            // Write the JSON object to the file
-            File.WriteAllText(filePath, jsonObject.ToString());
+            // Load the JSON file
+            JObject jsonObject;
+            if (File.Exists(filePath))
+            {
+                jsonObject = JObject.Parse(File.ReadAllText(filePath));
+            }
+            else
+            {
+                MessageBox.Show("Configuration file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            // Optionally, show a message to indicate that the file was saved
+            jsonObject["General"]["Delete"] = checkBox_Delete.Checked; 
+            jsonObject["General"]["Subfolder"] = checkBox_Subfolders.Checked; 
+
+            // Write the modified JSON object back to the file
+            File.WriteAllText(filePath, jsonObject.ToString(Newtonsoft.Json.Formatting.Indented));
+
+            // Show a message to indicate that the file was saved
             MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
     }
 }
