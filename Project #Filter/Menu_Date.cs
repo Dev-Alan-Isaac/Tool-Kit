@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Project__Filter
@@ -21,24 +22,13 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Config_Date.json"))
+                if (File.Exists("Config_Sort.json"))
                 {
-                    // Create the JSON object
-                    var jsonContent = new JObject(
-                         new JProperty("Option", new JObject(
-                             new JProperty("Accessed", true),
-                             new JProperty("Creation", false),
-                             new JProperty("Modified", false)
-                         ))
-                     );
-
-                    // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Config_Date.json", jsonContent.ToString());
+                    // File already exists; get the filepath
+                    string filePath = Path.GetFullPath("Config_Sort.json");
+                    Populate_Inputs(filePath);
+                    break;
                 }
-
-                string filePath = Path.GetFullPath("Config_Date.json");
-                Populate_Inputs(filePath);
-                break;
             }
         }
 
@@ -46,32 +36,26 @@ namespace Project__Filter
         {
             if (File.Exists(FilePath))
             {
-                // Read the JSON content from the file
+                // Read the JSON content once
                 string jsonContent = File.ReadAllText(FilePath);
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);           
 
-                // Deserialize the JSON content into a JObject
-                var jsonObject = JObject.Parse(jsonContent);
+                // Check the state of "Alphabetically" and "AlphabeticallyExtension" and set radio buttons accordingly
+                bool isAccessed = jsonObject["Date"]["Accessed"]?.ToObject<bool>() ?? false;
+                bool isCreation = jsonObject["Date"]["Creation"]?.ToObject<bool>() ?? false;
+                bool isModified = jsonObject["Date"]["Modified"]?.ToObject<bool>() ?? false;
 
-                // Check if the "Option" property exists
-                if (jsonObject["Option"] != null)
+                if (isAccessed)
                 {
-                    // Check the state of "Alphabetically" and "AlphabeticallyExtension" and set radio buttons accordingly
-                    bool isAccessed = jsonObject["Option"]["Accessed"]?.ToObject<bool>() ?? false;
-                    bool isCreation = jsonObject["Option"]["Creation"]?.ToObject<bool>() ?? false;
-                    bool isModified = jsonObject["Option"]["Modified"]?.ToObject<bool>() ?? false;
-
-                    if (isAccessed)
-                    {
-                        radioButton_Accessed.Checked = true; // Assuming this is the radio button for "Alphabetically"
-                    }
-                    else if (isCreation)
-                    {
-                        radioButton_Creation.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
-                    else if (isModified)
-                    {
-                        radioButton_Modified.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
+                    radioButton_Accessed.Checked = true; // Assuming this is the radio button for "Alphabetically"
+                }
+                else if (isCreation)
+                {
+                    radioButton_Creation.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
+                }
+                else if (isModified)
+                {
+                    radioButton_Modified.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
                 }
             }
         }

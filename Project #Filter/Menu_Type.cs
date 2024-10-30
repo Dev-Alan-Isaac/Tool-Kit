@@ -21,13 +21,13 @@ namespace Project__Filter
                 {
                     // File already exists; get the filepath
                     string filePath = Path.GetFullPath("Config_Sort.json");
-                    PopulateInputs(filePath);
+                    Populate_Inputs(filePath);
                     break;
                 }
             }
         }
 
-        private void PopulateInputs(string FilePath)
+        private void Populate_Inputs(string FilePath)
         {
             if (File.Exists(FilePath))
             {
@@ -216,7 +216,7 @@ namespace Project__Filter
 
                     // After successful removal, repopulate the TreeView
                     string filePath = Path.GetFullPath("Config_Sort.json");
-                    PopulateInputs(filePath);
+                    Populate_Inputs(filePath);
                 }
                 else
                 {
@@ -253,14 +253,5 @@ namespace Project__Filter
                 }
             }
         }
-
-        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-            // Get the selected node
-            TreeNode selectedNode = e.Node;
-
-            NodeBranch = selectedNode.Text;
-        }
-
     }
 }
