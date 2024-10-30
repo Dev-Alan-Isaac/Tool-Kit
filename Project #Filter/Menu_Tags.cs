@@ -36,7 +36,6 @@ namespace Project__Filter
 
                 // Access the Extensions object
                 var extensionsObject = jsonObject["Tag"] as JObject; // Explicit cast to JObject
-
                 if (extensionsObject != null)
                 {
                     // Iterate through extension categories
@@ -105,8 +104,8 @@ namespace Project__Filter
 
         private void button_Remove_Click(object sender, EventArgs e)
         {
-            // Ensure a node is selected in the TreeView
-            if (treeView_Tags.SelectedNode == null)
+            // Ensure a tag node is selected in the TreeView
+            if (treeView_Tags.SelectedNode == null || treeView_Tags.SelectedNode.Parent == null)
             {
                 MessageBox.Show("Please select a tag to remove.", "No Tag Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -158,7 +157,7 @@ namespace Project__Filter
                         // Remove the node from the TreeView
                         treeView_Tags.Nodes.Remove(treeView_Tags.SelectedNode);
 
-                        // Optionally, show a message indicating success
+                        // Show a message indicating success
                         MessageBox.Show("Tag removed successfully!", "Delete Tag", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
