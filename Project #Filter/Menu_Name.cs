@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Project__Filter
 {
@@ -13,25 +14,13 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Config_Names.json"))
+                if (File.Exists("Config_Sort.json"))
                 {
-                    // Create the JSON object
-                    var jsonContent = new JObject(
-                         new JProperty("Option", new JObject(
-                             new JProperty("Alphabetically", true),
-                             new JProperty("AlphabeticallyExtension", false)
-                         )),
-                         new JProperty("Additional", new JObject(
-                             new JProperty("Case", true),
-                             new JProperty("Special", true)
-                         ))
-                     );
-                    // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Config_Names.json", jsonContent.ToString());
+                    // File already exists; get the filepath
+                    string filePath = Path.GetFullPath("Config_Sort.json");
+                    Populate_Inputs(filePath);
+                    break;
                 }
-                string filePath = Path.GetFullPath("Config_Names.json");
-                Populate_Inputs(filePath);
-                break;
             }
         }
 
@@ -39,66 +28,63 @@ namespace Project__Filter
         {
             if (File.Exists(FilePath))
             {
-                // Read the JSON content from the file
                 string jsonContent = File.ReadAllText(FilePath);
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
-                // Deserialize the JSON content into a JObject
-                var jsonObject = JObject.Parse(jsonContent);
+                bool isAlphabetically = jsonObject["Name"]["Alphabetically"]?.ToObject<bool>() ?? false;
+                bool isAlphabeticallyExtension = jsonObject["Name"]["AlphabeticallyExtension"]?.ToObject<bool>() ?? false;
 
-                // Check if the "Option" property exists
-                if (jsonObject["Option"] != null)
+                if (isAlphabetically)
                 {
-                    // Check the state of "Alphabetically" and "AlphabeticallyExtension" and set radio buttons accordingly
-                    bool isAlphabetically = jsonObject["Option"]["Alphabetically"]?.ToObject<bool>() ?? false;
-                    bool isAlphabeticallyExtension = jsonObject["Option"]["AlphabeticallyExtension"]?.ToObject<bool>() ?? false;
-
-                    if (isAlphabetically)
-                    {
-                        radioButton_FileName.Checked = true; // Assuming this is the radio button for "Alphabetically"
-                    }
-                    else if (isAlphabeticallyExtension)
-                    {
-                        radioButton_FileExtension.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
+                    radioButton_FileName.Checked = isAlphabetically; 
+                }
+                else if (isAlphabeticallyExtension)
+                {
+                    radioButton_FileExtension.Checked = isAlphabeticallyExtension; 
                 }
 
-                // Check if the "Additional" property exists
-                if (jsonObject["Additional"] != null)
-                {
-                    // Check the state of "Case" and "Special" and set checkboxes accordingly
-                    bool isCase = jsonObject["Additional"]["Case"]?.ToObject<bool>() ?? false;
-                    bool isSpecial = jsonObject["Additional"]["Special"]?.ToObject<bool>() ?? false;
+                bool isCase = jsonObject["Name_Additional"]["Case"]?.ToObject<bool>() ?? false;
+                bool isSpecial = jsonObject["Name_Additional"]["Special"]?.ToObject<bool>() ?? false;
 
-                    checkBox_CapsSens.Checked = isCase; // Assuming this is the checkbox for "Case"
-                    checkBox_IgnoreSpecialChar.Checked = isSpecial; // Assuming this is the checkbox for "Special"
+                if (isCase)
+                {
+                    checkBox_CapsSens.Checked = isCase; 
+                }
+                else if (isSpecial)
+                {
+                    checkBox_IgnoreSpecialChar.Checked = isSpecial;
                 }
             }
         }
 
         private void button_Saved_Click(object sender, EventArgs e)
         {
-            // Create a new JObject to represent the JSON structure
-            var jsonObject = new JObject
-            {
-                ["Option"] = new JObject
-                {
-                    ["Alphabetically"] = radioButton_FileName.Checked,
-                    ["AlphabeticallyExtension"] = radioButton_FileExtension.Checked
-                },
-                ["Additional"] = new JObject
-                {
-                    ["Case"] = checkBox_CapsSens.Checked,
-                    ["Special"] = checkBox_IgnoreSpecialChar.Checked
-                }
-            };
-
             // Define the path to the JSON file
-            string filePath = "Config_Names.json";
+            string filePath = "Config_Sort.json";
 
-            // Write the JSON object to the file
-            File.WriteAllText(filePath, jsonObject.ToString());
+            // Load the JSON file
+            JObject jsonObject;
+            if (File.Exists(filePath))
+            {
+                jsonObject = JObject.Parse(File.ReadAllText(filePath));
+            }
+            else
+            {
+                MessageBox.Show("Configuration file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            // Optionally, show a message to indicate that the file was saved
+            jsonObject["Name"]["Alphabetically"] = radioButton_FileName.Checked;
+            jsonObject["Name"]["AlphabeticallyExtension"] = radioButton_FileExtension.Checked;
+
+            jsonObject["Name_Additional"]["Case"] = checkBox_CapsSens.Checked;
+            jsonObject["Name_Additional"]["Special"] = checkBox_IgnoreSpecialChar.Checked;
+
+
+            // Write the modified JSON object back to the file
+            File.WriteAllText(filePath, jsonObject.ToString(Formatting.Indented));
+
+            // Show a message to indicate that the file was saved
             MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
