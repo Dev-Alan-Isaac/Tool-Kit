@@ -122,7 +122,6 @@ namespace Project__Filter
             if (result == DialogResult.Yes)
             {
                 string filePath = "Config_Sort.json";
-
                 if (File.Exists(filePath))
                 {
                     // Read the existing JSON content
@@ -131,9 +130,6 @@ namespace Project__Filter
 
                     // Get the "Tags" array from the JSON content
                     JArray tagsArray = (JArray)jsonContent["Tag"]["Tags"];
-
-                    // Debug: Print tags to verify structure
-                    Console.WriteLine(tagsArray.ToString());
 
                     // Flag to check if tag was found
                     bool tagFound = false;
@@ -157,7 +153,7 @@ namespace Project__Filter
                     if (tagFound)
                     {
                         // Write the updated JSON content back to the file
-                        File.WriteAllText(filePath, jsonContent.ToString());
+                        File.WriteAllText(filePath, jsonContent.ToString(Formatting.Indented));
 
                         // Remove the node from the TreeView
                         treeView_Tags.Nodes.Remove(treeView_Tags.SelectedNode);
@@ -176,7 +172,5 @@ namespace Project__Filter
                 }
             }
         }
-
-
     }
 }
