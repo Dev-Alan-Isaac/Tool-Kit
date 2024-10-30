@@ -14,22 +14,13 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Config_Size.json"))
+                if (File.Exists("Config_Sort.json"))
                 {
-                    var jsonContent = new JObject(
-                         new JProperty("Size", new JObject(
-                             new JProperty("Small", "100", "MB"),
-                             new JProperty("Medium", "100", "MB", "1", "GB"),
-                             new JProperty("Large", "1", "GB", "10", "GB"),
-                             new JProperty("Very Large", "10", "GB")
-                         ))
-                    );
-
-                    File.WriteAllText("Config_Size.json", jsonContent.ToString());
+                    // File already exists; get the filepath
+                    string filePath = Path.GetFullPath("Config_Sort.json");
+                    Populate_Inputs(filePath);
+                    break;
                 }
-                string filePath = Path.GetFullPath("Config_Size.json");
-                Populate_Inputs(filePath);
-                break;
             }
         }
 
@@ -37,10 +28,8 @@ namespace Project__Filter
         {
             if (File.Exists(FilePath))
             {
-                // Read the JSON content from the file
+                // Read the JSON content once
                 string jsonContent = File.ReadAllText(FilePath);
-
-                // Deserialize the JSON content into a JObject
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
                 // Access the "Size" object inside the JSON
@@ -112,19 +101,23 @@ namespace Project__Filter
                 }
             }
 
-            // Ensure the config file exists
-            if (!File.Exists("Config_Size.json"))
+            // Define the path to the JSON file
+            string filePath = "Config_Sort.json";
+
+            // Load the JSON file
+            JObject jsonObject;
+            if (File.Exists(filePath))
             {
-                MessageBox.Show("Config_Size.json file not found.");
+                jsonObject = JObject.Parse(File.ReadAllText(filePath));
+            }
+            else
+            {
+                MessageBox.Show("Configuration file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // Read the existing JSON content
-            string jsonString = File.ReadAllText("Config_Size.json");
-            var jsonContent = JObject.Parse(jsonString);
-
             // Access the "Size" section
-            var sizeSection = jsonContent["Size"] as JObject;
+            var sizeSection = jsonObject["Size"] as JObject;
 
             if (sizeSection != null)
             {
@@ -182,7 +175,7 @@ namespace Project__Filter
                 };
 
                 // Write the updated JSON content back to the file
-                File.WriteAllText("Config_Size.json", jsonContent.ToString());
+                File.WriteAllText("Config_Size.json", jsonObject.ToString());
                 MessageBox.Show("Size configuration saved successfully.");
             }
         }
