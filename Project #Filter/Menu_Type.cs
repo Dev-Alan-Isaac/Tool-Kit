@@ -17,36 +17,13 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Config_Type.json"))
+                if (File.Exists("Config_Sort.json"))
                 {
-                    // Create the JSON object
-                    var jsonContent = new JObject(
-                         new JProperty("Extensions", new JObject(
-                             new JProperty("Images", new JArray("jpg", "png", "gif", "bmp", "jpeg")),
-                             new JProperty("Videos", new JArray("mp4", "m4v", "avi", "mkv", "3gp", "mov", "wmv", "webm", "ts", "mpg", "asf", "flv", "mpeg")),
-                             new JProperty("Documents", new JArray("txt", "docx", "pdf", "pptx")),
-                             new JProperty("Audio", new JArray("mp3", "wav", "aac", "flac", "ogg", "m4a", "wma", "alac", "aiff")),
-                             new JProperty("Archives", new JArray("zip", "rar", "7z", "tar", "gz", "bz2", "iso", "xz")),
-                             new JProperty("Executables", new JArray("exe", "bat", "sh", "msi", "bin", "cmd", "apk", "com", "jar"))
-                         )),
-                         new JProperty("Allow", new JObject(
-                             new JProperty("Documents", true),
-                             new JProperty("Images", true),
-                             new JProperty("Audio", true),
-                             new JProperty("Videos", true),
-                             new JProperty("Archives", true),
-                             new JProperty("Executables", true)
-                         ))
-                    );
-
-                    // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Config_Type.json", jsonContent.ToString());
+                    // File already exists; get the filepath
+                    string filePath = Path.GetFullPath("Config_Sort.json");
+                    PopulateInputs(filePath);
+                    break;
                 }
-
-                // File already exists; get the filepath
-                string filePath = Path.GetFullPath("Config_Type.json");
-                PopulateInputs(filePath);
-                break;
             }
         }
 
@@ -54,59 +31,55 @@ namespace Project__Filter
         {
             if (File.Exists(FilePath))
             {
-                // Read the JSON content from the file
+                // Read the JSON content once
                 string jsonContent = File.ReadAllText(FilePath);
-
-                // Deserialize the JSON content into a JObject
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
-                // Access the "Allow" object inside the JSON
-                var extensionsObject = jsonObject["Allow"] as JObject;
 
-                if (extensionsObject != null)
+                if (jsonObject.ContainsKey("Type_Additional"))
                 {
-                    // Update checkboxes based on JSON values
-                    checkBox_Documents.Checked = extensionsObject["Documents"]?.Value<bool>() ?? false;
-                    checkBox_Images.Checked = extensionsObject["Images"]?.Value<bool>() ?? false;
-                    checkBox_Audio.Checked = extensionsObject["Audio"]?.Value<bool>() ?? false;
-                    checkBox_Videos.Checked = extensionsObject["Videos"]?.Value<bool>() ?? false;
-                    checkBox_Archives.Checked = extensionsObject["Archives"]?.Value<bool>() ?? false;
-                    checkBox_Executables.Checked = extensionsObject["Executables"]?.Value<bool>() ?? false;
-                }
-            }
-
-            if (File.Exists(FilePath))
-            {
-                treeView1.Nodes.Clear();
-                string jsonContent = File.ReadAllText(FilePath);
-
-                // Deserialize the JSON content into a JObject
-                var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
-
-                // Access the Extensions object
-                var extensionsObject = jsonObject["Extensions"] as JObject; // Explicit cast to JObject
-
-                if (extensionsObject != null)
-                {
-                    // Iterate through extension categories
-                    foreach (var category in extensionsObject.Properties())
+                    var allowObject = jsonObject["Type_Additional"] as JObject;
+                    if (allowObject != null)
                     {
-                        // Create a branch node for the category
-                        var categoryNode = new TreeNode(category.Name);
-
-                        // Get the list of extensions for this category
-                        var extensionList = category.Value.ToObject<List<string>>();
-
-                        // Create child nodes for each extension
-                        foreach (var extension in extensionList)
-                        {
-                            categoryNode.Nodes.Add(extension);
-                        }
-
-                        // Add the category node to the TreeView
-                        treeView1.Nodes.Add(categoryNode);
+                        checkBox_Documents.Checked = allowObject["Documents"]?.Value<bool>() ?? false;
+                        checkBox_Images.Checked = allowObject["Images"]?.Value<bool>() ?? false;
+                        checkBox_Audio.Checked = allowObject["Audio"]?.Value<bool>() ?? false;
+                        checkBox_Videos.Checked = allowObject["Videos"]?.Value<bool>() ?? false;
+                        checkBox_Archives.Checked = allowObject["Archives"]?.Value<bool>() ?? false;
+                        checkBox_Executables.Checked = allowObject["Executables"]?.Value<bool>() ?? false;
                     }
                 }
+
+                // Populate the TreeView with extension categories from the "Extensions" object
+                if (jsonObject.ContainsKey("Type"))
+                {
+                    var extensionsObject = jsonObject["Type"] as JObject;
+                    if (extensionsObject != null)
+                    {
+                        treeView1.Nodes.Clear(); // Clear existing nodes
+
+                        // Iterate through each category in "Extensions"
+                        foreach (var category in extensionsObject.Properties())
+                        {
+                            // Create a category node
+                            var categoryNode = new TreeNode(category.Name);
+
+                            // Add each extension as a child node under the category node
+                            var extensionList = category.Value.ToObject<List<string>>() ?? new List<string>();
+                            foreach (var extension in extensionList)
+                            {
+                                categoryNode.Nodes.Add(new TreeNode(extension));
+                            }
+
+                            // Add the category node to the TreeView
+                            treeView1.Nodes.Add(categoryNode);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Configuration file not found.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -115,49 +88,39 @@ namespace Project__Filter
             // Replace 'panelCheckBoxes' with the actual container where your checkboxes are placed
             Control container = this.Controls["panel5"]; // Change this if necessary
 
-            if (File.Exists("Config_Type.json"))
+            // Define the path to the JSON file
+            string filePath = "Config_Sort.json";
+
+            // Load the JSON file
+            JObject jsonObject;
+            if (File.Exists(filePath))
             {
-                // Read the existing JSON content
-                string jsonString = File.ReadAllText("Config_Type.json");
-                var jsonContent = JObject.Parse(jsonString);
-
-                // Get the "Allow" section
-                var allowSection = (JObject)jsonContent["Allow"];
-
-                // Process each item in the list, setting true if checked, false if unchecked
-                foreach (string item in checkedItems)
-                {
-                    // Check if the corresponding checkbox is checked or unchecked
-                    bool isChecked = false;
-
-                    foreach (Control control in container.Controls) // Use the container, not this.Controls
-                    {
-                        if (control is System.Windows.Forms.CheckBox checkBox && checkBox.Text == item)
-                        {
-                            isChecked = checkBox.Checked;
-                            break;
-                        }
-                    }
-
-                    // Update the "Allow" section in the JSON
-                    allowSection[item] = isChecked;
-                }
-
-                // Save the updated JSON back to the file
-                File.WriteAllText("Config_Type.json", jsonContent.ToString());
-
-                // Optional: Notify the user that the file has been saved
-                MessageBox.Show("Config_Type.json has been updated with allowed/disallowed items.");
+                jsonObject = JObject.Parse(File.ReadAllText(filePath));
             }
             else
             {
-                MessageBox.Show("Config_Type.json file not found!");
+                MessageBox.Show("Configuration file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+
+            jsonObject["Type_Additional"]["Documents"] = checkBox_Documents.Checked;
+            jsonObject["Type_Additional"]["Images"] = checkBox_Images.Checked;
+            jsonObject["Type_Additional"]["Audio"] = checkBox_Audio.Checked;
+            jsonObject["Type_Additional"]["Videos"] = checkBox_Videos.Checked;
+            jsonObject["Type_Additional"]["Archives"] = checkBox_Archives.Checked;
+            jsonObject["Type_Additional"]["Executables"] = checkBox_Executables.Checked;
+
+
+            // Write the modified JSON object back to the file
+            File.WriteAllText(filePath, jsonObject.ToString(Newtonsoft.Json.Formatting.Indented));
+
+            // Show a message to indicate that the file was saved
+            MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button_Add_Click(object sender, EventArgs e)
         {
-            string config_Path = "Config_Type.json";
+            string config_Path = "Config_Sort.json";
             if (File.Exists(config_Path))
             {
                 // Read the existing JSON content
@@ -165,7 +128,7 @@ namespace Project__Filter
                 var jsonContent = JObject.Parse(jsonString);
 
                 // Find the "Extensions" section in the JSON
-                var extensionsSection = (JObject)jsonContent["Extensions"];
+                var extensionsSection = (JObject)jsonContent["Type"];
 
                 // Get the selected node in the treeView1
                 TreeNode selectedNode = treeView1.SelectedNode;
@@ -214,14 +177,14 @@ namespace Project__Filter
 
         private void button_Remove_Click(object sender, EventArgs e)
         {
-            if (File.Exists("Extensions.json"))
+            if (File.Exists("Config_Sort.json"))
             {
                 // Read the existing JSON content
-                string jsonString = File.ReadAllText("Extensions.json");
+                string jsonString = File.ReadAllText("Config_Sort.json");
                 var jsonContent = JObject.Parse(jsonString);
 
                 // Find the "Extensions" section in the JSON
-                var extensionsSection = (JObject)jsonContent["Extensions"];
+                var extensionsSection = (JObject)jsonContent["Type"];
 
                 bool isRemoved = false;
 
@@ -246,13 +209,13 @@ namespace Project__Filter
                 if (isRemoved)
                 {
                     // Save the updated JSON back to the file
-                    File.WriteAllText("Extensions.json", jsonContent.ToString());
+                    File.WriteAllText("Config_Sort.json", jsonContent.ToString());
 
                     // Notify the user that the extension was removed
                     MessageBox.Show($"{NodeBranch} has been removed from the extensions.");
 
                     // After successful removal, repopulate the TreeView
-                    string filePath = Path.GetFullPath("Extensions.json");
+                    string filePath = Path.GetFullPath("Config_Sort.json");
                     PopulateInputs(filePath);
                 }
                 else
