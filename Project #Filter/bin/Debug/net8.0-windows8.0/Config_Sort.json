@@ -75,8 +75,8 @@
     "Executables": true
   },
   "Date": {
-    "Accessed": true,
-    "Creation": false,
+    "Accessed": false,
+    "Creation": true,
     "Modified": false
   },
   "Size": {
