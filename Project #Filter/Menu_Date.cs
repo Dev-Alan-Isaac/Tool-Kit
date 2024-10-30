@@ -18,6 +18,7 @@ namespace Project__Filter
         {
             InitializeComponent();
         }
+
         private void Menu_Date_Load(object sender, EventArgs e)
         {
             while (true)
