@@ -23,24 +23,13 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Config_Permissions.json"))
+                if (File.Exists("Config_Sort.json"))
                 {
-                    // Create the JSON object
-                    var jsonContent = new JObject(
-                         new JProperty("Option", new JObject(
-                             new JProperty("Readable", true),
-                             new JProperty("Writable", false),
-                             new JProperty("Executable", false)
-                         ))
-                     );
-
-                    // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Config_Permissions.json", jsonContent.ToString());
+                    // File already exists; get the filepath
+                    string filePath = Path.GetFullPath("Config_Sort.json");
+                    Populate_Inputs(filePath);
+                    break;
                 }
-
-                string filePath = Path.GetFullPath("Config_Permissions.json");
-                Populate_Inputs(filePath);
-                break;
             }
         }
 
@@ -48,55 +37,55 @@ namespace Project__Filter
         {
             if (File.Exists(FilePath))
             {
-                // Read the JSON content from the file
+                // Read the JSON content once
                 string jsonContent = File.ReadAllText(FilePath);
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
-                // Deserialize the JSON content into a JObject
-                var jsonObject = JObject.Parse(jsonContent);
+                // Check the state of "Alphabetically" and "AlphabeticallyExtension" and set radio buttons accordingly
+                bool isReadable = jsonObject["Auth"]["Readable"]?.ToObject<bool>() ?? false;
+                bool isWritable = jsonObject["Auth"]["Writable"]?.ToObject<bool>() ?? false;
+                bool isExecutable = jsonObject["Auth"]["Executable"]?.ToObject<bool>() ?? false;
 
-                // Check if the "Option" property exists
-                if (jsonObject["Option"] != null)
+                if (isReadable)
                 {
-                    // Check the state of "Alphabetically" and "AlphabeticallyExtension" and set radio buttons accordingly
-                    bool isReadable = jsonObject["Option"]["Readable"]?.ToObject<bool>() ?? false;
-                    bool isWritable = jsonObject["Option"]["Writable"]?.ToObject<bool>() ?? false;
-                    bool isExecutable = jsonObject["Option"]["Executable"]?.ToObject<bool>() ?? false;
-
-                    if (isReadable)
-                    {
-                        radioButton_Readable.Checked = true; // Assuming this is the radio button for "Alphabetically"
-                    }
-                    else if (isWritable)
-                    {
-                        radioButton_Writable.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
-                    else if (isExecutable)
-                    {
-                        radioButton_Executable.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
+                    radioButton_Readable.Checked = isReadable; 
+                }
+                else if (isWritable)
+                {
+                    radioButton_Writable.Checked = isWritable; 
+                }
+                else if (isExecutable)
+                {
+                    radioButton_Executable.Checked = isExecutable;
                 }
             }
         }
 
         private void button_Saved_Click(object sender, EventArgs e)
         {
-            var jsonObject = new JObject
-            {
-                ["Option"] = new JObject
-                {
-                    ["Readable"] = radioButton_Readable.Checked,
-                    ["Writable"] = radioButton_Writable.Checked,
-                    ["Executable"] = radioButton_Executable.Checked
-                }
-            };
-
             // Define the path to the JSON file
-            string filePath = "Config_Permissions.json";
+            string filePath = "Config_Sort.json";
 
-            // Write the JSON object to the file
-            File.WriteAllText(filePath, jsonObject.ToString());
+            // Load the JSON file
+            JObject jsonObject;
+            if (File.Exists(filePath))
+            {
+                jsonObject = JObject.Parse(File.ReadAllText(filePath));
+            }
+            else
+            {
+                MessageBox.Show("Configuration file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            // Optionally, show a message to indicate that the file was saved
+            jsonObject["Auth"]["Accessed"] = radioButton_Readable.Checked;
+            jsonObject["Auth"]["Creation"] = radioButton_Writable.Checked;
+            jsonObject["Auth"]["Modified"] = radioButton_Executable.Checked;
+
+            // Write the modified JSON object back to the file
+            File.WriteAllText(filePath, jsonObject.ToString(Formatting.Indented));
+
+            // Show a message to indicate that the file was saved
             MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
