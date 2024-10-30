@@ -121,7 +121,7 @@ namespace Project__Filter
             // If the user confirms deletion
             if (result == DialogResult.Yes)
             {
-                string filePath = "Config_Tags.json";
+                string filePath = "Config_Sort.json";
 
                 if (File.Exists(filePath))
                 {
@@ -130,7 +130,7 @@ namespace Project__Filter
                     var jsonContent = JObject.Parse(jsonString);
 
                     // Get the "Tags" array from the JSON content
-                    JArray tagsArray = (JArray)jsonContent["Option"]["Tags"];
+                    JArray tagsArray = (JArray)jsonContent["Tag"]["Tags"];
 
                     // Debug: Print tags to verify structure
                     Console.WriteLine(tagsArray.ToString());
@@ -172,7 +172,7 @@ namespace Project__Filter
                 }
                 else
                 {
-                    MessageBox.Show("Config_Tags.json file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Config_Sort.json file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

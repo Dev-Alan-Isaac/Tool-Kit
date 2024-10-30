@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Project #Filter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+34a51897d630de86ba268e58eefbb13f440fb8cc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f325bb8d0d237708d6a4b3d525a20041ecc21131")]
 [assembly: System.Reflection.AssemblyProductAttribute("Project #Filter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Project #Filter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
