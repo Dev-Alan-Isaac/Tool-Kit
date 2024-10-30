@@ -1,14 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Project__Filter
 {
@@ -44,7 +35,7 @@ namespace Project__Filter
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
                 // Access the Extensions object
-                var extensionsObject = jsonObject["Tag"]["Tags"] as JObject; // Explicit cast to JObject
+                var extensionsObject = jsonObject["Tag"] as JObject; // Explicit cast to JObject
 
                 if (extensionsObject != null)
                 {
@@ -85,19 +76,16 @@ namespace Project__Filter
                 // Check if the JSON content is empty
                 if (string.IsNullOrWhiteSpace(existingJson))
                 {
-                    // If empty, create a new JSON object
-                    jsonContent = new JObject(new JProperty("Option", new JObject(new JProperty("Tags", new JArray()))));
+                    jsonContent = new JObject(new JProperty("Tag", new JObject(new JProperty("Tags", new JArray()))));
                 }
                 else
                 {
-                    // Parse the existing JSON content
                     jsonContent = JObject.Parse(existingJson);
                 }
             }
             else
             {
-                // If the file doesn't exist, create a new JSON object with an empty "Tags" array
-                jsonContent = new JObject(new JProperty("Option", new JObject(new JProperty("Tags", new JArray()))));
+                jsonContent = new JObject(new JProperty("Tag", new JObject(new JProperty("Tags", new JArray()))));
             }
 
             // Ensure that the "Option" object exists
