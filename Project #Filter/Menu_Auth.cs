@@ -78,9 +78,9 @@ namespace Project__Filter
                 return;
             }
 
-            jsonObject["Auth"]["Accessed"] = radioButton_Readable.Checked;
-            jsonObject["Auth"]["Creation"] = radioButton_Writable.Checked;
-            jsonObject["Auth"]["Modified"] = radioButton_Executable.Checked;
+            jsonObject["Auth"]["Readable"] = radioButton_Readable.Checked;
+            jsonObject["Auth"]["Writable"] = radioButton_Writable.Checked;
+            jsonObject["Auth"]["Executable"] = radioButton_Executable.Checked;
 
             // Write the modified JSON object back to the file
             File.WriteAllText(filePath, jsonObject.ToString(Formatting.Indented));
