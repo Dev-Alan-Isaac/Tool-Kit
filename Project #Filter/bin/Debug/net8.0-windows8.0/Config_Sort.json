@@ -115,7 +115,9 @@
     "Executable": false
   },
   "Tag": {
-    "Tags": []
+    "Tags": [
+      "Test"
+    ]
   },
   "Folder": {
     "Alphabetical": true,
