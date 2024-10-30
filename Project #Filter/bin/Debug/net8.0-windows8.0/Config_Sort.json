@@ -1,7 +1,7 @@
 {
   "General": {
     "Delete": true,
-    "Subfolder": false
+    "Subfolder": true
   },
   "Type": {
     "Images": [
@@ -9,7 +9,8 @@
       "png",
       "gif",
       "bmp",
-      "jpeg"
+      "jpeg",
+      "svg"
     ],
     "Videos": [
       "mp4",
