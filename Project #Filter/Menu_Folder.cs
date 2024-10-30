@@ -14,28 +14,13 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Config_Folder.json"))
+                if (File.Exists("Config_Sort.json"))
                 {
-                    // Create the JSON object
-                    var jsonContent = new JObject(
-                        new JProperty("Option", new JObject(
-                            new JProperty("Alphabetical", true),
-                            new JProperty("Depth", false)
-                        )),
-                         new JProperty("Additional", new JObject(
-                             new JProperty("Case", true),
-                             new JProperty("Special", true)
-                         ))
-                     );
-
-
-                    // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Config_Folder.json", jsonContent.ToString());
+                    // File already exists; get the filepath
+                    string filePath = Path.GetFullPath("Config_Sort.json");
+                    Populate_Inputs(filePath);
+                    break;
                 }
-
-                string filePath = Path.GetFullPath("Config_Folder.json");
-                Populate_Inputs(filePath);
-                break;
             }
         }
 
@@ -43,37 +28,31 @@ namespace Project__Filter
         {
             if (File.Exists(FilePath))
             {
-                // Read the JSON content from the file
                 string jsonContent = File.ReadAllText(FilePath);
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
-                // Deserialize the JSON content into a JObject
-                var jsonObject = JObject.Parse(jsonContent);
+                bool isAlphabetically = jsonObject["Folder"]["Alphabetically"]?.ToObject<bool>() ?? false;
+                bool isDepth = jsonObject["Folder"]["Depth"]?.ToObject<bool>() ?? false;
 
-                // Check if the "Option" property exists
-                if (jsonObject["Option"] != null)
+                if (isAlphabetically)
                 {
-                    // Check the state of "Alphabetically" and "AlphabeticallyExtension" and set radio buttons accordingly
-                    bool isAlphabetical = jsonObject["Option"]["Alphabetical"]?.ToObject<bool>() ?? false;
-                    bool isDeep = jsonObject["Option"]["Depth"]?.ToObject<bool>() ?? false;
-
-                    if (isAlphabetical)
-                    {
-                        radioButton_Alphabetical.Checked = isAlphabetical; // Assuming this is the radio button for "Alphabetically"
-                    }
-                    else if (isDeep)
-                    {
-                        radioButton_Depth.Checked = isDeep; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
+                    radioButton_Alphabetical.Checked = isAlphabetically;
+                }
+                else if (isDepth)
+                {
+                    radioButton_Depth.Checked = isDepth;
                 }
 
-                if (jsonObject["Additional"] != null)
-                {
-                    // Check the state of "Case" and "Special" and set checkboxes accordingly
-                    bool isCase = jsonObject["Additional"]["Case"]?.ToObject<bool>() ?? false;
-                    bool isSpecial = jsonObject["Additional"]["Special"]?.ToObject<bool>() ?? false;
+                bool isCase = jsonObject["Folder_Additional"]["Case"]?.ToObject<bool>() ?? false;
+                bool isSpecial = jsonObject["Folder_Additional"]["Special"]?.ToObject<bool>() ?? false;
 
-                    checkBox_CapsSens.Checked = isCase; // Assuming this is the checkbox for "Case"
-                    checkBox_IgnoreSpecialChar.Checked = isSpecial; // Assuming this is the checkbox for "Special"
+                if (isCase)
+                {
+                    checkBox_CapsSens.Checked = isCase;
+                }
+                else if (isSpecial)
+                {
+                    checkBox_IgnoreSpecialChar.Checked = isSpecial;
                 }
             }
         }
