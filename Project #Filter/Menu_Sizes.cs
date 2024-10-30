@@ -137,11 +137,11 @@ namespace Project__Filter
 
             // Save the values into the JSON object
             jsonObject["Size"]["Small"] = new JArray(numericUpDown_Small.Value.ToString(), comboBox_SmallUnit.SelectedItem.ToString());
-            jsonObject["Size"]["MediumMin"] = new JArray(numericUpDown_MediumMin.Value.ToString(), comboBox_MediumUnit.SelectedItem.ToString());
-            jsonObject["Size"]["MediumMax"] = new JArray(numericUpDown_MediumMax.Value.ToString(), comboBox_MediumUnit1.SelectedItem.ToString());
-            jsonObject["Size"]["LargeMin"] = new JArray(numericUpDown_LargeMin.Value.ToString(), comboBox_LargeUnit.SelectedItem.ToString());
-            jsonObject["Size"]["LargeMax"] = new JArray(numericUpDown_LargeMax.Value.ToString(), comboBox_LargeUnit1.SelectedItem.ToString());
-            jsonObject["Size"]["VeryLarge"] = new JArray(numericUpDown_VeryLarge.Value.ToString(), comboBox_VeryLargeUnit.SelectedItem.ToString());
+            jsonObject["Size"]["Medium"] = new JArray(numericUpDown_MediumMin.Value.ToString(), comboBox_MediumUnit.SelectedItem.ToString(),
+                numericUpDown_MediumMax.Value.ToString(), comboBox_MediumUnit1.SelectedItem.ToString());
+            jsonObject["Size"]["Large"] = new JArray(numericUpDown_LargeMin.Value.ToString(), comboBox_LargeUnit.SelectedItem.ToString(),
+                numericUpDown_LargeMax.Value.ToString(), comboBox_LargeUnit1.SelectedItem.ToString());
+            jsonObject["Size"]["Very Large"] = new JArray(numericUpDown_VeryLarge.Value.ToString(), comboBox_VeryLargeUnit.SelectedItem.ToString());
 
             // Write the modified JSON object back to the file
             File.WriteAllText(filePath, jsonObject.ToString(Formatting.Indented));
