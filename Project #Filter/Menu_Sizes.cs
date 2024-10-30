@@ -41,7 +41,7 @@ namespace Project__Filter
                     var smallValues = sizeObject["Small"]?.ToObject<string[]>();
                     if (smallValues != null && smallValues.Length > 0)
                     {
-                        textBox_Small.Text = smallValues[0]; // The numeric value
+                        numericUpDown_Small.Text = smallValues[0]; // The numeric value
                         comboBox_SmallUnit.SelectedItem = smallValues[1]; // The unit
                     }
 
@@ -49,9 +49,9 @@ namespace Project__Filter
                     var mediumValues = sizeObject["Medium"]?.ToObject<string[]>();
                     if (mediumValues != null && mediumValues.Length > 0)
                     {
-                        textBox_Medium.Text = mediumValues[0]; // First numeric value
+                        numericUpDown_MediumMin.Text = mediumValues[0]; // First numeric value
                         comboBox_MediumUnit.SelectedItem = mediumValues[1]; // First unit
-                        textBox_Medium1.Text = mediumValues[2];
+                        numericUpDown_MediumMax.Text = mediumValues[2];
                         comboBox_MediumUnit1.SelectedItem = mediumValues[3];
 
                     }
@@ -60,9 +60,9 @@ namespace Project__Filter
                     var largeValues = sizeObject["Large"]?.ToObject<string[]>();
                     if (largeValues != null && largeValues.Length > 0)
                     {
-                        textBox_Large.Text = largeValues[0]; // First numeric value
+                        numericUpDown_LargeMin.Text = largeValues[0]; // First numeric value
                         comboBox_LargeUnit.SelectedItem = largeValues[1]; // First unit
-                        textBox_Large1.Text = largeValues[2];
+                        numericUpDown_LargeMax.Text = largeValues[2];
                         comboBox_LargeUnit1.SelectedItem = largeValues[3];
                     }
 
@@ -70,7 +70,7 @@ namespace Project__Filter
                     var veryLargeValues = sizeObject["Very Large"]?.ToObject<string[]>();
                     if (veryLargeValues != null && veryLargeValues.Length > 0)
                     {
-                        textBox_VeryLarge.Text = veryLargeValues[0]; // The numeric value
+                        numericUpDown_VeryLarge.Text = veryLargeValues[0]; // The numeric value
                         comboBox_VeryLargeUnit.SelectedItem = veryLargeValues[1]; // The unit
                     }
                 }
@@ -79,28 +79,6 @@ namespace Project__Filter
 
         private void button_Saved_Click(object sender, EventArgs e)
         {
-            // A helper function to convert size + unit into bytes for comparison
-            long ConvertToBytes(string sizeText, string unit)
-            {
-                if (!long.TryParse(sizeText, out long size))
-                {
-                    MessageBox.Show("Invalid size input. Please enter valid numbers.");
-                    return -1;
-                }
-
-                switch (unit.ToLower())
-                {
-                    case "bytes": return size;
-                    case "kb": return size * 1024;
-                    case "mb": return size * 1024 * 1024;
-                    case "gb": return size * 1024 * 1024 * 1024;
-                    case "tb": return size * 1024L * 1024L * 1024L * 1024L;
-                    default:
-                        MessageBox.Show("Invalid unit input.");
-                        return -1;
-                }
-            }
-
             // Define the path to the JSON file
             string filePath = "Config_Sort.json";
 
@@ -116,68 +94,85 @@ namespace Project__Filter
                 return;
             }
 
-            // Access the "Size" section
-            var sizeSection = jsonObject["Size"] as JObject;
-
-            if (sizeSection != null)
+            long ConvertToBytes(string sizeText, string unit)
             {
-                // Convert each size value to bytes for comparison
-                long smallSize = ConvertToBytes(textBox_Small.Text, comboBox_SmallUnit.SelectedItem.ToString());
-                long mediumSizeMin = ConvertToBytes(textBox_Medium.Text, comboBox_MediumUnit.SelectedItem.ToString());
-                long mediumSizeMax = ConvertToBytes(textBox_Medium1.Text, comboBox_MediumUnit1.SelectedItem.ToString());
-                long largeSizeMin = ConvertToBytes(textBox_Large.Text, comboBox_LargeUnit.SelectedItem.ToString());
-                long largeSizeMax = ConvertToBytes(textBox_Large1.Text, comboBox_LargeUnit1.SelectedItem.ToString());
-                long veryLargeSize = ConvertToBytes(textBox_VeryLarge.Text, comboBox_VeryLargeUnit.SelectedItem.ToString());
-
-                // Ensure all sizes are valid (not -1)
-                if (smallSize == -1 || mediumSizeMin == -1 || mediumSizeMax == -1 || largeSizeMin == -1 || largeSizeMax == -1 || veryLargeSize == -1)
+                if (!long.TryParse(sizeText, out long size))
                 {
-                    return;
+                    MessageBox.Show("Invalid size input. Please enter valid numbers.");
+                    return -1;
                 }
-
-                // Validate size logic
-                if (smallSize >= mediumSizeMin || mediumSizeMin >= mediumSizeMax || mediumSizeMax >= largeSizeMin || largeSizeMin >= largeSizeMax || largeSizeMax >= veryLargeSize)
+                switch (unit.ToLower())
                 {
-                    MessageBox.Show("Invalid size logic. Ensure that Small < Medium < Large < Very Large.");
-                    return;
+                    case "bytes": return size;
+                    case "kb": return size * 1024;
+                    case "mb": return size * 1024 * 1024;
+                    case "gb": return size * 1024 * 1024 * 1024;
+                    case "tb": return size * 1024L * 1024L * 1024L * 1024L;
+                    default:
+                        MessageBox.Show("Invalid unit input.");
+                        return -1;
                 }
-
-                // Update Small
-                sizeSection["Small"] = new JArray
-                {
-                    textBox_Small.Text,
-                    comboBox_SmallUnit.SelectedItem.ToString()
-                };
-
-                // Update Medium
-                sizeSection["Medium"] = new JArray
-                {
-                    textBox_Medium.Text,
-                    comboBox_MediumUnit.SelectedItem.ToString(),
-                    textBox_Medium1.Text,
-                    comboBox_MediumUnit1.SelectedItem.ToString()
-                };
-
-                // Update Large
-                sizeSection["Large"] = new JArray
-                {
-                    textBox_Large.Text,
-                    comboBox_LargeUnit.SelectedItem.ToString(),
-                    textBox_Large1.Text,
-                    comboBox_LargeUnit1.SelectedItem.ToString()
-                };
-
-                // Update Very Large
-                sizeSection["Very Large"] = new JArray
-                {
-                    textBox_VeryLarge.Text,
-                    comboBox_VeryLargeUnit.SelectedItem.ToString()
-                };
-
-                // Write the updated JSON content back to the file
-                File.WriteAllText("Config_Size.json", jsonObject.ToString());
-                MessageBox.Show("Size configuration saved successfully.");
             }
+
+            long smallSizeMax = ConvertToBytes(numericUpDown_Small.Text, comboBox_SmallUnit.SelectedItem.ToString());
+            long mediumSizeMin = ConvertToBytes(numericUpDown_MediumMin.Text, comboBox_MediumUnit.SelectedItem.ToString());
+            long mediumSizeMax = ConvertToBytes(numericUpDown_MediumMax.Text, comboBox_MediumUnit1.SelectedItem.ToString());
+            long largeSizeMin = ConvertToBytes(numericUpDown_LargeMin.Text, comboBox_LargeUnit.SelectedItem.ToString());
+            long largeSizeMax = ConvertToBytes(numericUpDown_LargeMax.Text, comboBox_LargeUnit1.SelectedItem.ToString());
+            long veryLargeSize = ConvertToBytes(numericUpDown_VeryLarge.Text, comboBox_VeryLargeUnit.SelectedItem.ToString());
+
+            if (smallSizeMax == -1 || mediumSizeMin == -1 || mediumSizeMax == -1 || largeSizeMin == -1 || largeSizeMax == -1 || veryLargeSize == -1)
+            {
+                return;
+            }
+
+            if (mediumSizeMin < smallSizeMax || mediumSizeMin >= mediumSizeMax || largeSizeMin < mediumSizeMax || largeSizeMin >= largeSizeMax || veryLargeSize < largeSizeMax)
+            {
+                MessageBox.Show("Invalid size logic. Ensure correct ranges for Small, Medium, Large, and Very Large.");
+                return;
+            }
+
+            var smallValues = jsonObject["Small"]?.ToObject<string[]>();
+            if (smallValues != null && smallValues.Length > 0)
+            {
+                numericUpDown_Small.Text = smallValues[0]; // The numeric value
+                comboBox_SmallUnit.SelectedItem = smallValues[1]; // The unit
+            }
+
+            // Populate Medium
+            var mediumValues = jsonObject["Medium"]?.ToObject<string[]>();
+            if (mediumValues != null && mediumValues.Length > 0)
+            {
+                numericUpDown_MediumMin.Text = mediumValues[0]; // First numeric value
+                comboBox_MediumUnit.SelectedItem = mediumValues[1]; // First unit
+                numericUpDown_MediumMax.Text = mediumValues[2];
+                comboBox_MediumUnit1.SelectedItem = mediumValues[3];
+
+            }
+
+            // Populate Large
+            var largeValues = jsonObject["Large"]?.ToObject<string[]>();
+            if (largeValues != null && largeValues.Length > 0)
+            {
+                numericUpDown_LargeMin.Text = largeValues[0]; 
+                comboBox_LargeUnit.SelectedItem = largeValues[1]; 
+                numericUpDown_LargeMax.Text = largeValues[2];
+                comboBox_LargeUnit1.SelectedItem = largeValues[3];
+            }
+
+            // Populate Very Large
+            var veryLargeValues = jsonObject["Very Large"]?.ToObject<string[]>();
+            if (veryLargeValues != null && veryLargeValues.Length > 0)
+            {
+                numericUpDown_VeryLarge.Text = veryLargeValues[0]; // The numeric value
+                comboBox_VeryLargeUnit.SelectedItem = veryLargeValues[1]; // The unit
+            }
+
+            // Write the modified JSON object back to the file
+            File.WriteAllText(filePath, jsonObject.ToString(Formatting.Indented));
+
+            // Show a message to indicate that the file was saved
+            MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
