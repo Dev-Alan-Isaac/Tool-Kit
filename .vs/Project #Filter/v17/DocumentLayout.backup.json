@@ -29,20 +29,6 @@
           "SelectedChildIndex": 6,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Config_Sort.json",
-              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
-              "RelativeDocumentMoniker": "Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
-              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
-              "RelativeToolTip": "Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAAAHQAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-30T18:05:53.155Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
@@ -57,6 +43,20 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Config_Sort.json",
+              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
+              "RelativeDocumentMoniker": "Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
+              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
+              "RelativeToolTip": "Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAHQAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-30T18:05:53.155Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -79,7 +79,7 @@
               "RelativeDocumentMoniker": "Project #Filter\\Menu_Tags.cs",
               "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Menu_Tags.cs",
               "RelativeToolTip": "Project #Filter\\Menu_Tags.cs",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAkwFcAAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAAEUAAAAAAAAAAAAkwFcAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-30T22:30:20.452Z",
               "EditorCaption": ""
