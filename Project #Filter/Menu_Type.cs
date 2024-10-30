@@ -253,5 +253,13 @@ namespace Project__Filter
                 }
             }
         }
+
+        private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            // Get the selected node
+            TreeNode selectedNode = e.Node;
+
+            NodeBranch = selectedNode.Text;
+        }
     }
 }

@@ -311,6 +311,7 @@
             treeView1.Name = "treeView1";
             treeView1.Size = new Size(234, 352);
             treeView1.TabIndex = 57;
+            treeView1.AfterSelect += treeView1_AfterSelect;
             // 
             // panel8
             // 
