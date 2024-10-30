@@ -3,20 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\menu_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\menu_type.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_type.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\menu_sort.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_sort.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\menu_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\project #filter\\opt_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\opt_sort.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|c:\\users\\sistemas\\source\\repos\\clone\\project-filter\\project #filter\\menu_type.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{762D0436-7F01-4C49-996C-1867D67ECFA2}|Project #Filter\\Project #Filter.csproj|solutionrelative:project #filter\\menu_type.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,6 +24,20 @@
           "DockedWidth": 200,
           "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Config_Sort.json",
+              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
+              "RelativeDocumentMoniker": "Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
+              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
+              "RelativeToolTip": "Project #Filter\\bin\\Debug\\net8.0-windows8.0\\Config_Sort.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-30T18:05:53.155Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
@@ -46,52 +56,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Menu_Sort.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Menu_Sort.Designer.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Menu_Sort.Designer.cs",
-              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Menu_Sort.Designer.cs",
-              "RelativeToolTip": "Project #Filter\\Menu_Sort.Designer.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAUwFkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T23:22:37.155Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Menu_Sort.cs",
-              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Menu_Sort.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Menu_Sort.cs",
-              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Menu_Sort.cs*",
-              "RelativeToolTip": "Project #Filter\\Menu_Sort.cs*",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAlwCMAAAAuAAAAAAAAAA==",
+              "Title": "Menu_Type.cs",
+              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Menu_Type.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Menu_Type.cs",
+              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Menu_Type.cs",
+              "RelativeToolTip": "Project #Filter\\Menu_Type.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBYAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T23:22:31.345Z",
+              "WhenOpened": "2024-10-30T17:49:00.43Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Menu_Sort.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Menu_Sort.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Menu_Sort.cs",
-              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Menu_Sort.cs [Design]*",
-              "RelativeToolTip": "Project #Filter\\Menu_Sort.cs [Design]*",
+              "Title": "Menu_Type.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Menu_Type.cs",
+              "RelativeDocumentMoniker": "Project #Filter\\Menu_Type.cs",
+              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Menu_Type.cs [Design]",
+              "RelativeToolTip": "Project #Filter\\Menu_Type.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T23:22:29.304Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Opt_Sort.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Sort.cs",
-              "RelativeDocumentMoniker": "Project #Filter\\Opt_Sort.cs",
-              "ToolTip": "C:\\Users\\Sistemas\\source\\repos\\Clone\\Project-Filter\\Project #Filter\\Opt_Sort.cs [Design]*",
-              "RelativeToolTip": "Project #Filter\\Opt_Sort.cs [Design]*",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T23:20:26.138Z",
+              "WhenOpened": "2024-10-30T17:48:57.98Z",
               "EditorCaption": " [Design]"
             }
           ]

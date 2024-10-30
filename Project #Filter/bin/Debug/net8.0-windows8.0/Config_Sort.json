@@ -1,6 +1,134 @@
 {
-  "Option": {
+  "General": {
     "Delete": true,
-    "Subfolder": true
+    "Subfolder": false
+  },
+  "Type": {
+    "Images": [
+      "jpg",
+      "png",
+      "gif",
+      "bmp",
+      "jpeg"
+    ],
+    "Videos": [
+      "mp4",
+      "m4v",
+      "avi",
+      "mkv",
+      "3gp",
+      "mov",
+      "wmv",
+      "webm",
+      "ts",
+      "mpg",
+      "asf",
+      "flv",
+      "mpeg"
+    ],
+    "Documents": [
+      "txt",
+      "docx",
+      "pdf",
+      "pptx"
+    ],
+    "Audio": [
+      "mp3",
+      "wav",
+      "aac",
+      "flac",
+      "ogg",
+      "m4a",
+      "wma",
+      "alac",
+      "aiff"
+    ],
+    "Archives": [
+      "zip",
+      "rar",
+      "7z",
+      "tar",
+      "gz",
+      "bz2",
+      "iso",
+      "xz"
+    ],
+    "Executables": [
+      "exe",
+      "bat",
+      "sh",
+      "msi",
+      "bin",
+      "cmd",
+      "apk",
+      "com",
+      "jar"
+    ]
+  },
+  "Type_Additional": {
+    "Documents": true,
+    "Images": true,
+    "Audio": true,
+    "Videos": true,
+    "Archives": true,
+    "Executables": true
+  },
+  "Date": {
+    "Accessed": true,
+    "Creation": false,
+    "Modified": false
+  },
+  "Size": {
+    "Small": [
+      "100",
+      "MB"
+    ],
+    "Medium": [
+      "100",
+      "MB",
+      "1",
+      "GB"
+    ],
+    "Large": [
+      "1",
+      "GB",
+      "10",
+      "GB"
+    ],
+    "Very Large": [
+      "10",
+      "GB"
+    ]
+  },
+  "Name": {
+    "Alphabetically": true,
+    "AlphabeticallyExtension": false
+  },
+  "Name_Additional": {
+    "Case": true,
+    "Special": true
+  },
+  "Auth": {
+    "Readable": true,
+    "Writable": false,
+    "Executable": false
+  },
+  "Tag": {
+    "Tags": []
+  },
+  "Folder": {
+    "Alphabetical": true,
+    "Depth": false
+  },
+  "Folder_Additional": {
+    "Case": true,
+    "Special": true
+  },
+  "Media": {
+    "Duration": true,
+    "Resolution": false,
+    "Frame_Rate": false,
+    "Codec": false,
+    "Aspect": false
   }
 }
