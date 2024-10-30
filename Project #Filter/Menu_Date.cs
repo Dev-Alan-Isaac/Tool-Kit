@@ -30,7 +30,7 @@ namespace Project__Filter
             {
                 // Read the JSON content once
                 string jsonContent = File.ReadAllText(FilePath);
-                var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);           
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
                 // Check the state of "Alphabetically" and "AlphabeticallyExtension" and set radio buttons accordingly
                 bool isAccessed = jsonObject["Date"]["Accessed"]?.ToObject<bool>() ?? false;
@@ -72,7 +72,7 @@ namespace Project__Filter
             jsonObject["Date"]["Accessed"] = radioButton_Accessed.Checked;
             jsonObject["Date"]["Creation"] = radioButton_Creation.Checked;
             jsonObject["Date"]["Modified"] = radioButton_Modified.Checked;
-           
+
             // Write the modified JSON object back to the file
             File.WriteAllText(filePath, jsonObject.ToString(Formatting.Indented));
 
