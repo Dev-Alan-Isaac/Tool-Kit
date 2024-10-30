@@ -63,65 +63,44 @@ namespace Project__Filter
 
         private void button_Add_Click(object sender, EventArgs e)
         {
-
             // Define the path to the JSON file
-            string filePath = "Config_Tags.json";
+            string filePath = "Config_Sort.json";
 
-            // Read the existing JSON file content
-            JObject jsonContent;
+            // Load the JSON file
+            JObject jsonObject;
             if (File.Exists(filePath))
             {
-                string existingJson = File.ReadAllText(filePath);
-
-                // Check if the JSON content is empty
-                if (string.IsNullOrWhiteSpace(existingJson))
-                {
-                    jsonContent = new JObject(new JProperty("Tag", new JObject(new JProperty("Tags", new JArray()))));
-                }
-                else
-                {
-                    jsonContent = JObject.Parse(existingJson);
-                }
+                jsonObject = JObject.Parse(File.ReadAllText(filePath));
             }
             else
             {
-                jsonContent = new JObject(new JProperty("Tag", new JObject(new JProperty("Tags", new JArray()))));
+                MessageBox.Show("Configuration file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
-            // Ensure that the "Option" object exists
-            if (jsonContent["Option"] == null)
-            {
-                jsonContent["Option"] = new JObject();
-            }
-
-            // Ensure that the "Tags" array exists
-            if (jsonContent["Option"]["Tags"] == null)
-            {
-                jsonContent["Option"]["Tags"] = new JArray();
-            }
-
-            // Get the "Tags" array from the JSON content
-            JArray tagsArray = (JArray)jsonContent["Option"]["Tags"];
-
-            // Get the new tag from the textbox
+            // Get the new tag from the text box
             string newTag = textBox_Tag.Text.Trim();
 
-            // Check if the new tag is not empty and doesn't already exist in the array
-            if (!string.IsNullOrEmpty(newTag) && !tagsArray.Contains(newTag))
+            // Check if the new tag is not empty
+            if (!string.IsNullOrEmpty(newTag))
             {
-                // Add the new tag to the "Tags" array
+                // Add the new tag to the JSON array
+                JArray tagsArray = (JArray)jsonObject["Tag"]["Tags"];
                 tagsArray.Add(newTag);
+
+                // Write the modified JSON object back to the file
+                File.WriteAllText(filePath, jsonObject.ToString(Formatting.Indented));
+
+                // Show a message to indicate that the tag was added and configuration saved
+                MessageBox.Show("Tag added and configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Call the PopulateTree method
+                Populate_Tree(filePath);
             }
-
-            // Write the updated JSON content back to the file
-            File.WriteAllText(filePath, jsonContent.ToString());
-
-            // Optionally, clear the textbox and show a message
-            textBox_Tag.Clear();
-            MessageBox.Show("Tag added successfully!", "Add Tag", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // Call the PopulateTree method
-            Populate_Tree(filePath);
+            else
+            {
+                MessageBox.Show("Please enter a valid tag.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button_Remove_Click(object sender, EventArgs e)
