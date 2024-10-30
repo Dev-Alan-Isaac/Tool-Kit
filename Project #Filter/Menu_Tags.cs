@@ -23,38 +23,28 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Config_Tags.json"))
+                if (File.Exists("Config_Sort.json"))
                 {
-                    // Create the JSON object
-                    var jsonContent = new JObject(
-                         new JProperty("Option", new JObject(
-                             new JProperty("Tags", new JArray())
-                         ))
-                     );
-
-                    // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Config_Tags.json", jsonContent.ToString());
+                    // File already exists; get the filepath
+                    string filePath = Path.GetFullPath("Config_Sort.json");
+                    Populate_Tree(filePath);
+                    break;
                 }
-
-                // File already exists; get the filepath
-                string filePath = Path.GetFullPath("Config_Tags.json");
-                PopulateTree(filePath);
-                break;
             }
         }
 
-        private void PopulateTree(string FilePath)
+        private void Populate_Tree(string FilePath)
         {
             if (File.Exists(FilePath))
             {
                 treeView_Tags.Nodes.Clear();
-                string jsonContent = File.ReadAllText(FilePath);
 
-                // Deserialize the JSON content into a JObject
+                // Read the JSON content once
+                string jsonContent = File.ReadAllText(FilePath);
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
                 // Access the Extensions object
-                var extensionsObject = jsonObject["Option"] as JObject; // Explicit cast to JObject
+                var extensionsObject = jsonObject["Tag"]["Tags"] as JObject; // Explicit cast to JObject
 
                 if (extensionsObject != null)
                 {
@@ -143,7 +133,7 @@ namespace Project__Filter
             MessageBox.Show("Tag added successfully!", "Add Tag", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // Call the PopulateTree method
-            PopulateTree(filePath);
+            Populate_Tree(filePath);
         }
 
         private void button_Remove_Click(object sender, EventArgs e)
