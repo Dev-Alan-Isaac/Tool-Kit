@@ -37,22 +37,22 @@
             panel4 = new Panel();
             panel9 = new Panel();
             panel5 = new Panel();
+            numericUpDown_LargeMax = new NumericUpDown();
+            numericUpDown_MediumMax = new NumericUpDown();
+            numericUpDown_VeryLarge = new NumericUpDown();
+            numericUpDown_LargeMin = new NumericUpDown();
+            numericUpDown_MediumMin = new NumericUpDown();
+            numericUpDown_Small = new NumericUpDown();
             panel10 = new Panel();
             button_Saved = new Button();
             comboBox_LargeUnit1 = new ComboBox();
-            textBox_Large1 = new TextBox();
             label2 = new Label();
             comboBox_MediumUnit1 = new ComboBox();
-            textBox_Medium1 = new TextBox();
             label8 = new Label();
             comboBox_VeryLargeUnit = new ComboBox();
-            textBox_VeryLarge = new TextBox();
             comboBox_LargeUnit = new ComboBox();
-            textBox_Large = new TextBox();
             comboBox_MediumUnit = new ComboBox();
-            textBox_Medium = new TextBox();
             comboBox_SmallUnit = new ComboBox();
-            textBox_Small = new TextBox();
             label7 = new Label();
             label6 = new Label();
             label5 = new Label();
@@ -61,6 +61,12 @@
             panel4.SuspendLayout();
             panel9.SuspendLayout();
             panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_LargeMax).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_MediumMax).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_VeryLarge).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_LargeMin).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_MediumMin).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_Small).BeginInit();
             panel10.SuspendLayout();
             SuspendLayout();
             // 
@@ -136,21 +142,21 @@
             // panel5
             // 
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel5.Controls.Add(numericUpDown_LargeMax);
+            panel5.Controls.Add(numericUpDown_MediumMax);
+            panel5.Controls.Add(numericUpDown_VeryLarge);
+            panel5.Controls.Add(numericUpDown_LargeMin);
+            panel5.Controls.Add(numericUpDown_MediumMin);
+            panel5.Controls.Add(numericUpDown_Small);
             panel5.Controls.Add(panel10);
             panel5.Controls.Add(comboBox_LargeUnit1);
-            panel5.Controls.Add(textBox_Large1);
             panel5.Controls.Add(label2);
             panel5.Controls.Add(comboBox_MediumUnit1);
-            panel5.Controls.Add(textBox_Medium1);
             panel5.Controls.Add(label8);
             panel5.Controls.Add(comboBox_VeryLargeUnit);
-            panel5.Controls.Add(textBox_VeryLarge);
             panel5.Controls.Add(comboBox_LargeUnit);
-            panel5.Controls.Add(textBox_Large);
             panel5.Controls.Add(comboBox_MediumUnit);
-            panel5.Controls.Add(textBox_Medium);
             panel5.Controls.Add(comboBox_SmallUnit);
-            panel5.Controls.Add(textBox_Small);
             panel5.Controls.Add(label7);
             panel5.Controls.Add(label6);
             panel5.Controls.Add(label5);
@@ -160,6 +166,66 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(570, 394);
             panel5.TabIndex = 58;
+            // 
+            // numericUpDown_LargeMax
+            // 
+            numericUpDown_LargeMax.BackColor = Color.FromArgb(64, 64, 64);
+            numericUpDown_LargeMax.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            numericUpDown_LargeMax.ForeColor = SystemColors.Control;
+            numericUpDown_LargeMax.Location = new Point(369, 195);
+            numericUpDown_LargeMax.Name = "numericUpDown_LargeMax";
+            numericUpDown_LargeMax.Size = new Size(113, 33);
+            numericUpDown_LargeMax.TabIndex = 82;
+            // 
+            // numericUpDown_MediumMax
+            // 
+            numericUpDown_MediumMax.BackColor = Color.FromArgb(64, 64, 64);
+            numericUpDown_MediumMax.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            numericUpDown_MediumMax.ForeColor = SystemColors.Control;
+            numericUpDown_MediumMax.Location = new Point(369, 121);
+            numericUpDown_MediumMax.Name = "numericUpDown_MediumMax";
+            numericUpDown_MediumMax.Size = new Size(113, 33);
+            numericUpDown_MediumMax.TabIndex = 81;
+            // 
+            // numericUpDown_VeryLarge
+            // 
+            numericUpDown_VeryLarge.BackColor = Color.FromArgb(64, 64, 64);
+            numericUpDown_VeryLarge.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            numericUpDown_VeryLarge.ForeColor = SystemColors.Control;
+            numericUpDown_VeryLarge.Location = new Point(160, 269);
+            numericUpDown_VeryLarge.Name = "numericUpDown_VeryLarge";
+            numericUpDown_VeryLarge.Size = new Size(113, 33);
+            numericUpDown_VeryLarge.TabIndex = 80;
+            // 
+            // numericUpDown_LargeMin
+            // 
+            numericUpDown_LargeMin.BackColor = Color.FromArgb(64, 64, 64);
+            numericUpDown_LargeMin.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            numericUpDown_LargeMin.ForeColor = SystemColors.Control;
+            numericUpDown_LargeMin.Location = new Point(160, 195);
+            numericUpDown_LargeMin.Name = "numericUpDown_LargeMin";
+            numericUpDown_LargeMin.Size = new Size(113, 33);
+            numericUpDown_LargeMin.TabIndex = 79;
+            // 
+            // numericUpDown_MediumMin
+            // 
+            numericUpDown_MediumMin.BackColor = Color.FromArgb(64, 64, 64);
+            numericUpDown_MediumMin.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            numericUpDown_MediumMin.ForeColor = SystemColors.Control;
+            numericUpDown_MediumMin.Location = new Point(160, 122);
+            numericUpDown_MediumMin.Name = "numericUpDown_MediumMin";
+            numericUpDown_MediumMin.Size = new Size(113, 33);
+            numericUpDown_MediumMin.TabIndex = 78;
+            // 
+            // numericUpDown_Small
+            // 
+            numericUpDown_Small.BackColor = Color.FromArgb(64, 64, 64);
+            numericUpDown_Small.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            numericUpDown_Small.ForeColor = SystemColors.Control;
+            numericUpDown_Small.Location = new Point(160, 48);
+            numericUpDown_Small.Name = "numericUpDown_Small";
+            numericUpDown_Small.Size = new Size(113, 33);
+            numericUpDown_Small.TabIndex = 77;
             // 
             // panel10
             // 
@@ -202,17 +268,6 @@
             comboBox_LargeUnit1.Size = new Size(58, 33);
             comboBox_LargeUnit1.TabIndex = 75;
             // 
-            // textBox_Large1
-            // 
-            textBox_Large1.BackColor = Color.FromArgb(64, 64, 64);
-            textBox_Large1.BorderStyle = BorderStyle.FixedSingle;
-            textBox_Large1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            textBox_Large1.ForeColor = SystemColors.Control;
-            textBox_Large1.Location = new Point(369, 195);
-            textBox_Large1.Name = "textBox_Large1";
-            textBox_Large1.Size = new Size(113, 33);
-            textBox_Large1.TabIndex = 74;
-            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -239,17 +294,6 @@
             comboBox_MediumUnit1.Size = new Size(58, 33);
             comboBox_MediumUnit1.TabIndex = 72;
             // 
-            // textBox_Medium1
-            // 
-            textBox_Medium1.BackColor = Color.FromArgb(64, 64, 64);
-            textBox_Medium1.BorderStyle = BorderStyle.FixedSingle;
-            textBox_Medium1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            textBox_Medium1.ForeColor = SystemColors.Control;
-            textBox_Medium1.Location = new Point(369, 121);
-            textBox_Medium1.Name = "textBox_Medium1";
-            textBox_Medium1.Size = new Size(113, 33);
-            textBox_Medium1.TabIndex = 71;
-            // 
             // label8
             // 
             label8.AutoSize = true;
@@ -275,17 +319,6 @@
             comboBox_VeryLargeUnit.Size = new Size(58, 33);
             comboBox_VeryLargeUnit.TabIndex = 69;
             // 
-            // textBox_VeryLarge
-            // 
-            textBox_VeryLarge.BackColor = Color.FromArgb(64, 64, 64);
-            textBox_VeryLarge.BorderStyle = BorderStyle.FixedSingle;
-            textBox_VeryLarge.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            textBox_VeryLarge.ForeColor = SystemColors.Control;
-            textBox_VeryLarge.Location = new Point(160, 269);
-            textBox_VeryLarge.Name = "textBox_VeryLarge";
-            textBox_VeryLarge.Size = new Size(113, 33);
-            textBox_VeryLarge.TabIndex = 68;
-            // 
             // comboBox_LargeUnit
             // 
             comboBox_LargeUnit.BackColor = Color.FromArgb(64, 64, 64);
@@ -298,17 +331,6 @@
             comboBox_LargeUnit.Name = "comboBox_LargeUnit";
             comboBox_LargeUnit.Size = new Size(58, 33);
             comboBox_LargeUnit.TabIndex = 67;
-            // 
-            // textBox_Large
-            // 
-            textBox_Large.BackColor = Color.FromArgb(64, 64, 64);
-            textBox_Large.BorderStyle = BorderStyle.FixedSingle;
-            textBox_Large.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            textBox_Large.ForeColor = SystemColors.Control;
-            textBox_Large.Location = new Point(160, 195);
-            textBox_Large.Name = "textBox_Large";
-            textBox_Large.Size = new Size(113, 33);
-            textBox_Large.TabIndex = 66;
             // 
             // comboBox_MediumUnit
             // 
@@ -323,17 +345,6 @@
             comboBox_MediumUnit.Size = new Size(58, 33);
             comboBox_MediumUnit.TabIndex = 65;
             // 
-            // textBox_Medium
-            // 
-            textBox_Medium.BackColor = Color.FromArgb(64, 64, 64);
-            textBox_Medium.BorderStyle = BorderStyle.FixedSingle;
-            textBox_Medium.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            textBox_Medium.ForeColor = SystemColors.Control;
-            textBox_Medium.Location = new Point(160, 121);
-            textBox_Medium.Name = "textBox_Medium";
-            textBox_Medium.Size = new Size(113, 33);
-            textBox_Medium.TabIndex = 64;
-            // 
             // comboBox_SmallUnit
             // 
             comboBox_SmallUnit.BackColor = Color.FromArgb(64, 64, 64);
@@ -346,17 +357,6 @@
             comboBox_SmallUnit.Name = "comboBox_SmallUnit";
             comboBox_SmallUnit.Size = new Size(58, 33);
             comboBox_SmallUnit.TabIndex = 63;
-            // 
-            // textBox_Small
-            // 
-            textBox_Small.BackColor = Color.FromArgb(64, 64, 64);
-            textBox_Small.BorderStyle = BorderStyle.FixedSingle;
-            textBox_Small.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            textBox_Small.ForeColor = SystemColors.Control;
-            textBox_Small.Location = new Point(160, 48);
-            textBox_Small.Name = "textBox_Small";
-            textBox_Small.Size = new Size(113, 33);
-            textBox_Small.TabIndex = 62;
             // 
             // label7
             // 
@@ -426,6 +426,12 @@
             panel9.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_LargeMax).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_MediumMax).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_VeryLarge).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_LargeMin).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_MediumMin).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown_Small).EndInit();
             panel10.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -445,21 +451,21 @@
         private Label label6;
         private Label label5;
         private ComboBox comboBox_VeryLargeUnit;
-        private TextBox textBox_VeryLarge;
         private ComboBox comboBox_LargeUnit;
-        private TextBox textBox_Large;
         private ComboBox comboBox_MediumUnit;
-        private TextBox textBox_Medium;
         private ComboBox comboBox_SmallUnit;
-        private TextBox textBox_Small;
         private ComboBox comboBox_MediumUnit1;
-        private TextBox textBox_Medium1;
         private Label label8;
         private ComboBox comboBox_LargeUnit1;
-        private TextBox textBox_Large1;
         private Label label2;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Panel panel10;
         private Button button_Saved;
+        private NumericUpDown numericUpDown_Small;
+        private NumericUpDown numericUpDown_VeryLarge;
+        private NumericUpDown numericUpDown_LargeMin;
+        private NumericUpDown numericUpDown_MediumMin;
+        private NumericUpDown numericUpDown_LargeMax;
+        private NumericUpDown numericUpDown_MediumMax;
     }
 }
