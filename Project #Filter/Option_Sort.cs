@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
@@ -149,7 +150,7 @@ namespace Project__Filter
         private async void Populated_Treeview(string folderPath)
         {
             // Clear the TreeView on the UI thread
-            treeView1.Invoke((Action)(() => treeView1.Nodes.Clear()));
+            treeView1.Invoke(() => treeView1.Nodes.Clear());
 
             // Create the root node for the parent folder
             TreeNode rootNode = new TreeNode(System.IO.Path.GetFileName(folderPath));
@@ -157,6 +158,9 @@ namespace Project__Filter
 
             // Get all files from the folder and its subfolders (after sorting)
             var files = await ProcessFiles(folderPath);
+
+            int totalFiles = files.Count();
+            File_Count.Text = $"{totalFiles}";
 
             // Iterate over each file
             foreach (var file in files)
@@ -206,12 +210,7 @@ namespace Project__Filter
             var allow = jsonContent["Type_Additional"].ToObject<JObject>();
 
             var files = await ProcessFiles(folderPath);
-            int totalFiles = files.Length;
-
-            // UI setup
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = totalFiles));
-            Invoke((MethodInvoker)(() => File_Count.Text = $"{totalFiles}"));
-
+         
             var directoryCache = new ConcurrentDictionary<string, string>();
 
             int processedFiles = 0;
