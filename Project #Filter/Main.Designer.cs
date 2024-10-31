@@ -31,10 +31,11 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             panel_Menu = new Panel();
+            panel1 = new Panel();
+            button_Git = new Button();
             Panel_Index = new Panel();
             button_Privacy = new Button();
             button_Merge = new Button();
-            button_Git = new Button();
             button_Extract = new Button();
             button_Convert = new Button();
             button_Sort = new Button();
@@ -70,7 +71,9 @@
             bunifuElipse9 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse10 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse11 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse12 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel_Menu.SuspendLayout();
+            panel1.SuspendLayout();
             panel_Accent.SuspendLayout();
             Panel_Banner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -79,10 +82,10 @@
             // panel_Menu
             // 
             panel_Menu.BackColor = Color.FromArgb(17, 88, 100);
+            panel_Menu.Controls.Add(panel1);
             panel_Menu.Controls.Add(Panel_Index);
             panel_Menu.Controls.Add(button_Privacy);
             panel_Menu.Controls.Add(button_Merge);
-            panel_Menu.Controls.Add(button_Git);
             panel_Menu.Controls.Add(button_Extract);
             panel_Menu.Controls.Add(button_Convert);
             panel_Menu.Controls.Add(button_Sort);
@@ -93,6 +96,32 @@
             panel_Menu.Name = "panel_Menu";
             panel_Menu.Size = new Size(219, 645);
             panel_Menu.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(button_Git);
+            panel1.Dock = DockStyle.Bottom;
+            panel1.Location = new Point(0, 605);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(219, 40);
+            panel1.TabIndex = 9;
+            // 
+            // button_Git
+            // 
+            button_Git.BackgroundImage = Properties.Resources.Button_Icon_Github;
+            button_Git.BackgroundImageLayout = ImageLayout.Zoom;
+            button_Git.Cursor = Cursors.Hand;
+            button_Git.Dock = DockStyle.Left;
+            button_Git.FlatAppearance.BorderSize = 0;
+            button_Git.FlatAppearance.MouseOverBackColor = SystemColors.ActiveBorder;
+            button_Git.FlatStyle = FlatStyle.Flat;
+            button_Git.Location = new Point(0, 0);
+            button_Git.Margin = new Padding(3, 2, 3, 2);
+            button_Git.Name = "button_Git";
+            button_Git.Size = new Size(40, 40);
+            button_Git.TabIndex = 7;
+            button_Git.UseVisualStyleBackColor = true;
+            button_Git.Click += button_Git_Click;
             // 
             // Panel_Index
             // 
@@ -142,22 +171,6 @@
             button_Merge.TextImageRelation = TextImageRelation.ImageBeforeText;
             button_Merge.UseVisualStyleBackColor = false;
             button_Merge.Click += button_Merge_Click;
-            // 
-            // button_Git
-            // 
-            button_Git.BackgroundImage = Properties.Resources.Button_Icon_Github;
-            button_Git.BackgroundImageLayout = ImageLayout.Zoom;
-            button_Git.Cursor = Cursors.Hand;
-            button_Git.Dock = DockStyle.Bottom;
-            button_Git.FlatAppearance.BorderSize = 0;
-            button_Git.FlatStyle = FlatStyle.Flat;
-            button_Git.Location = new Point(0, 615);
-            button_Git.Margin = new Padding(3, 2, 3, 2);
-            button_Git.Name = "button_Git";
-            button_Git.Size = new Size(219, 30);
-            button_Git.TabIndex = 7;
-            button_Git.UseVisualStyleBackColor = true;
-            button_Git.Click += button_Git_Click;
             // 
             // button_Extract
             // 
@@ -491,6 +504,11 @@
             bunifuElipse11.ElipseRadius = 5;
             bunifuElipse11.TargetControl = panel_Right;
             // 
+            // bunifuElipse12
+            // 
+            bunifuElipse12.ElipseRadius = 5;
+            bunifuElipse12.TargetControl = button_Git;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -515,6 +533,7 @@
             Name = "Main";
             StartPosition = FormStartPosition.CenterScreen;
             panel_Menu.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             panel_Accent.ResumeLayout(false);
             panel_Accent.PerformLayout();
             Panel_Banner.ResumeLayout(false);
@@ -564,5 +583,7 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse9;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse10;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse11;
+        private Panel panel1;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse12;
     }
 }
