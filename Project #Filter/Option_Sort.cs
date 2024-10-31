@@ -202,8 +202,8 @@ namespace Project__Filter
             string jsonString = await File.ReadAllTextAsync(jsonPath);
             var jsonContent = JObject.Parse(jsonString);
 
-            var extensions = jsonContent["Extensions"].ToObject<JObject>();
-            var allow = jsonContent["Allow"].ToObject<JObject>();
+            var extensions = jsonContent["Type"].ToObject<JObject>();
+            var allow = jsonContent["Type_Additional"].ToObject<JObject>();
 
             var files = await ProcessFiles(folderPath);
             int totalFiles = files.Length;
