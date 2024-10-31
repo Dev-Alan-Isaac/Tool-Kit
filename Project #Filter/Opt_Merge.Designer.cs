@@ -61,6 +61,7 @@
             panel_Right = new Panel();
             panel_Bottom = new Panel();
             panel_Header = new Panel();
+            bunifuElipse4 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel4.SuspendLayout();
             panel_Footer.SuspendLayout();
             panel3.SuspendLayout();
@@ -442,6 +443,11 @@
             panel_Header.Size = new Size(667, 49);
             panel_Header.TabIndex = 43;
             // 
+            // bunifuElipse4
+            // 
+            bunifuElipse4.ElipseRadius = 5;
+            bunifuElipse4.TargetControl = button_Path;
+            // 
             // Opt_Merge
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -504,5 +510,6 @@
         private Panel panel_Right;
         private Panel panel_Bottom;
         private Panel panel_Header;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse4;
     }
 }
