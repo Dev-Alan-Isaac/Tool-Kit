@@ -75,7 +75,7 @@
             // 
             // panel3
             // 
-            panel3.BackColor = Color.FromArgb(0, 64, 64);
+            panel3.BackColor = Color.FromArgb(17, 88, 106);
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 482);
             panel3.Name = "panel3";
@@ -84,7 +84,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(0, 64, 64);
+            panel1.BackColor = Color.FromArgb(17, 88, 106);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -98,7 +98,7 @@
             // 
             // button_Saved
             // 
-            button_Saved.BackColor = Color.Teal;
+            button_Saved.BackColor = SystemColors.ActiveBorder;
             button_Saved.BackgroundImage = Properties.Resources.Button_Icon_Save;
             button_Saved.BackgroundImageLayout = ImageLayout.Zoom;
             button_Saved.Dock = DockStyle.Fill;
@@ -220,7 +220,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(0, 64, 64);
+            panel2.BackColor = Color.FromArgb(17, 88, 106);
             panel2.Dock = DockStyle.Right;
             panel2.Location = new Point(579, 0);
             panel2.Name = "panel2";
