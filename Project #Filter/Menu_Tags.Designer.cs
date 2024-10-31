@@ -144,7 +144,7 @@
             // button_Remove
             // 
             button_Remove.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            button_Remove.BackColor = Color.Teal;
+            button_Remove.BackColor = SystemColors.ActiveBorder;
             button_Remove.BackgroundImage = Properties.Resources.Button_Icon_Remove;
             button_Remove.BackgroundImageLayout = ImageLayout.Zoom;
             button_Remove.FlatAppearance.BorderSize = 0;
@@ -162,7 +162,7 @@
             // button_Add
             // 
             button_Add.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            button_Add.BackColor = Color.Teal;
+            button_Add.BackColor = SystemColors.ActiveBorder;
             button_Add.BackgroundImage = Properties.Resources.Button_Icon_Add;
             button_Add.BackgroundImageLayout = ImageLayout.Zoom;
             button_Add.FlatAppearance.BorderSize = 0;
@@ -179,7 +179,7 @@
             // 
             // panel3
             // 
-            panel3.BackColor = Color.FromArgb(0, 64, 64);
+            panel3.BackColor = Color.FromArgb(17, 88, 106);
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 482);
             panel3.Name = "panel3";
@@ -188,7 +188,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.FromArgb(0, 64, 64);
+            panel2.BackColor = Color.FromArgb(17, 88, 106);
             panel2.Dock = DockStyle.Right;
             panel2.Location = new Point(579, 32);
             panel2.Name = "panel2";
@@ -197,7 +197,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(0, 64, 64);
+            panel1.BackColor = Color.FromArgb(17, 88, 106);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
