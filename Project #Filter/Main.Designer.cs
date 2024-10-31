@@ -45,13 +45,13 @@
             button_Exit = new Button();
             Panel_Banner = new Panel();
             pictureBox1 = new PictureBox();
-            home1 = new Opt_Home();
+            home1 = new Menu_Home();
             filter1 = new Opt_Sort();
             convert1 = new Opt_Transform();
             extract1 = new Opt_Extract();
             merge1 = new Opt_Merge();
             privacy1 = new Opt_Encrypt();
-            panel1 = new Panel();
+            panel_Right = new Panel();
             config_Menu1 = new Main_Menu();
             bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(components);
             bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(components);
@@ -67,6 +67,9 @@
             bunifuElipse6 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse7 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse8 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse9 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse10 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse11 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel_Menu.SuspendLayout();
             panel_Accent.SuspendLayout();
             Panel_Banner.SuspendLayout();
@@ -75,7 +78,7 @@
             // 
             // panel_Menu
             // 
-            panel_Menu.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Menu.BackColor = Color.FromArgb(59, 112, 112);
             panel_Menu.Controls.Add(Panel_Index);
             panel_Menu.Controls.Add(button_Privacy);
             panel_Menu.Controls.Add(button_Merge);
@@ -93,7 +96,7 @@
             // 
             // Panel_Index
             // 
-            Panel_Index.BackColor = Color.Teal;
+            Panel_Index.BackColor = Color.White;
             Panel_Index.Location = new Point(2, 26);
             Panel_Index.Margin = new Padding(3, 2, 3, 2);
             Panel_Index.Name = "Panel_Index";
@@ -102,7 +105,7 @@
             // 
             // button_Privacy
             // 
-            button_Privacy.BackColor = Color.FromArgb(0, 64, 64);
+            button_Privacy.BackColor = Color.FromArgb(59, 112, 112);
             button_Privacy.Cursor = Cursors.Hand;
             button_Privacy.FlatAppearance.BorderSize = 0;
             button_Privacy.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -122,7 +125,7 @@
             // 
             // button_Merge
             // 
-            button_Merge.BackColor = Color.FromArgb(0, 64, 64);
+            button_Merge.BackColor = Color.FromArgb(59, 112, 112);
             button_Merge.Cursor = Cursors.Hand;
             button_Merge.FlatAppearance.BorderSize = 0;
             button_Merge.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -158,7 +161,7 @@
             // 
             // button_Extract
             // 
-            button_Extract.BackColor = Color.FromArgb(0, 64, 64);
+            button_Extract.BackColor = Color.FromArgb(59, 112, 112);
             button_Extract.Cursor = Cursors.Hand;
             button_Extract.FlatAppearance.BorderSize = 0;
             button_Extract.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -178,7 +181,7 @@
             // 
             // button_Convert
             // 
-            button_Convert.BackColor = Color.FromArgb(0, 64, 64);
+            button_Convert.BackColor = Color.FromArgb(59, 112, 112);
             button_Convert.Cursor = Cursors.Hand;
             button_Convert.FlatAppearance.BorderSize = 0;
             button_Convert.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -198,7 +201,7 @@
             // 
             // button_Sort
             // 
-            button_Sort.BackColor = Color.FromArgb(0, 64, 64);
+            button_Sort.BackColor = Color.FromArgb(59, 112, 112);
             button_Sort.Cursor = Cursors.Hand;
             button_Sort.FlatAppearance.BorderSize = 0;
             button_Sort.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -218,7 +221,7 @@
             // 
             // button_Home
             // 
-            button_Home.BackColor = Color.FromArgb(0, 64, 64);
+            button_Home.BackColor = Color.FromArgb(59, 112, 112);
             button_Home.Cursor = Cursors.Hand;
             button_Home.FlatAppearance.BorderSize = 0;
             button_Home.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -238,7 +241,7 @@
             // 
             // panel_Accent
             // 
-            panel_Accent.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Accent.BackColor = Color.FromArgb(17, 88, 106);
             panel_Accent.Controls.Add(button_Config);
             panel_Accent.Controls.Add(label_Title);
             panel_Accent.Controls.Add(button_Exit);
@@ -295,7 +298,7 @@
             // 
             // Panel_Banner
             // 
-            Panel_Banner.BackColor = Color.FromArgb(0, 64, 64);
+            Panel_Banner.BackColor = Color.FromArgb(17, 88, 106);
             Panel_Banner.Controls.Add(pictureBox1);
             Panel_Banner.Location = new Point(232, 6);
             Panel_Banner.Margin = new Padding(3, 2, 3, 2);
@@ -373,14 +376,14 @@
             privacy1.Size = new Size(774, 563);
             privacy1.TabIndex = 11;
             // 
-            // panel1
+            // panel_Right
             // 
-            panel1.BackColor = Color.FromArgb(0, 64, 64);
-            panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(961, 40);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(32, 605);
-            panel1.TabIndex = 13;
+            panel_Right.BackColor = Color.FromArgb(17, 88, 106);
+            panel_Right.Dock = DockStyle.Right;
+            panel_Right.Location = new Point(961, 40);
+            panel_Right.Name = "panel_Right";
+            panel_Right.Size = new Size(32, 605);
+            panel_Right.TabIndex = 13;
             // 
             // config_Menu1
             // 
@@ -474,6 +477,21 @@
             bunifuElipse8.ElipseRadius = 5;
             bunifuElipse8.TargetControl = button_Privacy;
             // 
+            // bunifuElipse9
+            // 
+            bunifuElipse9.ElipseRadius = 5;
+            bunifuElipse9.TargetControl = panel_Menu;
+            // 
+            // bunifuElipse10
+            // 
+            bunifuElipse10.ElipseRadius = 5;
+            bunifuElipse10.TargetControl = panel_Accent;
+            // 
+            // bunifuElipse11
+            // 
+            bunifuElipse11.ElipseRadius = 5;
+            bunifuElipse11.TargetControl = panel_Right;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -481,7 +499,7 @@
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(993, 645);
             ControlBox = false;
-            Controls.Add(panel1);
+            Controls.Add(panel_Right);
             Controls.Add(home1);
             Controls.Add(filter1);
             Controls.Add(convert1);
@@ -518,7 +536,7 @@
         private Panel Panel_Index;
         private Button button_Home;
         private Button button_Exit;
-        private Opt_Home home1;
+        private Menu_Home home1;
         private Opt_Sort filter1;
         private Button button_Privacy;
         private Label label_Title;
@@ -528,7 +546,7 @@
         private Opt_Merge merge1;
         private Opt_Encrypt privacy1;
         private Button button_Config;
-        private Panel panel1;
+        private Panel panel_Right;
         private Main_Menu config_Menu1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;
@@ -544,5 +562,8 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse6;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse7;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse8;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse9;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse10;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse11;
     }
 }

@@ -55,7 +55,7 @@
     <Compile Update="Opt_Extract.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Opt_Home.cs">
+    <Compile Update="Menu_Home.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="Opt_Merge.cs">

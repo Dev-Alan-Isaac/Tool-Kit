@@ -101,6 +101,7 @@
             button_Merge.BackColor = Color.FromArgb(0, 64, 64);
             button_Merge.Cursor = Cursors.Hand;
             button_Merge.FlatAppearance.BorderSize = 0;
+            button_Merge.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Merge.FlatStyle = FlatStyle.Flat;
             button_Merge.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Merge.ForeColor = Color.White;
@@ -120,6 +121,7 @@
             button_Extract.BackColor = Color.FromArgb(0, 64, 64);
             button_Extract.Cursor = Cursors.Hand;
             button_Extract.FlatAppearance.BorderSize = 0;
+            button_Extract.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Extract.FlatStyle = FlatStyle.Flat;
             button_Extract.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Extract.ForeColor = Color.White;
@@ -139,6 +141,7 @@
             button_Convert.BackColor = Color.FromArgb(0, 64, 64);
             button_Convert.Cursor = Cursors.Hand;
             button_Convert.FlatAppearance.BorderSize = 0;
+            button_Convert.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Convert.FlatStyle = FlatStyle.Flat;
             button_Convert.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Convert.ForeColor = Color.White;
@@ -158,6 +161,7 @@
             button_Media.BackColor = Color.FromArgb(0, 64, 64);
             button_Media.Cursor = Cursors.Hand;
             button_Media.FlatAppearance.BorderSize = 0;
+            button_Media.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Media.FlatStyle = FlatStyle.Flat;
             button_Media.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Media.ForeColor = Color.White;
@@ -177,6 +181,7 @@
             button_Folder.BackColor = Color.FromArgb(0, 64, 64);
             button_Folder.Cursor = Cursors.Hand;
             button_Folder.FlatAppearance.BorderSize = 0;
+            button_Folder.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Folder.FlatStyle = FlatStyle.Flat;
             button_Folder.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Folder.ForeColor = Color.White;
@@ -196,6 +201,7 @@
             button_Tags.BackColor = Color.FromArgb(0, 64, 64);
             button_Tags.Cursor = Cursors.Hand;
             button_Tags.FlatAppearance.BorderSize = 0;
+            button_Tags.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Tags.FlatStyle = FlatStyle.Flat;
             button_Tags.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Tags.ForeColor = Color.White;
@@ -215,6 +221,7 @@
             button_Auth.BackColor = Color.FromArgb(0, 64, 64);
             button_Auth.Cursor = Cursors.Hand;
             button_Auth.FlatAppearance.BorderSize = 0;
+            button_Auth.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Auth.FlatStyle = FlatStyle.Flat;
             button_Auth.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Auth.ForeColor = Color.White;
@@ -234,6 +241,7 @@
             button_Name.BackColor = Color.FromArgb(0, 64, 64);
             button_Name.Cursor = Cursors.Hand;
             button_Name.FlatAppearance.BorderSize = 0;
+            button_Name.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Name.FlatStyle = FlatStyle.Flat;
             button_Name.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Name.ForeColor = Color.White;
@@ -253,6 +261,7 @@
             button_Size.BackColor = Color.FromArgb(0, 64, 64);
             button_Size.Cursor = Cursors.Hand;
             button_Size.FlatAppearance.BorderSize = 0;
+            button_Size.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Size.FlatStyle = FlatStyle.Flat;
             button_Size.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Size.ForeColor = Color.White;
@@ -272,6 +281,7 @@
             button_Date.BackColor = Color.FromArgb(0, 64, 64);
             button_Date.Cursor = Cursors.Hand;
             button_Date.FlatAppearance.BorderSize = 0;
+            button_Date.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Date.FlatStyle = FlatStyle.Flat;
             button_Date.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Date.ForeColor = Color.White;
@@ -291,6 +301,7 @@
             button_Type.BackColor = Color.FromArgb(0, 64, 64);
             button_Type.Cursor = Cursors.Hand;
             button_Type.FlatAppearance.BorderSize = 0;
+            button_Type.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Type.FlatStyle = FlatStyle.Flat;
             button_Type.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Type.ForeColor = Color.White;
@@ -310,6 +321,7 @@
             button_Sort.BackColor = Color.FromArgb(0, 64, 64);
             button_Sort.Cursor = Cursors.Hand;
             button_Sort.FlatAppearance.BorderSize = 0;
+            button_Sort.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Sort.FlatStyle = FlatStyle.Flat;
             button_Sort.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Sort.ForeColor = Color.White;
