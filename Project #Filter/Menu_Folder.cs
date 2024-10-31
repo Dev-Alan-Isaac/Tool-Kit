@@ -31,7 +31,7 @@ namespace Project__Filter
                 string jsonContent = File.ReadAllText(FilePath);
                 var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
-                bool isAlphabetically = jsonObject["Folder"]["Alphabetically"]?.ToObject<bool>() ?? false;
+                bool isAlphabetically = jsonObject["Folder"]["Alphabetical"]?.ToObject<bool>() ?? false;
                 bool isDepth = jsonObject["Folder"]["Depth"]?.ToObject<bool>() ?? false;
 
                 if (isAlphabetically)
@@ -46,40 +46,39 @@ namespace Project__Filter
                 bool isCase = jsonObject["Folder_Additional"]["Case"]?.ToObject<bool>() ?? false;
                 bool isSpecial = jsonObject["Folder_Additional"]["Special"]?.ToObject<bool>() ?? false;
 
-                if (isCase)
-                {
-                    checkBox_CapsSens.Checked = isCase;
-                }
-                else if (isSpecial)
-                {
-                    checkBox_IgnoreSpecialChar.Checked = isSpecial;
-                }
+                checkBox_CapsSens.Checked = isCase;
+                checkBox_IgnoreSpecialChar.Checked = isSpecial;
             }
         }
 
         private void button_Saved_Click(object sender, EventArgs e)
         {
-            var jsonObject = new JObject
-            {
-                ["Option"] = new JObject
-                {
-                    ["Alphabetical"] = radioButton_Alphabetical.Checked,
-                    ["Depth"] = radioButton_Depth.Checked,
-                },
-                ["Additional"] = new JObject
-                {
-                    ["Case"] = checkBox_CapsSens.Checked,
-                    ["Special"] = checkBox_IgnoreSpecialChar.Checked
-                }
-            };
-
             // Define the path to the JSON file
-            string filePath = "Config_Folder.json";
+            string filePath = "Config_Sort.json";
 
-            // Write the JSON object to the file
-            File.WriteAllText(filePath, jsonObject.ToString());
+            // Load the JSON file
+            JObject jsonObject;
+            if (File.Exists(filePath))
+            {
+                jsonObject = JObject.Parse(File.ReadAllText(filePath));
+            }
+            else
+            {
+                MessageBox.Show("Configuration file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            // Optionally, show a message to indicate that the file was saved
+            jsonObject["Folder"]["Alphabetical"] = radioButton_Alphabetical.Checked;
+            jsonObject["Name"]["Depth"] = radioButton_Depth.Checked;
+
+            jsonObject["Folder_Additional"]["Case"] = checkBox_CapsSens.Checked;
+            jsonObject["Folder_Additional"]["Special"] = checkBox_IgnoreSpecialChar.Checked;
+
+
+            // Write the modified JSON object back to the file
+            File.WriteAllText(filePath, jsonObject.ToString(Formatting.Indented));
+
+            // Show a message to indicate that the file was saved
             MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
