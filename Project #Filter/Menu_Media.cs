@@ -14,26 +14,13 @@ namespace Project__Filter
         {
             while (true)
             {
-                if (!File.Exists("Config_Media.json"))
+                if (File.Exists("Config_Sort.json"))
                 {
-                    // Create the JSON object
-                    var jsonContent = new JObject(
-                         new JProperty("Option", new JObject(
-                             new JProperty("Duration", true),
-                             new JProperty("Resolution", false),
-                             new JProperty("Frame_Rate", false),
-                             new JProperty("Codec", false),
-                             new JProperty("Aspect", false)
-                        ))
-                    );
-
-
-                    // Save to a file (e.g., "Extensions.json")
-                    File.WriteAllText("Config_Media.json", jsonContent.ToString());
+                    // File already exists; get the filepath
+                    string filePath = Path.GetFullPath("Config_Sort.json");
+                    Populate_Inputs(filePath);
+                    break;
                 }
-                string filePath = Path.GetFullPath("Config_Media.json");
-                Populate_Inputs(filePath);
-                break;
             }
         }
 
@@ -41,69 +28,67 @@ namespace Project__Filter
         {
             if (File.Exists(FilePath))
             {
-                // Read the JSON content from the file
+                // Read the JSON content once
                 string jsonContent = File.ReadAllText(FilePath);
+                var jsonObject = JsonConvert.DeserializeObject<JObject>(jsonContent);
 
-                // Deserialize the JSON content into a JObject
-                var jsonObject = JObject.Parse(jsonContent);
+                // Check the state of "Alphabetically" and "AlphabeticallyExtension" and set radio buttons accordingly
+                bool isDuration = jsonObject["Media"]["Duration"]?.ToObject<bool>() ?? false;
+                bool isResolution = jsonObject["Media"]["Resolution"]?.ToObject<bool>() ?? false;
+                bool isFrame_Rate = jsonObject["Media"]["Frame_Rate"]?.ToObject<bool>() ?? false;
+                bool isCodec = jsonObject["Media"]["Codec"]?.ToObject<bool>() ?? false;
+                bool isAspect = jsonObject["Media"]["Aspect"]?.ToObject<bool>() ?? false;
 
-                // Check if the "Option" property exists
-                if (jsonObject["Option"] != null)
+                if (isDuration)
                 {
-                    // Check the state of "Alphabetically" and "AlphabeticallyExtension" and set radio buttons accordingly
-                    bool isDuration = jsonObject["Option"]["Duration"]?.ToObject<bool>() ?? false;
-                    bool isResolution = jsonObject["Option"]["Resolution"]?.ToObject<bool>() ?? false;
-                    bool isFrame_Rate = jsonObject["Option"]["Frame_Rate"]?.ToObject<bool>() ?? false;
-                    bool isCodec = jsonObject["Option"]["Codec"]?.ToObject<bool>() ?? false;
-                    bool isAudio = jsonObject["Option"]["Audio"]?.ToObject<bool>() ?? false;
-                    bool isAspect = jsonObject["Option"]["Aspect"]?.ToObject<bool>() ?? false;
-                    bool isBitDepth = jsonObject["Option"]["BitDepth"]?.ToObject<bool>() ?? false;
-
-                    if (isDuration)
-                    {
-                        radioButton_Duration.Checked = true; // Assuming this is the radio button for "Alphabetically"
-                    }
-                    else if (isResolution)
-                    {
-                        radioButton_Resolution.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
-                    else if (isFrame_Rate)
-                    {
-                        radioButton_Frames.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
-                    else if (isCodec)
-                    {
-                        radioButton_Codec.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
-                    else if (isAspect)
-                    {
-                        radioButton_AspectRatio.Checked = true; // Assuming this is the radio button for "AlphabeticallyExtension"
-                    }
+                    radioButton_Duration.Checked = isDuration;
+                }
+                else if (isResolution)
+                {
+                    radioButton_Resolution.Checked = isResolution;
+                }
+                else if (isFrame_Rate)
+                {
+                    radioButton_Frames.Checked = isFrame_Rate;
+                }
+                else if (isCodec)
+                {
+                    radioButton_Codec.Checked = isCodec;
+                }
+                else if (isAspect)
+                {
+                    radioButton_AspectRatio.Checked = isAspect;
                 }
             }
         }
 
         private void button_Saved_Click(object sender, EventArgs e)
         {
-            var jsonObject = new JObject
-            {
-                ["Option"] = new JObject
-                {
-                    ["Duration"] = radioButton_Duration.Checked,
-                    ["Resolution"] = radioButton_Resolution.Checked,
-                    ["Frame_Rate"] = radioButton_Frames.Checked,
-                    ["Codec"] = radioButton_Codec.Checked,
-                    ["Aspect"] = radioButton_AspectRatio.Checked,
-                }
-            };
-
             // Define the path to the JSON file
-            string filePath = "Config_Media.json";
+            string filePath = "Config_Sort.json";
 
-            // Write the JSON object to the file
-            File.WriteAllText(filePath, jsonObject.ToString());
+            // Load the JSON file
+            JObject jsonObject;
+            if (File.Exists(filePath))
+            {
+                jsonObject = JObject.Parse(File.ReadAllText(filePath));
+            }
+            else
+            {
+                MessageBox.Show("Configuration file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            // Optionally, show a message to indicate that the file was saved
+            jsonObject["Media"]["Duration"] = radioButton_Duration.Checked;
+            jsonObject["Media"]["Resolution"] = radioButton_Resolution.Checked;
+            jsonObject["Media"]["Frame_Rate"] = radioButton_Frames.Checked;
+            jsonObject["Media"]["Codec"] = radioButton_Codec.Checked;
+            jsonObject["Media"]["Aspect"] = radioButton_AspectRatio.Checked;
+
+            // Write the modified JSON object back to the file
+            File.WriteAllText(filePath, jsonObject.ToString(Formatting.Indented));
+
+            // Show a message to indicate that the file was saved
             MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
