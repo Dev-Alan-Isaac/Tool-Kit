@@ -36,11 +36,11 @@ namespace Project__Filter
 
                 if (isAlphabetically)
                 {
-                    radioButton_FileName.Checked = isAlphabetically; 
+                    radioButton_FileName.Checked = isAlphabetically;
                 }
                 else if (isAlphabeticallyExtension)
                 {
-                    radioButton_FileExtension.Checked = isAlphabeticallyExtension; 
+                    radioButton_FileExtension.Checked = isAlphabeticallyExtension;
                 }
 
                 bool isCase = jsonObject["Name_Additional"]["Case"]?.ToObject<bool>() ?? false;
@@ -48,7 +48,7 @@ namespace Project__Filter
 
                 if (isCase)
                 {
-                    checkBox_CapsSens.Checked = isCase; 
+                    checkBox_CapsSens.Checked = isCase;
                 }
                 else if (isSpecial)
                 {
