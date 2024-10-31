@@ -69,7 +69,7 @@ namespace Project__Filter
             }
 
             jsonObject["Folder"]["Alphabetical"] = radioButton_Alphabetical.Checked;
-            jsonObject["Name"]["Depth"] = radioButton_Depth.Checked;
+            jsonObject["Folder"]["Depth"] = radioButton_Depth.Checked;
 
             jsonObject["Folder_Additional"]["Case"] = checkBox_CapsSens.Checked;
             jsonObject["Folder_Additional"]["Special"] = checkBox_IgnoreSpecialChar.Checked;
