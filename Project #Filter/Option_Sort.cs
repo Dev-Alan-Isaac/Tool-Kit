@@ -805,7 +805,7 @@ namespace Project__Filter
 
         private async Task SortPermissions(string folderPath, string jsonPath)
         {
-            if (!File.Exists(jsonPath) || !File.Exists(configTypePath))
+            if (!File.Exists(jsonPath))
             {
                 MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // "Danger" type for errors
                 return;
@@ -815,7 +815,7 @@ namespace Project__Filter
             string jsonString = await File.ReadAllTextAsync(jsonPath);
             var jsonContent = JObject.Parse(jsonString);
 
-            string configTypeString = await File.ReadAllTextAsync(configTypePath);
+            string configTypeString = jsonString;
             var configTypeContent = JObject.Parse(configTypeString);
 
             var option = jsonContent["Option"] as JObject;
@@ -1131,26 +1131,17 @@ namespace Project__Filter
 
         private async Task SortMedia(string folderPath, string jsonPath)
         {
-            // Check if both config files exist
-            if (!File.Exists(jsonPath) || !File.Exists(configTypePath))
+            if (!File.Exists(jsonPath))
             {
                 MessageBox.Show("One or both config files not found.");
                 return;
             }
 
-            // Read and parse the JSON files
-            var tasks = new[]
-            {
-                File.ReadAllTextAsync(jsonPath),
-                File.ReadAllTextAsync(configTypePath)
-            };
-
-            var results = await Task.WhenAll(tasks);
-            var jsonOptions = JObject.Parse(results[0]);
-            var jsonConfig = JObject.Parse(results[1]);
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
 
             // Extract sorting options from jsonPath
-            var option = jsonOptions["Option"].ToObject<JObject>();
+            var option = jsonContent["Option"].ToObject<JObject>();
             bool isDuration = (bool)option["Duration"];
             bool isResolution = (bool)option["Resolution"];
             bool isFrameRate = (bool)option["Frame_Rate"];
@@ -1158,8 +1149,8 @@ namespace Project__Filter
             bool isAspect = (bool)option["Aspect"];
 
             // Extract file extensions and allowed types from configTypePath
-            var extensions = jsonConfig["Extensions"].ToObject<JObject>();
-            var allow = jsonConfig["Allow"].ToObject<JObject>();
+            var extensions = jsonContent["Extensions"].ToObject<JObject>();
+            var allow = jsonContent["Allow"].ToObject<JObject>();
 
             // Define media types (Images, Videos, Audio)
             var mediaTypes = new[] { "Images", "Videos", "Audio" };
