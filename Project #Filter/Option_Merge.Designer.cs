@@ -448,7 +448,7 @@
             bunifuElipse4.ElipseRadius = 5;
             bunifuElipse4.TargetControl = button_Path;
             // 
-            // Opt_Merge
+            // Option_Merge
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -459,7 +459,7 @@
             Controls.Add(panel_Top);
             Controls.Add(panel_Bottom);
             Controls.Add(panel_Options);
-            Name = "Opt_Merge";
+            Name = "Option_Merge";
             Size = new Size(699, 562);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
