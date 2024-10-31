@@ -7,12 +7,12 @@ using NReco.VideoInfo;
 
 namespace Project__Filter
 {
-    public partial class Opt_Sort : UserControl
+    public partial class Option_Sort : UserControl
     {
         private string Path;
         private List<string> checkedItems = new List<string>();
 
-        public Opt_Sort()
+        public Option_Sort()
         {
             InitializeComponent();
         }

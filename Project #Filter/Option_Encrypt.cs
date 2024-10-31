@@ -1,11 +1,11 @@
 ﻿namespace Project__Filter
 {
-    public partial class Opt_Encrypt : UserControl
+    public partial class Option_Encrypt : UserControl
     {
         private string Path;
         private List<string> selectedFiles = new List<string>();
 
-        public Opt_Encrypt()
+        public Option_Encrypt()
         {
             InitializeComponent();
         }
