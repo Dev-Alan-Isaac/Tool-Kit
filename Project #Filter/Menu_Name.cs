@@ -46,14 +46,8 @@ namespace Project__Filter
                 bool isCase = jsonObject["Name_Additional"]["Case"]?.ToObject<bool>() ?? false;
                 bool isSpecial = jsonObject["Name_Additional"]["Special"]?.ToObject<bool>() ?? false;
 
-                if (isCase)
-                {
-                    checkBox_CapsSens.Checked = isCase;
-                }
-                else if (isSpecial)
-                {
-                    checkBox_IgnoreSpecialChar.Checked = isSpecial;
-                }
+                checkBox_CapsSens.Checked = isCase;
+                checkBox_IgnoreSpecialChar.Checked = isSpecial;
             }
         }
 
