@@ -75,7 +75,7 @@
             // panel_Menu_Config
             // 
             panel_Menu_Config.AutoScroll = true;
-            panel_Menu_Config.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Menu_Config.BackColor = Color.FromArgb(17, 88, 100);
             panel_Menu_Config.Controls.Add(button_Merge);
             panel_Menu_Config.Controls.Add(button_Extract);
             panel_Menu_Config.Controls.Add(button_Convert);
@@ -98,7 +98,7 @@
             // 
             // button_Merge
             // 
-            button_Merge.BackColor = Color.FromArgb(0, 64, 64);
+            button_Merge.BackColor = Color.FromArgb(17, 88, 100);
             button_Merge.Cursor = Cursors.Hand;
             button_Merge.FlatAppearance.BorderSize = 0;
             button_Merge.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -118,7 +118,7 @@
             // 
             // button_Extract
             // 
-            button_Extract.BackColor = Color.FromArgb(0, 64, 64);
+            button_Extract.BackColor = Color.FromArgb(17, 88, 100);
             button_Extract.Cursor = Cursors.Hand;
             button_Extract.FlatAppearance.BorderSize = 0;
             button_Extract.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -138,7 +138,7 @@
             // 
             // button_Convert
             // 
-            button_Convert.BackColor = Color.FromArgb(0, 64, 64);
+            button_Convert.BackColor = Color.FromArgb(17, 88, 100);
             button_Convert.Cursor = Cursors.Hand;
             button_Convert.FlatAppearance.BorderSize = 0;
             button_Convert.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -158,7 +158,7 @@
             // 
             // button_Media
             // 
-            button_Media.BackColor = Color.FromArgb(0, 64, 64);
+            button_Media.BackColor = Color.FromArgb(17, 88, 100);
             button_Media.Cursor = Cursors.Hand;
             button_Media.FlatAppearance.BorderSize = 0;
             button_Media.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -178,7 +178,7 @@
             // 
             // button_Folder
             // 
-            button_Folder.BackColor = Color.FromArgb(0, 64, 64);
+            button_Folder.BackColor = Color.FromArgb(17, 88, 100);
             button_Folder.Cursor = Cursors.Hand;
             button_Folder.FlatAppearance.BorderSize = 0;
             button_Folder.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -198,7 +198,7 @@
             // 
             // button_Tags
             // 
-            button_Tags.BackColor = Color.FromArgb(0, 64, 64);
+            button_Tags.BackColor = Color.FromArgb(17, 88, 100);
             button_Tags.Cursor = Cursors.Hand;
             button_Tags.FlatAppearance.BorderSize = 0;
             button_Tags.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -218,7 +218,7 @@
             // 
             // button_Auth
             // 
-            button_Auth.BackColor = Color.FromArgb(0, 64, 64);
+            button_Auth.BackColor = Color.FromArgb(17, 88, 100);
             button_Auth.Cursor = Cursors.Hand;
             button_Auth.FlatAppearance.BorderSize = 0;
             button_Auth.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -238,7 +238,7 @@
             // 
             // button_Name
             // 
-            button_Name.BackColor = Color.FromArgb(0, 64, 64);
+            button_Name.BackColor = Color.FromArgb(17, 88, 100);
             button_Name.Cursor = Cursors.Hand;
             button_Name.FlatAppearance.BorderSize = 0;
             button_Name.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -258,7 +258,7 @@
             // 
             // button_Size
             // 
-            button_Size.BackColor = Color.FromArgb(0, 64, 64);
+            button_Size.BackColor = Color.FromArgb(17, 88, 100);
             button_Size.Cursor = Cursors.Hand;
             button_Size.FlatAppearance.BorderSize = 0;
             button_Size.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -278,7 +278,7 @@
             // 
             // button_Date
             // 
-            button_Date.BackColor = Color.FromArgb(0, 64, 64);
+            button_Date.BackColor = Color.FromArgb(17, 88, 100);
             button_Date.Cursor = Cursors.Hand;
             button_Date.FlatAppearance.BorderSize = 0;
             button_Date.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -298,7 +298,7 @@
             // 
             // button_Type
             // 
-            button_Type.BackColor = Color.FromArgb(0, 64, 64);
+            button_Type.BackColor = Color.FromArgb(17, 88, 100);
             button_Type.Cursor = Cursors.Hand;
             button_Type.FlatAppearance.BorderSize = 0;
             button_Type.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -318,7 +318,7 @@
             // 
             // button_Sort
             // 
-            button_Sort.BackColor = Color.FromArgb(0, 64, 64);
+            button_Sort.BackColor = Color.FromArgb(17, 88, 100);
             button_Sort.Cursor = Cursors.Hand;
             button_Sort.FlatAppearance.BorderSize = 0;
             button_Sort.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -338,7 +338,7 @@
             // 
             // Panel_Index_Config
             // 
-            Panel_Index_Config.BackColor = Color.Teal;
+            Panel_Index_Config.BackColor = Color.Silver;
             Panel_Index_Config.Location = new Point(3, 26);
             Panel_Index_Config.Margin = new Padding(3, 2, 3, 2);
             Panel_Index_Config.Name = "Panel_Index_Config";

@@ -78,7 +78,7 @@
             // 
             // panel_Menu
             // 
-            panel_Menu.BackColor = Color.FromArgb(59, 112, 112);
+            panel_Menu.BackColor = Color.FromArgb(17, 88, 100);
             panel_Menu.Controls.Add(Panel_Index);
             panel_Menu.Controls.Add(button_Privacy);
             panel_Menu.Controls.Add(button_Merge);
@@ -105,7 +105,7 @@
             // 
             // button_Privacy
             // 
-            button_Privacy.BackColor = Color.FromArgb(59, 112, 112);
+            button_Privacy.BackColor = Color.FromArgb(17, 88, 100);
             button_Privacy.Cursor = Cursors.Hand;
             button_Privacy.FlatAppearance.BorderSize = 0;
             button_Privacy.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -125,7 +125,7 @@
             // 
             // button_Merge
             // 
-            button_Merge.BackColor = Color.FromArgb(59, 112, 112);
+            button_Merge.BackColor = Color.FromArgb(17, 88, 100);
             button_Merge.Cursor = Cursors.Hand;
             button_Merge.FlatAppearance.BorderSize = 0;
             button_Merge.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -145,23 +145,23 @@
             // 
             // button_Git
             // 
-            button_Git.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             button_Git.BackgroundImage = Properties.Resources.Button_Icon_Github;
             button_Git.BackgroundImageLayout = ImageLayout.Zoom;
             button_Git.Cursor = Cursors.Hand;
+            button_Git.Dock = DockStyle.Bottom;
             button_Git.FlatAppearance.BorderSize = 0;
             button_Git.FlatStyle = FlatStyle.Flat;
-            button_Git.Location = new Point(3, 613);
+            button_Git.Location = new Point(0, 615);
             button_Git.Margin = new Padding(3, 2, 3, 2);
             button_Git.Name = "button_Git";
-            button_Git.Size = new Size(35, 30);
+            button_Git.Size = new Size(219, 30);
             button_Git.TabIndex = 7;
             button_Git.UseVisualStyleBackColor = true;
             button_Git.Click += button_Git_Click;
             // 
             // button_Extract
             // 
-            button_Extract.BackColor = Color.FromArgb(59, 112, 112);
+            button_Extract.BackColor = Color.FromArgb(17, 88, 100);
             button_Extract.Cursor = Cursors.Hand;
             button_Extract.FlatAppearance.BorderSize = 0;
             button_Extract.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -181,7 +181,7 @@
             // 
             // button_Convert
             // 
-            button_Convert.BackColor = Color.FromArgb(59, 112, 112);
+            button_Convert.BackColor = Color.FromArgb(17, 88, 100);
             button_Convert.Cursor = Cursors.Hand;
             button_Convert.FlatAppearance.BorderSize = 0;
             button_Convert.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -201,7 +201,7 @@
             // 
             // button_Sort
             // 
-            button_Sort.BackColor = Color.FromArgb(59, 112, 112);
+            button_Sort.BackColor = Color.FromArgb(17, 88, 100);
             button_Sort.Cursor = Cursors.Hand;
             button_Sort.FlatAppearance.BorderSize = 0;
             button_Sort.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -221,7 +221,7 @@
             // 
             // button_Home
             // 
-            button_Home.BackColor = Color.FromArgb(59, 112, 112);
+            button_Home.BackColor = Color.FromArgb(17, 88, 100);
             button_Home.Cursor = Cursors.Hand;
             button_Home.FlatAppearance.BorderSize = 0;
             button_Home.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
@@ -379,10 +379,9 @@
             // panel_Right
             // 
             panel_Right.BackColor = Color.FromArgb(17, 88, 106);
-            panel_Right.Dock = DockStyle.Right;
-            panel_Right.Location = new Point(961, 40);
+            panel_Right.Location = new Point(961, 0);
             panel_Right.Name = "panel_Right";
-            panel_Right.Size = new Size(32, 605);
+            panel_Right.Size = new Size(32, 96);
             panel_Right.TabIndex = 13;
             // 
             // config_Menu1
@@ -499,7 +498,6 @@
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(993, 645);
             ControlBox = false;
-            Controls.Add(panel_Right);
             Controls.Add(home1);
             Controls.Add(filter1);
             Controls.Add(convert1);
@@ -510,6 +508,7 @@
             Controls.Add(Panel_Banner);
             Controls.Add(panel_Accent);
             Controls.Add(panel_Menu);
+            Controls.Add(panel_Right);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 2, 3, 2);

@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             panel2 = new Panel();
             panel4 = new Panel();
             pictureBox1 = new PictureBox();
-            bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -81,11 +79,6 @@
             pictureBox1.TabIndex = 4;
             pictureBox1.TabStop = false;
             // 
-            // bunifuElipse1
-            // 
-            bunifuElipse1.ElipseRadius = 5;
-            bunifuElipse1.TargetControl = this;
-            // 
             // Menu_Home
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -107,6 +100,5 @@
         private Panel panel2;
         private Panel panel4;
         private PictureBox pictureBox1;
-        private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
     }
 }
