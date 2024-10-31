@@ -88,7 +88,7 @@ namespace Project__Filter
                             break;
                         case "File Hash":
                             config_Path = System.IO.Path.GetFullPath("Config_Type.json");
-                            await SortHash(Path, config_Path);
+                            await SortHash(Path, Config_Sort);
                             break;
                         case "File Permissions":
                             config_Path = System.IO.Path.GetFullPath("Config_Names.json");
@@ -134,7 +134,7 @@ namespace Project__Filter
             string jsonString = await File.ReadAllTextAsync(config_file);
             var jsonContent = JObject.Parse(jsonString);
 
-            bool processSubfolders = (bool)jsonContent["Option"]["Subfolder"];
+            bool processSubfolders = (bool)jsonContent["General"]["Subfolder"];
 
             // Get files based on whether subfolder processing is allowed
             var files = processSubfolders
@@ -670,8 +670,8 @@ namespace Project__Filter
             var jsonContent = JObject.Parse(jsonString);
 
             // Get the "Extensions" and "Allow" sections from the JSON
-            var extensions = jsonContent["Extensions"].ToObject<JObject>();
-            var allow = jsonContent["Allow"].ToObject<JObject>();
+            var extensions = jsonContent["Type"].ToObject<JObject>();
+            var allow = jsonContent["Type_Additional"].ToObject<JObject>();
 
             // Create a HashSet for allowed extensions (faster lookup)
             HashSet<string> allowedExtensions = new HashSet<string>(
