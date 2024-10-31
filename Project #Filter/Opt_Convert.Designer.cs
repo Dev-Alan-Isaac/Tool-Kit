@@ -61,6 +61,7 @@
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse4 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel1.SuspendLayout();
             panel5.SuspendLayout();
             panel_Footer.SuspendLayout();
@@ -442,6 +443,11 @@
             bunifuElipse2.ElipseRadius = 5;
             bunifuElipse2.TargetControl = progressBar_Time;
             // 
+            // bunifuElipse4
+            // 
+            bunifuElipse4.ElipseRadius = 5;
+            bunifuElipse4.TargetControl = button_Path;
+            // 
             // Opt_Transform
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -505,5 +511,6 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse4;
     }
 }
