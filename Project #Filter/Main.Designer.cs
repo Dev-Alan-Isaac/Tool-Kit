@@ -37,7 +37,7 @@
             button_Git = new Button();
             button_Extract = new Button();
             button_Convert = new Button();
-            button_Filter = new Button();
+            button_Sort = new Button();
             button_Home = new Button();
             panel_Accent = new Panel();
             button_Config = new Button();
@@ -61,6 +61,12 @@
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuDragControl6 = new Bunifu.Framework.UI.BunifuDragControl(components);
+            bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse4 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse5 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse6 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse7 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse8 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel_Menu.SuspendLayout();
             panel_Accent.SuspendLayout();
             Panel_Banner.SuspendLayout();
@@ -76,7 +82,7 @@
             panel_Menu.Controls.Add(button_Git);
             panel_Menu.Controls.Add(button_Extract);
             panel_Menu.Controls.Add(button_Convert);
-            panel_Menu.Controls.Add(button_Filter);
+            panel_Menu.Controls.Add(button_Sort);
             panel_Menu.Controls.Add(button_Home);
             panel_Menu.Dock = DockStyle.Left;
             panel_Menu.Location = new Point(0, 0);
@@ -99,6 +105,7 @@
             button_Privacy.BackColor = Color.FromArgb(0, 64, 64);
             button_Privacy.Cursor = Cursors.Hand;
             button_Privacy.FlatAppearance.BorderSize = 0;
+            button_Privacy.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Privacy.FlatStyle = FlatStyle.Flat;
             button_Privacy.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Privacy.ForeColor = Color.White;
@@ -118,6 +125,7 @@
             button_Merge.BackColor = Color.FromArgb(0, 64, 64);
             button_Merge.Cursor = Cursors.Hand;
             button_Merge.FlatAppearance.BorderSize = 0;
+            button_Merge.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Merge.FlatStyle = FlatStyle.Flat;
             button_Merge.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Merge.ForeColor = Color.White;
@@ -153,6 +161,7 @@
             button_Extract.BackColor = Color.FromArgb(0, 64, 64);
             button_Extract.Cursor = Cursors.Hand;
             button_Extract.FlatAppearance.BorderSize = 0;
+            button_Extract.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Extract.FlatStyle = FlatStyle.Flat;
             button_Extract.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Extract.ForeColor = Color.White;
@@ -172,6 +181,7 @@
             button_Convert.BackColor = Color.FromArgb(0, 64, 64);
             button_Convert.Cursor = Cursors.Hand;
             button_Convert.FlatAppearance.BorderSize = 0;
+            button_Convert.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Convert.FlatStyle = FlatStyle.Flat;
             button_Convert.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Convert.ForeColor = Color.White;
@@ -186,30 +196,32 @@
             button_Convert.UseVisualStyleBackColor = false;
             button_Convert.Click += button_Convert_Click;
             // 
-            // button_Filter
+            // button_Sort
             // 
-            button_Filter.BackColor = Color.FromArgb(0, 64, 64);
-            button_Filter.Cursor = Cursors.Hand;
-            button_Filter.FlatAppearance.BorderSize = 0;
-            button_Filter.FlatStyle = FlatStyle.Flat;
-            button_Filter.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button_Filter.ForeColor = Color.White;
-            button_Filter.Image = Properties.Resources.Button_Icon_Filter;
-            button_Filter.Location = new Point(30, 86);
-            button_Filter.Margin = new Padding(3, 2, 3, 2);
-            button_Filter.Name = "button_Filter";
-            button_Filter.Size = new Size(186, 40);
-            button_Filter.TabIndex = 2;
-            button_Filter.Text = "    SORT";
-            button_Filter.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button_Filter.UseVisualStyleBackColor = false;
-            button_Filter.Click += button_Filter_Click_1;
+            button_Sort.BackColor = Color.FromArgb(0, 64, 64);
+            button_Sort.Cursor = Cursors.Hand;
+            button_Sort.FlatAppearance.BorderSize = 0;
+            button_Sort.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
+            button_Sort.FlatStyle = FlatStyle.Flat;
+            button_Sort.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button_Sort.ForeColor = Color.White;
+            button_Sort.Image = Properties.Resources.Button_Icon_Filter;
+            button_Sort.Location = new Point(30, 86);
+            button_Sort.Margin = new Padding(3, 2, 3, 2);
+            button_Sort.Name = "button_Sort";
+            button_Sort.Size = new Size(186, 40);
+            button_Sort.TabIndex = 2;
+            button_Sort.Text = "    SORT";
+            button_Sort.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button_Sort.UseVisualStyleBackColor = false;
+            button_Sort.Click += button_Filter_Click_1;
             // 
             // button_Home
             // 
             button_Home.BackColor = Color.FromArgb(0, 64, 64);
             button_Home.Cursor = Cursors.Hand;
             button_Home.FlatAppearance.BorderSize = 0;
+            button_Home.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Home.FlatStyle = FlatStyle.Flat;
             button_Home.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Home.ForeColor = Color.White;
@@ -432,6 +444,36 @@
             bunifuDragControl6.TargetControl = label_Title;
             bunifuDragControl6.Vertical = true;
             // 
+            // bunifuElipse3
+            // 
+            bunifuElipse3.ElipseRadius = 5;
+            bunifuElipse3.TargetControl = button_Home;
+            // 
+            // bunifuElipse4
+            // 
+            bunifuElipse4.ElipseRadius = 5;
+            bunifuElipse4.TargetControl = button_Sort;
+            // 
+            // bunifuElipse5
+            // 
+            bunifuElipse5.ElipseRadius = 5;
+            bunifuElipse5.TargetControl = button_Convert;
+            // 
+            // bunifuElipse6
+            // 
+            bunifuElipse6.ElipseRadius = 5;
+            bunifuElipse6.TargetControl = button_Extract;
+            // 
+            // bunifuElipse7
+            // 
+            bunifuElipse7.ElipseRadius = 5;
+            bunifuElipse7.TargetControl = button_Merge;
+            // 
+            // bunifuElipse8
+            // 
+            bunifuElipse8.ElipseRadius = 5;
+            bunifuElipse8.TargetControl = button_Privacy;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -472,7 +514,7 @@
         private Button button_Merge;
         private Button button_Extract;
         private Button button_Convert;
-        private Button button_Filter;
+        private Button button_Sort;
         private Panel Panel_Index;
         private Button button_Home;
         private Button button_Exit;
@@ -496,5 +538,11 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl6;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse4;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse5;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse6;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse7;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse8;
     }
 }

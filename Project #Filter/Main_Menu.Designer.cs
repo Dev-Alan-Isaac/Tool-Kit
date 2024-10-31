@@ -56,6 +56,19 @@
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             menu_Extract1 = new Menu_Extract();
             menu_Merge1 = new Menu_Merge();
+            bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse4 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse5 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse6 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse7 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse8 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse9 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse10 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse11 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse12 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse13 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse14 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel_Menu_Config.SuspendLayout();
             SuspendLayout();
             // 
@@ -437,6 +450,71 @@
             menu_Merge1.Size = new Size(594, 541);
             menu_Merge1.TabIndex = 27;
             // 
+            // bunifuElipse2
+            // 
+            bunifuElipse2.ElipseRadius = 5;
+            bunifuElipse2.TargetControl = panel_Menu_Config;
+            // 
+            // bunifuElipse3
+            // 
+            bunifuElipse3.ElipseRadius = 5;
+            bunifuElipse3.TargetControl = button_Sort;
+            // 
+            // bunifuElipse4
+            // 
+            bunifuElipse4.ElipseRadius = 5;
+            bunifuElipse4.TargetControl = button_Type;
+            // 
+            // bunifuElipse5
+            // 
+            bunifuElipse5.ElipseRadius = 5;
+            bunifuElipse5.TargetControl = button_Date;
+            // 
+            // bunifuElipse6
+            // 
+            bunifuElipse6.ElipseRadius = 5;
+            bunifuElipse6.TargetControl = button_Size;
+            // 
+            // bunifuElipse7
+            // 
+            bunifuElipse7.ElipseRadius = 5;
+            bunifuElipse7.TargetControl = button_Name;
+            // 
+            // bunifuElipse8
+            // 
+            bunifuElipse8.ElipseRadius = 5;
+            bunifuElipse8.TargetControl = button_Auth;
+            // 
+            // bunifuElipse9
+            // 
+            bunifuElipse9.ElipseRadius = 5;
+            bunifuElipse9.TargetControl = button_Tags;
+            // 
+            // bunifuElipse10
+            // 
+            bunifuElipse10.ElipseRadius = 5;
+            bunifuElipse10.TargetControl = button_Folder;
+            // 
+            // bunifuElipse11
+            // 
+            bunifuElipse11.ElipseRadius = 5;
+            bunifuElipse11.TargetControl = button_Media;
+            // 
+            // bunifuElipse12
+            // 
+            bunifuElipse12.ElipseRadius = 5;
+            bunifuElipse12.TargetControl = button_Convert;
+            // 
+            // bunifuElipse13
+            // 
+            bunifuElipse13.ElipseRadius = 5;
+            bunifuElipse13.TargetControl = button_Extract;
+            // 
+            // bunifuElipse14
+            // 
+            bunifuElipse14.ElipseRadius = 5;
+            bunifuElipse14.TargetControl = button_Merge;
+            // 
             // Main_Menu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -490,5 +568,18 @@
         private Menu_Extract menu_Extract1;
         private Button button_Merge;
         private Menu_Merge menu_Merge1;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse4;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse5;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse6;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse7;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse8;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse9;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse10;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse11;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse12;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse13;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse14;
     }
 }
