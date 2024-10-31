@@ -59,7 +59,6 @@ namespace Project__Filter
 
         private async void button_Filter_Click_1(object sender, EventArgs e)
         {
-            string config_Path, config_Path2;
             const string Config_Sort = "Config_Sort.json";
             if (!string.IsNullOrEmpty(Path))
             {
@@ -71,42 +70,31 @@ namespace Project__Filter
                     switch (item)
                     {
                         case "File Type":
-                            config_Path = System.IO.Path.GetFullPath("Config_Type.json");
-                            await SortTypes(Path, config_Path);  // Await to ensure it's completed before moving on
+                            await SortTypes(Path, Config_Sort);
                             break;
                         case "File Size":
-                            config_Path = System.IO.Path.GetFullPath("Config_Size.json");
-                            await SortSize(Path, config_Path);  // Await to ensure completion
+                            await SortSize(Path, Config_Sort);
                             break;
                         case "File Date":
-                            config_Path = System.IO.Path.GetFullPath("Config_Date.json");
-                            await SortDates(Path, config_Path);
+                            await SortDates(Path, Config_Sort);
                             break;
                         case "File Name":
-                            config_Path = System.IO.Path.GetFullPath("Config_Names.json");
-                            await SortNames(Path, config_Path);
+                            await SortNames(Path, Config_Sort);
                             break;
                         case "File Hash":
-                            config_Path = System.IO.Path.GetFullPath("Config_Type.json");
                             await SortHash(Path, Config_Sort);
                             break;
                         case "File Permissions":
-                            config_Path = System.IO.Path.GetFullPath("Config_Names.json");
-                            config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
-                            await SortPermissions(Path, config_Path, config_Path2);
+                            await SortPermissions(Path, Config_Sort);
                             break;
                         case "Custom Tags":
-                            config_Path = System.IO.Path.GetFullPath("Config_Tags.json");
-                            await SortCustomTags(Path, config_Path);
+                            await SortCustomTags(Path, Config_Sort);
                             break;
                         case "Folder Location":
-                            config_Path = System.IO.Path.GetFullPath("Config_Folder.json");
-                            await SortFolderLocation(Path, config_Path);
+                            await SortFolderLocation(Path, Config_Sort);
                             break;
                         case "Media Metadata":
-                            config_Path = System.IO.Path.GetFullPath("Config_Media.json");
-                            config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
-                            await SortMedia(Path, config_Path, config_Path2);
+                            await SortMedia(Path, Config_Sort);
                             break;
                         default:
                             break;
@@ -815,7 +803,7 @@ namespace Project__Filter
             }
         }
 
-        private async Task SortPermissions(string folderPath, string jsonPath, string configTypePath)
+        private async Task SortPermissions(string folderPath, string jsonPath)
         {
             if (!File.Exists(jsonPath) || !File.Exists(configTypePath))
             {
@@ -1073,28 +1061,29 @@ namespace Project__Filter
             var directories = Directory.GetDirectories(folderPath, "*", SearchOption.TopDirectoryOnly);
             await Task.Run(() =>
             {
-          
-            Parallel.ForEach(directories, dir =>
-            {
-                string dirName = System.IO.Path.GetFileName(dir);
 
-                // Skip folders with special characters if the option is set
-                if (skipSpecialCharacters && !specialCharRegex.IsMatch(dirName))
+                Parallel.ForEach(directories, dir =>
                 {
-                    return;
-                }
+                    string dirName = System.IO.Path.GetFileName(dir);
 
-                // Handle case sensitivity
-                string firstChar = caseSensitive ? dirName.Substring(0, 1) : dirName.Substring(0, 1).ToUpperInvariant();
+                    // Skip folders with special characters if the option is set
+                    if (skipSpecialCharacters && !specialCharRegex.IsMatch(dirName))
+                    {
+                        return;
+                    }
 
-                string targetDir = System.IO.Path.Combine(alphabeticalFolder, firstChar);
+                    // Handle case sensitivity
+                    string firstChar = caseSensitive ? dirName.Substring(0, 1) : dirName.Substring(0, 1).ToUpperInvariant();
 
-                // Only create the directory once
-                directoryCache.GetOrAdd(targetDir, _ => Directory.CreateDirectory(targetDir) != null);
+                    string targetDir = System.IO.Path.Combine(alphabeticalFolder, firstChar);
 
-                // Move the directory
-                Directory.Move(dir, System.IO.Path.Combine(targetDir, dirName));
-            });  });
+                    // Only create the directory once
+                    directoryCache.GetOrAdd(targetDir, _ => Directory.CreateDirectory(targetDir) != null);
+
+                    // Move the directory
+                    Directory.Move(dir, System.IO.Path.Combine(targetDir, dirName));
+                });
+            });
         }
 
         private async Task SortByDepth(string folderPath, bool skipSpecialCharacters)
@@ -1113,25 +1102,26 @@ namespace Project__Filter
 
             await Task.Run(() =>
             {
-           
-            Parallel.ForEach(directories, dir =>
-            {
-                string dirName = System.IO.Path.GetFileName(dir);
 
-                if (skipSpecialCharacters && !specialCharRegex.IsMatch(dirName))
+                Parallel.ForEach(directories, dir =>
                 {
-                    return;
-                }
+                    string dirName = System.IO.Path.GetFileName(dir);
 
-                int depth = GetFolderDepth(dir);
-                string depthDir = System.IO.Path.Combine(depthFolder, $"Depth_{depth}");
+                    if (skipSpecialCharacters && !specialCharRegex.IsMatch(dirName))
+                    {
+                        return;
+                    }
 
-                // Only create the directory once
-                directoryCache.GetOrAdd(depthDir, _ => Directory.CreateDirectory(depthDir) != null);
+                    int depth = GetFolderDepth(dir);
+                    string depthDir = System.IO.Path.Combine(depthFolder, $"Depth_{depth}");
 
-                // Move the directory
-                Directory.Move(dir, System.IO.Path.Combine(depthDir, dirName));
-            }); });
+                    // Only create the directory once
+                    directoryCache.GetOrAdd(depthDir, _ => Directory.CreateDirectory(depthDir) != null);
+
+                    // Move the directory
+                    Directory.Move(dir, System.IO.Path.Combine(depthDir, dirName));
+                });
+            });
         }
 
         private int GetFolderDepth(string folder)
@@ -1139,7 +1129,7 @@ namespace Project__Filter
             return Directory.GetDirectories(folder, "*", SearchOption.AllDirectories).Length;
         }
 
-        private async Task SortMedia(string folderPath, string jsonPath, string configTypePath)
+        private async Task SortMedia(string folderPath, string jsonPath)
         {
             // Check if both config files exist
             if (!File.Exists(jsonPath) || !File.Exists(configTypePath))
