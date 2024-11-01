@@ -210,7 +210,7 @@ namespace Project__Filter
             var allow = jsonContent["Type_Additional"].ToObject<JObject>();
 
             var files = await ProcessFiles(folderPath);
-         
+
             var directoryCache = new ConcurrentDictionary<string, string>();
 
             int processedFiles = 0;
@@ -622,13 +622,28 @@ namespace Project__Filter
                     string targetPath = System.IO.Path.Combine(targetDirectory, file.Name);
                     if (File.Exists(targetPath))
                     {
-                        string duplicateFileName = $"[Duplicate]_{file.Name}";
-                        targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+                        int duplicateCount = 1;
+                        string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file.Name);
+                        string extension = System.IO.Path.GetExtension(file.Name);
+                        string duplicateFileName;
+
+                        do
+                        {
+                            duplicateFileName = $"[Duplicate]_{fileNameWithoutExtension}{duplicateCount}{extension}";
+                            targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+                            duplicateCount++;
+                        } while (File.Exists(targetPath));
                     }
 
-                    // Move file
-                    File.Move(file.FullName, targetPath);
-
+                    try
+                    {
+                        // Move file
+                        File.Move(file.FullName, targetPath);
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show($"Error while moving a file! \n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     // Update progress in a thread-safe manner
                     Interlocked.Increment(ref processedFiles);
                     progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
