@@ -561,8 +561,8 @@ namespace Project__Filter
             string jsonString = await File.ReadAllTextAsync(jsonPath);
             var jsonContent = JObject.Parse(jsonString);
 
-            var option = jsonContent["Option"] as JObject;
-            var additional = jsonContent["Additional"] as JObject;
+            var option = jsonContent["Name"] as JObject;
+            var additional = jsonContent["Name_Additional"] as JObject;
 
             // Determine sorting options
             bool sortAlphabetically = (bool)option["Alphabetically"];
