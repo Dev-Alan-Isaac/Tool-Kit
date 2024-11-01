@@ -832,10 +832,10 @@ namespace Project__Filter
             string configTypeString = jsonString;
             var configTypeContent = JObject.Parse(configTypeString);
 
-            var option = jsonContent["Option"] as JObject;
+            var option = jsonContent["Auth"] as JObject;
 
             // Get the executable extensions from Config_Type.json
-            var executableExtensions = configTypeContent["Extensions"]["Executables"].ToObject<List<string>>();
+            var executableExtensions = configTypeContent["Type"]["Executables"].ToObject<List<string>>();
 
             // Get all files in the folder
             var files = await ProcessFiles(folderPath);
@@ -900,7 +900,7 @@ namespace Project__Filter
                                 // If the file already exists, add a prefix to avoid overwriting
                                 if (File.Exists(targetPath))
                                 {
-                                    string newFileName = $"[{sortingOption}]_{fileInfo.Name}";
+                                    string newFileName = $"[Duplicated]_{fileInfo.Name}";
                                     targetPath = System.IO.Path.Combine(targetDirectory, newFileName);
                                 }
 
@@ -944,7 +944,7 @@ namespace Project__Filter
             var jsonContent = JObject.Parse(jsonString);
 
             // Get the "Tags" array from the JSON
-            var tagsArray = jsonContent["Option"]["Tags"] as JArray;
+            var tagsArray = jsonContent["Tag"]["Tags"] as JArray;
 
             if (tagsArray == null || !tagsArray.Any())
             {
@@ -1155,7 +1155,7 @@ namespace Project__Filter
             var jsonContent = JObject.Parse(jsonString);
 
             // Extract sorting options from jsonPath
-            var option = jsonContent["Option"].ToObject<JObject>();
+            var option = jsonContent["Media"].ToObject<JObject>();
             bool isDuration = (bool)option["Duration"];
             bool isResolution = (bool)option["Resolution"];
             bool isFrameRate = (bool)option["Frame_Rate"];
@@ -1163,8 +1163,8 @@ namespace Project__Filter
             bool isAspect = (bool)option["Aspect"];
 
             // Extract file extensions and allowed types from configTypePath
-            var extensions = jsonContent["Extensions"].ToObject<JObject>();
-            var allow = jsonContent["Allow"].ToObject<JObject>();
+            var extensions = jsonContent["Type"].ToObject<JObject>();
+            var allow = jsonContent["Type_Additional"].ToObject<JObject>();
 
             // Define media types (Images, Videos, Audio)
             var mediaTypes = new[] { "Images", "Videos", "Audio" };
@@ -1231,7 +1231,7 @@ namespace Project__Filter
             {
                 await SortByAspect(videoFiles, imageFiles);
             }
-            MessageBox.Show("Sorting completed!");
+            MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async Task SortByDuration(string[] videoFiles)
@@ -1290,7 +1290,6 @@ namespace Project__Filter
 
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             Invoke(() => Populated_Treeview(Path));
-            MessageBox.Show("Sorting completed!");
         }
 
         private async Task SortByResolution(string[] videoFiles, string[] imageFiles)
@@ -1381,7 +1380,6 @@ namespace Project__Filter
 
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             Invoke(() => Populated_Treeview(Path));
-            MessageBox.Show("Sorting completed!");
         }
 
         private async Task SortByFrameRate(string[] videoFiles)
@@ -1437,7 +1435,6 @@ namespace Project__Filter
 
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             Invoke(() => Populated_Treeview(Path));
-            MessageBox.Show("Sorting completed!");
         }
 
         private async Task SortByCodec(string[] videoFiles)
@@ -1493,7 +1490,6 @@ namespace Project__Filter
 
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             Invoke(() => Populated_Treeview(Path));
-            MessageBox.Show("Sorting completed!");
         }
 
         private async Task SortByAspect(string[] videoFiles, string[] imageFiles)
@@ -1598,7 +1594,6 @@ namespace Project__Filter
 
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             Invoke(() => Populated_Treeview(Path));
-            MessageBox.Show("Sorting completed!");
         }
     }
 }
