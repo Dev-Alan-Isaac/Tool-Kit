@@ -9,8 +9,7 @@
       "png",
       "gif",
       "bmp",
-      "jpeg",
-      "svg"
+      "jpeg"
     ],
     "Videos": [
       "mp4",
@@ -75,8 +74,8 @@
     "Executables": true
   },
   "Date": {
-    "Accessed": false,
-    "Creation": true,
+    "Accessed": true,
+    "Creation": false,
     "Modified": false
   },
   "Size": {

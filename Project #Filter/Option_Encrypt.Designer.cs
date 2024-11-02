@@ -1,6 +1,6 @@
 ﻿namespace Project__Filter
 {
-    partial class Opt_Encrypt
+    partial class Option_Encrypt
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -55,6 +55,7 @@
             panel_Options = new Panel();
             panel_Bottom = new Panel();
             bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse4 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel_Footer.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
@@ -78,7 +79,7 @@
             // button_Filter
             // 
             button_Filter.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            button_Filter.BackColor = Color.Teal;
+            button_Filter.BackColor = SystemColors.ActiveBorder;
             button_Filter.BackgroundImage = Properties.Resources.Button_Icon_Start;
             button_Filter.BackgroundImageLayout = ImageLayout.Zoom;
             button_Filter.Cursor = Cursors.Hand;
@@ -287,7 +288,7 @@
             // 
             // panel_Right
             // 
-            panel_Right.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Right.BackColor = Color.FromArgb(17, 88, 106);
             panel_Right.Dock = DockStyle.Right;
             panel_Right.Location = new Point(667, 32);
             panel_Right.Margin = new Padding(3, 2, 3, 2);
@@ -308,23 +309,24 @@
             // button_Path
             // 
             button_Path.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button_Path.BackColor = Color.FromArgb(0, 64, 64);
+            button_Path.BackColor = Color.FromArgb(17, 88, 106);
             button_Path.BackgroundImage = Properties.Resources.Button_Icon_AddFile;
             button_Path.BackgroundImageLayout = ImageLayout.Zoom;
             button_Path.Cursor = Cursors.Hand;
             button_Path.FlatAppearance.BorderSize = 0;
+            button_Path.FlatAppearance.MouseOverBackColor = SystemColors.ActiveBorder;
             button_Path.FlatStyle = FlatStyle.Flat;
-            button_Path.Location = new Point(635, 4);
+            button_Path.Location = new Point(593, 3);
             button_Path.Margin = new Padding(3, 2, 3, 2);
             button_Path.Name = "button_Path";
-            button_Path.Size = new Size(25, 25);
+            button_Path.Size = new Size(67, 25);
             button_Path.TabIndex = 0;
             button_Path.UseVisualStyleBackColor = false;
             button_Path.Click += button_Path_Click_1;
             // 
             // panel_Top
             // 
-            panel_Top.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Top.BackColor = Color.FromArgb(17, 88, 106);
             panel_Top.Controls.Add(button_Path);
             panel_Top.Dock = DockStyle.Top;
             panel_Top.Location = new Point(0, 0);
@@ -346,7 +348,7 @@
             // 
             // panel_Bottom
             // 
-            panel_Bottom.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Bottom.BackColor = Color.FromArgb(17, 88, 106);
             panel_Bottom.Dock = DockStyle.Bottom;
             panel_Bottom.Location = new Point(0, 530);
             panel_Bottom.Margin = new Padding(3, 2, 3, 2);
@@ -358,6 +360,11 @@
             // 
             bunifuElipse3.ElipseRadius = 5;
             bunifuElipse3.TargetControl = treeView1;
+            // 
+            // bunifuElipse4
+            // 
+            bunifuElipse4.ElipseRadius = 5;
+            bunifuElipse4.TargetControl = button_Path;
             // 
             // Opt_Encrypt
             // 
@@ -414,5 +421,6 @@
         private Panel panel_Options;
         private Panel panel_Bottom;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse4;
     }
 }

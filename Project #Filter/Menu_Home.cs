@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Project__Filter
 {
-    public partial class Opt_Home : UserControl
+    public partial class Menu_Home : UserControl
     {
-        public Opt_Home()
+        public Menu_Home()
         {
             InitializeComponent();
         }

@@ -4,11 +4,11 @@ using SharpCompress.Common;
 
 namespace Project__Filter
 {
-    public partial class Opt_Extract : UserControl
+    public partial class Option_Extract : UserControl
     {
         private string Path;
 
-        public Opt_Extract()
+        public Option_Extract()
         {
             InitializeComponent();
         }

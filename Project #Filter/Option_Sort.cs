@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
@@ -7,12 +8,12 @@ using NReco.VideoInfo;
 
 namespace Project__Filter
 {
-    public partial class Opt_Sort : UserControl
+    public partial class Option_Sort : UserControl
     {
         private string Path;
         private List<string> checkedItems = new List<string>();
 
-        public Opt_Sort()
+        public Option_Sort()
         {
             InitializeComponent();
         }
@@ -59,7 +60,6 @@ namespace Project__Filter
 
         private async void button_Filter_Click_1(object sender, EventArgs e)
         {
-            string config_Path, config_Path2;
             const string Config_Sort = "Config_Sort.json";
             if (!string.IsNullOrEmpty(Path))
             {
@@ -71,42 +71,31 @@ namespace Project__Filter
                     switch (item)
                     {
                         case "File Type":
-                            config_Path = System.IO.Path.GetFullPath("Config_Type.json");
-                            await SortTypes(Path, config_Path);  // Await to ensure it's completed before moving on
+                            await SortTypes(Path, Config_Sort);
                             break;
                         case "File Size":
-                            config_Path = System.IO.Path.GetFullPath("Config_Size.json");
-                            await SortSize(Path, config_Path);  // Await to ensure completion
+                            await SortSize(Path, Config_Sort);
                             break;
                         case "File Date":
-                            config_Path = System.IO.Path.GetFullPath("Config_Date.json");
-                            await SortDates(Path, config_Path);
+                            await SortDates(Path, Config_Sort);
                             break;
                         case "File Name":
-                            config_Path = System.IO.Path.GetFullPath("Config_Names.json");
-                            await SortNames(Path, config_Path);
+                            await SortNames(Path, Config_Sort);
                             break;
                         case "File Hash":
-                            config_Path = System.IO.Path.GetFullPath("Config_Type.json");
                             await SortHash(Path, Config_Sort);
                             break;
                         case "File Permissions":
-                            config_Path = System.IO.Path.GetFullPath("Config_Names.json");
-                            config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
-                            await SortPermissions(Path, config_Path, config_Path2);
+                            await SortPermissions(Path, Config_Sort);
                             break;
                         case "Custom Tags":
-                            config_Path = System.IO.Path.GetFullPath("Config_Tags.json");
-                            await SortCustomTags(Path, config_Path);
+                            await SortCustomTags(Path, Config_Sort);
                             break;
                         case "Folder Location":
-                            config_Path = System.IO.Path.GetFullPath("Config_Folder.json");
-                            await SortFolderLocation(Path, config_Path);
+                            await SortFolderLocation(Path, Config_Sort);
                             break;
                         case "Media Metadata":
-                            config_Path = System.IO.Path.GetFullPath("Config_Media.json");
-                            config_Path2 = System.IO.Path.GetFullPath("Config_Type.json");
-                            await SortMedia(Path, config_Path, config_Path2);
+                            await SortMedia(Path, Config_Sort);
                             break;
                         default:
                             break;
@@ -161,7 +150,7 @@ namespace Project__Filter
         private async void Populated_Treeview(string folderPath)
         {
             // Clear the TreeView on the UI thread
-            treeView1.Invoke((Action)(() => treeView1.Nodes.Clear()));
+            treeView1.Invoke(() => treeView1.Nodes.Clear());
 
             // Create the root node for the parent folder
             TreeNode rootNode = new TreeNode(System.IO.Path.GetFileName(folderPath));
@@ -169,6 +158,9 @@ namespace Project__Filter
 
             // Get all files from the folder and its subfolders (after sorting)
             var files = await ProcessFiles(folderPath);
+
+            int totalFiles = files.Count();
+            File_Count.Text = $"{totalFiles}";
 
             // Iterate over each file
             foreach (var file in files)
@@ -214,15 +206,10 @@ namespace Project__Filter
             string jsonString = await File.ReadAllTextAsync(jsonPath);
             var jsonContent = JObject.Parse(jsonString);
 
-            var extensions = jsonContent["Extensions"].ToObject<JObject>();
-            var allow = jsonContent["Allow"].ToObject<JObject>();
+            var extensions = jsonContent["Type"].ToObject<JObject>();
+            var allow = jsonContent["Type_Additional"].ToObject<JObject>();
 
             var files = await ProcessFiles(folderPath);
-            int totalFiles = files.Length;
-
-            // UI setup
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = totalFiles));
-            Invoke((MethodInvoker)(() => File_Count.Text = $"{totalFiles}"));
 
             var directoryCache = new ConcurrentDictionary<string, string>();
 
@@ -574,8 +561,8 @@ namespace Project__Filter
             string jsonString = await File.ReadAllTextAsync(jsonPath);
             var jsonContent = JObject.Parse(jsonString);
 
-            var option = jsonContent["Option"] as JObject;
-            var additional = jsonContent["Additional"] as JObject;
+            var option = jsonContent["Name"] as JObject;
+            var additional = jsonContent["Name_Additional"] as JObject;
 
             // Determine sorting options
             bool sortAlphabetically = (bool)option["Alphabetically"];
@@ -635,13 +622,28 @@ namespace Project__Filter
                     string targetPath = System.IO.Path.Combine(targetDirectory, file.Name);
                     if (File.Exists(targetPath))
                     {
-                        string duplicateFileName = $"[Duplicate]_{file.Name}";
-                        targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+                        int duplicateCount = 1;
+                        string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(file.Name);
+                        string extension = System.IO.Path.GetExtension(file.Name);
+                        string duplicateFileName;
+
+                        do
+                        {
+                            duplicateFileName = $"[Duplicate]_{fileNameWithoutExtension}{duplicateCount}{extension}";
+                            targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
+                            duplicateCount++;
+                        } while (File.Exists(targetPath));
                     }
 
-                    // Move file
-                    File.Move(file.FullName, targetPath);
-
+                    try
+                    {
+                        // Move file
+                        File.Move(file.FullName, targetPath);
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show($"Error while moving a file! \n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     // Update progress in a thread-safe manner
                     Interlocked.Increment(ref processedFiles);
                     progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
@@ -815,9 +817,9 @@ namespace Project__Filter
             }
         }
 
-        private async Task SortPermissions(string folderPath, string jsonPath, string configTypePath)
+        private async Task SortPermissions(string folderPath, string jsonPath)
         {
-            if (!File.Exists(jsonPath) || !File.Exists(configTypePath))
+            if (!File.Exists(jsonPath))
             {
                 MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); // "Danger" type for errors
                 return;
@@ -827,13 +829,13 @@ namespace Project__Filter
             string jsonString = await File.ReadAllTextAsync(jsonPath);
             var jsonContent = JObject.Parse(jsonString);
 
-            string configTypeString = await File.ReadAllTextAsync(configTypePath);
+            string configTypeString = jsonString;
             var configTypeContent = JObject.Parse(configTypeString);
 
-            var option = jsonContent["Option"] as JObject;
+            var option = jsonContent["Auth"] as JObject;
 
             // Get the executable extensions from Config_Type.json
-            var executableExtensions = configTypeContent["Extensions"]["Executables"].ToObject<List<string>>();
+            var executableExtensions = configTypeContent["Type"]["Executables"].ToObject<List<string>>();
 
             // Get all files in the folder
             var files = await ProcessFiles(folderPath);
@@ -898,7 +900,7 @@ namespace Project__Filter
                                 // If the file already exists, add a prefix to avoid overwriting
                                 if (File.Exists(targetPath))
                                 {
-                                    string newFileName = $"[{sortingOption}]_{fileInfo.Name}";
+                                    string newFileName = $"[Duplicated]_{fileInfo.Name}";
                                     targetPath = System.IO.Path.Combine(targetDirectory, newFileName);
                                 }
 
@@ -942,7 +944,7 @@ namespace Project__Filter
             var jsonContent = JObject.Parse(jsonString);
 
             // Get the "Tags" array from the JSON
-            var tagsArray = jsonContent["Option"]["Tags"] as JArray;
+            var tagsArray = jsonContent["Tag"]["Tags"] as JArray;
 
             if (tagsArray == null || !tagsArray.Any())
             {
@@ -1073,28 +1075,29 @@ namespace Project__Filter
             var directories = Directory.GetDirectories(folderPath, "*", SearchOption.TopDirectoryOnly);
             await Task.Run(() =>
             {
-          
-            Parallel.ForEach(directories, dir =>
-            {
-                string dirName = System.IO.Path.GetFileName(dir);
 
-                // Skip folders with special characters if the option is set
-                if (skipSpecialCharacters && !specialCharRegex.IsMatch(dirName))
+                Parallel.ForEach(directories, dir =>
                 {
-                    return;
-                }
+                    string dirName = System.IO.Path.GetFileName(dir);
 
-                // Handle case sensitivity
-                string firstChar = caseSensitive ? dirName.Substring(0, 1) : dirName.Substring(0, 1).ToUpperInvariant();
+                    // Skip folders with special characters if the option is set
+                    if (skipSpecialCharacters && !specialCharRegex.IsMatch(dirName))
+                    {
+                        return;
+                    }
 
-                string targetDir = System.IO.Path.Combine(alphabeticalFolder, firstChar);
+                    // Handle case sensitivity
+                    string firstChar = caseSensitive ? dirName.Substring(0, 1) : dirName.Substring(0, 1).ToUpperInvariant();
 
-                // Only create the directory once
-                directoryCache.GetOrAdd(targetDir, _ => Directory.CreateDirectory(targetDir) != null);
+                    string targetDir = System.IO.Path.Combine(alphabeticalFolder, firstChar);
 
-                // Move the directory
-                Directory.Move(dir, System.IO.Path.Combine(targetDir, dirName));
-            });  });
+                    // Only create the directory once
+                    directoryCache.GetOrAdd(targetDir, _ => Directory.CreateDirectory(targetDir) != null);
+
+                    // Move the directory
+                    Directory.Move(dir, System.IO.Path.Combine(targetDir, dirName));
+                });
+            });
         }
 
         private async Task SortByDepth(string folderPath, bool skipSpecialCharacters)
@@ -1113,25 +1116,26 @@ namespace Project__Filter
 
             await Task.Run(() =>
             {
-           
-            Parallel.ForEach(directories, dir =>
-            {
-                string dirName = System.IO.Path.GetFileName(dir);
 
-                if (skipSpecialCharacters && !specialCharRegex.IsMatch(dirName))
+                Parallel.ForEach(directories, dir =>
                 {
-                    return;
-                }
+                    string dirName = System.IO.Path.GetFileName(dir);
 
-                int depth = GetFolderDepth(dir);
-                string depthDir = System.IO.Path.Combine(depthFolder, $"Depth_{depth}");
+                    if (skipSpecialCharacters && !specialCharRegex.IsMatch(dirName))
+                    {
+                        return;
+                    }
 
-                // Only create the directory once
-                directoryCache.GetOrAdd(depthDir, _ => Directory.CreateDirectory(depthDir) != null);
+                    int depth = GetFolderDepth(dir);
+                    string depthDir = System.IO.Path.Combine(depthFolder, $"Depth_{depth}");
 
-                // Move the directory
-                Directory.Move(dir, System.IO.Path.Combine(depthDir, dirName));
-            }); });
+                    // Only create the directory once
+                    directoryCache.GetOrAdd(depthDir, _ => Directory.CreateDirectory(depthDir) != null);
+
+                    // Move the directory
+                    Directory.Move(dir, System.IO.Path.Combine(depthDir, dirName));
+                });
+            });
         }
 
         private int GetFolderDepth(string folder)
@@ -1139,28 +1143,19 @@ namespace Project__Filter
             return Directory.GetDirectories(folder, "*", SearchOption.AllDirectories).Length;
         }
 
-        private async Task SortMedia(string folderPath, string jsonPath, string configTypePath)
+        private async Task SortMedia(string folderPath, string jsonPath)
         {
-            // Check if both config files exist
-            if (!File.Exists(jsonPath) || !File.Exists(configTypePath))
+            if (!File.Exists(jsonPath))
             {
                 MessageBox.Show("One or both config files not found.");
                 return;
             }
 
-            // Read and parse the JSON files
-            var tasks = new[]
-            {
-                File.ReadAllTextAsync(jsonPath),
-                File.ReadAllTextAsync(configTypePath)
-            };
-
-            var results = await Task.WhenAll(tasks);
-            var jsonOptions = JObject.Parse(results[0]);
-            var jsonConfig = JObject.Parse(results[1]);
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
 
             // Extract sorting options from jsonPath
-            var option = jsonOptions["Option"].ToObject<JObject>();
+            var option = jsonContent["Media"].ToObject<JObject>();
             bool isDuration = (bool)option["Duration"];
             bool isResolution = (bool)option["Resolution"];
             bool isFrameRate = (bool)option["Frame_Rate"];
@@ -1168,8 +1163,8 @@ namespace Project__Filter
             bool isAspect = (bool)option["Aspect"];
 
             // Extract file extensions and allowed types from configTypePath
-            var extensions = jsonConfig["Extensions"].ToObject<JObject>();
-            var allow = jsonConfig["Allow"].ToObject<JObject>();
+            var extensions = jsonContent["Type"].ToObject<JObject>();
+            var allow = jsonContent["Type_Additional"].ToObject<JObject>();
 
             // Define media types (Images, Videos, Audio)
             var mediaTypes = new[] { "Images", "Videos", "Audio" };
@@ -1236,7 +1231,7 @@ namespace Project__Filter
             {
                 await SortByAspect(videoFiles, imageFiles);
             }
-            MessageBox.Show("Sorting completed!");
+            MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async Task SortByDuration(string[] videoFiles)
@@ -1295,7 +1290,6 @@ namespace Project__Filter
 
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             Invoke(() => Populated_Treeview(Path));
-            MessageBox.Show("Sorting completed!");
         }
 
         private async Task SortByResolution(string[] videoFiles, string[] imageFiles)
@@ -1386,7 +1380,6 @@ namespace Project__Filter
 
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             Invoke(() => Populated_Treeview(Path));
-            MessageBox.Show("Sorting completed!");
         }
 
         private async Task SortByFrameRate(string[] videoFiles)
@@ -1442,7 +1435,6 @@ namespace Project__Filter
 
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             Invoke(() => Populated_Treeview(Path));
-            MessageBox.Show("Sorting completed!");
         }
 
         private async Task SortByCodec(string[] videoFiles)
@@ -1498,7 +1490,6 @@ namespace Project__Filter
 
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             Invoke(() => Populated_Treeview(Path));
-            MessageBox.Show("Sorting completed!");
         }
 
         private async Task SortByAspect(string[] videoFiles, string[] imageFiles)
@@ -1603,7 +1594,6 @@ namespace Project__Filter
 
             progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
             Invoke(() => Populated_Treeview(Path));
-            MessageBox.Show("Sorting completed!");
         }
     }
 }

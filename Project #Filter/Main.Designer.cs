@@ -31,13 +31,14 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             panel_Menu = new Panel();
+            panel1 = new Panel();
+            button_Git = new Button();
             Panel_Index = new Panel();
             button_Privacy = new Button();
             button_Merge = new Button();
-            button_Git = new Button();
             button_Extract = new Button();
             button_Convert = new Button();
-            button_Filter = new Button();
+            button_Sort = new Button();
             button_Home = new Button();
             panel_Accent = new Panel();
             button_Config = new Button();
@@ -45,13 +46,13 @@
             button_Exit = new Button();
             Panel_Banner = new Panel();
             pictureBox1 = new PictureBox();
-            home1 = new Opt_Home();
-            filter1 = new Opt_Sort();
+            home1 = new Menu_Home();
+            filter1 = new Option_Sort();
             convert1 = new Opt_Transform();
-            extract1 = new Opt_Extract();
-            merge1 = new Opt_Merge();
-            privacy1 = new Opt_Encrypt();
-            panel1 = new Panel();
+            extract1 = new Option_Extract();
+            merge1 = new Option_Merge();
+            privacy1 = new Option_Encrypt();
+            panel_Right = new Panel();
             config_Menu1 = new Main_Menu();
             bunifuDragControl1 = new Bunifu.Framework.UI.BunifuDragControl(components);
             bunifuDragControl2 = new Bunifu.Framework.UI.BunifuDragControl(components);
@@ -61,7 +62,18 @@
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuDragControl6 = new Bunifu.Framework.UI.BunifuDragControl(components);
+            bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse4 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse5 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse6 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse7 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse8 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse9 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse10 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse11 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse12 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel_Menu.SuspendLayout();
+            panel1.SuspendLayout();
             panel_Accent.SuspendLayout();
             Panel_Banner.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -69,14 +81,14 @@
             // 
             // panel_Menu
             // 
-            panel_Menu.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Menu.BackColor = Color.FromArgb(17, 88, 100);
+            panel_Menu.Controls.Add(panel1);
             panel_Menu.Controls.Add(Panel_Index);
             panel_Menu.Controls.Add(button_Privacy);
             panel_Menu.Controls.Add(button_Merge);
-            panel_Menu.Controls.Add(button_Git);
             panel_Menu.Controls.Add(button_Extract);
             panel_Menu.Controls.Add(button_Convert);
-            panel_Menu.Controls.Add(button_Filter);
+            panel_Menu.Controls.Add(button_Sort);
             panel_Menu.Controls.Add(button_Home);
             panel_Menu.Dock = DockStyle.Left;
             panel_Menu.Location = new Point(0, 0);
@@ -85,9 +97,35 @@
             panel_Menu.Size = new Size(219, 645);
             panel_Menu.TabIndex = 0;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(button_Git);
+            panel1.Dock = DockStyle.Bottom;
+            panel1.Location = new Point(0, 605);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(219, 40);
+            panel1.TabIndex = 9;
+            // 
+            // button_Git
+            // 
+            button_Git.BackgroundImage = Properties.Resources.Button_Icon_Github;
+            button_Git.BackgroundImageLayout = ImageLayout.Zoom;
+            button_Git.Cursor = Cursors.Hand;
+            button_Git.Dock = DockStyle.Left;
+            button_Git.FlatAppearance.BorderSize = 0;
+            button_Git.FlatAppearance.MouseOverBackColor = SystemColors.ActiveBorder;
+            button_Git.FlatStyle = FlatStyle.Flat;
+            button_Git.Location = new Point(0, 0);
+            button_Git.Margin = new Padding(3, 2, 3, 2);
+            button_Git.Name = "button_Git";
+            button_Git.Size = new Size(40, 40);
+            button_Git.TabIndex = 7;
+            button_Git.UseVisualStyleBackColor = true;
+            button_Git.Click += button_Git_Click;
+            // 
             // Panel_Index
             // 
-            Panel_Index.BackColor = Color.Teal;
+            Panel_Index.BackColor = Color.White;
             Panel_Index.Location = new Point(2, 26);
             Panel_Index.Margin = new Padding(3, 2, 3, 2);
             Panel_Index.Name = "Panel_Index";
@@ -96,9 +134,10 @@
             // 
             // button_Privacy
             // 
-            button_Privacy.BackColor = Color.FromArgb(0, 64, 64);
+            button_Privacy.BackColor = Color.FromArgb(17, 88, 100);
             button_Privacy.Cursor = Cursors.Hand;
             button_Privacy.FlatAppearance.BorderSize = 0;
+            button_Privacy.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Privacy.FlatStyle = FlatStyle.Flat;
             button_Privacy.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Privacy.ForeColor = Color.White;
@@ -115,9 +154,10 @@
             // 
             // button_Merge
             // 
-            button_Merge.BackColor = Color.FromArgb(0, 64, 64);
+            button_Merge.BackColor = Color.FromArgb(17, 88, 100);
             button_Merge.Cursor = Cursors.Hand;
             button_Merge.FlatAppearance.BorderSize = 0;
+            button_Merge.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Merge.FlatStyle = FlatStyle.Flat;
             button_Merge.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Merge.ForeColor = Color.White;
@@ -132,27 +172,12 @@
             button_Merge.UseVisualStyleBackColor = false;
             button_Merge.Click += button_Merge_Click;
             // 
-            // button_Git
-            // 
-            button_Git.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button_Git.BackgroundImage = Properties.Resources.Button_Icon_Github;
-            button_Git.BackgroundImageLayout = ImageLayout.Zoom;
-            button_Git.Cursor = Cursors.Hand;
-            button_Git.FlatAppearance.BorderSize = 0;
-            button_Git.FlatStyle = FlatStyle.Flat;
-            button_Git.Location = new Point(3, 613);
-            button_Git.Margin = new Padding(3, 2, 3, 2);
-            button_Git.Name = "button_Git";
-            button_Git.Size = new Size(35, 30);
-            button_Git.TabIndex = 7;
-            button_Git.UseVisualStyleBackColor = true;
-            button_Git.Click += button_Git_Click;
-            // 
             // button_Extract
             // 
-            button_Extract.BackColor = Color.FromArgb(0, 64, 64);
+            button_Extract.BackColor = Color.FromArgb(17, 88, 100);
             button_Extract.Cursor = Cursors.Hand;
             button_Extract.FlatAppearance.BorderSize = 0;
+            button_Extract.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Extract.FlatStyle = FlatStyle.Flat;
             button_Extract.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Extract.ForeColor = Color.White;
@@ -169,9 +194,10 @@
             // 
             // button_Convert
             // 
-            button_Convert.BackColor = Color.FromArgb(0, 64, 64);
+            button_Convert.BackColor = Color.FromArgb(17, 88, 100);
             button_Convert.Cursor = Cursors.Hand;
             button_Convert.FlatAppearance.BorderSize = 0;
+            button_Convert.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Convert.FlatStyle = FlatStyle.Flat;
             button_Convert.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Convert.ForeColor = Color.White;
@@ -186,30 +212,32 @@
             button_Convert.UseVisualStyleBackColor = false;
             button_Convert.Click += button_Convert_Click;
             // 
-            // button_Filter
+            // button_Sort
             // 
-            button_Filter.BackColor = Color.FromArgb(0, 64, 64);
-            button_Filter.Cursor = Cursors.Hand;
-            button_Filter.FlatAppearance.BorderSize = 0;
-            button_Filter.FlatStyle = FlatStyle.Flat;
-            button_Filter.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button_Filter.ForeColor = Color.White;
-            button_Filter.Image = Properties.Resources.Button_Icon_Filter;
-            button_Filter.Location = new Point(30, 86);
-            button_Filter.Margin = new Padding(3, 2, 3, 2);
-            button_Filter.Name = "button_Filter";
-            button_Filter.Size = new Size(186, 40);
-            button_Filter.TabIndex = 2;
-            button_Filter.Text = "    SORT";
-            button_Filter.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button_Filter.UseVisualStyleBackColor = false;
-            button_Filter.Click += button_Filter_Click_1;
+            button_Sort.BackColor = Color.FromArgb(17, 88, 100);
+            button_Sort.Cursor = Cursors.Hand;
+            button_Sort.FlatAppearance.BorderSize = 0;
+            button_Sort.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
+            button_Sort.FlatStyle = FlatStyle.Flat;
+            button_Sort.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button_Sort.ForeColor = Color.White;
+            button_Sort.Image = Properties.Resources.Button_Icon_Filter;
+            button_Sort.Location = new Point(30, 86);
+            button_Sort.Margin = new Padding(3, 2, 3, 2);
+            button_Sort.Name = "button_Sort";
+            button_Sort.Size = new Size(186, 40);
+            button_Sort.TabIndex = 2;
+            button_Sort.Text = "    SORT";
+            button_Sort.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button_Sort.UseVisualStyleBackColor = false;
+            button_Sort.Click += button_Filter_Click_1;
             // 
             // button_Home
             // 
-            button_Home.BackColor = Color.FromArgb(0, 64, 64);
+            button_Home.BackColor = Color.FromArgb(17, 88, 100);
             button_Home.Cursor = Cursors.Hand;
             button_Home.FlatAppearance.BorderSize = 0;
+            button_Home.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
             button_Home.FlatStyle = FlatStyle.Flat;
             button_Home.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Home.ForeColor = Color.White;
@@ -226,7 +254,7 @@
             // 
             // panel_Accent
             // 
-            panel_Accent.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Accent.BackColor = Color.FromArgb(17, 88, 106);
             panel_Accent.Controls.Add(button_Config);
             panel_Accent.Controls.Add(label_Title);
             panel_Accent.Controls.Add(button_Exit);
@@ -283,7 +311,7 @@
             // 
             // Panel_Banner
             // 
-            Panel_Banner.BackColor = Color.FromArgb(0, 64, 64);
+            Panel_Banner.BackColor = Color.FromArgb(17, 88, 106);
             Panel_Banner.Controls.Add(pictureBox1);
             Panel_Banner.Location = new Point(232, 6);
             Panel_Banner.Margin = new Padding(3, 2, 3, 2);
@@ -361,14 +389,13 @@
             privacy1.Size = new Size(774, 563);
             privacy1.TabIndex = 11;
             // 
-            // panel1
+            // panel_Right
             // 
-            panel1.BackColor = Color.FromArgb(0, 64, 64);
-            panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(961, 40);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(32, 605);
-            panel1.TabIndex = 13;
+            panel_Right.BackColor = Color.FromArgb(17, 88, 106);
+            panel_Right.Location = new Point(961, 0);
+            panel_Right.Name = "panel_Right";
+            panel_Right.Size = new Size(32, 96);
+            panel_Right.TabIndex = 13;
             // 
             // config_Menu1
             // 
@@ -432,6 +459,56 @@
             bunifuDragControl6.TargetControl = label_Title;
             bunifuDragControl6.Vertical = true;
             // 
+            // bunifuElipse3
+            // 
+            bunifuElipse3.ElipseRadius = 5;
+            bunifuElipse3.TargetControl = button_Home;
+            // 
+            // bunifuElipse4
+            // 
+            bunifuElipse4.ElipseRadius = 5;
+            bunifuElipse4.TargetControl = button_Sort;
+            // 
+            // bunifuElipse5
+            // 
+            bunifuElipse5.ElipseRadius = 5;
+            bunifuElipse5.TargetControl = button_Convert;
+            // 
+            // bunifuElipse6
+            // 
+            bunifuElipse6.ElipseRadius = 5;
+            bunifuElipse6.TargetControl = button_Extract;
+            // 
+            // bunifuElipse7
+            // 
+            bunifuElipse7.ElipseRadius = 5;
+            bunifuElipse7.TargetControl = button_Merge;
+            // 
+            // bunifuElipse8
+            // 
+            bunifuElipse8.ElipseRadius = 5;
+            bunifuElipse8.TargetControl = button_Privacy;
+            // 
+            // bunifuElipse9
+            // 
+            bunifuElipse9.ElipseRadius = 5;
+            bunifuElipse9.TargetControl = panel_Menu;
+            // 
+            // bunifuElipse10
+            // 
+            bunifuElipse10.ElipseRadius = 5;
+            bunifuElipse10.TargetControl = panel_Accent;
+            // 
+            // bunifuElipse11
+            // 
+            bunifuElipse11.ElipseRadius = 5;
+            bunifuElipse11.TargetControl = panel_Right;
+            // 
+            // bunifuElipse12
+            // 
+            bunifuElipse12.ElipseRadius = 5;
+            bunifuElipse12.TargetControl = button_Git;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -439,7 +516,6 @@
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(993, 645);
             ControlBox = false;
-            Controls.Add(panel1);
             Controls.Add(home1);
             Controls.Add(filter1);
             Controls.Add(convert1);
@@ -450,12 +526,14 @@
             Controls.Add(Panel_Banner);
             Controls.Add(panel_Accent);
             Controls.Add(panel_Menu);
+            Controls.Add(panel_Right);
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(3, 2, 3, 2);
             Name = "Main";
             StartPosition = FormStartPosition.CenterScreen;
             panel_Menu.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             panel_Accent.ResumeLayout(false);
             panel_Accent.PerformLayout();
             Panel_Banner.ResumeLayout(false);
@@ -472,21 +550,21 @@
         private Button button_Merge;
         private Button button_Extract;
         private Button button_Convert;
-        private Button button_Filter;
+        private Button button_Sort;
         private Panel Panel_Index;
         private Button button_Home;
         private Button button_Exit;
-        private Opt_Home home1;
-        private Opt_Sort filter1;
+        private Menu_Home home1;
+        private Option_Sort filter1;
         private Button button_Privacy;
         private Label label_Title;
         private Button button_Git;
         private Opt_Transform convert1;
-        private Opt_Extract extract1;
-        private Opt_Merge merge1;
-        private Opt_Encrypt privacy1;
+        private Option_Extract extract1;
+        private Option_Merge merge1;
+        private Option_Encrypt privacy1;
         private Button button_Config;
-        private Panel panel1;
+        private Panel panel_Right;
         private Main_Menu config_Menu1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl1;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl2;
@@ -496,5 +574,16 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl6;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse4;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse5;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse6;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse7;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse8;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse9;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse10;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse11;
+        private Panel panel1;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse12;
     }
 }

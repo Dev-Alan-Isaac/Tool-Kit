@@ -1,11 +1,11 @@
 ﻿namespace Project__Filter
 {
-    public partial class Opt_Merge : UserControl
+    public partial class Option_Merge : UserControl
     {
         private string Path;
         private List<string> selectedFiles = new List<string>();
 
-        public Opt_Merge()
+        public Option_Merge()
         {
             InitializeComponent();
         }

@@ -1,6 +1,6 @@
 ﻿namespace Project__Filter
 {
-    partial class Opt_Sort
+    partial class Option_Sort
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -61,6 +61,7 @@
             bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse3 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse2 = new Bunifu.Framework.UI.BunifuElipse(components);
+            bunifuElipse4 = new Bunifu.Framework.UI.BunifuElipse(components);
             panel_Top.SuspendLayout();
             panel_Header.SuspendLayout();
             panel_Footer.SuspendLayout();
@@ -72,7 +73,7 @@
             // 
             // panel_Top
             // 
-            panel_Top.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Top.BackColor = Color.FromArgb(17, 88, 106);
             panel_Top.Controls.Add(button_Path);
             panel_Top.Dock = DockStyle.Top;
             panel_Top.Location = new Point(0, 0);
@@ -84,23 +85,24 @@
             // button_Path
             // 
             button_Path.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            button_Path.BackColor = Color.FromArgb(0, 64, 64);
+            button_Path.BackColor = Color.FromArgb(17, 88, 106);
             button_Path.BackgroundImage = Properties.Resources.Button_Icon_AddFile;
             button_Path.BackgroundImageLayout = ImageLayout.Zoom;
             button_Path.Cursor = Cursors.Hand;
             button_Path.FlatAppearance.BorderSize = 0;
+            button_Path.FlatAppearance.MouseOverBackColor = SystemColors.ActiveBorder;
             button_Path.FlatStyle = FlatStyle.Flat;
-            button_Path.Location = new Point(635, 4);
+            button_Path.Location = new Point(593, 3);
             button_Path.Margin = new Padding(3, 2, 3, 2);
             button_Path.Name = "button_Path";
-            button_Path.Size = new Size(25, 25);
-            button_Path.TabIndex = 0;
+            button_Path.Size = new Size(67, 25);
+            button_Path.TabIndex = 1;
             button_Path.UseVisualStyleBackColor = false;
             button_Path.Click += button_Path_Click;
             // 
             // panel_Bottom
             // 
-            panel_Bottom.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Bottom.BackColor = Color.FromArgb(17, 88, 106);
             panel_Bottom.Dock = DockStyle.Bottom;
             panel_Bottom.Location = new Point(0, 530);
             panel_Bottom.Margin = new Padding(3, 2, 3, 2);
@@ -110,7 +112,7 @@
             // 
             // panel_Right
             // 
-            panel_Right.BackColor = Color.FromArgb(0, 64, 64);
+            panel_Right.BackColor = Color.FromArgb(17, 88, 106);
             panel_Right.Dock = DockStyle.Right;
             panel_Right.Location = new Point(667, 32);
             panel_Right.Margin = new Padding(3, 2, 3, 2);
@@ -147,7 +149,7 @@
             // button_Filter
             // 
             button_Filter.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            button_Filter.BackColor = Color.Teal;
+            button_Filter.BackColor = SystemColors.ActiveBorder;
             button_Filter.BackgroundImage = Properties.Resources.Button_Icon_Start;
             button_Filter.BackgroundImageLayout = ImageLayout.Zoom;
             button_Filter.Cursor = Cursors.Hand;
@@ -461,7 +463,12 @@
             bunifuElipse2.ElipseRadius = 5;
             bunifuElipse2.TargetControl = progressBar_Time;
             // 
-            // Opt_Sort
+            // bunifuElipse4
+            // 
+            bunifuElipse4.ElipseRadius = 5;
+            bunifuElipse4.TargetControl = button_Path;
+            // 
+            // Option_Sort
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -473,7 +480,7 @@
             Controls.Add(panel_Bottom);
             Controls.Add(panel_Top);
             Margin = new Padding(3, 2, 3, 2);
-            Name = "Opt_Sort";
+            Name = "Option_Sort";
             Size = new Size(699, 562);
             panel_Top.ResumeLayout(false);
             panel_Header.ResumeLayout(false);
@@ -493,7 +500,6 @@
         private Panel panel_Bottom;
         private Panel panel_Header;
         private Panel panel_Right;
-        private Button button_Path;
         private Label label1;
         private TextBox textBox_Path;
         private Button button_Filter;
@@ -521,5 +527,7 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
+        private Bunifu.Framework.UI.BunifuElipse bunifuElipse4;
+        private Button button_Path;
     }
 }
