@@ -105,9 +105,9 @@
             panel5.Controls.Add(label_SelectedNode);
             panel5.Controls.Add(label2);
             panel5.Dock = DockStyle.Bottom;
-            panel5.Location = new Point(0, 257);
+            panel5.Location = new Point(0, 223);
             panel5.Name = "panel5";
-            panel5.Size = new Size(323, 123);
+            panel5.Size = new Size(323, 157);
             panel5.TabIndex = 16;
             // 
             // label_Output
@@ -115,7 +115,8 @@
             label_Output.AutoSize = true;
             label_Output.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             label_Output.ForeColor = SystemColors.Control;
-            label_Output.Location = new Point(7, 75);
+            label_Output.Location = new Point(7, 102);
+            label_Output.MaximumSize = new Size(300, 0);
             label_Output.Name = "label_Output";
             label_Output.Size = new Size(23, 25);
             label_Output.TabIndex = 3;
@@ -126,7 +127,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             label6.ForeColor = SystemColors.Control;
-            label6.Location = new Point(0, 50);
+            label6.Location = new Point(0, 77);
             label6.Name = "label6";
             label6.Size = new Size(113, 25);
             label6.TabIndex = 2;
@@ -138,6 +139,7 @@
             label_SelectedNode.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             label_SelectedNode.ForeColor = SystemColors.Control;
             label_SelectedNode.Location = new Point(7, 25);
+            label_SelectedNode.MaximumSize = new Size(300, 0);
             label_SelectedNode.Name = "label_SelectedNode";
             label_SelectedNode.Size = new Size(23, 25);
             label_SelectedNode.TabIndex = 1;
