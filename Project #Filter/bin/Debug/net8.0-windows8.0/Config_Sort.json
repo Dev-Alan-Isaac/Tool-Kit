@@ -114,7 +114,18 @@
     "Executable": false
   },
   "Tag": {
-    "Tags": []
+    "Tags": [
+      "Type",
+      "Size",
+      "Name",
+      "Permissions",
+      "Tags",
+      "Duration",
+      "Resolution",
+      "FrameRate",
+      "Codec",
+      "Aspect"
+    ]
   },
   "Folder": {
     "Alphabetical": true,
