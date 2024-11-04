@@ -244,7 +244,7 @@ namespace Project__Filter
 
                                     string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
                                     if (File.Exists(targetPath))
-                                        targetPath = System.IO.Path.Combine(targetDirectory, "[Duplicate]" + System.IO.Path.GetFileName(file));
+                                        targetPath = System.IO.Path.Combine(targetDirectory, "[Type]" + System.IO.Path.GetFileName(file));
 
                                     File.Move(file, targetPath);
                                     fileMoved = true;
@@ -397,7 +397,7 @@ namespace Project__Filter
                             if (File.Exists(targetPath))
                             {
                                 // Add [Duplicate] prefix to the file name if a duplicate exists
-                                string duplicateFileName = "[Duplicate]" + targetFileName;
+                                string duplicateFileName = "[Size]" + targetFileName;
                                 targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
                             }
 
@@ -629,7 +629,7 @@ namespace Project__Filter
 
                         do
                         {
-                            duplicateFileName = $"[Duplicate]_{fileNameWithoutExtension}{duplicateCount}{extension}";
+                            duplicateFileName = $"[Name]_{fileNameWithoutExtension}{duplicateCount}{extension}";
                             targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
                             duplicateCount++;
                         } while (File.Exists(targetPath));
@@ -900,7 +900,7 @@ namespace Project__Filter
                                 // If the file already exists, add a prefix to avoid overwriting
                                 if (File.Exists(targetPath))
                                 {
-                                    string newFileName = $"[Duplicated]_{fileInfo.Name}";
+                                    string newFileName = $"[Permissions]_{fileInfo.Name}";
                                     targetPath = System.IO.Path.Combine(targetDirectory, newFileName);
                                 }
 
@@ -1000,7 +1000,7 @@ namespace Project__Filter
                                 if (File.Exists(targetPath))
                                 {
                                     // If file already exists, add [Duplicate] prefix to the file name
-                                    string duplicateFileName = $"[Duplicate]_{fileName}";
+                                    string duplicateFileName = $"[Tags]_{fileName}";
                                     targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
                                 }
 
@@ -1270,7 +1270,7 @@ namespace Project__Filter
                         if (File.Exists(destinationFile))
                         {
                             // If the file exists, add the [Duplicate] prefix to the file name
-                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            string duplicateFileName = $"[Duration]_{System.IO.Path.GetFileName(file)}";
                             destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
 
@@ -1325,7 +1325,7 @@ namespace Project__Filter
 
                         if (File.Exists(destinationFile))
                         {
-                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            string duplicateFileName = $"[Resolution]_{System.IO.Path.GetFileName(file)}";
                             destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
 
@@ -1416,7 +1416,7 @@ namespace Project__Filter
 
                         if (File.Exists(destinationFile))
                         {
-                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            string duplicateFileName = $"[FrameRate]_{System.IO.Path.GetFileName(file)}";
                             destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
 
@@ -1471,7 +1471,7 @@ namespace Project__Filter
 
                         if (File.Exists(destinationFile))
                         {
-                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            string duplicateFileName = $"[Codec]_{System.IO.Path.GetFileName(file)}";
                             destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
 
@@ -1531,7 +1531,7 @@ namespace Project__Filter
 
                             if (File.Exists(destinationFile))
                             {
-                                string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                                string duplicateFileName = $"[Aspect]_{System.IO.Path.GetFileName(file)}";
                                 destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                             }
 

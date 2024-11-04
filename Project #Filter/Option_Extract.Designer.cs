@@ -379,7 +379,7 @@
             bunifuElipse4.ElipseRadius = 5;
             bunifuElipse4.TargetControl = button_Path;
             // 
-            // Opt_Extract
+            // Option_Extract
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -390,7 +390,7 @@
             Controls.Add(panel_Right);
             Controls.Add(panel_Bottom);
             Controls.Add(panel_Top);
-            Name = "Opt_Extract";
+            Name = "Option_Extract";
             Size = new Size(699, 562);
             panel_Options.ResumeLayout(false);
             panel1.ResumeLayout(false);

@@ -1,7 +1,7 @@
 {
   "General": {
     "Delete": true,
-    "Subfolder": true
+    "Subfolder": false
   },
   "Type": {
     "Images": [
