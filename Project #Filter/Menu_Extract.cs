@@ -21,10 +21,6 @@ namespace Project__Filter
                          new JProperty("Option", new JObject(
                              new JProperty("Delete", true),
                              new JProperty("Subfolder", true)
-                         )),
-                         new JProperty("Decompress", new JObject(
-                             new JProperty("RootDecompress", true),
-                             new JProperty("Folder", false)
                          )));
 
                     // Save to a file (e.g., "Extensions.json")
@@ -55,47 +51,37 @@ namespace Project__Filter
                 {
                     bool isDelete = jsonObject["Option"]["Delete"]?.ToObject<bool>() ?? false;
                     bool isSubfolder = jsonObject["Option"]["Subfolder"]?.ToObject<bool>() ?? false;
-                    bool isRootDecompress = jsonObject["Decompress"]["RootDecompress"]?.ToObject<bool>() ?? false;
-                    bool isFolder = jsonObject["Decompress"]["Folder"]?.ToObject<bool>() ?? false;
 
                     checkBox_Delete.Checked = isDelete;
                     checkBox_Subfolders.Checked = isSubfolder;
-
-                    if (isRootDecompress)
-                    {
-                        radioButton_RootDecompress.Checked = true;
-                    }
-                    else if (isFolder)
-                    {
-                        radioButton_Folder.Checked = true;
-                    }
                 }
             }
         }
 
         private void button_Saved_Click(object sender, EventArgs e)
         {
-            var jsonObject = new JObject
-            {
-                ["Option"] = new JObject
-                {
-                    ["Delete"] = checkBox_Delete.Checked,
-                    ["Subfolder"] = checkBox_Subfolders.Checked
-                },
-                ["Decompress"] = new JObject
-                {
-                    ["RootDecompress"] = radioButton_RootDecompress.Checked,
-                    ["Folder"] = radioButton_Folder.Checked
-                }
-            };
-
             // Define the path to the JSON file
             string filePath = "Config_Extract.json";
 
-            // Write the JSON object to the file
+            // Load the JSON file
+            JObject jsonObject;
+            if (File.Exists(filePath))
+            {
+                jsonObject = JObject.Parse(File.ReadAllText(filePath));
+            }
+            else
+            {
+                MessageBox.Show("Configuration file not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            jsonObject["Option"]["Delete"] = checkBox_Delete.Checked;
+            jsonObject["Option"]["Subfolder"] = checkBox_Subfolders.Checked;
+
+            // Write the modified JSON object back to the file
             File.WriteAllText(filePath, jsonObject.ToString(Newtonsoft.Json.Formatting.Indented));
 
-            // Optionally, show a message to indicate that the file was saved
+            // Show a message to indicate that the file was saved
             MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

@@ -39,17 +39,10 @@
             checkBox_Delete = new CheckBox();
             checkBox_Subfolders = new CheckBox();
             panel5 = new Panel();
-            panel6 = new Panel();
-            panel8 = new Panel();
-            label4 = new Label();
-            radioButton_Folder = new RadioButton();
-            radioButton_RootDecompress = new RadioButton();
             panel2 = new Panel();
             panel4.SuspendLayout();
             panel10.SuspendLayout();
             panel5.SuspendLayout();
-            panel6.SuspendLayout();
-            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // panel4
@@ -152,71 +145,12 @@
             panel5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel5.Controls.Add(checkBox_Delete);
             panel5.Controls.Add(checkBox_Subfolders);
-            panel5.Controls.Add(panel6);
             panel5.Controls.Add(panel10);
             panel5.Location = new Point(3, 82);
             panel5.Name = "panel5";
             panel5.Size = new Size(570, 394);
             panel5.TabIndex = 71;
             panel5.Paint += panel5_Paint;
-            // 
-            // panel6
-            // 
-            panel6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            panel6.Controls.Add(panel8);
-            panel6.Location = new Point(3, 92);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(564, 254);
-            panel6.TabIndex = 60;
-            // 
-            // panel8
-            // 
-            panel8.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel8.Controls.Add(label4);
-            panel8.Controls.Add(radioButton_Folder);
-            panel8.Controls.Add(radioButton_RootDecompress);
-            panel8.Location = new Point(3, 3);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(558, 84);
-            panel8.TabIndex = 6;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Dock = DockStyle.Top;
-            label4.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold);
-            label4.ForeColor = SystemColors.Control;
-            label4.Location = new Point(0, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(152, 32);
-            label4.TabIndex = 3;
-            label4.Text = "Decompress:";
-            // 
-            // radioButton_Folder
-            // 
-            radioButton_Folder.AutoSize = true;
-            radioButton_Folder.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Folder.ForeColor = SystemColors.Control;
-            radioButton_Folder.Location = new Point(123, 44);
-            radioButton_Folder.Name = "radioButton_Folder";
-            radioButton_Folder.Size = new Size(84, 29);
-            radioButton_Folder.TabIndex = 4;
-            radioButton_Folder.TabStop = true;
-            radioButton_Folder.Text = "Folder";
-            radioButton_Folder.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_RootDecompress
-            // 
-            radioButton_RootDecompress.AutoSize = true;
-            radioButton_RootDecompress.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_RootDecompress.ForeColor = SystemColors.Control;
-            radioButton_RootDecompress.Location = new Point(3, 44);
-            radioButton_RootDecompress.Name = "radioButton_RootDecompress";
-            radioButton_RootDecompress.Size = new Size(70, 29);
-            radioButton_RootDecompress.TabIndex = 3;
-            radioButton_RootDecompress.TabStop = true;
-            radioButton_RootDecompress.Text = "Root";
-            radioButton_RootDecompress.UseVisualStyleBackColor = true;
             // 
             // panel2
             // 
@@ -245,9 +179,6 @@
             panel10.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
-            panel6.ResumeLayout(false);
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -264,10 +195,5 @@
         private CheckBox checkBox_Subfolders;
         private Panel panel5;
         private Panel panel2;
-        private Panel panel6;
-        private Panel panel8;
-        private Label label4;
-        private RadioButton radioButton_Folder;
-        private RadioButton radioButton_RootDecompress;
     }
 }
