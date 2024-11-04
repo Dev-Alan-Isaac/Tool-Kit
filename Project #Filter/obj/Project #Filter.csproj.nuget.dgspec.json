@@ -90,9 +90,9 @@
               "target": "Package",
               "version": "[6.1.1, )"
             },
-            "SharpCompress": {
+            "YoutubeExtractor": {
               "target": "Package",
-              "version": "[0.38.0, )"
+              "version": "[0.10.11, )"
             },
             "iTextSharp": {
               "target": "Package",

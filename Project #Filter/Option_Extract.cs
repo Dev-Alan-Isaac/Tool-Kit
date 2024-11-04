@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using SharpCompress.Archives;
-using SharpCompress.Common;
+
 
 namespace Project__Filter
 {
@@ -64,8 +63,7 @@ namespace Project__Filter
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
             // Enable the filter button when any radio button is checked
-            if (radioButton_Rar.Checked || radioButton_Zip.Checked
-                || radioButton_Tar.Checked || radioButton_Extract.Checked)
+            if (radioButton_Metadata.Checked || radioButton_Extract.Checked)
             {
                 Populated_Treeview(Path);
                 button_Filter.Enabled = true;
@@ -84,18 +82,11 @@ namespace Project__Filter
             {
                 await Extract_Files(Path);
             }
-            else if (radioButton_Rar.Checked)
+            else if (radioButton_Metadata.Checked)
             {
-                await Decompress_RAR(Path);
+                await Extract_Metada(Path);
             }
-            else if (radioButton_Zip.Checked)
-            {
-                await Decompress_ZIP(Path);
-            }
-            else if (radioButton_Tar.Checked)
-            {
-                await Decompress_TAR(Path);
-            }
+
         }
 
         private async Task Extract_Files(string path)
@@ -158,6 +149,11 @@ namespace Project__Filter
             MessageBox.Show("Files extracted successfully.");
         }
 
+        private async Task Extract_Metada(string path)
+        {
+
+        }
+
         public async Task<string[]> ProcessFiles(string parentPath)
         {
             string config_file = "Config_Extract.json";
@@ -180,81 +176,6 @@ namespace Project__Filter
                 : Directory.GetFiles(parentPath);
 
             return files; // Return the list of file paths
-        }
-
-        private async Task Decompress_RAR(string rarPath)
-        {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    using (var archive = ArchiveFactory.Open(rarPath))
-                    {
-                        // Decompress the archive into the specified path
-                        archive.WriteToDirectory(Path, new ExtractionOptions()
-                        {
-                            ExtractFullPath = true,
-                            Overwrite = true
-                        });
-                    }
-                });
-
-                MessageBox.Show($"RAR file decompressed successfully!", "Decompression Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error decompressing RAR file: {ex.Message}", "Decompression Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private async Task Decompress_ZIP(string zipPath)
-        {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    using (var archive = ArchiveFactory.Open(zipPath))
-                    {
-                        // Decompress the archive into the specified path
-                        archive.WriteToDirectory(Path, new ExtractionOptions()
-                        {
-                            ExtractFullPath = true,
-                            Overwrite = true
-                        });
-                    }
-                });
-
-                MessageBox.Show($"ZIP file decompressed successfully!", "Decompression Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error decompressing ZIP file: {ex.Message}", "Decompression Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private async Task Decompress_TAR(string tarPath)
-        {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    using (var archive = ArchiveFactory.Open(tarPath))
-                    {
-                        // Decompress the archive into the specified path
-                        archive.WriteToDirectory(Path, new ExtractionOptions()
-                        {
-                            ExtractFullPath = true,
-                            Overwrite = true
-                        });
-                    }
-                });
-
-                MessageBox.Show($"TAR file decompressed successfully!", "Decompression Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error decompressing TAR file: {ex.Message}", "Decompression Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         public void DeleteEmptyFolders(string folderPath)
