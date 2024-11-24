@@ -185,7 +185,6 @@ E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\PdfSharp.System.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\PdfSharp.WPFonts.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\PdfSharp.dll
-E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\SharpCompress.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ComponentModel.Composition.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ComponentModel.Composition.Registration.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Configuration.ConfigurationManager.dll
@@ -215,7 +214,6 @@ E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.ServiceProcess.ServiceController.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Speech.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\System.Web.Services.Description.dll
-E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\ZstdSharp.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\de\PdfSharp.Charting.resources.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\de\PdfSharp.resources.dll
 E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\cs\System.Private.ServiceModel.resources.dll
@@ -352,3 +350,4 @@ E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows8.0
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Option_Extract.resources
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Option_Merge.resources
 E:\ReposVisualStudio\Project #Filter\Project #Filter\obj\Debug\net8.0-windows8.0\Project__Filter.Option_Sort.resources
+E:\ReposVisualStudio\Project #Filter\Project #Filter\bin\Debug\net8.0-windows8.0\YoutubeExtractor.dll
