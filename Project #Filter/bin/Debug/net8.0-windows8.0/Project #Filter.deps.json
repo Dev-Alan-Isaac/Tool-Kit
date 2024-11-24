@@ -19,7 +19,7 @@
           "NReco.VideoInfo": "1.2.0",
           "Newtonsoft.Json": "13.0.3",
           "PDFsharp": "6.1.1",
-          "SharpCompress": "0.38.0",
+          "YoutubeExtractor": "0.10.11",
           "iTextSharp": "5.5.13.4"
         },
         "runtime": {
@@ -552,17 +552,6 @@
             "rid": "win-x86",
             "assetType": "native",
             "fileVersion": "4.6.25512.1"
-          }
-        }
-      },
-      "SharpCompress/0.38.0": {
-        "dependencies": {
-          "ZstdSharp.Port": "0.8.1"
-        },
-        "runtime": {
-          "lib/net8.0/SharpCompress.dll": {
-            "assemblyVersion": "0.38.0.0",
-            "fileVersion": "0.38.0.0"
           }
         }
       },
@@ -1142,11 +1131,14 @@
         }
       },
       "System.Windows.Extensions/8.0.0": {},
-      "ZstdSharp.Port/0.8.1": {
+      "YoutubeExtractor/0.10.11": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3"
+        },
         "runtime": {
-          "lib/net8.0/ZstdSharp.dll": {
-            "assemblyVersion": "0.8.1.0",
-            "fileVersion": "0.8.1.0"
+          "lib/net35/YoutubeExtractor.dll": {
+            "assemblyVersion": "0.10.11.0",
+            "fileVersion": "0.10.11.0"
           }
         }
       }
@@ -1494,13 +1486,6 @@
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
     },
-    "SharpCompress/0.38.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-8i6KqjAFI3mvya8W8rnQrf5h4vz6ilw4zqk2AzInVqqqZ25TD6fmVeYBnlisjTWwP26eltZc0buSmJ8a3YIGxg==",
-      "path": "sharpcompress/0.38.0",
-      "hashPath": "sharpcompress.0.38.0.nupkg.sha512"
-    },
     "System.CodeDom/8.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1788,12 +1773,12 @@
       "path": "system.windows.extensions/8.0.0",
       "hashPath": "system.windows.extensions.8.0.0.nupkg.sha512"
     },
-    "ZstdSharp.Port/0.8.1": {
+    "YoutubeExtractor/0.10.11": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-19tNz33kn2EkyViFXuxfVn338UJaRmkwBphVqP2dVJIYQUQgFrgG5h061mxkRRg1Ax6r+6WOj1FxaFZ5qaWqqg==",
-      "path": "zstdsharp.port/0.8.1",
-      "hashPath": "zstdsharp.port.0.8.1.nupkg.sha512"
+      "sha512": "sha512-l670U1sF8DsSTpuPHTbJ6ZDNUySAvnbcvYGtne5PiNR/r1xXfxhptlgbih9WzWfJPc6pdjuCmpKl5NlFE0tMXw==",
+      "path": "youtubeextractor/0.10.11",
+      "hashPath": "youtubeextractor.0.10.11.nupkg.sha512"
     }
   }
 }

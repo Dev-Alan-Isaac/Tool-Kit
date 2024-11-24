@@ -93,6 +93,8 @@ namespace Project__Filter
                 // Show a message to indicate that the tag was added and configuration saved
                 MessageBox.Show("Tag added and configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                textBox_Tag.Clear();
+
                 // Call the PopulateTree method
                 Populate_Tree(filePath);
             }

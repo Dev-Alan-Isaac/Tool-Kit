@@ -37,7 +37,7 @@ namespace Project__Filter
                              new JProperty("Videos", true),
                              new JProperty("Archives", true),
                              new JProperty("Executables", true)
-                         )),
+                         )), 
                          new JProperty("Date", new JObject(
                              new JProperty("Accessed", true),
                              new JProperty("Creation", false),
@@ -63,7 +63,7 @@ namespace Project__Filter
                              new JProperty("Executable", false)
                          )),
                          new JProperty("Tag", new JObject(
-                             new JProperty("Tags", new JArray())
+                             new JProperty("Tags", new JArray("Type","Size","Name", "Permissions", "Tags", "Duration", "Resolution", "FrameRate", "Codec", "Aspect"))
                          )),
                          new JProperty("Folder", new JObject(
                             new JProperty("Alphabetical", true),

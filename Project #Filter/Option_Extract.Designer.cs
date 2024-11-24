@@ -33,9 +33,7 @@
             panel_Options = new Panel();
             panel1 = new Panel();
             radioButton_Extract = new RadioButton();
-            radioButton_Zip = new RadioButton();
-            radioButton_Tar = new RadioButton();
-            radioButton_Rar = new RadioButton();
+            radioButton_Metadata = new RadioButton();
             panel3 = new Panel();
             treeView1 = new TreeView();
             panel4 = new Panel();
@@ -93,9 +91,7 @@
             // 
             panel1.AutoScroll = true;
             panel1.Controls.Add(radioButton_Extract);
-            panel1.Controls.Add(radioButton_Zip);
-            panel1.Controls.Add(radioButton_Tar);
-            panel1.Controls.Add(radioButton_Rar);
+            panel1.Controls.Add(radioButton_Metadata);
             panel1.Controls.Add(label3);
             panel1.Location = new Point(3, 5);
             panel1.Name = "panel1";
@@ -116,47 +112,19 @@
             radioButton_Extract.UseVisualStyleBackColor = true;
             radioButton_Extract.CheckedChanged += radioButton_CheckedChanged;
             // 
-            // radioButton_Zip
+            // radioButton_Metadata
             // 
-            radioButton_Zip.AutoSize = true;
-            radioButton_Zip.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Zip.ForeColor = SystemColors.Control;
-            radioButton_Zip.Location = new Point(3, 292);
-            radioButton_Zip.Name = "radioButton_Zip";
-            radioButton_Zip.Size = new Size(208, 29);
-            radioButton_Zip.TabIndex = 14;
-            radioButton_Zip.TabStop = true;
-            radioButton_Zip.Text = "Decompress ZIP files";
-            radioButton_Zip.UseVisualStyleBackColor = true;
-            radioButton_Zip.CheckedChanged += radioButton_CheckedChanged;
-            // 
-            // radioButton_Tar
-            // 
-            radioButton_Tar.AutoSize = true;
-            radioButton_Tar.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Tar.ForeColor = SystemColors.Control;
-            radioButton_Tar.Location = new Point(3, 343);
-            radioButton_Tar.Name = "radioButton_Tar";
-            radioButton_Tar.Size = new Size(214, 29);
-            radioButton_Tar.TabIndex = 13;
-            radioButton_Tar.TabStop = true;
-            radioButton_Tar.Text = "Decompress TAR files";
-            radioButton_Tar.UseVisualStyleBackColor = true;
-            radioButton_Tar.CheckedChanged += radioButton_CheckedChanged;
-            // 
-            // radioButton_Rar
-            // 
-            radioButton_Rar.AutoSize = true;
-            radioButton_Rar.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
-            radioButton_Rar.ForeColor = SystemColors.Control;
-            radioButton_Rar.Location = new Point(3, 241);
-            radioButton_Rar.Name = "radioButton_Rar";
-            radioButton_Rar.Size = new Size(217, 29);
-            radioButton_Rar.TabIndex = 12;
-            radioButton_Rar.TabStop = true;
-            radioButton_Rar.Text = "Decompress RAR files";
-            radioButton_Rar.UseVisualStyleBackColor = true;
-            radioButton_Rar.CheckedChanged += radioButton_CheckedChanged;
+            radioButton_Metadata.AutoSize = true;
+            radioButton_Metadata.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+            radioButton_Metadata.ForeColor = SystemColors.Control;
+            radioButton_Metadata.Location = new Point(3, 98);
+            radioButton_Metadata.Name = "radioButton_Metadata";
+            radioButton_Metadata.Size = new Size(178, 29);
+            radioButton_Metadata.TabIndex = 12;
+            radioButton_Metadata.TabStop = true;
+            radioButton_Metadata.Text = "Extract Metadata";
+            radioButton_Metadata.UseVisualStyleBackColor = true;
+            radioButton_Metadata.CheckedChanged += radioButton_CheckedChanged;
             // 
             // panel3
             // 
@@ -379,7 +347,7 @@
             bunifuElipse4.ElipseRadius = 5;
             bunifuElipse4.TargetControl = button_Path;
             // 
-            // Opt_Extract
+            // Option_Extract
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -390,7 +358,7 @@
             Controls.Add(panel_Right);
             Controls.Add(panel_Bottom);
             Controls.Add(panel_Top);
-            Name = "Opt_Extract";
+            Name = "Option_Extract";
             Size = new Size(699, 562);
             panel_Options.ResumeLayout(false);
             panel1.ResumeLayout(false);
@@ -427,13 +395,11 @@
         private Panel panel_Bottom;
         private Button button_Path;
         private Panel panel_Top;
-        private RadioButton radioButton_Rar;
-        private RadioButton radioButton_Zip;
-        private RadioButton radioButton_Tar;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
         private RadioButton radioButton_Extract;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse4;
+        private RadioButton radioButton_Metadata;
     }
 }

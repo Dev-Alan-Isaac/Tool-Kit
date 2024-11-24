@@ -61,14 +61,17 @@
     <Compile Update="Option_Merge.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Option_Sort.cs">
+    <Compile Update="Option_Convert.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Option_Convert.cs">
+    <Compile Update="Option_Sort.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Main.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

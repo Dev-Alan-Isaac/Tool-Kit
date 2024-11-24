@@ -794,22 +794,6 @@
           }
         }
       },
-      "SharpCompress/0.38.0": {
-        "type": "package",
-        "dependencies": {
-          "ZstdSharp.Port": "0.8.1"
-        },
-        "compile": {
-          "lib/net8.0/SharpCompress.dll": {
-            "related": ".pdb"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/SharpCompress.dll": {
-            "related": ".pdb"
-          }
-        }
-      },
       "System.CodeDom/8.0.0": {
         "type": "package",
         "compile": {
@@ -1739,13 +1723,20 @@
           }
         }
       },
-      "ZstdSharp.Port/0.8.1": {
+      "YoutubeExtractor/0.10.11": {
         "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "6.0.6"
+        },
         "compile": {
-          "lib/net8.0/ZstdSharp.dll": {}
+          "lib/net35/YoutubeExtractor.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net8.0/ZstdSharp.dll": {}
+          "lib/net35/YoutubeExtractor.dll": {
+            "related": ".xml"
+          }
         }
       }
     }
@@ -2771,28 +2762,6 @@
         "runtimes/win-x86/native/sni.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
-      ]
-    },
-    "SharpCompress/0.38.0": {
-      "sha512": "8i6KqjAFI3mvya8W8rnQrf5h4vz6ilw4zqk2AzInVqqqZ25TD6fmVeYBnlisjTWwP26eltZc0buSmJ8a3YIGxg==",
-      "type": "package",
-      "path": "sharpcompress/0.38.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "lib/net462/SharpCompress.dll",
-        "lib/net462/SharpCompress.pdb",
-        "lib/net6.0/SharpCompress.dll",
-        "lib/net6.0/SharpCompress.pdb",
-        "lib/net8.0/SharpCompress.dll",
-        "lib/net8.0/SharpCompress.pdb",
-        "lib/netstandard2.0/SharpCompress.dll",
-        "lib/netstandard2.0/SharpCompress.pdb",
-        "lib/netstandard2.1/SharpCompress.dll",
-        "lib/netstandard2.1/SharpCompress.pdb",
-        "sharpcompress.0.38.0.nupkg.sha512",
-        "sharpcompress.nuspec"
       ]
     },
     "System.CodeDom/8.0.0": {
@@ -4387,23 +4356,19 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "ZstdSharp.Port/0.8.1": {
-      "sha512": "19tNz33kn2EkyViFXuxfVn338UJaRmkwBphVqP2dVJIYQUQgFrgG5h061mxkRRg1Ax6r+6WOj1FxaFZ5qaWqqg==",
+    "YoutubeExtractor/0.10.11": {
+      "sha512": "l670U1sF8DsSTpuPHTbJ6ZDNUySAvnbcvYGtne5PiNR/r1xXfxhptlgbih9WzWfJPc6pdjuCmpKl5NlFE0tMXw==",
       "type": "package",
-      "path": "zstdsharp.port/0.8.1",
+      "path": "youtubeextractor/0.10.11",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/net462/ZstdSharp.dll",
-        "lib/net5.0/ZstdSharp.dll",
-        "lib/net6.0/ZstdSharp.dll",
-        "lib/net7.0/ZstdSharp.dll",
-        "lib/net8.0/ZstdSharp.dll",
-        "lib/netcoreapp3.1/ZstdSharp.dll",
-        "lib/netstandard2.0/ZstdSharp.dll",
-        "lib/netstandard2.1/ZstdSharp.dll",
-        "zstdsharp.port.0.8.1.nupkg.sha512",
-        "zstdsharp.port.nuspec"
+        "lib/net35/YoutubeExtractor.dll",
+        "lib/net35/YoutubeExtractor.xml",
+        "lib/portable-net45+win8+wpa81+wp8/YoutubeExtractor.dll",
+        "lib/portable-net45+win8+wpa81+wp8/YoutubeExtractor.xml",
+        "youtubeextractor.0.10.11.nupkg.sha512",
+        "youtubeextractor.nuspec"
       ]
     }
   },
@@ -4420,7 +4385,7 @@
       "NReco.VideoInfo >= 1.2.0",
       "Newtonsoft.Json >= 13.0.3",
       "PDFsharp >= 6.1.1",
-      "SharpCompress >= 0.38.0",
+      "YoutubeExtractor >= 0.10.11",
       "iTextSharp >= 5.5.13.4"
     ]
   },
@@ -4513,9 +4478,9 @@
             "target": "Package",
             "version": "[6.1.1, )"
           },
-          "SharpCompress": {
+          "YoutubeExtractor": {
             "target": "Package",
-            "version": "[0.38.0, )"
+            "version": "[0.10.11, )"
           },
           "iTextSharp": {
             "target": "Package",
@@ -4546,6 +4511,12 @@
     }
   },
   "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file E:\\ReposVisualStudio\\Project #Filter\\Project #Filter\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    },
     {
       "code": "NU1701",
       "level": "Warning",
@@ -4582,6 +4553,16 @@
       "warningLevel": 1,
       "message": "Package 'RestSharpSigned 105.2.3' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows8.0'. This package may not be fully compatible with your project.",
       "libraryId": "RestSharpSigned",
+      "targetGraphs": [
+        "net8.0-windows8.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'YoutubeExtractor 0.10.11' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0-windows8.0'. This package may not be fully compatible with your project.",
+      "libraryId": "YoutubeExtractor",
       "targetGraphs": [
         "net8.0-windows8.0"
       ]

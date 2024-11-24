@@ -1,6 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices.JavaScript;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
@@ -244,8 +245,9 @@ namespace Project__Filter
 
                                     string targetPath = System.IO.Path.Combine(targetDirectory, System.IO.Path.GetFileName(file));
                                     if (File.Exists(targetPath))
-                                        targetPath = System.IO.Path.Combine(targetDirectory, "[Duplicate]" + System.IO.Path.GetFileName(file));
-
+                                    {
+                                        targetPath = System.IO.Path.Combine(targetDirectory, "[Type]" + System.IO.Path.GetFileName(file));
+                                    }
                                     File.Move(file, targetPath);
                                     fileMoved = true;
                                     break; // Exit loop after moving the file
@@ -397,7 +399,7 @@ namespace Project__Filter
                             if (File.Exists(targetPath))
                             {
                                 // Add [Duplicate] prefix to the file name if a duplicate exists
-                                string duplicateFileName = "[Duplicate]" + targetFileName;
+                                string duplicateFileName = "[Size]" + targetFileName;
                                 targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
                             }
 
@@ -431,122 +433,62 @@ namespace Project__Filter
 
         private async Task SortDates(string folderPath, string jsonPath)
         {
-            //if (!File.Exists(jsonPath))
-            //{
-            //    MessageBox.Show("Config file not found.");
-            //    return;
-            //}
+            if (!File.Exists(jsonPath))
+            {
+                MessageBox.Show("Config file not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            //// Read and parse the JSON file
-            //string jsonString = await File.ReadAllTextAsync(jsonPath);
-            //var jsonContent = JObject.Parse(jsonString);
+            string jsonString = await File.ReadAllTextAsync(jsonPath);
+            var jsonContent = JObject.Parse(jsonString);
 
-            //var option = jsonContent["Option"] as JObject;
+            var extensions = jsonContent["Type"].ToObject<Dictionary<string, List<string>>>();
+            var allow = jsonContent["Type_Additional"].ToObject<Dictionary<string, bool>>();
+            var filter = jsonContent["Date"].ToObject<Dictionary<string, bool>>();
 
-            //// Get all files in the folder
-            //var files = await ProcessFiles(folderPath);
-            //int totalFiles = files.Length;
-            //var fileInfoList = files.Select(f => new FileInfo(f)).ToList();
+            var files = await ProcessFiles(folderPath);
 
-            //progressBar_Time.Invoke((Action)(() => progressBar_Time.Maximum = totalFiles));
-            //int processedFiles = 0;
-            //int batchUpdateSize = Math.Max(1, totalFiles / 100); // Update every 1% of progress
+            var directoryCache = new ConcurrentDictionary<string, string>();
 
-            //// Cache directories to reduce redundant checks
-            //var directoryCache = new ConcurrentDictionary<string, string>();
+            int processedFiles = 0;
+            int batchUpdateSize = 50;
 
-            //// Update file count label
-            //Invoke((MethodInvoker)(() => File_Count.Text = $"{totalFiles}"));
+            await Task.Run(() =>
+            {
+             
+                
+            });
 
-            //// Process each sorting option in parallel
-            //Parallel.ForEach(option.Properties().Where(p => (bool)p.Value), new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, allowOption =>
-            //{
-            //    string sortingOption = allowOption.Name;
-            //    IEnumerable<FileInfo> sortedFiles;
+            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
+            Invoke(() => Populated_Treeview(folderPath));
+            MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
+        }
 
-            //    // Sort files based on the current option (Accessed, Creation, Modified)
-            //    switch (sortingOption)
-            //    {
-            //        case "Accessed":
-            //            sortedFiles = fileInfoList.OrderBy(f => f.LastAccessTime);
-            //            break;
-            //        case "Creation":
-            //            sortedFiles = fileInfoList.OrderBy(f => f.CreationTime);
-            //            break;
-            //        case "Modified":
-            //            sortedFiles = fileInfoList.OrderBy(f => f.LastWriteTime);
-            //            break;
-            //        default:
-            //            return; // Skip invalid options
-            //    }
+        private bool FileCompare(string file1, string file2)
+        {
+            int file1Byte, file2Byte;
+            FileStream fs1 = new FileStream(file1, FileMode.Open);
+            FileStream fs2 = new FileStream(file2, FileMode.Open);
 
+            if (fs1.Length != fs2.Length)
+            {
+                fs1.Close();
+                fs2.Close();
+                return false;
+            }
 
+            do
+            {
+                file1Byte = fs1.ReadByte();
+                file2Byte = fs2.ReadByte();
+            }
+            while (file1Byte == file2Byte && file1Byte != -1);
 
-            //    // Move each file to the appropriate folder
-            //    foreach (var file in sortedFiles)
-            //    {
-            //        DateTime folderDate;
-            //        switch (sortingOption)
-            //        {
-            //            case "Accessed":
-            //                folderDate = file.LastAccessTime.Date;
-            //                break;
-            //            case "Creation":
-            //                folderDate = file.CreationTime.Date;
-            //                break;
-            //            case "Modified":
-            //                folderDate = file.LastWriteTime.Date;
-            //                break;
-            //            default:
-            //                continue;
-            //        }
+            fs1.Close();
+            fs2.Close();
 
-            //        // Create target directory based on file date
-            //        string targetDirectory = System.IO.Path.Combine(folderPath, folderDate.ToString("yyyy-MM-dd"));
-
-            //        if (!directoryCache.ContainsKey(targetDirectory))
-            //        {
-            //            if (!Directory.Exists(targetDirectory))
-            //            {
-            //                Directory.CreateDirectory(targetDirectory);
-            //            }
-            //            directoryCache[targetDirectory] = targetDirectory;
-            //        }
-
-            //        string targetFileName = System.IO.Path.GetFileName(file.FullName);
-            //        string targetPath = System.IO.Path.Combine(targetDirectory, targetFileName);
-
-            //        // Check if a file with the same name already exists
-            //        if (File.Exists(targetPath))
-            //        {
-            //            // Add [Duplicate] prefix to the file name if a duplicate exists
-            //            string duplicateFileName = "[Duplicate]" + targetFileName;
-            //            targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
-            //        }
-
-            //        // Move the file to the target directory
-            //        File.Move(file.FullName, targetPath);
-
-            //        // Increment processed files and batch update progress bar
-            //        Interlocked.Increment(ref processedFiles);
-            //        if (processedFiles % batchUpdateSize == 0)
-            //        {
-            //            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = processedFiles));
-            //        }
-            //    }
-            //});
-
-            //// Final progress bar update
-            //progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = totalFiles));
-
-            //// Reset progress bar
-            //progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-
-            //// Update TreeView
-            //Invoke(() => Populated_Treeview(folderPath));
-
-            //// Display a message informing the user that sorting is completed
-            //MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return ((file1Byte - file2Byte) == 0);
         }
 
         private async Task SortNames(string folderPath, string jsonPath)
@@ -629,7 +571,7 @@ namespace Project__Filter
 
                         do
                         {
-                            duplicateFileName = $"[Duplicate]_{fileNameWithoutExtension}{duplicateCount}{extension}";
+                            duplicateFileName = $"[Name]_{fileNameWithoutExtension}{duplicateCount}{extension}";
                             targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
                             duplicateCount++;
                         } while (File.Exists(targetPath));
@@ -880,7 +822,7 @@ namespace Project__Filter
                                 // If the file already exists, add a prefix to avoid overwriting
                                 if (File.Exists(targetPath))
                                 {
-                                    string newFileName = $"[Duplicated]_{fileInfo.Name}";
+                                    string newFileName = $"[Permissions]_{fileInfo.Name}";
                                     targetPath = System.IO.Path.Combine(targetDirectory, newFileName);
                                 }
 
@@ -980,7 +922,7 @@ namespace Project__Filter
                                 if (File.Exists(targetPath))
                                 {
                                     // If file already exists, add [Duplicate] prefix to the file name
-                                    string duplicateFileName = $"[Duplicate]_{fileName}";
+                                    string duplicateFileName = $"[Tags]_{fileName}";
                                     targetPath = System.IO.Path.Combine(targetDirectory, duplicateFileName);
                                 }
 
@@ -1250,7 +1192,7 @@ namespace Project__Filter
                         if (File.Exists(destinationFile))
                         {
                             // If the file exists, add the [Duplicate] prefix to the file name
-                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            string duplicateFileName = $"[Duration]_{System.IO.Path.GetFileName(file)}";
                             destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
 
@@ -1305,7 +1247,7 @@ namespace Project__Filter
 
                         if (File.Exists(destinationFile))
                         {
-                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            string duplicateFileName = $"[Resolution]_{System.IO.Path.GetFileName(file)}";
                             destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
 
@@ -1396,7 +1338,7 @@ namespace Project__Filter
 
                         if (File.Exists(destinationFile))
                         {
-                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            string duplicateFileName = $"[FrameRate]_{System.IO.Path.GetFileName(file)}";
                             destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
 
@@ -1451,7 +1393,7 @@ namespace Project__Filter
 
                         if (File.Exists(destinationFile))
                         {
-                            string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                            string duplicateFileName = $"[Codec]_{System.IO.Path.GetFileName(file)}";
                             destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                         }
 
@@ -1511,7 +1453,7 @@ namespace Project__Filter
 
                             if (File.Exists(destinationFile))
                             {
-                                string duplicateFileName = $"[Duplicate]_{System.IO.Path.GetFileName(file)}";
+                                string duplicateFileName = $"[Aspect]_{System.IO.Path.GetFileName(file)}";
                                 destinationFile = System.IO.Path.Combine(targetFolderPath, duplicateFileName);
                             }
 

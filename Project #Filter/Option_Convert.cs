@@ -410,6 +410,40 @@ namespace Project__Filter
 
         private async Task DocxBuilder(string[] arrayFiles, string title)
         {
+            if (arrayFiles.Length > 100)
+            {
+                if (string.IsNullOrEmpty(title))
+                {
+                    MessageBox.Show("Cannot create a document with more than 100 pages without a title.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int numberOfFiles = (int)Math.Ceiling((double)arrayFiles.Length / 100);
+                DialogResult result = MessageBox.Show($"The number of files exceeds 100. This will create {numberOfFiles} documents. Do you want to proceed?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+
+                for (int i = 0; i < numberOfFiles; i++)
+                {
+                    string partTitle = $"{title} Part[{i + 1}]";
+                    int start = i * 100;
+                    int length = Math.Min(100, arrayFiles.Length - start);
+                    string[] partFiles = arrayFiles.Skip(start).Take(length).ToArray();
+
+                    await CreateDocx(partFiles, partTitle);
+                }
+            }
+            else
+            {
+                await CreateDocx(arrayFiles, title);
+            }
+        }
+
+        private async Task CreateDocx(string[] arrayFiles, string title)
+        {
             // Create a new document
             var doc = DocX.Create(!string.IsNullOrEmpty(title) ? $"{Path}\\{title}.docx" : $"{Path}\\untitled.docx");
 
@@ -423,9 +457,9 @@ namespace Project__Filter
                 {
                     // Add the title to the document
                     var titleParagraph = doc.InsertParagraph(title)
-                                             .FontSize(50)
-                                             .Bold()
-                                             .Alignment = Alignment.center;
+                                            .FontSize(50)
+                                            .Bold()
+                                            .Alignment = Alignment.center;
 
                     // Add some spacing
                     doc.InsertParagraph(new string('\n', 10));
@@ -436,14 +470,22 @@ namespace Project__Filter
                     var image = doc.AddImage(file);
                     var picture = image.CreatePicture();
 
-                    // Ensure the picture fits the entire page
-                    picture.Width = doc.PageWidth - doc.MarginLeft - doc.MarginRight;
-                    picture.Height = doc.PageHeight - doc.MarginTop - doc.MarginBottom;
+                    // Check if the picture needs to be resized
+                    if (picture.Width > doc.PageWidth - doc.MarginLeft - doc.MarginRight ||
+                        picture.Height > doc.PageHeight - doc.MarginTop - doc.MarginBottom)
+                    {
+                        double ratioWidth = (doc.PageWidth - doc.MarginLeft - doc.MarginRight) / picture.Width;
+                        double ratioHeight = (doc.PageHeight - doc.MarginTop - doc.MarginBottom) / picture.Height;
+                        double ratio = Math.Min(ratioWidth, ratioHeight);
 
-                    // Add the picture to a new paragraph
+                        picture.Width = (float)(picture.Width * ratio);
+                        picture.Height = (float)(picture.Height * ratio);
+                    }
+
+                    // Add the picture to a new paragraph and center it
                     var pictureParagraph = doc.InsertParagraph()
-                                               .AppendPicture(picture)
-                                               .Alignment = Alignment.center;
+                                              .AppendPicture(picture)
+                                              .Alignment = Alignment.center;
 
                     // Ensure each image gets its own page
                     if (processedFiles < arrayFiles.Length - 1) // Prevents adding a blank page after the last image
