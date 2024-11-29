@@ -30,7 +30,8 @@
       "txt",
       "docx",
       "pdf",
-      "pptx"
+      "pptx",
+      "xlsx"
     ],
     "Audio": [
       "mp3",

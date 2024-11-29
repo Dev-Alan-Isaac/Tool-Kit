@@ -195,7 +195,6 @@ namespace Project__Filter
             return node;
         }
 
-
         public async Task SortTypes(string folderPath, string jsonPath)
         {
             if (!File.Exists(jsonPath))
@@ -211,9 +210,16 @@ namespace Project__Filter
             var allow = jsonContent["Type_Additional"].ToObject<JObject>();
 
             var files = await ProcessFiles(folderPath);
+            int totalFiles = files.Length;
+
+            // Initialize progress bar
+            Invoke(() =>
+            {
+                progressBar_Time.Maximum = totalFiles;
+                progressBar_Time.Value = 0;
+            });
 
             var directoryCache = new ConcurrentDictionary<string, string>();
-
             int processedFiles = 0;
             int batchUpdateSize = 50;
 
@@ -264,7 +270,7 @@ namespace Project__Filter
                             {
                                 Invoke(() =>
                                 {
-                                    progressBar_Time.Value = processedFiles;
+                                    progressBar_Time.Value = Math.Min(processedFiles, progressBar_Time.Maximum);
                                 });
                             }
                         }
@@ -277,11 +283,16 @@ namespace Project__Filter
             });
 
             // Final UI Update after all files are processed
-            progressBar_Time.Invoke((Action)(() => progressBar_Time.Value = 0));
-            Invoke(() => Populated_Treeview(folderPath));
-            MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            button_Filter.Invoke((Action)(() => button_Filter.Enabled = true));
+            Invoke(() =>
+            {
+                progressBar_Time.Value = progressBar_Time.Maximum;
+                progressBar_Time.Value = 0;
+                Populated_Treeview(folderPath);
+                MessageBox.Show("Sorting completed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                button_Filter.Enabled = true;
+            });
         }
+
 
         private async Task SortSize(string folderPath, string jsonPath)
         {
