@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             panel_Menu = new Panel();
+            button_Download = new Button();
             panel1 = new Panel();
             button_Git = new Button();
             Panel_Index = new Panel();
@@ -72,6 +73,7 @@
             bunifuElipse10 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse11 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse12 = new Bunifu.Framework.UI.BunifuElipse(components);
+            download1 = new Option_Download();
             panel_Menu.SuspendLayout();
             panel1.SuspendLayout();
             panel_Accent.SuspendLayout();
@@ -82,6 +84,7 @@
             // panel_Menu
             // 
             panel_Menu.BackColor = Color.FromArgb(17, 88, 100);
+            panel_Menu.Controls.Add(button_Download);
             panel_Menu.Controls.Add(panel1);
             panel_Menu.Controls.Add(Panel_Index);
             panel_Menu.Controls.Add(button_Privacy);
@@ -96,6 +99,26 @@
             panel_Menu.Name = "panel_Menu";
             panel_Menu.Size = new Size(219, 645);
             panel_Menu.TabIndex = 0;
+            // 
+            // button_Download
+            // 
+            button_Download.BackColor = Color.FromArgb(17, 88, 100);
+            button_Download.Cursor = Cursors.Hand;
+            button_Download.FlatAppearance.BorderSize = 0;
+            button_Download.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
+            button_Download.FlatStyle = FlatStyle.Flat;
+            button_Download.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button_Download.ForeColor = Color.White;
+            button_Download.Image = Properties.Resources.Button_Icon_Download_1;
+            button_Download.Location = new Point(27, 416);
+            button_Download.Margin = new Padding(3, 2, 3, 2);
+            button_Download.Name = "button_Download";
+            button_Download.Size = new Size(186, 40);
+            button_Download.TabIndex = 10;
+            button_Download.Text = "    DOWNLOAD";
+            button_Download.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button_Download.UseVisualStyleBackColor = false;
+            button_Download.Click += button_Download_Click;
             // 
             // panel1
             // 
@@ -142,7 +165,7 @@
             button_Privacy.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Privacy.ForeColor = Color.White;
             button_Privacy.Image = Properties.Resources.Button_Icon_Security;
-            button_Privacy.Location = new Point(30, 326);
+            button_Privacy.Location = new Point(27, 351);
             button_Privacy.Margin = new Padding(3, 2, 3, 2);
             button_Privacy.Name = "button_Privacy";
             button_Privacy.Size = new Size(186, 40);
@@ -162,7 +185,7 @@
             button_Merge.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Merge.ForeColor = Color.White;
             button_Merge.Image = Properties.Resources.Button_Icon_Merge;
-            button_Merge.Location = new Point(30, 266);
+            button_Merge.Location = new Point(27, 286);
             button_Merge.Margin = new Padding(3, 2, 3, 2);
             button_Merge.Name = "button_Merge";
             button_Merge.Size = new Size(186, 40);
@@ -182,7 +205,7 @@
             button_Extract.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Extract.ForeColor = Color.White;
             button_Extract.Image = Properties.Resources.Button_Icon_Extract;
-            button_Extract.Location = new Point(30, 206);
+            button_Extract.Location = new Point(27, 221);
             button_Extract.Margin = new Padding(3, 2, 3, 2);
             button_Extract.Name = "button_Extract";
             button_Extract.Size = new Size(186, 40);
@@ -202,7 +225,7 @@
             button_Convert.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Convert.ForeColor = Color.White;
             button_Convert.Image = Properties.Resources.Button_Icon_Transform;
-            button_Convert.Location = new Point(30, 146);
+            button_Convert.Location = new Point(27, 156);
             button_Convert.Margin = new Padding(3, 2, 3, 2);
             button_Convert.Name = "button_Convert";
             button_Convert.Size = new Size(186, 40);
@@ -222,7 +245,7 @@
             button_Sort.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Sort.ForeColor = Color.White;
             button_Sort.Image = Properties.Resources.Button_Icon_Filter;
-            button_Sort.Location = new Point(30, 86);
+            button_Sort.Location = new Point(27, 91);
             button_Sort.Margin = new Padding(3, 2, 3, 2);
             button_Sort.Name = "button_Sort";
             button_Sort.Size = new Size(186, 40);
@@ -242,7 +265,7 @@
             button_Home.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             button_Home.ForeColor = Color.White;
             button_Home.Image = Properties.Resources.Button_Icon_Home;
-            button_Home.Location = new Point(30, 26);
+            button_Home.Location = new Point(27, 26);
             button_Home.Margin = new Padding(3, 2, 3, 2);
             button_Home.Name = "button_Home";
             button_Home.Size = new Size(186, 40);
@@ -509,6 +532,14 @@
             bunifuElipse12.ElipseRadius = 5;
             bunifuElipse12.TargetControl = button_Git;
             // 
+            // download1
+            // 
+            download1.BackColor = Color.FromArgb(64, 64, 64);
+            download1.Location = new Point(219, 82);
+            download1.Name = "download1";
+            download1.Size = new Size(774, 563);
+            download1.TabIndex = 15;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -516,6 +547,7 @@
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(993, 645);
             ControlBox = false;
+            Controls.Add(download1);
             Controls.Add(home1);
             Controls.Add(filter1);
             Controls.Add(convert1);
@@ -585,5 +617,7 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse11;
         private Panel panel1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse12;
+        private Button button_Download;
+        private Option_Download download1;
     }
 }

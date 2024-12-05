@@ -366,7 +366,7 @@
             bunifuElipse4.ElipseRadius = 5;
             bunifuElipse4.TargetControl = button_Path;
             // 
-            // Opt_Encrypt
+            // Option_Encrypt
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -378,7 +378,7 @@
             Controls.Add(panel_Options);
             Controls.Add(panel_Bottom);
             Margin = new Padding(3, 2, 3, 2);
-            Name = "Opt_Encrypt";
+            Name = "Option_Encrypt";
             Size = new Size(699, 562);
             panel_Footer.ResumeLayout(false);
             panel3.ResumeLayout(false);

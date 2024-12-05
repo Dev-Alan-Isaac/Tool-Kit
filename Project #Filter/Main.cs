@@ -83,5 +83,12 @@ namespace Project__Filter
                 UseShellExecute = true
             });
         }
+
+        private void button_Download_Click(object sender, EventArgs e)
+        {
+            FollowButton(sender as Button);
+            download1.BringToFront();
+            pictureBox1.Image = Properties.Resources.Security_BreadCrumb;
+        }
     }
 }
