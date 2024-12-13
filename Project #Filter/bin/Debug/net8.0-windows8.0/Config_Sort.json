@@ -9,7 +9,8 @@
       "png",
       "gif",
       "bmp",
-      "jpeg"
+      "jpeg",
+      "webp"
     ],
     "Videos": [
       "mp4",
