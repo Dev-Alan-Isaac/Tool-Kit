@@ -95,10 +95,6 @@
               "target": "Package",
               "version": "[6.1.1, )"
             },
-            "YoutubeExtractor": {
-              "target": "Package",
-              "version": "[0.10.11, )"
-            },
             "iTextSharp": {
               "target": "Package",
               "version": "[5.5.13.4, )"
