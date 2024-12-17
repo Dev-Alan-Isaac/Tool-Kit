@@ -31,7 +31,6 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             panel_Menu = new Panel();
-            button_Download = new Button();
             panel1 = new Panel();
             button_Git = new Button();
             Panel_Index = new Panel();
@@ -83,7 +82,6 @@
             // panel_Menu
             // 
             panel_Menu.BackColor = Color.FromArgb(17, 88, 100);
-            panel_Menu.Controls.Add(button_Download);
             panel_Menu.Controls.Add(panel1);
             panel_Menu.Controls.Add(Panel_Index);
             panel_Menu.Controls.Add(button_Privacy);
@@ -98,25 +96,6 @@
             panel_Menu.Name = "panel_Menu";
             panel_Menu.Size = new Size(219, 645);
             panel_Menu.TabIndex = 0;
-            // 
-            // button_Download
-            // 
-            button_Download.BackColor = Color.FromArgb(17, 88, 100);
-            button_Download.Cursor = Cursors.Hand;
-            button_Download.FlatAppearance.BorderSize = 0;
-            button_Download.FlatAppearance.MouseOverBackColor = SystemColors.MenuHighlight;
-            button_Download.FlatStyle = FlatStyle.Flat;
-            button_Download.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            button_Download.ForeColor = Color.White;
-            button_Download.Image = Properties.Resources.Button_Icon_Download_1;
-            button_Download.Location = new Point(27, 416);
-            button_Download.Margin = new Padding(3, 2, 3, 2);
-            button_Download.Name = "button_Download";
-            button_Download.Size = new Size(186, 40);
-            button_Download.TabIndex = 10;
-            button_Download.Text = "    DOWNLOAD";
-            button_Download.TextImageRelation = TextImageRelation.ImageBeforeText;
-            button_Download.UseVisualStyleBackColor = false;
             // 
             // panel1
             // 
@@ -606,6 +585,5 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse11;
         private Panel panel1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse12;
-        private Button button_Download;
     }
 }
