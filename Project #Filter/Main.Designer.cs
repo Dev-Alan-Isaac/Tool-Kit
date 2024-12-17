@@ -73,7 +73,6 @@
             bunifuElipse10 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse11 = new Bunifu.Framework.UI.BunifuElipse(components);
             bunifuElipse12 = new Bunifu.Framework.UI.BunifuElipse(components);
-            download1 = new Option_Download();
             panel_Menu.SuspendLayout();
             panel1.SuspendLayout();
             panel_Accent.SuspendLayout();
@@ -118,7 +117,6 @@
             button_Download.Text = "    DOWNLOAD";
             button_Download.TextImageRelation = TextImageRelation.ImageBeforeText;
             button_Download.UseVisualStyleBackColor = false;
-            button_Download.Click += button_Download_Click;
             // 
             // panel1
             // 
@@ -532,14 +530,6 @@
             bunifuElipse12.ElipseRadius = 5;
             bunifuElipse12.TargetControl = button_Git;
             // 
-            // download1
-            // 
-            download1.BackColor = Color.FromArgb(64, 64, 64);
-            download1.Location = new Point(219, 82);
-            download1.Name = "download1";
-            download1.Size = new Size(774, 563);
-            download1.TabIndex = 15;
-            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -547,7 +537,6 @@
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(993, 645);
             ControlBox = false;
-            Controls.Add(download1);
             Controls.Add(home1);
             Controls.Add(filter1);
             Controls.Add(convert1);
@@ -618,6 +607,5 @@
         private Panel panel1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse12;
         private Button button_Download;
-        private Option_Download download1;
     }
 }

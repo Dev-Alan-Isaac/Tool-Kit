@@ -67,9 +67,6 @@
     <Compile Update="Option_Sort.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Option_Download.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Main.resx">
