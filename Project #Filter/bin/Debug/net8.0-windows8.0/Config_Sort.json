@@ -10,7 +10,9 @@
       "gif",
       "bmp",
       "jpeg",
-      "webp"
+      "webp",
+      "svg",
+      "jfif"
     ],
     "Videos": [
       "mp4",
@@ -64,7 +66,9 @@
       "cmd",
       "apk",
       "com",
-      "jar"
+      "jar",
+      "dll",
+      "config"
     ]
   },
   "Type_Additional": {
@@ -103,8 +107,8 @@
     ]
   },
   "Name": {
-    "Alphabetically": true,
-    "AlphabeticallyExtension": false
+    "Alphabetically": false,
+    "AlphabeticallyExtension": true
   },
   "Name_Additional": {
     "Case": true,
