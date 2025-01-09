@@ -91,5 +91,6 @@ namespace Project__Filter
             // Show a message to indicate that the file was saved
             MessageBox.Show("Configuration saved successfully!", "Save Config", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
     }
 }
