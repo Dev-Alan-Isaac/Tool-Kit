@@ -695,11 +695,20 @@ namespace Project__Filter
 
                 foreach (var duplicateFile in hashGroup.Value)
                 {
-                    string targetFilePath = System.IO.Path.Combine(duplicatesDirectory, System.IO.Path.GetFileName(duplicateFile));
-                    if (File.Exists(targetFilePath))
+                    string originalName = System.IO.Path.GetFileNameWithoutExtension(duplicateFile);
+                    string extension = System.IO.Path.GetExtension(duplicateFile);
+                    string newFileName = $"[Hash]_{originalName}{extension}";
+                    string targetFilePath = System.IO.Path.Combine(duplicatesDirectory, newFileName);
+
+                    // Ensure uniqueness by appending a counter if necessary
+                    int counter = 1;
+                    while (File.Exists(targetFilePath))
                     {
-                        targetFilePath = System.IO.Path.Combine(duplicatesDirectory, $"[Hash]_{System.IO.Path.GetFileName(duplicateFile)}");
+                        newFileName = $"[Hash]_{originalName}_{counter}{extension}";
+                        targetFilePath = System.IO.Path.Combine(duplicatesDirectory, newFileName);
+                        counter++;
                     }
+
                     File.Move(duplicateFile, targetFilePath);
                 }
 
@@ -723,6 +732,7 @@ namespace Project__Filter
                 );
             });
         }
+
 
 
         private string GetQuickOrFullFileHash(string filePath, SHA256 sha256, int quickBytes = 1024 * 1024)
