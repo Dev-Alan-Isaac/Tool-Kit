@@ -571,9 +571,9 @@
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl3;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl4;
         private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl5;
+        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl6;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse2;
-        private Bunifu.Framework.UI.BunifuDragControl bunifuDragControl6;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse3;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse4;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse5;
@@ -583,7 +583,7 @@
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse9;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse10;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse11;
-        private Panel panel1;
         private Bunifu.Framework.UI.BunifuElipse bunifuElipse12;
+        private Panel panel1;
     }
 }
