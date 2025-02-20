@@ -733,8 +733,6 @@ namespace Project__Filter
             });
         }
 
-
-
         private string GetQuickOrFullFileHash(string filePath, SHA256 sha256, int quickBytes = 1024 * 1024)
         {
             using var fileStream = File.OpenRead(filePath);
